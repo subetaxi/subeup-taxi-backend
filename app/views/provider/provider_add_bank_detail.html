@@ -1,0 +1,182 @@
+<% include provider_header.html %>
+
+<div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert" style="padding-top: 75px;margin-bottom: -135px;">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+      <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %> 
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pro_lft1">
+            <div class="row">
+                <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box_selet_lft">
+                        <div class="box_sele_head">
+                            <h5>Bank Detail</h5>
+                        </div>
+                        <% if(typeof detail != 'undefined'){ %>
+                            <form class="form-horizontal" id="bank_detail_update_form" enctype="multipart/form-data" method="post" action="/update_bank_details">
+                                <div class="edit_pro_cont_bg">
+                                    <input type="hidden" name="bank_holder_type" value="11">
+                                    <input type="hidden" name="bank_holder_id" value="<%= provider._id %>">
+
+                                    <input type="hidden" name="type" value="provider_bank_detail">
+
+                                    <input type="hidden" name="id" value="<%= detail._id %>"> 
+                                    <div class="cont_pro">
+                                            
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_name %></label></div>
+                                                <div class="edit_input_rgt"><input id="bank_name" type="text" name="bank_name" value="<%= detail.bank_name %>"  ></div>
+                                            </div>
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_branch %></label></div>
+                                                <div class="edit_input_rgt"><input id="bank_branch" type="text" value="<%= detail.bank_branch %>"  name="bank_branch"></div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_account_number %></label></div>
+                                                <div class="edit_input_rgt"><input id="bank_account_number" onkeypress="return isNumberKey(event)" type="text" value="<%= detail.bank_account_number %>" class="form-control"  name="bank_account_number" readonly></div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_account_holder_name %></label></div>
+                                                <div class="edit_input_rgt"><input type="text" value="<%= detail.bank_account_holder_name %>" class="form-control"  name="bank_account_holder_name"></div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_beneficiary_address %></label></div>
+                                                <div class="edit_input_rgt"><input type="text" value="<%= detail.bank_beneficiary_address %>" class="form-control"  name="bank_beneficiary_address"></div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_unique_code %></label></div>
+                                                <div class="edit_input_rgt"><input type="text" value="<%= detail.bank_unique_code %>" class="form-control"  name="bank_unique_code"></div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_swift_code %></label></div>
+                                                <div class="edit_input_rgt"><input type="text" value="<%= detail.bank_swift_code %>" class="form-control"  name="bank_swift_code"></div>
+                                            </div>
+
+                                           
+
+                                            <div class="edit_input">
+                                                <div class="edit_label">&nbsp;</div>
+                                                <div class="edit_input_rgt">
+                                                    <input type="submit" name="" value="<%= config_json.button_update %>" class="act">
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        <% } else { %>
+                            <form class="form-horizontal" id="bank_detail_add_form" enctype="multipart/form-data" method="post" action="/add_bank_details">
+                                <div class="edit_pro_cont_bg">
+                                   
+                                        <input type="hidden" name="bank_holder_type" value="11">
+                                        <input type="hidden" name="bank_holder_id" value="<%= provider._id %>">
+                                        <input type="hidden" name="type" value="provider_bank_detail">
+
+
+                                    <div class="cont_pro">
+                                            
+                                            
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_name %></label></div>
+                                                <div class="edit_input_rgt"><input id="bank_name" type="text" name="bank_name" ></div>
+                                            </div>
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_branch %></label></div>
+                                                <div class="edit_input_rgt"><input id="bank_branch" type="text" name="bank_branch"></div>
+                                            </div>
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_account_holder_name %></label></div>
+                                                <div class="edit_input_rgt"><input id="bank_account_holder_name" type="text"  class="form-control" name="bank_account_holder_name"></div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_account_number %></label></div>
+                                                <div class="edit_input_rgt"><input id="bank_account_number" onkeypress="return isNumberKey(event)" type="text"  class="form-control" name="bank_account_number"></div>
+                                            </div>
+
+                                            
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_beneficiary_address %></label></div>
+                                                <div class="edit_input_rgt"><input type="text"  class="form-control"  id="bank_beneficiary_address" name="bank_beneficiary_address"></div>
+                                            </div>
+                                            
+
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_unique_code %></label></div>
+                                                <div class="edit_input_rgt"><input type="text"  class="form-control"  id="bank_unique_code" name="bank_unique_code"></div>
+                                            </div>
+
+                                            <div class="edit_input">
+                                                <div class="edit_label"><label><%= config_json.title_bank_swift_code %></label></div>
+                                                <div class="edit_input_rgt"><input type="text"  class="form-control"  id="bank_swift_code" name="bank_swift_code"></div>
+                                            </div>
+
+
+                                            <div class="edit_input">
+                                                <div class="edit_label">&nbsp;</div>
+                                                <div class="edit_input_rgt">
+                                                    <input type="submit" name="" value="<%= config_json.button_add %>" class="act">
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!--menu left section-->
+</div>
+    
+            
+
+<script type="text/javascript">
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+</script>   
+              
+<script>
+    $(function() {
+     $( "#bank_detail_update_form" ).validate({
+       rules: {
+        bank_name: "required",
+        bank_branch: "required",
+        bank_account_number: "required",
+        bank_account_holder_name: "required",
+        bank_beneficiary_address: "required",
+        bank_unique_code: "required",
+        bank_swift_code: "required"
+
+      }
+    });
+    });
+</script>     
+
+<% include provider_footer.html %> 

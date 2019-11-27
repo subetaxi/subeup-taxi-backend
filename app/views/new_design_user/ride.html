@@ -1,0 +1,408 @@
+<% include header.html %>
+
+<body>
+
+    <div class="inner_con">
+        <div class="container">
+            <div class="start_box">
+                <a href="#">
+                    <div class="text_in">Start riding with SubeUp</div>
+                    <div href="#" class="signup">Sign up<i class="fa  fa-long-arrow-right"></i></div>
+                </a>
+
+            </div>			
+        </div>
+        <div class="section1">
+            <div class="mar_l">
+                <div class="container">
+                    <div class="marl_10">
+                        <h1>Always the ride you want <br /><span>The best way to get wherever <br />you're going</span></h1>
+                        <div class="row">
+                            <div class="col_3">
+                                <h4>What is Lorem Ipsum?</h4>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            </div>
+                            <div class="col_3">
+                                <h4>Why do we use it?</h4>
+                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>    
+                            </div>
+                            <div class="col_3">
+                                <h4>Where can I get some?</h4>
+                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="section1_link"><a href="/how-it-works">SEE HOW THE APP WORKS<i class="fa  fa-angle-right"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section2">
+            <div class="container">
+                <h3>There's a ride for every price<span>And any occasion</span></h3>
+                <div id="tabs">
+                    <ul>
+                            <% if(typeof type_list != 'undefined'){ %>
+                                <% type_list.forEach(function(type, index){ %>
+                                <li><a href="#tabs-<%= index+1 %>"> <%= type.typename %></a></li>
+                                <% }); %>
+                            <% } %>
+                        <!-- <li><a href="#tabs-1">ECONOMY</a></li>
+                        <li><a href="#tabs-2">PREMIUM</a></li>
+                        <li><a href="#tabs-3">ACCESSIBILITY</a></li>
+                        <li><a href="#tabs-4">CARPOOL</a></li> -->
+                        <div class="clear"></div>
+                    </ul>
+                    <div class="tab_con">
+                        <% if(typeof type_list != 'undefined'){ %>
+                            <% type_list.forEach(function(type, index){ %>
+                            <div id="tabs-<%= index+1 %>">
+                                <img src="<%= type.type_image_url %>" alt="car" />
+                                <div class="text_info">
+                                    <div class="dt"><span>Rides that are accessible for wheelchairs or come equipped with car seats</span>
+                                        </div>
+                                    <div class="optionbtn">
+                                        <a href="/fare-estimate" class="btn">OPTIONS IN YOUR CITY<i class="fa fa-long-arrow-right"></i></a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <% }); %>
+                        <% } %>
+                        
+                        <!-- <div id="tabs-2">
+                            <img src="new_design/images/car2.png" alt="car" />
+                            <div class="text_info">
+                                <div class="dt"><span>Whether business or pleasure, these luxury rides help you make an entrance</span>
+                                    <a href="#">SubeUpX</a>, <a href="#">SubeUpXL</a>, <a href="#">SubeUpSELECT</a></div>
+                                <div class="optionbtn">
+                                    <a href="#" class="btn">OPTIONS IN YOUR CITY<i class="fa fa-long-arrow-right"></i></a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div id="tabs-3">
+                            <img src="new_design/images/car1.png" alt="car" />
+                            <div class="text_info">
+                                <div class="dt"><span>Rides that are accessible for wheelchairs or come equipped with car seats</span></div>
+                                <div class="optionbtn">
+                                    <a href="#" class="btn">OPTIONS IN YOUR CITY<i class="fa fa-long-arrow-right"></i></a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div id="tabs-4">
+                            <img src="new_design/images/car2.png" alt="car" />
+                            <div class="text_info">
+                                <div class="dt"><span>Share the ride—and the cost—with other riders heading your way</span><a href="#">SubeUpPOOL</a></div>
+                                <div class="optionbtn">
+                                    <a href="#" class="btn">OPTIONS IN YOUR CITY<i class="fa fa-long-arrow-right"></i></a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div> -->
+
+                        <a href="javascript:void(0)" id="btnPrevious"><i class="fa  fa-long-arrow-left"></i></a>
+                        <a href="javascript:void(0)" id="btnNext"><i class="fa  fa-long-arrow-right"></i></a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="section3">
+            <div class="container">
+                <div class="col_2 form_infos">
+                    <div class="form_info_in">
+                        <h2><span>Pricing</span> Get a fare estimate</h2>
+                        <div class="form_info">
+                            <form>
+                                <div class="left_line"></div>
+                                <div class="form_div">
+                                    <input type="hidden" id="pickup_latitude" name="pickup_latitude">
+                                <input type="hidden" id="pickup_longitude" name="pickup_longitude">
+                                    <input type="text" name="pichup_address" id="pichup_address" placeholder="Enter pickup location" /><i class="fa fa-send txt1"></i></a>
+                                </div>
+                                <div class="form_div2">
+                                    <input type="hidden" id="destination_latitude" name="destination_latitude">
+                                <input type="hidden" id="destination_longitude" name="destination_longitude">
+                                    <input type="text" name="destination_adress" id="destination_adress" placeholder="Enter a destination" />
+                                    <button type="submit"><i class="fa fa-long-arrow-right"></i></button>
+                                </div>
+                            </form>	
+                        </div>
+                    </div>
+                </div>
+                <div class="col_2">
+                    <div id="map" style="border:0; height: 450px;width:100%;"></div>
+                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22572054.31580418!2d-5.38288229920216!3d46.32219463313757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited+Kingdom!5e0!3m2!1sen!2sin!4v1516695806815" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="section4">
+            <div class="container">
+                <p>Der Standardteil von Lorem Ipsum, genutzt seit 1500, ist reproduziert f�r die, die es interessiert. Sektion 1.10.32 und 1.10.33 von "de Finibus Bonorum et Malroum" von Cicero sind auch reproduziert in ihrer Originalform, abgeleitet von der Englischen Version aus von 1914 (H. Rackham)</p>
+                <div class="section1_link"><a href="/safety">HOW WE KEEP YOU SAFE<i class="fa  fa-angle-right"></i></a></div>
+            </div>
+        </div>
+
+        <div class="section6">
+            <!-- <div class="section5">
+                <div class="marl_20">
+                    <div class="container">
+                        <div class="signupdiv">
+                            <h3>Your first SubeUp is minutes <br />away</h3>
+                            <div class="signup_btn"><a href="#" class="btn">SIGN UP TO RIDE<i class="fa fa-long-arrow-right"></i></a></div>
+                            <div class="clear"></div>
+                        </div>	
+                    </div>
+                </div>
+            </div> -->
+            <div class="container">
+                <div class="travel_info">
+                    <div class="row">
+                        <div class="col_3">
+                            <div class="icon_div"><img src="new_design/images/icon1.png" alt="briefcase" /></div>
+                            <div class="overflow_div">
+                                <div class="top_text">Business Travel</div>
+                                <h4>Keep work trips separate</h4>
+                                <p>"Lorem ipsum" is not simply random text. It is actually over 2000 years old and it has roots in a piece of classical Latin literature from 45 BC. "Lorem ipsum" comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) written in 45 BC by Marcus Tullius Cicero. The first line of "lorem ipsum", "Lorem ipsum dolor sit amet...", can be read out of a line from section 1.10.32. This book was very popular during the Renaissance and it is a treatise on the theory of ethics.</p>
+                                <div class="section1_link">SubeUp FOR BUSINESS</div>
+                            </div>
+                        </div>
+                        <div class="col_3">
+                            <div class="icon_div"><img src="new_design/images/icon2.png" alt="icon" /></div>
+                            <div class="overflow_div">							
+                                <div class="top_text">SubeUpPOOL</div>
+                                <h4>Share your ride and save</h4>
+                                <p>The Lorem Ipsum passage, used since the 1500s 
+                                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                                <div class="section1_link">LEARN ABOUT SubeUpPOOL</div>	
+                            </div>
+                        </div>
+                        <div class="col_3">
+                            <div class="icon_div"><img src="new_design/images/icon3.png" alt="icon" /></div>
+                            <div class="overflow_div">
+                                <div class="top_text">Airports</div>
+                                <h4>Skip the airport shuttle</h4>
+                                <p>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC 
+                                    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?" </p>
+                                <div class="section1_link">FIND AN AIRPORT</div>	
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section7">
+            <!-- <div class="container">
+                <h3><span>SubeUp is in San Francisco </span>and 632 other cities worldwide</h3>
+                <div class="city_search">
+                    <input type="text" placeholder="Find a City" />
+                    <button><i class="fa fa-long-arrow-right"></i></button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%=setting_data.web_app_google_key%>&libraries=places"></script>
+
+    <script type="text/javascript">
+        var currentTab = 0;
+        $(function () {
+            $("#tabs").tabs({
+                select: function (e, i) {
+                    currentTab = i.index;
+                }
+            });
+        });
+        $("#btnNext").live("click", function () {
+            var tabs = $('#tabs').tabs();
+            var c = $('#tabs').tabs("length");
+            currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
+            tabs.tabs('select', currentTab);
+            $("#btnPrevious").show();
+            if (currentTab == (c - 1)) {
+                $("#btnNext").hide();
+            } else {
+                $("#btnNext").show();
+            }
+        });
+        $("#btnPrevious").live("click", function () {
+            var tabs = $('#tabs').tabs();
+            var c = $('#tabs').tabs("length");
+            currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
+            tabs.tabs('select', currentTab);
+            if (currentTab == 0) {
+                $("#btnNext").show();
+                $("#btnPrevious").hide();
+            }
+            if (currentTab < (c - 1)) {
+                $("#btnNext").show();
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.menuOpen').click(function () {
+                $('.menu, .map, .bcome_driver').toggle();
+            });
+
+            if ($(window).width() < 767) {
+                $('.menuOpen').click(function () {
+                    $('.menu2').toggleClass('dis_block');
+                });
+            }
+        });
+
+    var map;
+    var iconBase = '/map_pin/';
+    var pickup_marker;
+    var destination_marker;
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+	google.maps.event.addDomListener(window, 'load', initialize);
+		function initialize() {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				directionsDisplay = new google.maps.DirectionsRenderer();
+			    var mapProp = {
+			      center:new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
+			      zoom:18,
+			      streetViewControl: false,
+			      mapTypeId:google.maps.MapTypeId.ROADMAP
+			    };
+
+			    map=new google.maps.Map(document.getElementById("map"),mapProp);
+			    directionsDisplay.setMap(map);
+
+                var input = document.getElementById('pichup_address');
+                var searchBox = new google.maps.places.Autocomplete(input , {});
+                searchBox.bindTo('bounds', map);
+
+                searchBox.addListener('place_changed', function() {
+                    var place = searchBox.getPlace();
+                    var location = place.geometry.location;
+                    $('#pickup_latitude').val(location.lat())
+                    $('#pickup_longitude').val(location.lng())
+                    if (!place.geometry) {
+                        return;
+                    }
+                    if (place.geometry.viewport) {
+                        map.fitBounds(place.geometry.viewport);
+                    } else {
+                        map.setCenter(place.geometry.location);
+                    }
+                    var initialLocation = new google.maps.LatLng(location.lat(), location.lng());
+                    if(pickup_marker){
+                        pickup_marker.setMap(null);
+                    }
+                    pickup_marker = new google.maps.Marker({
+                        map: map,
+                        icon: iconBase + "pickup.png",
+                        position: initialLocation
+                    });
+                    pickup_marker.setMap(map);
+
+                });
+
+                var input1 = document.getElementById('destination_adress');
+                var searchBox1 = new google.maps.places.Autocomplete(input1 , {});
+                searchBox1.bindTo('bounds', map);
+
+                searchBox1.addListener('place_changed', function() {
+                    var place1 = searchBox1.getPlace();
+                    var location = place1.geometry.location;
+                    $('#destination_latitude').val(location.lat())
+                    $('#destination_longitude').val(location.lng())
+                    if (!place1.geometry) {
+                        return;
+                    }
+                    if (place1.geometry.viewport) {
+                        map.fitBounds(place1.geometry.viewport);
+                    } else {
+                        map.setCenter(place1.geometry.location);
+                    }
+                    var initialLocation = new google.maps.LatLng(location.lat(), location.lng());
+                    if(destination_marker){
+                        destination_marker.setMap(null);
+                    }
+                    destination_marker = new google.maps.Marker({
+                        map: map,
+                        icon: iconBase + "destination.png",
+                        position: initialLocation
+                    });
+                    destination_marker.setMap(map);
+                    
+
+                });
+
+			});
+		}
+
+    </script>
+
+    <script src="new_design/js/owl.carousel.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+
+            $('.nonloop').owlCarousel({
+                nav: true,
+                center: false,
+                dots: true,
+                items: 2,
+                loop: false,
+                slideBy: 2,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    600: {
+                        items: 2,
+                    },
+                    1024: {
+                        items: 3
+                    }
+
+                }
+            });
+        });
+    </script> 	
+    <script>
+        $(function () {
+            var Accordion = function (el, multiple) {
+                this.el = el || {};
+                this.multiple = multiple || false;
+
+                // Variables privadas
+                var links = this.el.find('.link');
+                // Evento
+                links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+            }
+
+            Accordion.prototype.dropdown = function (e) {
+                var $el = e.data.el;
+                $this = $(this),
+                        $next = $this.next();
+
+                $next.slideToggle();
+                $this.parent().toggleClass('open2');
+
+                if (!e.data.multiple) {
+                    $el.find('.submenu').not($next).slideUp().parent().removeClass('open2');
+                }
+                ;
+            }
+
+            var accordion = new Accordion($('#accordion'), false);
+        });
+
+    </script>	
+
+</body>
+<% include footer.html %>
+</html>

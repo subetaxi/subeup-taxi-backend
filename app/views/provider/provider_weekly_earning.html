@@ -1,0 +1,347 @@
+<% if(type == "provider") { %> 
+  <% include provider/provider_header.html %>
+<% } else { %> 
+  <% include header.html %>
+<% } %>  
+               
+                <!-- PAGE CONTENT WRAPPER -->
+
+                <div class="page-content-wrap">
+                <% if(typeof message != 'undefined'){ %>
+       <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <p align="center"> <strong><%= message %></strong></p>
+      </div>
+      <% } %>  
+      <!-- START TIMELINE FILTER --> 
+      <div class="col-md-12">                           
+      <div class="panel panel-default">                                
+        <div class="panel-body">
+          <form class="form-horizontal" id="weekly_form" role="form" method="post" action="/provider_weekly_earning">
+          <input type="hidden" name="page" id="page" value="0" />
+          <input type="hidden" name="type" id="type" value="<%= type %>" />
+            <div class="form-group">     
+
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_sort %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_field == "provider_detail.first_name") { %>
+                        <option value='provider_detail.unique_id'><%= config_json.title_provider_id %></option>
+                        <option value='provider_detail.first_name' selected="selected"><%= config_json.title_name %></option>
+                        <option value='provider_detail.email'><%= config_json.title_email %></option>
+                      <% } else if(sort_field == "provider_detail.email") { %>
+                        <option value='provider_detail.unique_id'><%= config_json.title_provider_id %></option>
+                        <option value='provider_detail.first_name'><%= config_json.title_name %></option>
+                        <option value='provider_detail.email' selected="selected"><%= config_json.title_email %></option>
+                      <% } else { %>
+                        <option value='provider_detail.unique_id' selected="selected"><%= config_json.title_provider_id %></option>
+                        <option value='provider_detail.first_name'><%= config_json.title_name %></option> <option value='provider_detail.email'><%= config_json.title_email %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_order == "1") { %>
+                      <option value="1" selected><%= config_json.sort_asc %></option>
+                      <option value="-1"><%= config_json.sort_desc %></option>
+                      <% } else{ %>
+                      <option value="1" ><%= config_json.sort_asc %></option>
+                      <option value="-1" selected><%= config_json.sort_desc %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_search %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" id="sel" placeholder="Select to Sort" name="search_item">
+                      <% if(search_item == "provider_detail.first_name") { %>
+                        <option value='provider_detail.first_name' selected="selected"><%= config_json.title_name %></option>
+                        <option value='provider_detail.email'><%= config_json.title_email %></option>
+                      
+                      <% } else { %>
+                        <option value='provider_detail.first_name'><%= config_json.title_name %></option>
+                        <option value='provider_detail.email' selected="selected"><%= config_json.title_email %></option>
+                      <% } %>
+                    </select>
+                  </div> 
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body panel-body-search">
+                      <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                        <input type="text" class="form-control" value="<%= search_value %>" name="search_value" placeholder="<%= config_json.title_search_text %>"/>
+                      </div>                                                                
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_date_filter %></label>   
+                </div>
+                <div class="col-md-12">
+
+                  
+                    <div class="input-group">
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                      <select class="form-control select" placeholder='Select to sort' name="weekly_filter" id="weekly_filter">
+                      <option><%= config_json.title_all %></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+            <div class="col-md-8">
+              <div class="col-md-12">
+                <ul class="pagination" >
+                 
+
+                    <% include paginate_lookup.html %>
+
+                    
+                </ul> 
+              </div> 
+            </div>
+            <div  class="form-group col-md-4" >
+              <div class="col-md-6">
+                <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;"><span><%= config_json.button_apply %></span></button>
+              </div>
+           
+              <div class="col-md-6">
+                  <button type="button" class="btn btn-danger pull-right" style="height: 35px; width: 100%;" onClick ="export_excel()"><i class="fa fa-download"></i><%= config_json.button_export_excel %></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if(detail.length != 0) { %>
+            <div class="row">
+              <div class="col-md-12">
+                                      
+                <div class="panel panel-default">
+                    <div class="panel-body">                                
+                        <div class="table-responsive" style="padding-bottom: 15px;">
+                            <table class="table text-center" >
+                              
+                                <thead>
+                                    <tr>
+                                        <th><%= config_json.title_total_trips %></th>
+                                        <th><%= config_json.title_total_completed_trips %></th>
+                                        <th><%= config_json.title_total_payment %></th>
+                                        <th><%= config_json.title_card %></th>
+                                        <th><%= config_json.title_cash %></th>
+                                        <th><%= config_json.title_total_wallet_payment %></th>
+                                        <th><%= config_json.title_total_admin_earning %></th>
+                                        <th><%= config_json.title_total_provider_earning %></th>
+                                        <th><%= config_json.title_currency %></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><%= trip_total[0].total_trip %></td>
+                                        <td><%= trip_total[0].completed_trip %></td>
+                                        <td><%= (trip_total[0].total).toFixed(2) %></td>
+                                        <td><%= (trip_total[0].card_payment).toFixed(2) %></td>
+                                        <td><%= (trip_total[0].cash_payment).toFixed(2) %></td>
+                                        <td><%= (trip_total[0].wallet_payment).toFixed(2) %></td>
+                                        <td><%= (trip_total[0].admin_earning).toFixed(2) %></td>
+                                        <td><%= (trip_total[0].provider_earning).toFixed(2) %></td>
+                                        <td><%= admin_currency %></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        <% } %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- START SIMPLE DATATABLE -->
+                            <div class="panel panel-default">
+                              <div class="panel-body">                               
+                                    <div class="table-responsive">
+                                        <table class="table text-center" id="customers2" style="margin-bottom: 65px;">
+                                            
+                                            <thead>
+                                                <tr>
+                                                    <th><%= config_json.title_provider_id %></th>
+                                                    <th><%= config_json.title_name %></th>
+                                                    <th><%= config_json.title_email %></th>
+                                                    <th><%= config_json.title_start_date %></th>
+                                                    <th><%= config_json.title_end_date %></th>
+                                                    <th><%= config_json.title_earning %></th>
+                                                    <th><%= config_json.title_pay_to_provider %></th>
+                                                    <th><%= config_json.button_action %></th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                              <% detail.forEach(function(data){ %>
+                                                <tr>
+                                                  <td><%= data.provider_detail.unique_id %></td>
+                                                    <td><%= data.provider_detail.first_name %> <%= data.provider_detail.last_name %></td>
+                                                    
+                                                    <td><% if(is_public_demo == true ) { %>
+                          <%= config_json.PUBLIC_DEMO_EMAIL %>
+                          <% }else{ %>
+                           <%= data.provider_detail.email %> 
+                           <% } %></td>
+                                                    <td><%= moment(data.start_date_server_timezone).format("DD MMM 'YY") %></td>
+                                                    <td><%= moment(data.end_date_server_timezone).format("DD MMM 'YY") %></td>
+                                                     <td><%= data.currency %> <%= (data.total_provider_service_fees).toFixed(2) %> </td>
+                                                     <td><%= data.currency %> <%= (data.pay_to_provider).toFixed(2) %> </td>
+                                                     <td>
+                                                       <div class="btn-group" style="margin-right:15px;">
+                                                      <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><%= config_json.button_action %> <span class="caret"></span></a>
+                                                      <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                          <form method="post" action="/statement_provider_weeklyearning">
+                                                                <input type="hidden" name="id" value="<%= data._id %>" />
+                                                                <input type="hidden" name="provider_id" value="<%= data.provider_id %>" />
+                                                                <input type="hidden" name="date_server_timezone" value="<%= data.date_server_timezone %>" />
+                                                                <input type="hidden" name="type" value="<%= type %>" />
+                                                                <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.button_view_statements %> </button>
+                                                               </form>
+                                                          </li>
+                                                          <% if( data.provider_type == 0 && type !== "provider") { %>
+                                                         <li><button type="button" class="btn btn-default" style="width: 100%" id="<%= data._id %>" value="<%= data._id %>"><%= config_json.title_pay %></button></li>
+                                                         <% } %>
+                                                     </ul>
+                                                    </div>
+                                                     </td>
+                                                </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                              </div>      
+                            </div>
+                            <!-- END SIMPLE DATATABLE -->
+
+                        </div>
+                    </div>                                
+                    
+                </div>
+                <!-- PAGE CONTENT WRAPPER -->                                
+            </div>    
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->
+
+        <div class="modal animated fadeIn" id="pay" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+            <div class="modal-dialog" style="width: 300px;">
+                <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                  <h4 class="modal-title"><%= config_json.title_amount_for_pay %></h4>
+                </div>
+                    <form class="form-horizontal" method="post" action="/admin_paidtoprovider" id="pay_amount">  
+                    <input type="hidden" name="type" value="<%= type %>" />
+                    <div class="modal-body">
+                    <div class="form-group">
+                    <div class="col-md-12">
+                    <label><%= config_json.title_amount %>: </label>
+                      <input type="text" name="amount" id="amount">
+                      <input type="hidden" name="provider_weekly_earning_id" id="provider_weekly_earning_id">
+                    </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                         <input type="submit" class="btn" name="submit" value="submit">
+                    </div>
+                </div>
+                    </form>
+            </div>
+        </div> 
+<script type='text/javascript' src='js/dist/table2excel.js'></script>         
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  $("#pay_amount").validate({
+                   rules: {
+                     amount: 'required'
+                   },
+                   messages: {
+                    amount: 'Enter amount to pay'
+                   }
+                });
+  var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  for(var i = 0; i < 4; i++){
+    var today = new Date(Date.now());
+    var getDay = today.getDay();
+    var lastWeekEndDay = today.getDate() - getDay - 1 - (i * 7);
+    var lastWeekEndDate = new Date(today.setDate(lastWeekEndDay)).setHours(23, 59, 59, 999);
+    lastWeekEndDate = new Date(lastWeekEndDate);
+    var lastWeekStartDay = new Date(lastWeekEndDate.getTime() - 6 * 24 * 60 * 60 * 1000);
+    lastWeekStartDay = lastWeekStartDay.setHours(0, 0, 0, 0);
+    lastWeekStartDay = new Date(lastWeekStartDay);
+
+    ///// for cronjob 5 minute late /////
+    var lastWeekStartDay2 = new Date(lastWeekEndDate.getTime() - 5 * 24 * 60 * 60 * 1000);
+    lastWeekStartDay2 = lastWeekStartDay2.setHours(0, 0, 0, 0);
+    lastWeekStartDay2 = new Date(lastWeekStartDay2);
+    /////////////////////////////////////
+
+
+    var month = monthNames[lastWeekStartDay.getMonth()];
+    var date = lastWeekStartDay.getDate();
+    var lastWeekstartday = date + ' ' + month;
+        month =  monthNames[lastWeekEndDate.getMonth()];
+        date = lastWeekEndDate.getDate();
+    var lastWeekenddate = date + ' ' + month;
+    $('#weekly_filter').append('<option value="'+lastWeekStartDay2+'-'+lastWeekEndDate+'">'+lastWeekstartday+'    '+'-'+' '+lastWeekenddate+'</option>');
+}
+    <% detail.forEach(function(data){ %>
+    $('#<%= data._id %>').click(function(){
+      var id = '<%= data._id %>';
+      document.getElementById('provider_weekly_earning_id').value = id;
+      $("#pay").modal('show');
+    });
+<% }); %>
+  });
+
+  function export_excel(){
+
+
+            $.ajax({
+                      type: 'POST',
+                      url: '/weekly_earning_excel',
+                      data: $('#weekly_form').serialize(),
+                      dataType: "json",
+                      success: function (res) {
+                          window.open(res)
+                      }
+            });
+      }
+</script>  
+
+<% if(type == "provider") { %> 
+  <% include provider/provider_footer.html %>
+<% } else { %> 
+  <% include footer_list.html %>
+<% } %>

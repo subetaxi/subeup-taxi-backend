@@ -1,0 +1,154 @@
+<% include corporate_header.html %>
+<div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+              <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                <p align="center"><%= message %></p>
+              </div>
+    <% } %>
+
+    
+        <form class="form-horizontal" id="editForm" enctype="multipart/form-data" method="post" action="/corporate_edit_profile">
+            <div class="panel panel-default">
+                <div class="col-md-12">
+                     <div class="panel-body form-group-separated"> 
+                    <input type="hidden" name="id" value="<%= login1._id %>" />
+                    
+                    <div class="col-md-8">
+                        <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_name %></label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control"  placeholder="Name" name="name" value="<%= login1.name %>" id="name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_email %></label>
+                        <div class="col-md-6">
+                            <input type="email" value="<%= login1.email %>" class="form-control" placeholder="Email" name="email" id="email" readonly />
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.button_current_password %></label>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_phone %></label>
+                        <div class="col-md-2">
+                            <input type="text" name="phonecode" class="form-control" value="<%= login1.country_phone_code %>" readonly/>
+                                
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <input name="phone" value="<%= login1.phone %>" onkeypress="return isNumberKey(event)"  type="text" class="form-control" maxlength="<%= phone_number_length %>"  placeholder="Number" id="phone" />
+                        </div>
+                    </div>
+                                                         
+                    <div class="form-group">
+                        <div class="col-md-12 col-xs-5">
+                            <button class="btn btn-primary btn-rounded pull-right" type="submit" name="update" value="update" id="update"> <%= config_json.button_update %></button>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </form>
+    </div>
+            <link href="css/image-cropper/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="css/image-cropper/jquery.awesome-cropper.css">
+
+<script src="js/image-cropper/jquery.imgareaselect.js"></script> 
+<script src="js/image-cropper/jquery.awesome-cropper.js"></script> 
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
+
+<script type="text/javascript">
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+var _URL = window.URL || window.webkitURL;
+        $("#profile_image").change(function(e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#profile_sel_img').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(profile_image.files[0]);
+
+                img.onload = function(e) {
+                    
+                    if(this.width == this.height)
+                    {
+                        $("#profile_image_dimention").html('<font color="red"></font>');
+                        $('#update').prop('disabled', false);
+                    }
+                    else
+                    {
+                        $("#profile_image_dimention").html('<font color="red"><%= config_json.error_message_for_profile_image_aspect_ratio %> <b><%= config_json.profile_image_aspect_ratio %></b></font>');
+                        $('#update').prop('disabled', true);
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+
+</script>   
+              
+<script>
+
+$(document).ready(function () {
+        $('#sample_input').awesomeCropper(
+            { width: 150, height: 150, debug: true }
+        );
+    });
+
+   
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+    $(function() {
+     $( "#editForm" ).validate({
+       rules: {
+         first_name: "required",
+         last_name: "required",
+         password: {
+          minlength: 6  ,
+          required: true
+        },
+        email: {
+          required: true,
+          email: true
+          
+        },
+        phone: {
+          required: true,
+          minlength: <%= phone_number_min_length %>,
+          maxlength: <%= phone_number_length %>
+            
+
+        }
+        
+
+
+      }
+    });
+    });
+</script>     
+
+<% include footer_form.html %>

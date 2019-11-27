@@ -1,0 +1,301 @@
+<% include header.html %>
+
+  <!-- PAGE CONTENT WRAPPER -->
+  <div class="page-content-wrap">
+<% if(typeof message != 'undefined'){ %>
+       <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+          <p align="center"> <strong><%= message %></strong></p>
+      </div>
+      <% } %>   
+                <!-- START TIMELINE FILTER --> 
+              
+      <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form class="form-horizontal" role="form" method="post" action="/schedules">
+                <div class="form-group">
+                  <input type="hidden" name="page" id="page" value="0" />   
+
+                  
+                <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_sort %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_field == "user_detail.first_name") { %>
+                        <option value='unique_id'><%= config_json.title_id %></option>
+                        <option value='user_detail.first_name' selected="selected"><%= config_json.title_user_name %></option>
+                        
+                          <option value='server_start_time'><%= config_json.title_creation_time %></option>
+                      <%} else if(sort_field == "user_detail.first_name") { %>
+                        <option value='unique_id'><%= config_json.title_id %></option>
+                        <option value='user_detail.first_name' ><%= config_json.title_user_name %></option>
+                        
+                          <option value='server_start_time' selected="selected"><%= config_json.title_creation_time %></option>
+                     
+                      <% } else { %>
+                        <option value='unique_id' selected="selected"><%= config_json.title_id %>
+                        <option value='user_detail.first_name'><%= config_json.title_user_name %></option>
+                        <option value='server_start_time'><%= config_json.title_creation_time %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_order == "1") { %>
+                      <option value="1" selected><%= config_json.sort_asc %></option>
+                      <option value="-1"><%= config_json.sort_desc %></option>
+                      <% } else{ %>
+                      <option value="1" ><%= config_json.sort_asc %></option>
+                      <option value="-1" selected><%= config_json.sort_desc %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_search %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" id="sel" placeholder="Select to Sort" name="search_item">
+                      <% if(search_item == "user_detail.first_name") { %>
+                        
+                        <option value='user_detail.first_name' selected="selected"><%= config_json.title_user_name %></option>
+                        <option value='provider_detail.first_name'><%= config_json.title_provider_name %></option>
+                      <% } else { %>
+                        
+                        <option value='user_detail.first_name'><%= config_json.title_user_name %><%= config_json.title_user_name %></option>
+                        <option value='provider_detail.first_name' selected><%= config_json.title_provider_name %></option>
+                        
+                      <% } %>
+                    </select>
+                  </div> 
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body panel-body-search">
+                      <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                        <input type="text" class="form-control" value="<%= search_value %>" name="search_value" placeholder="Search..."/>
+                      </div>                                                                
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_date_filter %></label>   
+                </div>
+                <div class="col-md-12">
+
+                  <div class="btn-group">
+                    <div class="input-group">
+                      <input type="text" class="form-control datepicker" value="<%= filter_start_date %>" placeholder="Start Date" name="start_date" id="start_date" readonly/>
+                      <span class="input-group-addon add-on">-</span>
+                      <input type="text" class="form-control datepicker"  value="<%= filter_end_date %>" placeholder="End Date" name="end_date" id="end_date" readonly/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <div class="col-md-12">
+                <ul class="pagination" >
+               
+                    <% include paginate_lookup.html %>
+
+                    
+                </ul> 
+              </div> 
+            </div> 
+            <div class="col-md-2">
+              <div class="col-md-12">
+             <select class="form-control select" id="status" placeholder="Select Status" name="status">
+                  <% if(status == 1) { %>
+                    <option value='3'><%=config_json.title_all %></option>
+                    <option value='2'><%=config_json.title_cancelled_request %></option>
+                    <option value='1' selected><%=config_json.title_trip_status_created %></option>
+                    <option value='0'><%=config_json.title_trip_status_pending %></option>
+                  <% } else if(status == 0){ %>
+                  <option value='3'><%=config_json.title_all %></option>
+                    <option value='2'><%=config_json.title_cancelled_request %></option>
+                    <option value='1'><%=config_json.title_trip_status_created %></option>
+                    <option value='0' selected><%=config_json.title_trip_status_pending %></option>
+                    <% } else if(status == 3){ %>
+                  <option value='3' selected><%=config_json.title_all %></option>
+                    <option value='2'><%=config_json.title_cancelled_request %></option>
+                    <option value='1'><%=config_json.title_trip_status_created %></option>
+                    <option value='0' ><%=config_json.title_trip_status_pending %></option>
+                  <% } else { %>
+                  <option value='3'><%=config_json.title_all %></option>
+                    <option value='2' selected><%=config_json.title_cancelled_request %></option>
+                    <option value='1'><%=config_json.title_trip_status_created %></option>
+                    <option value='0'><%=config_json.title_trip_status_pending %></option>
+                  <% } %>
+               </select>
+             </div>
+           </div>
+        
+            <div  class="form-group col-md-4" >
+              <div class="col-md-6">
+                <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= config_json.button_apply %></span></button>
+              </div>
+              <div class="col-md-6">
+                      <!-- <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick ="export_excel()"><i class="fa fa-download"></i><%= config_json.button_export_excel %></button> -->
+                    
+<!--                    <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick ="$('#customers2').tableExport({type:'excel', escape:'false'});"><i class="fa fa-bars"></i> <%= config_json.button_export_excel %></button>-->
+              </div>
+            </div>     
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </div> 
+    <!-- END TIMELINE FILTER -->
+
+
+    <div class="row">
+      <div class="col-md-12">
+
+
+
+        <!-- START SIMPLE DATATABLE -->
+        <div class="panel panel-default">
+            <table class="table text-center" id="customers2">
+              <thead>
+                <tr>
+
+                  <th>
+                    <%= config_json.title_id %>
+                  </th>
+                  <th>
+                    <%= config_json.title_creation_time %>
+                  </th>
+                  <th>
+                    <%= config_json.title_timezone %>
+                  </th>
+                  <th>
+                    <%= config_json.title_city_time %>
+                  </th>
+                  <th>
+                    <%= config_json.title_user %>
+                  </th>
+                  <th>
+                    <%= config_json.title_status %>
+                  </th>
+
+                  <th>
+                    <%= config_json.title_pickup_address %>
+                  </th>
+                  <th>
+                    <%= config_json.title_destination_address %>
+                  </th>
+
+                  <th >
+                    <%= config_json.title_payment %>
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% detail.forEach(function(data){ %>
+                  <tr>
+
+                    <td><%= data.unique_id %></td>
+                    <td><%= moment(data.created_at).tz(data.timezone).format("DD MMM 'YY hh:mm a") %></td>
+                    <td> <%= data.timezone %></td>
+                    <td><%= moment(data.server_start_time_for_schedule).tz(data.timezone).format("DD MMM 'YY hh:mm a") %></td>
+                    <td><%= data.user_detail.first_name %> <%= data.user_detail.last_name %>
+                    </td>
+                    <td>
+                      <% if(data.is_trip_cancelled == 1){ %>
+                        <%=config_json.title_cancelled_request %>
+                      <% } else if(data.is_trip_cancelled == 0){ %>
+                          <%=config_json.title_trip_status_pending %>
+                      <% } %>
+                    </td>
+
+                    <td>
+                      <%= data.source_address %>
+                    </td>
+                    <td>
+                      <%= data.destination_address %>
+                    </td>
+                    <td><% if(data.payment_mode == 1) { %>
+                                                    <span class="label label-default"><%= config_json.title_pay_by_cash %></span>
+                                                    <% } else { %>
+                                                    <span class="label label-primary"><%= config_json.title_pay_by_card %></span>
+                                                    <% } %>
+                    </td>
+                  </tr>
+                  <% }); %>
+              </tbody>
+            </table>
+        </div>
+        <!-- END SIMPLE DATATABLE -->
+
+      </div>
+    </div>
+
+  </div>
+  <!-- PAGE CONTENT WRAPPER -->
+  </div>
+  <!-- END PAGE CONTENT -->
+  </div>
+  <!-- END PAGE CONTAINER -->
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+
+
+   $('#start_date').datepicker({
+           format: 'yyyy-mm-dd'
+            
+        }).on("input change", function (e) { 
+          // var end_date = $('#start_date').datepicker('getDate');
+          // end_date.setDate(end_date.getDate() + 1);
+          // $('#end_date').datepicker('setStartDate', end_date);
+          $('.datepicker-dropdown').hide()
+      });
+
+        $('#end_date').datepicker({
+           format: 'yyyy-mm-dd'
+            
+        }).on("input change", function (e) { 
+          /*var start_date = $('#end_date').datepicker('getDate');
+          start_date.setDate(start_date.getDate() - 1);
+          $('#start_date').datepicker('setEndDate', start_date);*/
+          $('.datepicker-dropdown').hide()
+      });
+   
+ });
+ 
+ 
+ function export_excel(){
+
+            $.ajax({
+                      type: 'POST',
+                      url: '/genetare_schedules_request_excel',
+                      data: $('.form-horizontal').serialize(),
+                      dataType: "json",
+                      success: function (res) {
+                          window.open(res)
+                      }
+            });
+      }
+  </script>
+  <% include footer_list.html %>

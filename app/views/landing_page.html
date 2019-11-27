@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+        window.NREUM || (NREUM = {}), __nr_require = function(t, e, n){function r(n){if (!e[n]){var o = e[n] = {exports:{}}; t[n][0].call(o.exports, function(e){var o = t[n][1][e]; return r(o || e)}, o, o.exports)}return e[n].exports}if ("function" == typeof __nr_require)return __nr_require; for (var o = 0; o < n.length; o++)r(n[o]); return r}({1:[function(t, e, n){function r(){}function o(t, e, n){return function(){return i(t, [(new Date).getTime()].concat(u(arguments)), e?null:this, n), e?void 0:this}}var i = t("handle"), a = t(2), u = t(3), c = t("ee").get("tracer"), f = NREUM; "undefined" == typeof window.newrelic && (newrelic = f); var s = ["setPageViewName", "setCustomAttribute", "setErrorHandler", "finished", "addToTrace", "inlineHit"], p = "api-", l = p + "ixn-"; a(s, function(t, e){f[e] = o(p + e, !0, "api")}), f.addPageAction = o(p + "addPageAction", !0), e.exports = newrelic, f.interaction = function(){return(new r).get()}; var d = r.prototype = {createTracer:function(t, e){var n = {}, r = this, o = "function" == typeof e; return i(l + "tracer", [Date.now(), t, n], r), function(){if (c.emit((o?"":"no-") + "fn-start", [Date.now(), r, o], n), o)try{return e.apply(this, arguments)} finally{c.emit("fn-end", [Date.now()], n)}}}}; a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","), function(t, e){d[e] = o(l + e)}), newrelic.noticeError = function(t){"string" == typeof t && (t = new Error(t)), i("err", [t, (new Date).getTime()])}}, {}], 2:[function(t, e, n){function r(t, e){var n = [], r = "", i = 0; for (r in t)o.call(t, r) && (n[i] = e(r, t[r]), i += 1); return n}var o = Object.prototype.hasOwnProperty; e.exports = r}, {}], 3:[function(t, e, n){function r(t, e, n){e || (e = 0), "undefined" == typeof n && (n = t?t.length:0); for (var r = - 1, o = n - e || 0, i = Array(o < 0?0:o); ++r < o; )i[r] = t[e + r]; return i}e.exports = r}, {}], ee:[function(t, e, n){function r(){}function o(t){function e(t){return t && t instanceof r?t:t?u(t, a, i):i()}function n(n, r, o){t && t(n, r, o); for (var i = e(o), a = l(n), u = a.length, c = 0; c < u; c++)a[c].apply(i, r); var s = f[m[n]]; return s && s.push([w, n, r, i]), i}function p(t, e){g[t] = l(t).concat(e)}function l(t){return g[t] || []}function d(t){return s[t] = s[t] || o(n)}function v(t, e){c(t, function(t, n){e = e || "feature", m[n] = e, e in f || (f[e] = [])})}var g = {}, m = {}, w = {on:p, emit:n, get:d, listeners:l, context:e, buffer:v}; return w}function i(){return new r}var a = "nr@context", u = t("gos"), c = t(2), f = {}, s = {}, p = e.exports = o(); p.backlog = f}, {}], gos:[function(t, e, n){function r(t, e, n){if (o.call(t, e))return t[e]; var r = n(); if (Object.defineProperty && Object.keys)try{return Object.defineProperty(t, e, {value:r, writable:!0, enumerable:!1}), r} catch (i){}return t[e] = r, r}var o = Object.prototype.hasOwnProperty; e.exports = r}, {}], handle:[function(t, e, n){function r(t, e, n, r){o.buffer([t], r), o.emit(t, e, n)}var o = t("ee").get("handle"); e.exports = r, r.ee = o}, {}], id:[function(t, e, n){function r(t){var e = typeof t; return!t || "object" !== e && "function" !== e? - 1:t === window?0:a(t, i, function(){return o++})}var o = 1, i = "nr@id", a = t("gos"); e.exports = r}, {}], loader:[function(t, e, n){function r(){if (!h++){var t = y.info = NREUM.info, e = s.getElementsByTagName("script")[0]; if (t && t.licenseKey && t.applicationID && e){c(m, function(e, n){t[e] || (t[e] = n)}); var n = "https" === g.split(":")[0] || t.sslForHttp; y.proto = n?"https://":"http://", u("mark", ["onload", a()], null, "api"); var r = s.createElement("script"); r.src = y.proto + t.agent, e.parentNode.insertBefore(r, e)}}}function o(){"complete" === s.readyState && i()}function i(){u("mark", ["domContent", a()], null, "api")}function a(){return(new Date).getTime()}var u = t("handle"), c = t(2), f = window, s = f.document, p = "addEventListener", l = "attachEvent", d = f.XMLHttpRequest, v = d && d.prototype; NREUM.o = {ST:setTimeout, CT:clearTimeout, XHR:d, REQ:f.Request, EV:f.Event, PR:f.Promise, MO:f.MutationObserver}, t(1); var g = "" + location, m = {beacon:"bam.nr-data.net", errorBeacon:"bam.nr-data.net", agent:"js-agent.newrelic.com/nr-974.min.js"}, w = d && v && v[p] && !/CriOS/.test(navigator.userAgent), y = e.exports = {offset:a(), origin:g, features:{}, xhrWrappable:w}; s[p]?(s[p]("DOMContentLoaded", i, !1), f[p]("load", r, !1)):(s[l]("onreadystatechange", o), f[l]("onload", r)), u("mark", ["firstbyte", a()], null, "api"); var h = 0}, {}]}, {}, ["loader"]);
+    </script>
+    <meta name="author" content="SemiColonWeb" />
+
+    <!-- Stylesheets
+        ============================================= -->
+    <!--<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,400italic,600,700|Montserrat:400,700|Merriweather" rel="stylesheet" type="text/css" />-->
+    <link rel="stylesheet" href="css/landing/main.css" type="text/css" />
+    <!-- Media Agency Demo Specific Stylesheet -->
+    <!--<link rel="stylesheet" href="css/landing/app-landing.css" type="text/css"/>-->
+    <!-- / -->
+
+    <!--        <link rel="stylesheet" href="css/landing/et-line.css" type="text/css" />
+        <link rel="stylesheet" href="css/landing/fonts.css" type="text/css" />-->
+
+    <!-- Bootstrap Switch CSS -->
+    <!--<link rel="stylesheet" href="css/landing/bs-switches.css" type="text/css" />-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lt IE 9]>
+                <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+        <![endif]-->
+
+    <!--<link rel="stylesheet" href="css/landing/colors.css" type="text/css" />-->
+
+    <!-- Document Title
+        ============================================= -->
+    <title>
+        <%= constant_json.app_name %>
+    </title>
+
+</head>
+
+<body class="stretched">
+
+    <!-- Document Wrapper
+        ============================================= -->
+    <div id="wrapper" class="clearfix">
+
+        <!-- Header
+            ============================================= -->
+        <header id="header" class="split-menu transparent-header dark" data-sticky-class="not-dark" data-responsive-class="not-dark">
+
+            <div id="header-wrap">
+
+                <div class="container clearfix">
+
+                    <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+                    <!-- Logo
+                        ============================================= -->
+                    <div id="logo">
+                        <a class="standard-logo" data-dark-logo="landing/logo_light_big.png"><img src="landing/logo_dark_big.png" alt="Canvas Logo"></a>
+                        <a class="retina-logo" data-dark-logo="landing/logo_light_big.png"><img src="landing/logo_light_big.png" alt="Canvas Logo"></a>
+                    </div>
+                    <!-- #logo end -->
+
+                    <!-- Primary Navigation
+                        ============================================= -->
+                    <nav id="primary-menu" class="with-arrows clearfix not-dark">
+
+                        <ul class="one-page-menu" data-easing="easeInOutExpo" data-speed="1250" data-offset="160">
+                            <li>
+                                <a href="#section-admin" data-href="#section-admin">
+                                    <div>Admin</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-dispatcher" data-href="#section-dispatcher">
+                                    <div>Dispatcher</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-partner" data-href="#section-partner">
+                                    <div>Partner</div>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="one-page-menu" data-easing="easeInOutExpo" data-speed="1250" data-offset="160">
+                           
+                            <li>
+                                <a href="#section-customer" data-href="#section-customer">
+                                    <div>Customer</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-provider" data-href="#section-provider">
+                                    <div>Driver</div>
+                                </a>
+                            </li>
+                           
+                        </ul>
+
+                    </nav>
+                    <!-- #primary-menu end -->
+
+                </div>
+
+            </div>
+
+        </header>
+        <!-- #header end -->
+
+        <section id="slider" class="full-screen slider-parallax">
+            <div class="slider-parallax-inner" style="background: url('landing/web.png') center center no-repeat; background-size: cover;">
+                <div class="vertical-middle" style="z-index: 2;">
+                    <div class="container dark clearfix">
+                        <div class="row clearfix">
+                            <div class="col-md-6 col-sm-8">
+                                <div class="emphasis-title">
+                                    <h1 class="font-body">Welcome To<br>Eber Taxi App</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-wrap" style="position: absolute; height: 100%; z-index: 1;">
+                    <div class="video-overlay" style="background: rgba(0,0,0,0.2);"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content
+            ============================================= -->
+        <section id="content">
+
+            <div class="content-wrap" style="padding-bottom: 0px;">
+                <div class="clear"></div>
+
+                <div id="section-customer" class="page-section nopadding nomargin">
+
+                    <div class="container topmargin bottommargin-lg center clearfix">
+
+                        <h3 class="ls1 t400" style="font-size: 32px; margin-bottom: 10px;">Customer App</h3>
+                        <p class="lead divcenter" style="max-width: 600px">Get your ride on the go with a single click now or book your ride for later schedule.</p>
+                        <a href="<%=detail.android_client_app_url %>" class="button button-circle capitalize">Check out Android App</a>
+                        <a href="<%=detail.ios_client_app_url %>" class="button button-circle capitalize">Check out iOS App</a>
+                    </div>
+
+                    <div class="owl-carousel owl-carousel-full image-carousel carousel-widget bottommargin" data-margin="20" data-center="true"
+                        data-loop="true" data-nav="false" data-pagi="true" data-items-xxs="2" data-items-xs="2" data-items-sm="4"
+                        data-items-md="4" data-items-lg="6" data-stage-padding="30" data-lightbox="gallery">
+
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/1.jpg"><img src="landing/EberClient/1.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/2.jpg"><img src="landing/EberClient/2.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/4.jpg"><img src="landing/EberClient/4.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/5.jpg"><img src="landing/EberClient/5.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/5-(2).jpg"><img src="landing/EberClient/5-(2).jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/5-(7).jpg"><img src="landing/EberClient/5-(7).jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/6.jpg"><img src="landing/EberClient/6.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/7.jpg"><img src="landing/EberClient/7.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/8.jpg"><img src="landing/EberClient/8.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/9.jpg"><img src="landing/EberClient/9.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/10.jpg"><img src="landing/EberClient/10.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/11.jpg"><img src="landing/EberClient/11.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/12.jpg"><img src="landing/EberClient/12.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/13.jpg"><img src="landing/EberClient/13.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/14.jpg"><img src="landing/EberClient/14.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/15.jpg"><img src="landing/EberClient/15.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/17.jpg"><img src="landing/EberClient/17.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberClient/21.jpg"><img src="landing/EberClient/21.jpg" alt="Image 1"></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="clear"></div>
+                <div class="section" style="padding: 30px 0; margin: 0px; color: #999; background-color: #F8FAFB; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5;">
+                    <div class="container clearfix">
+                        <div class="row topmargin-lg clearfix">
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-bike inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Ride now or later</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">You can ride instantly with a click or you can schedule your ride.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-search inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Verification</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Customer verification by Email & SMS</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-ribbon inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Reviews & Ratings</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Customer can Rate Driver &amp; write reviews for his trip.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-wallet inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Cash & Card Payments</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Customer can either pay by cash or card.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-pricetags inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Fare Estimate &amp; ETA</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Fare Estimates and ETA of nearby driver to customer's location.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-chat  inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Customer Support Chat</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Customer can chat to support agent for any query or issue.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-caution inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">SOS Panic Button</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Inform your family &amp; friends while you are in danger.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-linegraph  inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Surge Pricing</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Trip prices may surged during specific time configured by admin.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-bargraph inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Cancel Trip</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Customer can cancel trip with the reason of cancellation.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-clock inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Wait time charges</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Additional charges will be applied on waiting time.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-map inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Favorite Location</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Customer can add Work &amp; Home as favorite location.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-telescope inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Real Time Driver's Status</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Customer gets real time driver status like, on the way, arrived, etc.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Provider App Section Starts here-->
+                <div class="clear"></div>
+
+                <div id="section-provider" class="page-section nopadding nomargin">
+
+                    <div class="container topmargin bottommargin-lg center clearfix">
+
+                        <h3 class="ls1 t400" style="font-size: 32px; margin-bottom: 10px;">Driver App</h3>
+                        <p class="lead divcenter" style="max-width: 600px">Get trips whenever you are available to drive to earn at your convinence.</p>
+                        <a href="<%=detail.android_driver_app_url%>" class="button button-circle capitalize">Check out Android App</a>
+                        <a href="<%=detail.ios_driver_app_url%>" class="button button-circle capitalize">Check out iOS App</a>
+                    </div>
+
+                    <div class="owl-carousel owl-carousel-full image-carousel carousel-widget bottommargin" data-margin="20" data-center="true"
+                        data-loop="true" data-nav="false" data-pagi="true" data-items-xxs="2" data-items-xs="2" data-items-sm="4"
+                        data-items-md="4" data-items-lg="6" data-stage-padding="30" data-lightbox="gallery">
+
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/1.jpg"><img src="landing/EberProvider/1.jpg" alt="Image 1"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/2.jpg"><img src="landing/EberProvider/2.jpg" alt="Image 2"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/3.jpg"><img src="landing/EberProvider/3.jpg" alt="Image 3"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/4.jpg"><img src="landing/EberProvider/4.jpg" alt="Image 4"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/5.jpg"><img src="landing/EberProvider/5.jpg" alt="Image 5"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/6.jpg"><img src="landing/EberProvider/6.jpg" alt="Image 6"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/7.jpg"><img src="landing/EberProvider/7.jpg" alt="Image 7"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/8.jpg"><img src="landing/EberProvider/8.jpg" alt="Image 8"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/9.jpg"><img src="landing/EberProvider/9.jpg" alt="Image 9"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/10.jpg"><img src="landing/EberProvider/10.jpg" alt="Image 10"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/11.jpg"><img src="landing/EberProvider/11.jpg" alt="Image 11"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/12.jpg"><img src="landing/EberProvider/12.jpg" alt="Image 12"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/13.jpg"><img src="landing/EberProvider/13.jpg" alt="Image 13"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/14.jpg"><img src="landing/EberProvider/14.jpg" alt="Image 14"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/16.jpg"><img src="landing/EberProvider/16.jpg" alt="Image 16"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/17.jpg"><img src="landing/EberProvider/17.jpg" alt="Image 17"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/18.jpg"><img src="landing/EberProvider/18.jpg" alt="Image 18"></a>
+                        </div>
+                        <div class="oc-item">
+                            <a data-lightbox="gallery-item" href="landing/EberProvider/20.jpg"><img src="landing/EberProvider/20.jpg" alt="Image 20"></a>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="clear"></div>
+                <div class="section" style="padding: 30px 0; margin: 0px; color: #999; background-color: #F8FAFB; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5;">
+                    <div class="container clearfix">
+                        <div class="row topmargin-lg clearfix">
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-upload inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Document Uploading</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Driver has to upload his documents before he can start getting trips.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-adjustments inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Auto Offline when Idles</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Driver goes offline automatically after warning if he is idle.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-map inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Interactive Map</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Interactive Map &amp; real time car transition on map.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-map-pin inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Navigation</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Navigate from current location to source using Google Map navigate button from App.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-bargraph inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Visitor Type</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Driver can drive as visitor for different city, if his car type is not available in that
+                                    city.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-wallet inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Earnings</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Driver can see his earnings in the App.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-search inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Verification</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">SMS,Email and Document verification of driver is done before he can accept trip request.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-chat inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Driver Support Chat</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">In App chat with the driver support agent.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--Provider App Section Ends here-->
+
+                <!--Admin Panel  Section Starts here-->
+                <div class="clear"></div>
+
+                <div id="section-admin" class="page-section nopadding nomargin">
+
+                    <div class="container topmargin bottommargin-lg center clearfix">
+
+                        <h3 class="ls1 t400" style="font-size: 32px; margin-bottom: 10px;">Admin Console</h3>
+                        <p class="lead divcenter" style="max-width: 600px">Control your business in multiple countries with a single Console.</p>
+                        <a href="/admin" class="button button-circle capitalize">Check out Admin Console</a>
+                    </div>
+
+
+                </div>
+
+                <div class="section" style="padding: 30px 0; margin: 0px; color: #999; background-color: #F8FAFB; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5;">
+                    <div class="container clearfix">
+                        <div class="row topmargin-lg clearfix">
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-global inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Multiple Country</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Add Multiple country for business and make it on or off for business.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-adjustments inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Multiple City</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Add Multiple City for business and turn it on or off for business.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-bike inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Multiple Service Types</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Add multiple car types like SUV, Sedan etc. and manage it for business in selected city.</p>
+                            </div>
+
+
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-bargraph inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Interactive Statistics</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Statistic for canceled trips, cash payment, card payments, total trips, and many more with
+                                    graphs.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-map inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Map View</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Admin can see the drivers on the map with the status like Idle, On Trip etc.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-clipboard inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Manage Reviews</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Admin can manage reviews provided by driver and customer both to analyze the feedback.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-presentation inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Payment Reports</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Provider Earning report with details like daily, weekly, pending, partner payments etc.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-desktop inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Promo code</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Add Promo Code with the conditions like city, cash trip, card trip etc.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-gears inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Settings</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Admin can configure system settings like SMS, Email, Installation Settings, etc.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-upload inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Documents</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Set mandatory documents for particular country for driver to drive in that region.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-linegraph inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Surge Pricing</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Add Surge price during particular time in the specific city with the surge percentage.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-scope inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">City Service Radius</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Add Radius in Km or Miles with the center lat &amp; long coordinates of city for the service.</p>
+                            </div>
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-profile-male inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Admin &amp; Dispatcher</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Add, Edit and decline other Admin's and Dispatcher from the Admin Console.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-profile-female inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Manage User</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Edit User, Decline User, Check user trip history etc.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-profile-male inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Manage Drivers</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Edit &amp; Decline Driver, Driver trip history, Check Documents, Add Banking Details etc.</p>
+                            </div>
+
+                            <div class="col-md-3 bottommargin">
+                                <i class="i-plain i-large icon-et-adjustments inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Manage Request</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Get request information like, status, amount, customer, driver etc. with map view for trip.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Admin Panel Section Ends here-->
+
+                <!--Dispatcher Panel  Section Starts here-->
+                <div class="clear"></div>
+
+                <div id="section-dispatcher" class="page-section nopadding nomargin">
+
+                    <div class="container topmargin bottommargin-lg center clearfix">
+
+                        <h3 class="ls1 t400" style="font-size: 32px; margin-bottom: 10px;">Dispatcher Console</h3>
+                        <p class="lead divcenter" style="max-width: 600px">Get more business through Call Centre and put trips in the system using Dispatcher Console</p>
+                        <a href="/dispatcher_login" class="button button-circle capitalize">Check out Dispatcher Console</a>
+                    </div>
+
+
+                </div>
+
+                <div class="section" style="padding: 30px 0; margin: 0px; color: #999; background-color: #F8FAFB; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5;">
+                    <div class="container clearfix">
+                        <div class="row topmargin-lg clearfix">
+
+                            <div class="col-md-4 bottommargin">
+                                <i class="i-plain i-large icon-et-browser inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Dispatch Request</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Dispatcher can add the request on behalf of any registered or un registered customer.</p>
+                            </div>
+
+                            <div class="col-md-4 bottommargin">
+                                <i class="i-plain i-large icon-et-pricetags inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Fare Estimates</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Dispatcher can estimate the fare from any source to destination for specified service type
+                                    so he can give estimate to customer.</p>
+                            </div>
+
+                            <div class="col-md-4 bottommargin">
+                                <i class="i-plain i-large icon-et-streetsign inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Manage Requests</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Dispatcher can manage requests details made by him. It includes trip details like invoice,
+                                    source, destination etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Dispatcher Panel Section Ends here-->
+
+                <!--Partner Panel  Section Starts here-->
+                <div class="clear"></div>
+
+                <div id="section-partner" class="page-section nopadding nomargin">
+
+                    <div class="container topmargin bottommargin-lg center clearfix">
+
+                        <h3 class="ls1 t400" style="font-size: 32px; margin-bottom: 10px;">Partner Console</h3>
+                        <p class="lead divcenter" style="max-width: 600px">Grow your business with more owned cars. Become our partner with your cars and earn more.</p>
+                        <a href="/partner_login" class="button button-circle capitalize">Check out Partner Console</a>
+                    </div>
+
+
+                </div>
+
+                <div class="section" style="padding: 30px 0; margin: 0px; color: #999; background-color: #F8FAFB; border-top: 1px solid #E5E5E5; border-bottom: 1px solid #E5E5E5;">
+                    <div class="container clearfix">
+                        <div class="row topmargin-lg clearfix">
+
+                            <div class="col-md-4 bottommargin">
+                                <i class="i-plain i-large icon-et-profile-male inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Manage Drivers</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Add, Update or Decline drivers working for you from the Console.</p>
+                            </div>
+
+                            <div class="col-md-4 bottommargin">
+                                <i class="i-plain i-large icon-et-wallet inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Earnings</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Get the earning details of all your cars added in the system.</p>
+                            </div>
+
+                            <div class="col-md-4 bottommargin">
+                                <i class="i-plain i-large icon-et-briefcase inline-block" style="margin-bottom: 30px; color: #999;"></i>
+                                <div class="heading-block nobottomborder" style="margin-bottom: 15px;">
+                                    <h4 style="font-size: 16px;">Add Bank Details</h4>
+                                </div>
+                                <p class="" style="line-height: 26px;">Add Bank details so Admin can make transactions with that info.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Partner Panel Section Ends here-->
+            </div>
+
+        </section>
+        <!-- #content end -->
+
+    </div>
+    <!-- #wrapper end -->
+
+    <!-- Go To Top
+        ============================================= -->
+    <div id="gotoTop" class="icon-angle-up"></div>
+
+
+
+    <!-- External JavaScripts
+        ============================================= -->
+    <script type="text/javascript" src="js/plugins/landing/jquery.js"></script>
+
+
+
+    <!-- Footer Scripts
+        ============================================= -->
+    <script type="text/javascript" src="js/plugins/landing/functions.js"></script>
+
+    <script>
+        jQuery(document).ready(function($){
+
+                                            function pricingSwitcher(elementCheck, elementParent, elementPricing) {
+                                            elementParent.find('.pts-left,.pts-right').removeClass('pts-switch-active');
+                                            elementPricing.find('.pts-switch-content-left,.pts-switch-content-right').addClass('hidden');
+                                            if (elementCheck.filter(':checked').length > 0) {
+                                            elementParent.find('.pts-right').addClass('pts-switch-active');
+                                            elementPricing.find('.pts-switch-content-right').removeClass('hidden');
+                                            } else {
+                                            elementParent.find('.pts-left').addClass('pts-switch-active');
+                                            elementPricing.find('.pts-switch-content-left').removeClass('hidden');
+                                            }
+                                            }
+
+                                            $('.pts-switcher').each(function(){
+                                            var element = $(this),
+                                                    elementCheck = element.find(':checkbox'),
+                                                    elementParent = $(this).parents('.pricing-tenure-switcher'),
+                                                    elementPricing = $(elementParent.attr('data-container'));
+                                            pricingSwitcher(elementCheck, elementParent, elementPricing);
+                                            elementCheck.on('change', function(){
+                                            pricingSwitcher(elementCheck, elementParent, elementPricing);
+                                            });
+                                            });
+                                            // Get Started From Validation
+                                            var getStartedForm = $('#get-started-form'),
+                                                    getStartedFormAlert = getStartedForm.attr('data-alert-type'),
+                                                    getStartedFormLoader = getStartedForm.attr('data-loader'),
+                                                    getStartedFormResult = getStartedForm.find('.contact-form-result'),
+                                                    getStartedFormRedirect = getStartedForm.attr('data-redirect');
+                                            getStartedForm.validate({
+                                            submitHandler: function(form) {
+
+                                            getStartedFormResult.hide();
+                                            if (getStartedFormLoader == 'button') {
+                                            var defButton = $(form).find('button'),
+                                                    defButtonText = defButton.html();
+                                            defButton.html('<i class="icon-line-loader icon-spin nomargin"></i>');
+                                            } else {
+                                            $(form).find('.form-process').fadeIn();
+                                            }
+
+                                            $(form).ajaxSubmit({
+                                            target: getStartedFormResult,
+                                                    dataType: 'json',
+                                                    resetForm: true,
+                                                    success: function(data) {
+                                                    if (getStartedFormLoader == 'button') {
+                                                    defButton.html(defButtonText);
+                                                    } else {
+                                                    $(form).find('.form-process').fadeOut();
+                                                    }
+                                                    if (data.alert != 'error' && getStartedFormRedirect){
+                                                    window.location.replace(getStartedFormRedirect);
+                                                    return true;
+                                                    }
+                                                    if (getStartedFormAlert == 'inline') {
+                                                    if (data.alert == 'error') {
+                                                    var alertType = 'alert-danger';
+                                                    } else {
+                                                    var alertType = 'alert-success';
+                                                    }
+
+                                                    getStartedFormResult.addClass('alert ' + alertType).html(data.message).slideDown(400);
+                                                    } else {
+                                                    getStartedFormResult.attr('data-notify-type', data.alert).attr('data-notify-msg', data.message).html('');
+                                                    SEMICOLON.widget.notifications(getStartedFormResult);
+                                                    }
+                                                    }
+                                            });
+                                            }
+                                            });
+                                            $('[data-pricing-plan]').click(function(){
+                                            getStartedForm.find('#get-started-form-package').val($(this).attr('data-pricing-plan'));
+                                            getStartedForm.find('#modal-get-started-package').html($(this).attr('data-pricing-plan'));
+                                            });
+                                            });
+    </script>
+
+</html>

@@ -1,0 +1,1599 @@
+<% include user_header.html %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=map_key%>&libraries=places"></script>
+<script type='text/javascript' src='js/plugins/bootstrap/bootstrap-timepicker.min.js'></script>
+<script>
+     window.history.forward();
+
+
+var surge_time = [];
+var selected_surge_time = [];
+var rich_area_surge_multiplier = 0;
+
+var markers = [];
+var iconBase = '/map_pin/';
+var pickup_markers;
+    var destination_markers;
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+function initialize() {
+  var marker;
+  
+  navigator.geolocation.getCurrentPosition(function(position) {
+
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    var mapProp = {
+      center:new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
+      zoom:18,
+      streetViewControl: false,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+
+    map=new google.maps.Map(document.getElementById("map"),mapProp);
+    directionsDisplay.setMap(map);
+
+    var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+
+    pickup_markers = new google.maps.Marker({
+        map: map,
+        icon: iconBase + "pickup.png",
+        position: initialLocation,
+        draggable:true
+      });
+
+        
+
+    geocoder(initialLocation);
+    
+
+    google.maps.event.addListener(pickup_markers,'dragend', function(event) {
+
+      pickup_marker_drag(event)
+    });
+    
+
+    $("#service_type_id").change(function(){
+
+        var type = document.getElementById('service_type_id').value;
+        $('.e_code_hied').hide(1000);
+        for(var index in surge_time)
+        {
+          if( surge_time[index].type_id == type)
+          {
+            selected_surge_time = surge_time[index].surge_hours;
+            rich_area_surge_multiplier = surge_time[index].rich_area_surge_multiplier;
+          }
+        }
+        get_nearby_provider(type);
+
+    });
+
+    var location = document.getElementById('location');
+    map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(location);
+
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+
+    map.addListener('bounds_changed', function() {
+      searchBox.setBounds(map.getBounds());
+    });
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+
+      if(pickup_markers != undefined)
+        {
+          pickup_markers.setMap(null);
+        }
+
+      // Clear out the old markers.
+
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+
+        pickup_markers = new google.maps.Marker({
+          map: map,
+          icon: iconBase + "pickup.png",
+          title: place.name,
+          position: place.geometry.location,
+          draggable:true
+        });
+
+        
+
+        google.maps.event.addListener(pickup_markers,'dragend', function(event) {
+
+          pickup_marker_drag(event)
+        });
+        //new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+        geocoder(place.geometry.location);
+
+        if(destination_markers == undefined)
+        {
+          if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+        }
+
+
+      });
+      if(destination_markers != undefined)
+      {
+          draw_path(bounds);
+      }
+      else
+      {
+        map.fitBounds(bounds);
+      }
+      
+    });
+
+    var input1 = document.getElementById('pac-input1');
+    var searchBox1 = new google.maps.places.SearchBox(input1);
+
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox1.addListener('places_changed', function() {
+      var places = searchBox1.getPlaces();
+
+
+
+      if (places.length == 0) {
+        return;
+      }
+
+      // Clear out the old markers.
+        if(destination_markers != undefined)
+        {
+          destination_markers.setMap(null);
+        }
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+
+        destination_markers = new google.maps.Marker({
+          map: map,
+          icon: iconBase + "destination.png",
+          title: place.name,
+          position: place.geometry.location,
+          draggable:true
+        });
+
+        google.maps.event.addListener(
+            destination_markers,
+            'dragend',
+            function(event) {
+                var geocoder = new google.maps.Geocoder();
+                var latlng = new google.maps.LatLng(event.latLng.lat() , event.latLng.lng());
+    
+                geocoder.geocode({'latLng': latlng}, function(results, status) {
+                    if(status == google.maps.GeocoderStatus.OK) {
+                      var address = results[0].formatted_address;
+                      $('#pac-input1').val(address)
+                      document.getElementById('dlat').value = event.latLng.lat();
+                      document.getElementById('dlng').value = event.latLng.lng();
+                      $('#dest_lat_lng').val(latlng)
+
+                      if(destination_markers != undefined)
+                      {
+                          draw_path(bounds);
+                      }
+                    }
+                });
+            }
+        );
+
+        var dlatlng = place.geometry.location;
+        dlatlng = String(dlatlng);
+        dlatlng=dlatlng.replace(/[{( )}]/g, '');
+        dlatlng = dlatlng.split(',');
+
+        $('#dest_lat_lng').val(place.geometry.location)
+        document.getElementById('dlat').value=dlatlng[0];
+        document.getElementById('dlng').value=dlatlng[1];
+
+      });
+     
+      draw_path(bounds);
+    });
+  });
+}
+
+function get_nearby_provider(type)
+{
+  var lat1 = document.getElementById('lat').value;
+    var lng1 = document.getElementById('lng').value;
+  $.ajax({
+                type: 'POST',
+                url: '/get_nearby_provider',
+                data: { 'service_type_id':type ,'latitude':lat1,'longitude':lng1},
+                dataType: "json",
+                  success:function(response){
+
+                    for (var i = 0; i < markers.length; i++) {
+                        markers[i].setMap(null);
+                    }
+                    if(response.providers == undefined)
+                    {
+                        $("#message").text("<%= admin_messages.error_provider_not_found %>");
+                        document.getElementById("ridenow").disabled = true;
+                        document.getElementById("calculate_estimate").disabled = true;
+
+                    }
+                    else
+                    {
+                      document.getElementById("ridenow").disabled = false;
+                      document.getElementById("calculate_estimate").disabled = false;
+                      var locations = [];
+                     $("#message").text("");
+                      for(var index in response.providers)
+                      {
+                        var service = response.providers[index].providerLocation;
+                        var  contentString = 'sajh';
+                        var lat = service[0];
+                        var lon = service[1];
+                        var  contentString =
+                            '<p><b>Username</b>: ' +response.providers[index].first_name + ' ' + response.providers[index].last_name +
+                            '<br><b>Car Model</b>: ' + response.providers[index].car_model +
+                            '<br><b>Rating</b>: ' + response.providers[index].rate +
+                            '</p>';
+
+                        locations.push({
+                            latlon: new google.maps.LatLng(lat, lon),
+                            message: new google.maps.InfoWindow({
+                                content: contentString,
+                                maxWidth: 320
+                            })
+                        });
+                      }
+
+                      locations.forEach(function(loc_data, i){
+                        var icon = iconBase + "driver.png";
+
+                        var marker = new google.maps.Marker({
+                            position: loc_data.latlon,
+                            map: map,
+                            icon: icon,
+                        });
+                        markers.push(marker);
+
+                        google.maps.event.addListener(marker, 'click', function(e){
+                        // When clicked, open the selected marker's message
+                          currentSelectedMarker = loc_data;
+                          loc_data.message.open(map, marker);
+                          setTimeout(function () { loc_data.message.close(); }, 5000);
+                        });
+                      });
+                    }
+                  }
+        });
+}
+
+function pickup_marker_drag(event)
+{
+
+  var user=  $('#user_id').val();
+var token=  $('#token').val();
+
+  var city,country;
+  var initialLocation2 = new google.maps.LatLng(event.latLng.lat(),event.latLng.lng());
+      var geocoder = new google.maps.Geocoder();
+      document.getElementById('src_lat_lng').value = initialLocation2;
+      document.getElementById('lat').value=event.latLng.lat();
+      document.getElementById('lng').value=event.latLng.lng();
+      
+
+      geocoder.geocode({'latLng': initialLocation2}, function(results, status) {
+
+        
+          if(status == google.maps.GeocoderStatus.OK) {
+              var address = results[0].formatted_address;
+              document.getElementById('pac-input').value=address;
+
+              for (var i=0; i<results[0].address_components.length; i++) {
+                
+
+                //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+                if (results[0].address_components[i].types[0] == "locality") {
+                        //this is the object you are looking for
+                        city= results[0].address_components[i];
+                        city=city.long_name;
+                        document.getElementById('city').value=city;
+                        
+                    }
+                    
+                    if (results[0].address_components[i].types[0] == "administrative_area_level_2") {
+                        //this is the object you are looking for
+                        //subAdminCity= results[0].address_components[i];
+                        //subAdminCity=subAdminCity.long_name;
+                        
+                       
+                    }
+                    if (results[0].address_components[i].types[0] == "country") {
+                        //this is the object you are looking for
+                        country= results[0].address_components[i];
+                        country=country.long_name;
+                        
+                    }     
+                }
+       
+                $.ajax({
+                  type: 'POST',
+                  url: '/user_city_type_list',
+                  data: {'country': country, 'city':city,'user_id':user,'token':token,'latitude':map.getCenter().lat(),'longitude':map.getCenter().lng()},
+                  dataType: "json",
+                    success:function(response){
+                      var id = document.getElementById('service_type_id').value;
+                        if(response.success == false)
+                        {
+                          for (var i = 0; i < markers.length; i++) {
+                                              markers[i].setMap(null);
+                          }
+                            $("#service_type_id").empty();
+                            $("#service_type_id").append("<option selected disabled hidden style='display: none'>"+ "Select Service Type" + "</option>");
+                            $("#message").text("<%= admin_messages.error_type_not_available %>");
+                        
+                            document.getElementById("ridenow").disabled = true;
+                            document.getElementById("calculate_estimate").disabled = true;
+                            document.getElementById("ridelater").disabled = true;
+                        }
+                        else
+                        {
+                            $('#currency').val(response.currency)
+                            if(id == "Select Service Type")
+                            {
+                              $("#message").text("");
+                              document.getElementById("ridenow").disabled = false;
+                              document.getElementById("calculate_estimate").disabled = false;
+                              document.getElementById("ridelater").disabled = false;
+                                $("#service_type_id").empty();
+                                $("#service_type_id").append("<option selected disabled hidden style='display: none'>"+ "Select Service Type" + "</option>");
+                                for(var index in response.citytypes)
+                                {
+                                  var service_type_id = response.citytypes[index].type_details.typename;
+                                  var service_id = response.citytypes[index]._id;
+                                  $("#service_type_id").append("<option value="+service_id + ">"+ service_type_id+ "</option>");
+                                  surge_time.push({
+                                    'type_id' : service_id,
+                                    'surge_hours': response.citytypes[index].surge_hours,
+                                    'rich_area_surge_multiplier': response.citytypes[index].rich_area_surge_multiplier
+                                  });
+                                }
+                            }
+                            else
+                            {
+                              if($('#city_id').val() == response.city_detail._id){
+                                  for(var index in response.citytypes)
+                                  {
+                                    if(response.citytypes[index]._id == id)
+                                    {
+                                        return;
+                                    }
+                                    else
+                                    {
+                                      for (var i = 0; i < markers.length; i++) {
+                                                          markers[i].setMap(null);
+                                      }
+
+                                      var service_type_id = response.citytypes[index].type_details.typename;
+                                      var service_id = response.citytypes[index]._id;
+                                      $("#service_type_id").append("<option value="+service_id + ">"+ service_type_id+ "</option>");
+
+                                      surge_time.push({
+                                        'type_id' : service_id,
+                                        'surge_hours': response.citytypes[index].surge_hours,
+                                        'rich_area_surge_multiplier': response.citytypes[index].rich_area_surge_multiplier
+                                      });
+                                    }
+                                  }
+                              } else {
+                                $("#service_type_id").empty();
+                                    $("#service_type_id").append("<option selected disabled hidden style='display: none'>"+ "Select Service Type" + "</option>");
+                                for(var index in response.citytypes)
+                                {
+                                      for (var i = 0; i < markers.length; i++) {
+                                                          markers[i].setMap(null);
+                                      }
+                                      
+                                      var service_type_id = response.citytypes[index].type_details.typename;
+                                      var service_id = response.citytypes[index]._id;
+                                      $("#service_type_id").append("<option value="+service_id + ">"+ service_type_id+ "</option>");
+
+                                      surge_time.push({
+                                        'type_id' : service_id,
+                                        'surge_hours': response.citytypes[index].surge_hours,
+                                        'rich_area_surge_multiplier': response.citytypes[index].rich_area_surge_multiplier
+                                      });
+                                }
+                                $('#service_type_id').selectpicker('refresh');      
+                              }
+                            }
+                          document.getElementById('server_time').value = response.server_time;
+                          document.getElementById('timezone').value = response.city_detail.timezone;
+                          document.getElementById('city_id').value = response.city_detail._id;
+
+
+                        }
+
+                      $('#service_type_id').selectpicker('refresh');
+                    }
+                  });
+                 
+          }
+
+          var type = document.getElementById('service_type_id').value;
+          
+
+            if(type != "Select Service Type")
+            {
+              var lat1 = document.getElementById('lat').value;
+              var lng1 = document.getElementById('lng').value;
+                $.ajax({
+                        type: 'POST',
+                        url: '/get_nearby_provider',
+                        data: { 'service_type_id':type ,'latitude':lat1,'longitude':lng1},
+                        dataType: "json",
+                          success:function(response){
+                            for (var i = 0; i < markers.length; i++) {
+                                markers[i].setMap(null);
+                            }
+                            if(response.providers == undefined)
+                            {
+                                $("#message").text("<%= admin_messages.error_provider_not_found %>");
+                                document.getElementById("ridenow").disabled = true;
+                                document.getElementById("calculate_estimate").disabled = true;
+                            }
+                            else
+                            {
+                              document.getElementById("ridenow").disabled = false;
+                              document.getElementById("calculate_estimate").disabled = false;
+                              var locations = [];
+                              $("#message").text("");
+                              for(var index in response.providers)
+                              {
+                                var service = response.providers[index].providerLocation;
+                                var  contentString = 'sajh';
+                                var lat = service[0];
+                                var lon = service[1];
+                                var  contentString =
+                                    '<p><b>Username</b>: ' +response.providers[index].first_name + ' ' + response.providers[index].last_name +
+                                    '<br><b>Car Model</b>: ' + response.providers[index].car_model +
+                                    '<br><b>Rating</b>: ' + response.providers[index].rate +
+                                    '</p>';
+
+                                locations.push({
+                                    latlon: new google.maps.LatLng(lat, lon),
+                                    message: new google.maps.InfoWindow({
+                                        content: contentString,
+                                        maxWidth: 320
+                                    })
+                                });
+                              }
+
+                              locations.forEach(function(loc_data, i){
+                                var icon = iconBase + "driver.png";
+
+                                var marker = new google.maps.Marker({
+                                    position: loc_data.latlon,
+                                    map: map,
+                                    icon: icon,
+                                });
+                                markers.push(marker);
+
+                                google.maps.event.addListener(marker, 'click', function(e){
+                                // When clicked, open the selected marker's message
+                                  currentSelectedMarker = loc_data;
+                                  loc_data.message.open(map, marker);
+                                  setTimeout(function () { loc_data.message.close(); }, 5000);
+                                });
+                              });
+                            }
+                          }
+                })
+            }
+            else
+            {
+              for (var i = 0; i < markers.length; i++) {
+                                markers[i].setMap(null);
+                            }
+            }
+      });
+      var bounds = new google.maps.LatLngBounds();
+      if(destination_markers != undefined)
+      {
+          draw_path(bounds);
+          
+      }
+}
+
+function draw_path(bounds)
+{
+  var pick_up = new google.maps.LatLng($('#lat').val() , $('#lng').val());
+  var destination = new google.maps.LatLng($('#dlat').val() , $('#dlng').val());
+  bounds.extend(pick_up);
+  bounds.extend(destination);
+  map.fitBounds(bounds);
+  var request = {
+        origin: pick_up,
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+            directionsDisplay.setMap(map);
+            directionsDisplay.setOptions( { suppressMarkers: true } );
+        }
+    });
+    $('.e_code_hied').hide(1000);
+}
+function geocoder(latlng)
+{
+  var city,country;
+    var latlngs = latlng;
+    latlngs = String(latlngs);
+    latlngs=latlngs.replace(/[{( )}]/g, '');
+    latlngs = latlngs.split(',');
+    document.getElementById('lat').value=latlngs[0];
+    document.getElementById('lng').value=latlngs[1];
+
+    var geocoder = new google.maps.Geocoder();
+    document.getElementById('src_lat_lng').value = latlng;
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+
+      var user=$('#user_id').val();
+  var token=$('#token').val();
+
+        if(status == google.maps.GeocoderStatus.OK) {
+            var address = results[0].formatted_address;
+            document.getElementById('pac-input').value=address;
+          
+            for (var i=0; i<results[0].address_components.length; i++) {
+                
+
+                //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+                if (results[0].address_components[i].types[0] == "locality") {
+                        //this is the object you are looking for
+                        city= results[0].address_components[i];
+                        city=city.long_name;
+                        document.getElementById('city').value=city;
+                        
+                    }
+                    
+                    if (results[0].address_components[i].types[0] == "administrative_area_level_2") {
+                        //this is the object you are looking for
+                        //subAdminCity= results[0].address_components[i];
+                       // subAdminCity=subAdminCity.long_name;
+                        
+                       
+                    }
+                    if (results[0].address_components[i].types[0] == "country") {
+                        //this is the object you are looking for
+                        country= results[0].address_components[i];
+                        country=country.long_name;
+                        
+                    }     
+                }
+                      $.ajax({
+                        type: 'POST',
+                        url: '/user_city_type_list',
+                        data: {'country': country, 'city':city, 'latitude':map.getCenter().lat(),'longitude':map.getCenter().lng(), 'user_id':user,'token':token},
+                        dataType: "json",
+                          success:function(response){
+                            $("#service_type_id").empty();
+                            document.getElementById("ridenow").disabled = false;
+                            document.getElementById("calculate_estimate").disabled = false;
+                            document.getElementById("ridelater").disabled = false;
+                            $("#service_type_id").append("<option selected disabled hidden style='display: none'>"+ "Select Service Type" + "</option>");
+                          
+                            if(response.success == false)
+                            {
+                                $("#message").text("<%= admin_messages.error_type_not_available %>");
+                                document.getElementById("ridenow").disabled = true;
+                                document.getElementById("calculate_estimate").disabled = true;
+                                document.getElementById("ridelater").disabled = true;
+                            }
+
+
+                            else
+                            {
+                              $("#message").text("");
+                              for (var i = 0; i < markers.length; i++) {
+                                                  markers[i].setMap(null);
+                              }
+
+                              for(var index in response.citytypes)
+                              {
+                                      var service_type_id = response.citytypes[index].type_details.typename;
+                                      var service_id = response.citytypes[index]._id;
+                                       $("#service_type_id").append("<option value="+service_id + ">"+ service_type_id+ "</option>");
+
+                                       surge_time.push({
+                                        'type_id' : service_id,
+                                        'surge_hours': response.citytypes[index].surge_hours,
+                                        'rich_area_surge_multiplier': response.citytypes[index].rich_area_surge_multiplier
+                                      });
+
+
+                              }
+                              document.getElementById('server_time').value = response.server_time;
+                              document.getElementById('timezone').value = response.city_detail.timezone;
+                              document.getElementById('city_id').value = response.city_detail._id;
+                            }
+                            $('#service_type_id').selectpicker('refresh');
+
+                          }
+                       });
+            
+        }
+    });
+
+}
+
+var providers = [];
+
+function currentLocation()
+{
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                      };
+        map.setCenter(pos);
+        map.setZoom(18);
+        var initialLocation = new google.maps.LatLng(pos);
+        geocoder(initialLocation);
+
+
+        if(pickup_markers != undefined)
+        {
+          pickup_markers.setMap(null);
+        }
+
+        pickup_markers = new google.maps.Marker({
+          map: map,
+          icon: iconBase + "pickup.png",
+          position: initialLocation,
+          draggable:true
+        });
+
+        google.maps.event.addListener(pickup_markers,'dragend', function(event) {
+
+          pickup_marker_drag(event)
+        });
+        var bounds = new google.maps.LatLngBounds();
+        if(destination_markers != undefined)
+        {
+            draw_path(bounds);
+        }
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+function isNumberKeyOnly(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+      return false;
+    }
+    return true;
+  }
+
+$(document).ready(function()
+{
+  $("#location").click(function(){
+      currentLocation();
+  });
+
+  $("#calculate_estimate").click(function(){
+
+
+
+    var lat1 = document.getElementById('lat').value;
+    var lng1 = document.getElementById('lng').value;
+    var dlat1 = document.getElementById('dlat').value;
+    var dlng1 = document.getElementById('dlng').value;
+    var service_type_id = document.getElementById('service_type_id').value;
+    document.getElementById('src_message').innerHTML = "";
+    document.getElementById('dest_message').innerHTML = "";
+    $("#message").text("");
+
+    if(lat1 == "")
+    {
+      document.getElementById('src_message').innerHTML = "<%= admin_messages.error_pickup_address %>";
+
+    }
+    else if(dlat1 == "")
+    {
+      document.getElementById('dest_message').innerHTML = "<%= admin_messages.error_enter_destination_address %>";
+    }
+    else if(service_type_id == "Select Service Type")
+    {
+      $("#message").text("Please select service type");
+    }
+    else
+    {
+
+      var origin1 = {lat: parseFloat(lat1), lng: parseFloat(lng1)};
+      var destinationB = {lat: parseFloat(dlat1), lng: parseFloat(dlng1)};
+
+      var service = new google.maps.DistanceMatrixService;
+        service.getDistanceMatrix({
+          origins: [origin1],
+          destinations: [destinationB],
+          travelMode: 'DRIVING',
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+        }, function(response, status) {
+
+              var results = response.rows[0].elements;
+
+              if(results[0].distance == undefined)
+              {
+                  alert("please enter pickup and destination same country")
+              }
+              else
+              {
+                var distance = results[0].distance.value;
+                var time = results[0].duration.text;
+                time = time.split(" ");
+                if(time[1] =="hour")
+                {
+                    time = parseInt(time[0]*60) + parseInt(time[2]);
+                }
+                else
+                {
+                    time = time[0];
+                }
+
+                $.ajax({
+                      type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                      url         : '/get_server_time', /// the url where we want to POST
+                      data        : {}, // our data object
+                      datatype    :"json",
+                      success:function(response){ 
+                        var now = response.server_date;
+                        var now1 = new Date(now).toLocaleString("en-US", {timeZone: $('#timezone').val()})
+                        now1 = new Date(now1)
+                        var week_day = now1.getDay();
+                        var is_surge_hours = 0;
+                        var multiplier = 1;
+
+                        if(selected_surge_time[week_day].is_surge){
+                          var current_date = response.server_date;
+                          current_date = new Date(current_date).toLocaleString("en-US", {timeZone: $('#timezone').val()})
+                          current_date = new Date(current_date)
+
+                          selected_surge_time[week_day].day_time.forEach(function(day_time){
+                            var day_time_multiplier = day_time.multiplier;
+                            var start_time = day_time.start_time;
+                            var end_time = day_time.end_time;
+                            start_time = start_time.split(':');
+                            end_time = end_time.split(':');
+                            var start_date_time = current_date.setHours(start_time[0], start_time[1], 0, 0);
+                            start_date_time = new Date(start_date_time);
+                            var end_date_time = current_date.setHours(end_time[0], end_time[1], 0, 0);
+                            end_date_time = new Date(end_date_time);
+                            if(now1.getTime() > start_date_time.getTime() && now1.getTime() < end_date_time.getTime()){
+                              is_surge_hours = 1;
+                              multiplier = day_time_multiplier;
+                            }
+                          })
+                        }
+                        if(multiplier < rich_area_surge_multiplier){
+                          is_surge_hours = 1;
+                          multiplier = rich_area_surge_multiplier;
+                        }
+
+                        $.ajax({
+                          type: 'POST',
+                          dataType: 'json',
+                          data: {'service_type_id': service_type_id , pickup_latitude : lat1 ,pickup_longitude : lng1 , destination_latitude : dlat1 ,destination_longitude: dlng1 , surge_multiplier: multiplier , 'is_surge_hours' : is_surge_hours , 'time' : time*60 , 'distance' : distance},
+                          url: "/getfareestimate",
+                            success:function(response) {
+                                document.getElementById('total_time').innerHTML = response.time.toFixed(2) + ' min';
+                                document.getElementById('total_distance').innerHTML = response.distance + ' km';
+                                document.getElementById('min_fare_lable').innerHTML = $('#currency').val() + ' ' + response.estimated_fare;
+                               // $('#min_fare').modal('show');
+                                $(".e_code_hied").show(1000);
+                            }
+                        });
+                      }
+                });
+              }
+        });
+
+    }
+
+
+
+  });
+
+  $("#signupForm").submit(function(){
+
+    $('#min_fare').modal('hide');
+
+  });
+
+$('#signupForm').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) {
+    e.preventDefault();
+    return false;
+  }
+});
+
+  $("#signupForm").validate({
+
+    ignore : [],
+    rules: {
+      source_address: "required",
+      service_type_id: "required"
+    },
+
+    submitHandler: function(form) {
+
+
+      $('#ridenow').val('Please wait ...')
+      .attr('disabled','disabled');
+
+        var zone = document.getElementById('timezone').value;
+        var server_time = document.getElementById('server_time').value;
+
+        $.ajax({
+            type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/check_old_trip', // the url where we want to POST
+            data        : {'user_id':$('#user_id').val() }, // our data object
+            datatype    :"json",
+            success:function(response){
+
+                $('#token').val(response.token)
+
+                if(response.success == true)
+                {
+                  trip_error("<%= admin_messages.error_trip_already_running %>")
+                  $('#ridenow').val('Ride Now').attr('disabled',false);
+                }
+                else
+                {
+                    $.ajax({
+                      type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                      url         : '/get_server_time', /// the url where we want to POST
+                      data        : {}, // our data object
+                      datatype    :"json",
+                      success:function(response){ 
+                        var now = response.server_date;
+                        var now1 = new Date(now).toLocaleString("en-US", {timeZone: $('#timezone').val()})
+                        now1 = new Date(now1)
+                        var week_day = now1.getDay();
+                        var is_surge_hours = 0;
+                        var multiplier = 1;
+
+                        if(selected_surge_time[week_day].is_surge){
+                          var current_date = response.server_date;
+                          current_date = new Date(current_date).toLocaleString("en-US", {timeZone: $('#timezone').val()})
+                          current_date = new Date(current_date)
+
+                          selected_surge_time[week_day].day_time.forEach(function(day_time){
+                            var day_time_multiplier = day_time.multiplier;
+                            var start_time = day_time.start_time;
+                            var end_time = day_time.end_time;
+                            start_time = start_time.split(':');
+                            end_time = end_time.split(':');
+                            var start_date_time = current_date.setHours(start_time[0], start_time[1], 0, 0);
+                            start_date_time = new Date(start_date_time);
+                            var end_date_time = current_date.setHours(end_time[0], end_time[1], 0, 0);
+                            end_date_time = new Date(end_date_time);
+                            if(now1.getTime() > start_date_time.getTime() && now1.getTime() < end_date_time.getTime()){
+                              is_surge_hours = 1;
+                              multiplier = day_time_multiplier;
+                            }
+                          })
+                        }
+
+                         if(multiplier < rich_area_surge_multiplier){
+                          multiplier = rich_area_surge_multiplier;
+                        }
+                         document.getElementById('is_surge_hours').value = is_surge_hours;
+                         document.getElementById('surge_multiplier').value = multiplier;
+                        
+                          var trip_type =$('#is_ride_later').val();
+                    
+                          if(trip_type == 1)
+                          {
+                              $.ajax({
+                                type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                url         : '/createtrip', // the url where we want to POST
+                                data        : $("#signupForm").serialize(), // our data object
+                                datatype    :"json",
+                                success:function(response){
+                                  if(response.success == false)
+                                  {
+                                    $('#ridenow').val('Ride Now').attr('disabled',false);
+                                      trip_error("<%= admin_messages.error_payment_is_pending %>")
+                                  }
+                                  else
+                                  {
+                                      window.location.href = 'create_trip';
+                                  }
+                                }
+                              });
+                          }
+                          else
+                          {
+                            $.ajax({
+                              type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                              url         : '/createtrip', // the url where we want to POST
+                              data        : $("#signupForm").serialize(), // our data object
+                              datatype    :"json",
+                              success:function(response){
+
+                                  if(response.success == false)
+                                  {
+                                    $('#ridenow').val('Ride Now').attr('disabled',false);
+                                    var type = document.getElementById('service_type_id').value;
+                                    get_nearby_provider(type);
+                                    if(response.error_code == 464)
+                                    {
+                                      trip_error("<%= admin_messages.error_payment_is_pending %>")
+                                    }
+                                    else
+                                    {
+                                      trip_error("<%= admin_messages.error_provider_not_found %>")
+                                    }
+
+                                  }
+                                  else
+                                  {
+                                    var promo = $('#promo1').val();
+                                    var user_id = $('#user_id').val();
+                                        var token = $('#token').val();
+                                        var country = $('#country').val();
+                                    if(promo != "")
+                                    {
+                                        
+                                        
+                                        $.ajax({
+                                          type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                          url         : '/apply_promo_code', // the url where we want to POST
+                                          data        : {user_id:user_id , token:token , country:country , promocode:promo , trip_id: response.trip_id }, // our data object
+                                          datatype    :"json",
+                                          success:function(response){
+
+
+                                          }
+                                        });
+                                    }
+                                    $('#trip_id').val(response.trip_id)
+                                    // document.getElementById('name').innerHTML= response.first_name + ' ' + response.last_name;
+                                    // document.getElementById('img').src=response.picture != '' ? response.picture : 'default.png';
+
+                                    //document.getElementById('trip_id').value=response.trip_id;
+                                    $('#check_provider').modal('show');
+
+                                    
+                                      var a = setInterval(function(){
+                                        $.ajax({
+                                          type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                          url         : '/usergettripstatus', /// the url where we want to POST
+                                          data        : {"user_id": user_id,"token": token, "type":"web" }, // our data object
+                                          datatype    :"json",
+                                          success:function(response){
+                                            if(response.success == true)
+                                            {
+                                              if(response.trip.is_provider_accepted == 1)
+                                              {
+                                                clearInterval(a);
+                                                window.location.href = 'history';
+                                              }
+                                              else
+                                              {
+                                                $.ajax({
+                                                  type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                                  url         : '/get_provider_info', /// the url where we want to POST
+                                                  data        : {"provider_id": response.trip.current_provider}, // our data object
+                                                  datatype    :"json",
+                                                  success:function(response){ 
+                                                    $('#ridenow').val('Ride Now').attr('disabled',false);
+                                                    if(response.success == true)
+                                                    {
+                                                      // document.getElementById('name').innerHTML= response.provider.first_name + ' ' + response.provider.last_name;
+
+                                                      // document.getElementById('img').src=response.provider.picture != '' ? response.provider.picture : 'default.png';
+
+
+                                                    }
+                                                  }
+                                                });
+                                              }
+                                            }
+                                            else
+                                            {
+                                                clearInterval(a);
+                                                $('#check_provider').modal('hide');
+                                                var type = document.getElementById('service_type_id').value;
+                                                get_nearby_provider(type);
+                                                trip_error("<%= admin_messages.error_provider_not_found %>")
+                                            }
+                                          }
+                                        })
+                                      }, 1000);
+                                  }
+                                }
+                            });
+                          }
+                      }
+                    });
+                }
+              }
+        });
+    }
+  });
+  function trip_error(message){
+      $('#request_error').show();
+      $('#request_message').text(message);
+      setTimeout(function () {
+        $('#request_error').hide();
+      }, 3000);
+  }
+
+  $('#promo_button').click(function(){
+
+      $('#promo_modal').modal('show');
+      $('#promo').val('');
+      $('#promo_error').text('');
+
+  })
+
+  $('#apply_promo').click(function(){
+
+      var promo = $('#promo').val();
+      if(promo=="")
+      {
+
+        $('#promo_error').text('Please Enter Promo Code');
+      }
+      else
+      {
+        var user_id = $('#user_id').val();
+        var country = $('#country').val();
+        //var payment_mode = $('#payment_mode').val();
+        var payment_mode = $('input[name=payment_mode]:checked').val();
+
+        var city = $('#city').val();
+        $.ajax({
+            type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/check_promocode', /// the url where we want to POST
+            data        : {"user_id": user_id, "promocode": promo, "city":city, "payment_mode":payment_mode, "country": country}, // our data object
+            datatype    :"json",
+            success:function(response){
+              if(response.success == true)
+              {
+                $('#promo_error').text('');
+                $('#apply_promo_message').text('<%= admin_messages.success_promo_apply %>');
+                $('#remove_promo').show();
+                $('#promo1').val(response.promocode.promocode)
+                $('#promoid').val(response.promocode._id)
+              }
+              else
+              {
+                if(response.error_code == 541)
+                {
+                  $('#promo_error').text('<%= admin_messages.error_enter_valid_promocode %>');
+                }
+                else if(response.error_code == 542)
+                {
+                  $('#promo_error').text('<%= admin_messages.error_promocode_already_used %>');
+
+                }
+                else if(response.error_code == 543)
+                {
+                  $('#promo_error').text('<%= admin_messages.error_promocode_not_for_your_area %>');
+
+                }
+                else if(response.error_code == 544)
+                {
+                  $('#promo_error').text('<%= admin_messages.error_promocode_not_apply_on_your_payment_mode %>');
+
+                }
+                else if(response.error_code == 545)
+                {
+                  $('#promo_error').text('<%= admin_messages.error_promocode_expired %>');
+                }
+              }
+            }
+        });
+      }
+  });
+
+  $('#cancel_request').click(function(){
+
+    var user_id = $('#user_id').val();
+    var token = $('#token').val();
+    var trip_id = $('#trip_id').val();
+
+    $.ajax({
+      type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+      url         : '/canceltrip', /// the url where we want to POST
+      data        : {"user_id": user_id , "trip_id":trip_id, "token":token}, // our data object
+      datatype    :"json",
+      success:function(response){ 
+        trip_error('Trip Cancelled Successfully')
+        location.reload()
+      }
+    });
+  });
+
+  $('#ridelater').click(function(){
+    var now = $('#server_time').val();
+    var now_date = new Date(now);
+    var new_time = now_date.getTime() + <%= scheduled_request_pre_start_minute %>*60000;
+    new_time = new Date(new_time).toLocaleString("en-US", {timeZone: $('#timezone').val()})
+    new_time = new Date(new_time)
+    $('#date').datepicker("setStartDate", new_time );
+
+    $('#time').timepicker('setTime', new_time);
+      
+      $('#ridelater_modal').modal('show');
+  })
+
+  $('#ride_laters').click(function(){
+    if($('#date').val()=="" || $('#time').val() ==""){
+        $('#date_time_error').text("<%= config_json.title_select_data_time %>")
+    }else{
+       $.ajax({
+          type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+          url         : '/get_server_time', /// the url where we want to POST
+          data        : {}, // our data object
+          datatype    :"json",
+          success:function(response){ 
+              var now = response.server_date;
+              now = new Date(now).toLocaleString("en-US", {timeZone: $('#timezone').val()})
+              now = new Date(now)
+              
+              var time = $('#time').val()
+              time = time.split(':');
+              var date_time = $('#date').val()
+              date_time = new Date(date_time)
+              date_time.setHours(time[0])
+              date_time.setMinutes(time[1])
+              date_time.setSeconds(time[2])
+
+              var timeDiff = Math.abs(date_time.getTime() - now.getTime());
+             
+              
+
+              if(timeDiff/60000 >= <%= scheduled_request_pre_start_minute %>)
+              {
+                $('#date_time_error').text("")
+                $('#is_ride_later').val(1)
+                $('#start_time').val(timeDiff)
+                $('#ridelater_modal').modal('hide');
+                $("#signupForm").submit();
+              }
+              else
+              {
+                  $('#date_time_error').text("<%= config_json.title_select_prpper_time %>")
+              }
+          }
+      });
+      
+    }
+  })
+
+  $('#remove_promo').click(function(){
+
+      $('#apply_promo_message').text('');
+      $('#remove_promo').hide();
+      $('#promo1').val('');
+      $('#promoid').val('')
+  })
+  $('#s-option').change(function(){
+    var user_id = $('#user_id').val();
+      $.ajax({
+            type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/check_card', /// the url where we want to POST
+            data        : {"user_id": user_id}, // our data object
+            datatype    :"json",
+            success:function(response){
+              
+              if(response.success == false)
+              {
+                $("#f-option").prop('checked', true);
+                $("#no_card").modal('show');
+              }
+            }
+      });
+  })
+
+  $('#add_card').click(function(){
+
+    window.location.href = 'payments';
+  })
+
+  $('#date').datepicker({
+      format: 'yyyy-mm-dd',
+      startDate: new Date(Date.now())
+    });
+
+    $('#time').timepicker({
+          format: 'hh-ii-ss',
+          showSeconds: true,
+          showMeridian: false,
+          minuteStep: 5,
+          secondStep: 5
+    });
+
+    $(".cal_est input").click(function(){
+    
+});
+
+});
+
+
+</script>
+
+<style type="text/css" media="screen">
+.edit_input_rgt input[type="button"]{ width: auto;padding: 0 48px; background: #1a1d2e; color: #fff;font-family: 'RobotoMedium'; margin: 20px 12px 0 0px ;border: none;transition: all 0.5s ease 0s;}
+.edit_input_rgt input[type="button"]:hover{background: #047f8f;transition: all 0.5s ease 0s;}
+  
+</style>
+
+    <% if(typeof message != 'undefined'){ %>
+       <div class="alert alert-success" role="alert"  style="padding-top: 75px;margin-bottom: -135px;">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+          <p align="center"> <strong><%= message %></strong></p>
+      </div>
+    <% } %> 
+    <div class="alert alert-success" role="alert" id="request_error" style="padding-top: 95px;margin-bottom: -135px;display:none">
+            <button type="button" id="close" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+            <p align="center" id="request_message"> <strong></strong></p>
+  </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+       <input type="hidden" id="src_lat_lng" name="src_lat_lng" />
+          <input type="hidden" id="dest_lat_lng" name="dest_lat_lng" />
+
+
+
+        <input type="hidden"  name="server_time" id="server_time"  />
+        <input type="hidden" id="surge_start_time" name="surge_start_time" />
+          <input type="hidden" id="surge_end_time" name="surge_end_time" />
+        <form id="signupForm" class= "form-horizontal" method="post">
+
+          <input type="hidden"  name="timezone" id="timezone"  />
+          <input type="hidden"  name="rich_area_surge_multiplier" id="rich_area_surge_multiplier"  />
+          <input type="hidden"  name="city_id" id="city_id"  />
+              <input type="hidden" id="lat" name="latitude" />
+        <input type="hidden" id="lng" name="longitude" />
+        <input type="hidden" id="dlat" name="d_latitude" />
+        <input type="hidden"  name="trip_id" id="trip_id" />
+        <input type="hidden" id="dlng" name="d_longitude" />
+        <input type="hidden"  name="user_id" id="user_id" value="<%= user_data._id %>" />
+        <input type="hidden"  name="payment_id" id="payment_id" value="0" />
+
+         <input type="hidden"  name="city" id="city" />
+         <input type="hidden"  name="country" id="country" value="<%= user_data.country %>" />
+         <input type="hidden"  name="country_phone_code" value="<%= user_data.country_phone_code %>" />
+
+        <input type="hidden"  name="token" id="token" value="<%= user_data.token %>"  />
+        <input type="hidden"  name="is_surge_hours" id="is_surge_hours"  />
+        <input type="hidden"  name="surge_multiplier" id="surge_multiplier"  />
+        <input type="hidden" name="currency" id="currency">
+<!--      <input type="hidden" name="accessibility" id="accessibility">-->
+
+        <input type="hidden" name="user_type" value="0">
+        <input type="hidden"  name="user_type_id" value="<%= user_data._id %>"  />
+        <input type="hidden"  name="promo" id="promo1" />
+        <input type="hidden"  name="promoid" id="promoid" />
+        <input type="hidden" name="device" value="web">
+        <input type="hidden" name="is_ride_later" id="is_ride_later" value="0">
+        <input type="hidden" name="start_time" id="start_time">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 crea_lft_cied">
+                       <div class="box_selet_lft pay_method_box">
+                           <div class="box_sele_head">
+                                <h5><%= config_json.title_select_payment_method %></h5>
+                            </div>
+
+                            <div class="pay_redio_bg">
+                               <ul>
+                                  <li>
+                                    <input type="radio" id="f-option" value="1" name="payment_mode" id="payment_mode" checked>
+                                    <label for="f-option"><%= config_json.title_cash %> <span><img src="user_panel/images/chack_imf.png"></span></label>
+                                    <div class="check"></div>
+
+
+                                  </li>
+                                  
+                                  <li>
+                                    <input type="radio" id="s-option" value="0" name="payment_mode" id="payment_mode">
+                                    <label for="s-option"><%= config_json.title_card %> <span><img src="user_panel/images/card_img.png"></span></label>
+                                    
+                                    <div class="check"><div class="inside"></div></div>
+                                  </li>
+                                </ul>
+                            </div>
+
+                            <div class="pro_code_bg">
+                                <div class="box_sele_head">
+                                    <h5><%= config_json.title_promo_code %></h5>
+                                </div>
+
+                                <div class="pro_input">
+                                        <div class="edit_input_rgt pro_lft"><input id="promo" type="text" placeholder="Enter Promo Code" name="promo"></div>
+
+                                        
+
+                                    <div class="edit_input_rgt pro_rgt"><input name="apply_promo" id="apply_promo" value="Apply" class="act" type="button" style="padding: 0 26px;
+    margin: 0 0 0 10px;"></div>
+                                    
+
+                                    <a id="remove_promo" hidden="" style="margin-right: 12px;"><span class="fa fa-remove"></span></a>
+                                    <label id="apply_promo_message"></label>
+                                    <label style="color: red;" id="promo_error"></label>
+                                    
+                                
+                                </div>
+                            </div>
+                            
+
+
+                            <div class="pro_code_bg">
+                                <div class="box_sele_head">
+                                    <h5><%= config_json.title_select_type %></h5>
+                                </div>
+
+                                <div class="pro_input">
+                                    <div class=" pro_select">
+                                    <select id="service_type_id" name="service_type_id" class="selectpicker">
+                                    </select>
+                                    </div>
+                                    <lable id="message" style="color:red;" ></lable>
+                                </div>
+                            </div>
+
+
+
+
+<!--                            <div class="pro_code_bg">
+                                <div class="box_sele_head">
+                                    <h5><%= config_json.title_accessibility_peference %></h5>
+                                </div>
+
+                                <div class="pro_input">
+
+                                 <label class="check"><input type="checkbox" id="accessibility"  value="baby_seat" name="accessibility" class="icheckbox"/>Baby Seat</label>
+                                 <label class="check"><input type="checkbox" id="accessibility" value="hostpots" name="accessibility" class="icheckbox"/>Hostpots</label>
+                                                   
+                                </div>
+                            </div>-->
+
+
+
+
+
+
+                            <div class="sti_btn_bg cal_est">
+                                <div class="sti_btn_top">
+                                    <input type="button" id="calculate_estimate"  value="calculate estimate">
+                                </div>
+                            </div>
+
+                            <div class="pro_code_bg e_code_hied" style="display: none;">
+                                <div class="box_sele_head">
+                                    <h5><%= config_json.title_estimate %></h5>
+                                </div>
+
+                                <div class="stimate_bg">
+                                    <div class="sti_lft">
+                                        <h4><%= config_json.title_total_distance %></h4>
+                                        <p id="total_distance"></p>
+                                    </div>
+                                    <div class="sti_lft">
+                                        <h4><%= config_json.title_total_time %></h4>
+                                        <p id="total_time"></p>
+                                    </div>
+                                    <div class="sti_lft">
+                                        <h4><%= config_json.title_min_fair %></h4>
+                                        <p id="min_fare_lable"></p>
+                                    </div>
+                                </div>    
+                            </div>
+
+                            <div class="ride_bg">
+                                <div class="sti_btn_top">
+                                    <div class="ride_btn">
+                                        <input type="submit" id="ridenow"  value="RIDE NOW" class="act">
+                                    </div>
+                                    <div class="ride_btn">
+                                        <input type="button" id="ridelater"  value="RIDE later">
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+
+
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                        <div class="box_selet_lft pay_method_rgt">
+                            <div class="picu_add_top">
+                                <div class="picu_lft">
+                                
+                                    <label><%= config_json.title_enter_pickup_address %></label>
+                                    <input  id="pac-input" name="source_address" type="text" placeholder="<%= config_json.title_enter_pickup_address %>">
+                                    <label id="src_message" class="error"></label>
+                                </div>
+
+                                <div class="picu_lft">
+                                
+                                    <label><%= config_json.title_enter_dest_address %></label>
+                                    <input type="text"  id="pac-input1" name="destination_address" placeholder="<%= config_json.title_enter_dest_address %>">
+                                    <label id="dest_message" class="error"></label>
+                                </div>
+                            </div>
+
+                            <div class="map_cont_bg">
+                                <div id="map" class="map_cont"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        </form>
+      </div>
+
+      <!-- <div class="modal animated fadeIn" id="min_fare" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+          <div class="modal-dialog"  style="z-index:9999;">
+            <div class="modal-content">
+
+              <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                <div class="col-md-12">
+                  <lable style="font-size:30px;"><%= config_json.title_total_distance %></lable>
+                  <lable id="total_distance" style="font-size:30px; font-weight: 30px; float: right;"></lable>
+                </div>
+
+                <div class="col-md-12">
+                  <lable style="font-size:30px;"><%= config_json.title_total_time %></lable>
+                  <lable id="total_time" style="font-size:30px; font-weight: 30px; float: right;"></lable>
+                </div>
+
+                <div class="col-md-12">
+                  <lable style="font-size:30px;"><%= config_json.title_min_fair %></lable>
+                  <lable id="min_fare_lable" style="font-size:30px; font-weight: 30px; float: right;"></lable>
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-danger"  id="ridenow" style="height: 40px; width: 100%;  "><%= config_json.button_ride_now %></button>
+
+              </div>
+            </div>
+          </div>
+      </div> -->
+
+      <div style="overflow: hidden;" >
+          <button type="button" id="location" ><img  src="./map_pin/location.png" /></button>
+          <img src="./map_pin/pickup.png" id="image" />
+          <img src="./map_pin/destination.png" id="dest_pin" />
+      </div>
+
+
+      <div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="check_provider" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+        <div class="modal-dialog modal-sm"  style="z-index:9999;">
+          <div class="modal-content">
+            <div class="modal-body">
+              <!-- <img src="" id="img" style="width:70px; height:70px; border-radius:20px;"  />
+              <lable id="name" style="font-size:20px;"></lable> -->
+              <lable style="font-size:20px;">Waiting For Driver Accept</lable>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+              <input type="submit" id="cancel_request" class="submit btn btn-primary" value="cancel" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="promo_modal" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+        <div class="modal-dialog modal-sm"  style="z-index:9999;">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+              <label><%= config_json.button_apply_promo %></label>
+            </div>
+            <div class="modal-body">
+            
+              <div class="col-md-12">
+                  <input type="text" class="form-control" placeholder="Enter Promo Code" name="promo" id="promo" >
+                   <label style="color: red;" id="promo_error"></label>
+              </div>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+              <input type="button" class="btn btn-primary" name="apply_promo" id="apply_promo" value="Apply">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="ridelater_modal" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+        <div class="modal-dialog modal-sm"  style="z-index:9999;">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+              <label><%= config_json.title_select_date_time %></label>
+            </div>
+            <div class="modal-body">
+            
+
+              <div class="form-group col-md-12">
+                      <div class="col-md-12">
+                             <input type="text" class="form-control datepicker" placeholder="Select date" name="date" id="date" readonly/>
+                      </div>
+                </div>
+                <div class="form-group col-md-12">
+                      <div class="col-md-12">
+                             <input type="text" class="form-control timepicker" name="time" id="time" readonly />
+                      </div>
+                </div>
+                <lable id="date_time_error" class="error"></lable>
+
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+              <input type="button" class="btn btn-primary" id="ride_laters" value="Apply">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="no_card" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+        <div class="modal-dialog modal-sm"  style="z-index:9999;">
+          <div class="modal-content">
+            <div class="modal-body">
+            
+              <div class="col-md-12">
+               <label><%= admin_messages.title_please_add_card_first %></label>
+              </div>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+              <input type="button" class="btn btn-primary" id="add_card" value="Add Now">
+              <button type="button" class="btn btn-primary" data-dismiss="modal"><%= config_json.title_later %></button>
+            </div>
+          </div>
+        </div>
+      </div>
+<script type="text/javascript">
+ $('#ridenow').on('click',function()
+  {
+    
+    $('#signupForm').submit();
+  });
+</script>
+<% include user_footer.html %>

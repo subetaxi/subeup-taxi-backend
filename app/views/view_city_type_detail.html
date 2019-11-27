@@ -1,0 +1,328 @@
+<% include header.html %>
+    <!-- PAGE TITLE -->
+
+    <!-- END PAGE TITLE -->
+
+    <!-- PAGE CONTENT WRAPPER -->
+    <div class="page-content-wrap">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <form class="form-horizontal" method="post" action="/update_city_type_detail">
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+
+                                        <label class="col-md-3 control-label"><%= config_json.title_country %></label>
+
+                                        <div class="col-md-8">
+                                            <div class="col-md-8 col-xs-7">
+                                                <input type="text" class="form-control" name="countryid" id="countryid" value="<%= city_type_data.countryname %>"
+                                                   disabled="true"  />
+                                               
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><%= config_json.title_city %></label>
+
+                                        <div class="col-md-8">
+                                            <div class="col-md-8 col-xs-7">
+                                                
+                                                 <input type="text" class="form-control" name="cityname" id="cityname" value="<%= city_type_data.cityname %>"
+                                                  disabled="true"  />
+
+                                               
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"><%= config_json.title_type %></label>
+
+                                        <div class="col-md-8">
+                                            <div class="col-md-8 col-xs-7">
+                                                
+                                                <input type="text" class="form-control" name="typename" id="typename" value="<%= typename %>"
+                                                  disabled="true"  />
+                                                
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_provider_profit %></label>
+
+                                        <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="provider_profit" id="provider_profit" value="<%= city_type_data.provider_profit %>"
+                                                   disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_distance_for_base_price %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <select name="distance_for_base_price" class="form-control" disabled="true">
+	               <%for (i=0; i<=23; i++) {
+	                    if (city_type_data.base_price_distance == i) { %>
+	                        <option value="<%= i %>" selected=""><%= i %></option>
+	                   <% }else { %>
+	                        <option value="<%= i %>" ><%= i %></option>
+	                        <% } %>
+	                 <% } %>
+	            </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_price_per_unit_distance %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="price_per_unit_distance" id="price_per_unit_distance" value="<%= city_type_data.price_per_unit_distance %>"
+                                                    disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_waiting_time_start_after_minute %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="waiting_time_start_after_minute" id="waiting_time_start_after_minute" value="<%= city_type_data.waiting_time_start_after_minute %>"
+                                                    disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_tax %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="tax" id="tax" value="<%= city_type_data.tax %>" onkeypress="return isNumberKey(event);"
+                                               disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_is_surge_hours %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <select class="form-control select" name="is_surge_hours" disabled="true">
+									<% if(city_type_data.is_surge_hours == "1") { %>
+
+									<option value="1" selected = "selected"><%= config_json.title_on %></option>
+									<option value="0"><%= config_json.title_off %>OFF</option>
+									<% } else{ %>
+
+									<option value="1"><%= config_json.title_on %>ON</option>
+									<option value="0" selected = "selected"><%= config_json.title_off %></option>
+									<% } %>
+								</select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_surge_time_start %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <select name="surge_start_hour" class="form-control" disabled="true">
+	               <%for (i=0; i<=23; i++) {
+	                    if (city_type_data.surge_start_hour == i) { %>
+	                        <option value="<%= i %>" selected=""><%= i %></option>
+	                   <% }else { %>
+	                        <option value="<%= i %>" ><%= i %></option>
+	                        <% } %>
+	                 <% } %>
+	            </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_min_fair %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="min_fare" id="min_fare" value="<%= city_type_data.min_fare %>" onkeypress="return isNumberKey(event);"
+                                             disabled="true"   />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_base_price %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="base_price" id="base_price" value="<%= city_type_data.base_price %>" onkeypress="return isNumberKey(event);"
+                                               disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_price_for_total_unit_time %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="price_for_total_time" id="price_for_total_time" value="<%= city_type_data.price_for_total_time %>"
+                                                   disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_price_for_waiting_time %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="price_for_waiting_time" id="price_for_waiting_time" value="<%= city_type_data.price_for_waiting_time %>"
+                                                    disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_cancellation_fee %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="cancellation_fee" id="cancellation_fee" value="<%= city_type_data.cancellation_fee %>"
+                                                   disabled="true"/>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_surge_multiplier %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="surge_multiplier" id="surge_multiplier" value="<%= city_type_data.surge_multiplier %>"
+                                                    disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_surge_time_end %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <select name="surge_end_hour" class="form-control" disabled="true">
+	               <%for (i=0; i<=23; i++) {
+	                    if (city_type_data.surge_end_hour == i) { %>
+	                        <option value="<%= i %>" selected=""><%= i %></option>
+	                   <% }else { %>
+	                        <option value="<%= i %>" ><%= i %></option>
+	                        <% } %>
+	                 <% } %>
+	            </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label"><%= config_json.title_max_space %></label>
+
+                                       <div class="col-md-6">
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="max_space" id="max_space" value="<%= city_type_data.max_space %>" onkeypress="return isNumberKey(event);"
+                                               disabled="true" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+    <!-- END PAGE CONTENT -->
+    </div>
+    <!-- END PAGE CONTAINER -->
+
+
+    
+    <% include footer_form.html %>

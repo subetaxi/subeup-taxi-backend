@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>           
+    <meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="new_design/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="new_design/css/magnific-popup.css" />
+	<link rel="stylesheet" type="text/css" href="new_design/css/style.css" />
+	<title><%= constant_json.app_name %></title>
+	<script type="text/javascript" src="new_design/js/jquery.min.js"></script>
+	<script type="text/javascript" src="new_design/js/jquery-ui.js"></script>
+	<script type="text/javascript" src="new_design/js/jquery.magnific-popup.min.js"></script>
+        <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+	
+	<script src="new_design/js/owl.carousel.js"></script>
+	
+</head>
+
+<body>
+	
+	<header>
+		<div class="top shadownone">
+			<div class="container">
+				<div class="top_l">
+					<h1><a href="/">SubeUp</a></h1>
+					<div class="menu">
+						<!-- <ul>
+							<% if(typeof page_type != 'undefined' && page_type == 1){ %>
+								<li class="active">
+							<% } else { %>
+								<li>
+							<% } %>
+
+								<a href="/ride">Ride</a>
+								<div class="dropdown">
+									<div class="container">
+										<ul>
+											<li><a href="/ride">Overview</a></li>
+											<li><a href="/how-it-works">How it Works</a></li>
+											<li><a href="/fare-estimate">Fare Estimator</a></li>
+											<li><a href="safety">Safety</a></li>
+											<li><a href="cities">Cities</a></li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<% if(typeof page_type != 'undefined' && page_type == 2){ %>
+								<li class="active">
+							<% } else { %>
+								<li>
+							<% } %><a href="/drive">Drive</a>
+								<div class="dropdown">
+									<div class="container">
+										<ul>
+											<li><a href="/drive">Overview</a></li>
+											<li><a href="/requirements">Requirements</a></li>
+											<li><a href="/driver-app">Driver App</a></li>
+											<li><a href="/driver-safety">Safety</a></li>
+										</ul>
+									</div>
+								</div>
+							</li>
+						</ul> -->
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="top_r">
+					<div class="menu2">
+						<ul>
+							<li><a href="#">HELP</a></li>
+							<% if(typeof page_type != 'undefined' && page_type == 3){ %>
+							<li class="active">
+								<% } else { %>
+							<li>
+								<% } %>
+							<a href="sign-in">SIGN IN</a></li>
+						</ul>
+					</div>
+					<!-- <div class="map">
+						<a href="#"><i class="fa fa-map-marker"></i></a>
+					</div>
+					<div class="bcome_driver">
+						<a href="#" class="btn">Become a driver</a>
+					</div> -->
+					<!-- <div class="slide_menu">
+						<div id="menuArea">
+						  <input type="checkbox" id="menuToggle"></input>
+
+						<label for="menuToggle" class="menuOpen">
+						  <div class="open"></div>
+						</label>
+
+						<div class="menut menuEffects">
+						  <label for="menuToggle"></label>
+						  <div class="menuContent">
+							<div class="container">
+								<div class="hover_menu">
+									<div class="col_2">
+										<p><a href="/ride">Ride</a></p>
+										<ul>
+											<li><a href="/ride">Overview</a></li>
+											<li><a href="/how-it-works">How it Works</a></li>
+											<li><a href="/fare-estimate">Fare Estimator</a></li>
+											<li><a href="/safety">Safety</a></li>
+											<li><a href="/cities">Cities</a></li>
+										</ul>
+									</div>
+									<div class="col_2">
+										<p><a href="/drive">Drive</a></p>
+										<ul>
+											<li><a href="/drive">Overview</a></li>
+											<li><a href="/requirements">Requirements</a></li>
+											<li><a href="/driver-app">Driver App</a></li>
+											<li><a href="/driver-safety">Safety</a></li>
+										</ul>
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="accordion_div">
+									<ul id="accordion" class="accordion">
+									  <li>
+										<div class="link"><h5>Ride</h5><i class="fa fa-chevron-down"></i></div>
+										<ul class="submenu">
+											<li><a href="/ride">Overview</a></li>
+											<li><a href="/how-it-works">How it Works</a></li>
+											<li><a href="/fare-estimate">Fare Estimator</a></li>
+											<li><a href="/safety">Safety</a></li>
+											<li><a href="/cities">Cities</a></li>
+										</ul>
+									  </li>
+									  <li>
+										<div class="link"><h5>Drive</h5><i class="fa fa-chevron-down"></i></div>
+										<ul class="submenu">
+										    <li><a href="/drive">Overview</a></li>
+											<li><a href="/requirements">Requirements</a></li>
+											<li><a href="/driver-app">Driver App</a></li>
+											<li><a href="/driver-safety">Safety</a></li>
+										</ul>
+									  </li>
+									</ul>
+								</div>
+								<div class="hover_location">
+									<div class="col_2">
+										<a href="/fare-estimate"><i class="fa fa-map-marker"></i>WHAT CITY ARE YOU IN?</a>
+									</div>
+									<div class="col_2">
+										ENGLISH
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="hover_soc_icon">
+									<p>Follow Us</p> 
+									<a href="https://www.facebook.com/ElluminatiIndia"><i class="fa fa-facebook"></i></a>
+									<a href="https://twitter.com/elluminatiIndia"><i class="fa fa-twitter "></i></a>
+									<a href="https://www.linkedin.com/company/elluminati/"><i class="fa fa-linkedin-square"></i></a>
+									<a href="https://www.instagram.com/elluminatiinc/"><i class="fa fa-instagram"></i></a>
+									<div class="clear"></div>
+								</div>
+							</div>
+						  </div>
+						</div>
+						</div>
+					</div> -->
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		
+	</header>
+	
+	
+	
+</body>
+</html>

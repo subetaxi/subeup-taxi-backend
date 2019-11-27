@@ -1,0 +1,10 @@
+{"message":{"id":"5ddc62325a1e953c8aced0a5","cityids":"5ddc5c905a1e953c8aced0a4","max_space":"4","provider_profit":"90","min_fare":"2.20","base_price_distance":"1","base_price":"4","price_per_unit_distance":"1","price_for_total_time":"0.35","waiting_time_start_after_minute":"0","price_for_waiting_time":"0","is_car_rental_business":"0","is_business":"0","cancellation_fee":"6","tax":"1","user_miscellaneous_fee":"0","user_tax":"0","provider_miscellaneous_fee":"0","provider_tax":"0","is_zone":"1","is_surge_hours":"1","amount":[""],"submit":"submit"},"level":"info"}
+{"message":{"id":"5ddc62325a1e953c8aced0a5","cityids":"5ddc5c905a1e953c8aced0a4","max_space":"4","provider_profit":"90","min_fare":"2.20","base_price_distance":"1","base_price":"4","price_per_unit_distance":"1","price_for_total_time":"0.35","waiting_time_start_after_minute":"0","price_for_waiting_time":"0","is_car_rental_business":"0","is_business":"0","cancellation_fee":"6","tax":"1","user_miscellaneous_fee":"0","user_tax":"0","provider_miscellaneous_fee":"0","provider_tax":"0","is_zone":"1","is_surge_hours":"1","amount":[""],"submit":"submit"},"level":"info"}
+{"message":{"id":"5ddc62325a1e953c8aced0a5","cityids":"5ddc5c905a1e953c8aced0a4","max_space":"4","provider_profit":"90","min_fare":"2.20","base_price_distance":"1","base_price":"4","price_per_unit_distance":"1","price_for_total_time":"0.35","waiting_time_start_after_minute":"0","price_for_waiting_time":"0","is_car_rental_business":"0","is_business":"0","cancellation_fee":"6","tax":"1","user_miscellaneous_fee":"0","user_tax":"0","provider_miscellaneous_fee":"0","provider_tax":"0","is_zone":"1","is_surge_hours":"1","amount":[""],"submit":"submit"},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{"provider_page_type":"online_providers","page":"1","sort_item":["created_at","1"],"search_item":"first_name","search_value":"odalis","start_date":"","end_date":""},"level":"info"}
+{"message":[],"level":"info"}

@@ -1,0 +1,408 @@
+<% include header.html %>
+
+<!-- PAGE TITLE -->
+
+<!-- END PAGE TITLE -->
+
+<link href="css/fSelect.css"
+    rel="stylesheet" type="text/css" />
+<script src="js/fSelect.js"
+    type="text/javascript"></script>
+<script>
+(function($) {
+    $(function() {
+        $('#cityid').fSelect({
+            placeholder: 'Select City',
+            numDisplayed: 3,
+            overflowText: '{n} selected',
+            searchText: 'Search',
+            showSearch: true
+        });
+    });
+})(jQuery);
+</script>
+<div class="alert alert-success" role="alert" id="promo_error" style="display:none">
+    <button type="button" id="close" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+    <p align="center" id="message"> <strong></strong></p>
+</div>
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="col-md-6 col-sm-8 col-xs-12">
+        <% if(typeof data != 'undefined'){ %>
+
+        <form class="form-horizontal" method="post" id="update_form" action="/promocodeupdate">
+            <div class="panel panel-default">
+                <div class="panel-body form-group-separated">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" value="<%= data.id %>" name="id" />
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_promo %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" class="form-control" value="<%= data.promocode %>" name="promocode" disabled/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_value %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" class="form-control" onkeypress="return isNumberKey(event);" value="<%= data.code_value %>" name="code_value" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_promo_type %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <% if(data.code_type == 1)
+                            { %>
+                            
+                                <select class="form-control select" name="code_type" id="code_type">
+                                    <option selected disabled hidden style='display: none'><%= config_json.title_select_type %></option>
+                                    <option value="1" selected><%= config_json.title_absolute %></option>
+                                    <option value="2"><%= config_json.title_percentage %></option>
+                                </select>
+                            <% } else { %>
+                                <select class="form-control select" name="code_type" id="code_type">
+                                    <option selected disabled hidden style='display: none'><%= config_json.title_select_type %></option>
+                                    <option value="1"><%= config_json.title_absolute %></option>
+                                    <option value="2" selected><%= config_json.title_percentage %></option>
+                                </select>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_country %></label>
+                        <div class="col-md-9 col-xs-7">
+
+                            <input type="text" class="form-control" value="<%= data.countryname %>" name="countryid" id="countryid" disabled />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_city %></label>
+                        <div class="col-md-9">
+                            <label id="city_error" style="color: #b64645;margin-bottom: 0px;margin-top: 3px;font-size: 11px;font-weight: normal;width: 100%; display: none;">This field is required</label>
+                            <select id="cityid" multiple="multiple" name="cityid[]">
+                                <optgroup label='City List'>
+                                    <% data.selected_city_detail.forEach(function(city){ %>
+                                        <option value="<%= city._id %>" selected><%= city.cityname %></option>
+                                    <% }) %>
+                                    <% data.city_detail.forEach(function(city){ %>
+                                        <option value="<%= city._id %>"><%= city.cityname %></option>
+                                    <% }) %>
+                                </optgroup>
+                            </select>
+                    
+                        </div>                    
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_number_of_uses %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" class="form-control" onkeypress="return isNumberKey(event);" value="<%= data.code_uses %>" name="code_uses"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_start_date %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" class="form-control datepicker" value="<%= moment(data.start_date).tz(timezone_for_display_date).format('YYYY-MM-DD') %>" id="start_date"
+                                   name="start_date" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_expiry_date %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" class="form-control datepicker" value="<%= moment(data.code_expiry).tz(timezone_for_display_date).format('YYYY-MM-DD') %>" id="code_expiry"
+                                   name="code_expiry" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 col-xs-12">
+                            <button class="btn btn-primary btn-rounded pull-right" type="submit" name="submit" value="submit"><%= config_json.button_save %></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <% }else{ %>
+        <form class="form-horizontal" method="post" id="promoform" action="/add_promocode">
+            <div class="panel panel-default">
+                <div class="panel-body form-group-separated">
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_promo %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" class="form-control" id="promocode" name="promocode" />
+                            <div id="citypromo"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_value %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" class="form-control" onkeypress="return isNumberKey(event);" id="code_value" name="code_value" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_promo_type %></label>
+                        <div class="col-md-9">
+                            <select class="form-control select" name="code_type" id="code_type">
+                                <option selected disabled hidden style='display: none'><%= config_json.title_select_type %></option>
+                                <option value="1"><%= config_json.title_absolute %></option>
+                                <option value="2"><%= config_json.title_percentage %></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_number_of_uses %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" onkeypress="return isNumberKey(event);" class="form-control" id="code_uses" name="code_uses" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_country %></label>
+                        <div class="col-md-9">
+                            <select class="form-control select" name="countryid" id="countryid">
+
+                                <% promo_country.forEach(function(country_data) { %>
+                                <option selected disabled hidden style='display: none'><%= config_json.title_select_country %></option>
+                                <option value="'<%= country_data._id %>'"><%= country_data.countryname %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_city %></label>
+                        <div class="col-md-9">
+                            <select class="form-control select" name="cityid">
+                                <option selected disabled hidden style='display: none'><%= config_json.title_select_city %></option>
+                            </select>
+                        </div>
+                    </div> -->
+
+                    <div class="form-group">
+
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_city %></label>
+
+                        <div class="col-md-9">
+                            <label id="city_error" style="color: #b64645;margin-bottom: 0px;margin-top: 3px;font-size: 11px;font-weight: normal;width: 100%; display: none;">This field is required</label>
+                            <select id="cityid" multiple="multiple" name="cityid[]">
+                                <optgroup id="append" label='City List'>
+                                </optgroup>
+                            </select>
+                    
+                        </div>                    
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_start_date %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" class="form-control datepicker" id="start_date" name="start_date" readonly="true" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_expiry_date %></label>
+                        <div class="col-md-9 col-xs-7">
+                            <input type="text" class="form-control datepicker" id="code_expiry" readonly="true" name="code_expiry" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 col-xs-12">
+                            <button class="btn btn-primary btn-rounded pull-right" type="submit" id="submit" name="submit" value="submit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <% } %>
+    </div>
+</div>
+<!-- END PAGE CONTENT WRAPPER -->
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        {
+            if (charCode == 46)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    $(document).ready(function () {
+
+        $('#start_date').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: new Date(Date.now())
+
+        }).on("input change", function (e) {
+            var end_date = $('#start_date').datepicker('getDate');
+            end_date.setDate(end_date.getDate() + 1);
+            $('#code_expiry').datepicker('setStartDate', end_date);
+        });
+
+        $('#code_expiry').datepicker({
+            format: 'yyyy-mm-dd'
+
+        }).on("input change", function (e) {
+            var start_date = $('#code_expiry').datepicker('getDate');
+            start_date.setDate(start_date.getDate() - 1);
+            $('#start_date').datepicker('setEndDate', start_date);
+        });
+
+        $('#close').click(function () {
+
+            $('#promo_error').hide();
+        });
+
+        $(document).on('change' , '#countryid' ,function () {
+     
+            var countryid = document.getElementById('countryid').value;
+
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_city_list',
+                data: 'countryid=' + countryid,
+                dataType: "json",
+                success: function (res) {
+
+                    // if (res != "")
+                    // {
+                    //     $("#cityid").append("<option value=1>All city</option>");
+                    // }
+                    //$("#cityid").append("<option selected disabled hidden style='display: none'>Select City...</option>");
+                     $("#append").empty();  
+                     $(".fs-optgroup").empty();
+                    for (var index in res)
+                    {
+                        var city_name = res[index].cityname;
+                        var city_id = res[index]._id;
+                       
+                        $("#append").append("<option value='" + city_id + "'> " + city_name + "</option>");
+                        $(".fs-optgroup").append(" <div class='fs-option' data-value=" + city_id + " data-index=" + city_id + "><span class='fs-checkbox'><i></i></span><div class='fs-option-label'>" + city_name + "</div></div>");
+                        //$('#cityid').fSelect();
+                    }
+                    $('#cityid').fSelect({
+                        placeholder: 'Select City',
+                        numDisplayed: 3,
+                        overflowText: '{n} selected',
+                        searchText: 'Search',
+                        showSearch: true
+                    });
+
+                    //$('#cityid').selectpicker('refresh');
+                }
+            });
+
+        });
+
+        $("#update_form").validate({
+            ignore: [],
+            rules: {
+                promocode: "required",
+                code_type: "required",
+                code_value: "required",
+                code_uses: "required",
+                cityid: "required",
+                countryid: "required",
+                start_date: "required",
+                code_expiry: "required"
+            },
+            submitHandler: function (form) {
+                var cityid = document.getElementById('cityid').value;
+                if(cityid == "")
+                {
+                    $("#city_error").show();
+                }
+                else
+                {
+                    $("#update_form").get(0).submit();
+                    $("#city_error").hide();
+                }
+            }
+        });
+
+        $("#promoform").validate({
+            ignore: [],
+            rules: {
+                promocode: "required",
+                code_type: "required",
+                code_value: "required",
+                code_uses: "required",
+                cityid: "required",
+                countryid: "required",
+                start_date: "required",
+                code_expiry: "required"
+            },
+            submitHandler: function (form) {
+
+
+                var countryid = document.getElementById('countryid').value;
+                var cityid = document.getElementById('cityid').value;
+                var promocode = document.getElementById('promocode').value;
+
+                if(cityid == "")
+                {
+                    $("#city_error").show();
+                }
+                else
+                {
+                    $("#city_error").hide();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/check_valid_promocode',
+                        data: {'countryid': countryid, 'promocode': promocode},
+                        dataType: "json",
+                        success: function (res) {
+
+
+                            if (res.success == true)
+                            {
+
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/add_promocode',
+                                    data: $("#promoform").serialize(),
+                                    dataType: "json",
+                                    success: function (res) {
+
+                                        window.location.href = '/promotions';
+                                    }
+                                });
+                            } else
+                            {
+                                $('#promo_error').show();
+                                setTimeout(function () {
+                                    $('#promo_error').hide();
+                                }, 3000);
+                                document.getElementById('message').innerHTML = res.message;
+                            }
+                        }
+                    }); 
+                }
+
+
+
+            }
+        });
+
+
+
+    });
+</script>
+
+
+
+
+
+<% include footer_form.html %>

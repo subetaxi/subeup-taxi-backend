@@ -1,0 +1,203 @@
+<% include provider_header.html %>
+<% if(typeof message != 'undefined'){ %>
+<div class="alert alert-success" role="alert" style="padding-top: 75px;margin-bottom: -135px;">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+    <p align="center"><%= message %></p>
+</div>
+<% } %>
+
+<style type="text/css">
+   .modal-dialog{
+        z-index: 999999;
+   } 
+</style>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pro_lft1">
+            <div class="row">
+                <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box_selet_lft">
+                        <div class="box_sele_head">
+                            <h5>Edit Profile</h5>
+                        </div>
+                        <form class="form-horizontal" id="editForm" enctype="multipart/form-data" method="post" action="/provider_profile_update">
+                            <div class="edit_pro_cont_bg">
+                                <div class="edit_pro">
+
+                                    <div class="box">
+                                        
+                                        <input id="sample_input" type="hidden" name="pictureData">
+                                        <label for="file-1"><span><div class="edit_img"><img  src="<%= login1.picture  != '' ?  setting_detail.image_base_url + login1.picture : 'default.png' %>" id="abc"></div></span></label>
+                                    </div>
+                                </div>
+
+                                <div class="cont_pro">
+                                        <input type="hidden" name="id" value="<%= login1._id %>" />
+                                        
+                                        <div class="edit_input">
+                                            <div class="edit_label"><label><%= config_json.title_first_name %></label></div>
+                                            <div class="edit_input_rgt"><input id="first_name" type="text" name="first_name" value="<%= login1.first_name %>"  placeholder="First Name"></div>
+                                        </div>
+                                        <div class="edit_input">
+                                            <div class="edit_label"><label><%= config_json.title_last_name %></label></div>
+                                            <div class="edit_input_rgt"><input id="last_name" type="text" value="<%= login1.last_name %>" placeholder="Last Name" name="last_name"></div>
+                                        </div>
+                                        <div class="edit_input">
+                                            <div class="edit_label"><label><%= config_json.title_email %></label></div>
+                                            <div class="edit_input_rgt"><input id="email" type="text" value="<%= login1.email %>" class="form-control" placeholder="Email" name="email" readonly></div>
+                                        </div>
+
+                                        <div class="edit_input">
+                                            <div class="edit_label"><label><%= config_json.title_phone %></label></div>
+                                            <div class="edit_input_rgt">
+                                                <div class="edt_lft"><input id="contry" type="text" name="country_phone_code" class="form-control" value="<%= login1.country_phone_code %>" readonly></div>
+                                                <div class="edt_rgt"><input id="number" type="text" name="phone" value="<%= login1.phone %>" onkeypress="return isNumberKey(event)" maxlength="<%= phone_number_length %>"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="edit_input">
+                                            <div class="edit_label"><label><%= config_json.title_address %></label></div>
+                                            <div class="edit_input_rgt"><input type="text" value="<%= login1.address %>" class="form-control" placeholder="Address" name="address"></div>
+                                        </div>
+
+                                        <div class="edit_input">
+                                            <div class="edit_label"><label><%= config_json.title_old_password %></label></div>
+                                            <div class="edit_input_rgt"><input id="password" type="Password" name="old_password" placeholder="* * * * * * *"></textarea></div>
+                                        </div>
+
+                                        <div class="edit_input">
+                                            <div class="edit_label">&nbsp;</div>
+                                            <div class="edit_input_rgt">
+                                                <input type="submit" name="" value="<%= config_json.button_update %>" class="act">
+                                            </div>
+                                        </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pro_lft1">
+            <div class="row">
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box_selet_lft">
+                    <div class="box_sele_head">
+                        <h5>CHANGE PASSWORD</h5>
+                    </div>
+
+                    <div class="edit_pro_cont_bg">
+                        <div class="cont_pro">
+                            <form  id="change_password_form" method="post" action="/change_password">
+                                <input type="hidden" name="id" value="<%= login1._id %>" />    
+                                <input type="hidden" name="type" value="2" />      
+                                <div class="edit_input">
+                                    <div class="edit_label"><label>Old Password</label></div>
+                                    <div class="edit_input_rgt"><input class="form-control" id="old_password" name="old_password" type="Password" placeholder="* * * * * * *"></div>
+                                </div>
+
+                                <div class="edit_input">
+                                    <div class="edit_label"><label>New Password</label></div>
+                                    <div class="edit_input_rgt"><input class="form-control" id="new_password" name="new_password" type="Password" placeholder="* * * * * * *"></textarea></div>
+                                </div>
+
+                                <div class="edit_input">
+                                    <div class="edit_label"><label>Re-enter New Password</label></div>
+                                    <div class="edit_input_rgt"><input class="form-control" id="confirm_password" name="confirm_password" type="Password" placeholder="* * * * * * *"></textarea></div>
+                                </div>
+
+                                <div class="edit_input">
+                                    <div class="edit_label">&nbsp;</div>
+                                    <div class="edit_input_rgt">
+                                        <input type="submit" name="" value="UPDATE" class="act">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+<!--menu left section-->
+</div>
+<link href="css/image-cropper/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="css/image-cropper/jquery.awesome-cropper.css">
+
+<script src="js/image-cropper/jquery.imgareaselect.js"></script> 
+<script src="js/image-cropper/jquery.awesome-cropper1.js"></script> 
+
+ <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
+<script type="text/javascript">
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+$(document).ready(function () {
+        $('#sample_input').awesomeCropper(
+            { width: 150, height: 150, debug: true }
+        );
+    });
+
+   
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+
+    $(function() {
+        $( "#editForm" ).validate({
+           rules: {
+             first_name: "required",
+             last_name: "required",
+            old_password: {
+              minlength: 6  ,
+              required: true
+            },
+            email: {
+              required: true,
+              email: true
+              
+            },
+            phone: {
+              required: true,
+              minlength: <%= phone_number_min_length %>,
+              maxlength: <%= phone_number_length %>
+            },
+
+          }
+        });
+        $("#change_password_form").validate({
+            rules: {
+                old_password: {
+                  minlength: 6  ,
+                  required: true
+                },
+                new_password: {
+                    minlength: 6,
+                  required: true
+                },
+                confirm_password: {
+                    minlength: 6,
+                    equalTo : "#new_password",
+                  required: true
+                }
+            }
+        });
+    });
+</script>    
+
+<% include provider_footer.html %> 

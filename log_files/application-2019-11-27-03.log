@@ -1,0 +1,66 @@
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{"provider_id":"5ddd17305a1e953c8aced0d5","provider_page_type":"approved_providers"},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{"provider_id":"5ddc9c705a1e953c8aced0b9","provider_page_type":"pending_for_approvel"},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":[],"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"message_id":2364802944683251000},"level":"info"}
+{"message":{"multicast_id":7925323790041468000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574826487173503%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":"diff: 54278.00","level":"info"}
+{"message":"diff: 54279.00","level":"info"}
+{"message":"diff: 54279.00","level":"info"}
+{"message":"diff: 54281.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":6865237809669607000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574826512965132%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":3888099075569931300},"level":"info"}
+{"message":"diff: 54362.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7487829825607464000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574826577963436%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6064238941798831000},"level":"info"}
+{"message":"diff: 54370.00","level":"info"}
+{"message":"diff: 54373.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3670197298602893000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574826695975282%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":3699709377656525000},"level":"info"}
+{"message":"diff: 54488.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1286156791063136500,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574826704273927%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":8255418661583407000},"level":"info"}
+{"message":"diff: 54496.00","level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":"diff: 54507.00","level":"info"}
+{"message":"diff: 54510.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4633795285387692000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574826735805748%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6045733624031110000},"level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 198sm6319769qkn.70 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":"mail sent user invoice","level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials n185sm6142018qkd.32 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7349833789446275000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574826750077132%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":1668457672003803100},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 03:52:41 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 03:52:41 GMT+0000 (UTC)","level":"info"}
+{"message":{},"level":"info"}

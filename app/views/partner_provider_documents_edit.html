@@ -1,0 +1,104 @@
+<% include header.html %>
+    <% if(typeof message != 'undefined'){ %>
+              <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                <p align="center"><%= message %></p>
+              </div>
+    <% } %>
+
+    <div class="page-content-wrap">
+        <form class="form-horizontal" id="editForm" enctype="multipart/form-data" method="post" action="/partner_provider_documents_update">
+            <div class="panel panel-default">
+                <div class="panel-body form-group-separated">   
+                     
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_document_picture %></label>
+                        <div class="col-md-3">
+                            <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" id="profile_image" name="document_picture" title="Change Document Picture"/>
+                          <br>
+                          <img src="<%= detail.document_picture  != '' ?  setting_detail.image_base_url + detail.document_picture : 'default.png' %>"  id="profile_sel_img" class="img-thumbnail" style="height:70px; width:100px;" />
+                            
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" name="id" value="<%= detail._id %>" />
+
+                    <% if(detail.is_expired_date ==true) { %> 
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"><%= config_json.title_expiry_date %></label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control datepicker"  placeholder="Expiry Date" name="expired_date" id="expired_date" readonly
+                                value="<%= moment(detail.expired_date).format('YYYY-MM-DD') %>" />
+                            </div>
+                        </div>
+                    <% } %>
+                    
+                    <% if(detail.is_unique_code ==true) { %> 
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"><%= config_json.title_unique_code %></label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" value="<%= detail.unique_code %>" placeholder="Unique Code" name="unique_code" id="unique_code" />
+                            </div>
+                        </div>
+                    <% } %>
+                                  
+                    <div class="form-group">
+                        <div class="col-md-12 col-xs-5">
+                            <button class="btn btn-primary btn-rounded pull-right" type="submit" name="update" value="update" id="update"> <%= config_json.button_update %></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+            
+
+<script type="text/javascript">
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+var _URL = window.URL || window.webkitURL;
+        $("#profile_image").change(function(e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#profile_sel_img').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(profile_image.files[0]);
+
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+
+</script>   
+              
+<script>
+    $(function() {
+
+        $('#expired_date').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: new Date(Date.now()),
+            autoclose: true
+
+        });
+
+
+     $( "#editForm" ).validate({
+       rules: {
+         
+      }
+    });
+    });
+</script>     
+
+<% include footer_form.html %>

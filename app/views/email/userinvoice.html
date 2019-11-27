@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><%= config_json.email_title_user_invoice %></title>
+    </head>
+    <body style="background-color: #F1F1F1;margin:0;padding: 0;font-family: sans-serif;">
+        <div class="head-wrap" style="background-color: #0492A4;">
+            <img style="width: 100%;" src="<%= mail_title_image_url %>" alt="logo"></img>
+        </div>
+        <table style="background-color: #000c18;width: 100%;">
+            <tr>
+                <td style="padding: 0;text-align: center;padding-top: 10px;padding-bottom: 10px;color: #FFFFFF;">
+                    <div style="text-align: left;width: 100%;max-width: 300px;display: inline-block;vertical-align: top;font-size: 1.5em;">
+                        <%= currency %> <%= total %>
+                    </div>
+                    <div style="text-align: right;width: 100%;color: #FFFFFF;max-width: 300px;display: inline-block;vertical-align: top;font-size: .8em;margin-top:.8em;">
+                        <%= config_json.email_title_main %> <%= title %>, <%= user_name %>!
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table style="width: 100%;">
+            <tr>
+                <td style="padding: 0;text-align: center;padding-top: 10px;padding-bottom: 0px;">
+                    <div style="text-align: left;width: 100%;max-width: 300px;display: inline-block;vertical-align: top;font-size: 1.5em;">
+                        <table style="border-spacing: 0;font-family: sans-serif;color: #333333;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px;">
+                                        <table style="border-spacing: 0;font-family: sans-serif;color: #333333;width: 100%;font-size: 14px;text-align: left;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding: 0px 0px 10px 0px;">
+                                                        <span style="float: none;display: block;text-align: left;"><%= config_json.email_title_location %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0px; background-color: #FFFFFF; border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px; overflow: hidden;">
+                                                        <span style="margin-top: 5px;float: none;display: block;text-align: left;">
+                                                             <img style="width: 100%;" src="<%= map_url %>" alt=""></img>
+                                                        </span>
+                                                        <span style="float: none;display: block;text-align: left;">
+                                                            <p style="float: left; width: 25%;text-align: center;margin-top: 2.1em;">
+                                                                <img style="width: 100%;" src="" alt=""></img>
+                                                                <span style="position: relative;top: -12px;"><%= service_type_name %></span>
+                                                            </p>
+                                                            <p style="float: right;width: 75%;margin: 10px 0px 0px 0px;">
+                                                                <span style="float: left;width: 12%;">
+                                                                    <img style="width: 20px;margin: 5px;" src="<%= pickup_small_pin_url %>" alt="FROM"></img>
+                                                                </span>
+                                                                <span style="float: right;width: 85%;">
+                                                                    <strong style="font-size: 11px"><%= config_json.email_title_from %></strong>
+                                                                    <br>
+                                                                        <span style="color: #919191;font-size: 11px;"><%= source_address %></span>
+                                                                </span>
+                                                            </p>
+                                                            <p style="float: right;width: 75%;margin:5px 0px;">
+                                                                <span style="float: left;width: 12%;">
+                                                                    <img style="width: 20px;margin: 5px;" src="<%= desination_small_pin_url %>" alt="TO"></img>
+                                                                </span>
+                                                                <span style="float: right;width: 85%;">
+                                                                    <strong style="font-size: 11px"><%= config_json.email_title_to %></strong>
+                                                                    <br>
+                                                                        <span style="color: #919191;font-size: 11px;"><%= destination_address %></span>
+                                                                </span>
+                                                            </p>
+                                                            <p style="clear: both;margin-bottom: 10px;"></p>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 10px 0px;">
+                                                        <span style="float: none;display: block;text-align: left;"><%= config_json.email_title_trip_statistics %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0px;background-color: #FFFFFF; border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px; overflow: hidden;">
+                                                        <span style="float: none;display: block;text-align: left;">
+                                                            <p style="float: left; width: 50%;text-align: center !important;">
+                                                                <span style="float: left;width: 50%;">
+                                                                    <img style="width: 40px;margin: 5px;" src="<%= hour_icon %>" alt="FROM"></img>
+                                                                </span>
+                                                                <span style="float: left;width: 50%;margin-top: 18px;">
+                                                                    <span style=""><%= total_time %> <%= config_json.email_title_min %></span>
+                                                                </span>
+                                                            </p>
+                                                            <p style="float: right;width: 50%;">
+                                                                <span style="float: left;width: 50%;">
+                                                                    <img style="width: 40px;margin: 5px;" src="<%= km_icon %>" alt="TO"></img>
+                                                                </span>
+                                                                <span style="float: left;width: 50%;margin-top: 18px;">
+                                                                    <span style=""><%= total_distance %> <%= distance_unit %></span>
+                                                                </span>
+                                                            </p>
+                                                            <p style="clear: both;margin-bottom: 10px;"></p>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="text-align: left;width: 100%;max-width: 300px;display: inline-block;vertical-align: top;font-size: 1.5em;">
+                        <table style="width: 100%;border-spacing: 0;font-family: sans-serif;color: #333333;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px;">
+                                        <table style="border-spacing: 0;font-family: sans-serif;color: #333333;width: 100%;font-size: 14px;text-align: left;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding: 0px 0px 10px 0px;">
+                                                        <span style="float: none;display: block;text-align: left;"><%= config_json.email_title_fare_breakdown %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0px; background-color: #FFFFFF; border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px; overflow: hidden;">
+                                                        <span style="margin-top: 5px;float: none;display: block;text-align: left;">
+                                                            <p style="padding: 0.5em 0.8em 0.0em 0.8em;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;"><%= config_json.email_title_base_price %></span>
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= base_price %></span>
+                                                            </p>
+                                                            <p style="clear: both;"></p>
+                                                            <p style="padding: 0.0em 0.8em; border-bottom: 1px solid #f4f4f4;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;">
+                                                                   <%= config_json.email_title_distance_cost %><br>
+                                                                        <span style="font-size: 10px"><%= currency %><%= price_per_unit_distance %> <%= distance_unit %></span>
+                                                                </span>
+                                                                <span style="margin: 1.25em 0em;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= distance_cost %></span>
+                                                            </p>
+                                                            <p style="clear: both;"></p>
+                                                            <p style="padding: 0.0em 0.8em; border-bottom: 1px solid #f4f4f4;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;">
+                                                                     <%= config_json.email_title_time_cost %><br>
+                                                                        <span style="font-size: 10px"><%= currency %><%= price_for_total_time %>  <%= config_json.email_title_per_min %></span>
+                                                                </span>
+                                                                <span style="margin: 1.25em 0em;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= time_cost %></span>
+                                                            </p>
+                                                            
+                                                            
+                                                             <p style="clear: both;"></p>
+                                                            <p style="padding: 0.0em 0.8em; border-bottom: 1px solid #f4f4f4;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;">
+                                                                  <%= config_json.email_title_wait_time_cost %><br>
+                                                                        <span style="font-size: 10px"><%= currency %><%= price_for_waiting_time %> <%= config_json.email_title_per_min %></span>
+                                                                </span>
+                                                                <span style="margin: 1.25em 0em;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= waiting_time_cost %></span>
+                                                            </p>
+                                                            
+                                                            <p style="clear: both;"></p>
+                                                            <p style="padding: 0.0em 0.8em; border-bottom: 1px solid #f4f4f4;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;"><%= config_json.email_title_tax_fee %></span>
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= tax_fee %></span>
+                                                            </p>
+                                                            
+                                                            <p style="clear: both;"></p>
+                                                            <p style="padding: 0.0em 0.8em; border-bottom: 1px solid #f4f4f4;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;"><%= config_json.email_title_surge_fee %></span>
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= surge_fee %></span>
+                                                            </p>
+
+                                                            <p style="clear: both;"></p>
+                                                            <p style="padding: 0.0em 0.8em; border-bottom: 1px solid #f4f4f4;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;"><%= config_json.title_is_toll %></span>
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= toll %></span>
+                                                            </p>
+
+                                                            <p style="clear: both;"></p>
+                                                            <p style="padding: 0.0em 0.8em; border-bottom: 1px solid #f4f4f4;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;"><%= config_json.title_is_trip %></span>
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= tip %></span>
+                                                            </p>
+                                                            
+                                                            <p style="clear: both;"></p>
+                                                            <p style="padding: 0.0em 0.8em; border-bottom: 1px solid #f4f4f4;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;"><%= config_json.email_title_referral_bonus %></span>
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= referral_payment %></span>
+                                                            </p>
+                                                            <p style="clear: both;"></p>
+                                                            <p style="padding: 0.0em 0.8em; border-bottom: 1px solid #f4f4f4;">
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;"><%= config_json.email_title_promo_bonus %></span>
+                                                                <span style="padding: 0.7em 0px;width: 50%;display: block;float: left;text-align: right;"><%= currency %><%= promo_payment %></span>
+                                                            </p>
+                                                            
+                                                            
+                                                            
+                                                            <p style="clear: both;"></p>
+                                                            <p style="padding: 1em 0.8em 0em 0.8em;color: #9f9f9f;text-align: center;margin: 25px 5px 5px 5px;"><%= config_json.title_total_payment %></p>
+                                                            <p style="color: #616161;text-align: center;font-size: 2em;line-height: 1;margin: 0px 0px 40px 0px;;"><%= currency %><%= total %></p>
+                                                        </span>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table style="width: 100%;">
+            <tr>
+                <td style="padding: 0;text-align: center;padding-top: 0px;padding-bottom: 10px;">
+                    <div style="text-align: left;width: 100%;max-width: 300px;display: inline-block;vertical-align: top;font-size: 1.5em;">
+                        <table style="border-spacing: 0;font-family: sans-serif;color: #333333;width: 100%;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 0px 10px;">
+                                        <table style="border-spacing: 0;font-family: sans-serif;color: #333333;width: 100%;font-size: 14px;text-align: left;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding: 10px 0px;">
+                                                        <span style="float: none;display: block;text-align: left;"><%= config_json.email_title_payment %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0px;background-color: #FFFFFF; border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px; overflow: hidden;">
+                                                        <span style="float: none;display: block;text-align: left;">
+                                                            <p style="float: left;width: 100%;">
+                                                                <span style="float: left;width: 25%;">
+                                                                    <img style="width: 40px;margin: 5px 10px;" src="<%= credit_card %>" alt="FROM"></img>
+                                                                </span>
+                                                                <span style="float: left;width: 40%;margin-top: 12px;">
+                                                                    <span style=""><%= config_json.email_title_credit_card %></span>
+                                                                </span>
+                                                                <span style="float: left;width: 33%;text-align: right;margin-top: 12px;">
+                                                                    <span style=""><%= currency %><%= card_payment %></span>
+                                                                </span>
+                                                            </p>
+                                                            <p style="clear: both;margin-bottom: 10px;"></p>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+												
+												<!--<tr>
+                                                    <td style="padding: 0px;background-color: #FFFFFF; border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px; overflow: hidden;">
+                                                        <span style="float: none;display: block;text-align: left;">
+                                                            <p style="float: left;width: 100%;">
+                                                                <span style="float: left;width: 25%;">
+                                                                    <img style="width: 40px;margin: 5px 10px;" src="http://52.18.177.59/uploads/images/cash.png" alt="FROM"></img>
+                                                                </span>
+                                                                <span style="float: left;width: 40%;">
+                                                                    <span style="position: relative;top: 0.6em;">Cash</span>
+                                                                </span>
+                                                                <span style="float: left;width: 33%;text-align: right;">
+                                                                    <span style="position: relative;top: 0.6em;">$0000.00</span>
+                                                                </span>
+                                                            </p>
+                                                            <p style="clear: both;margin-bottom: 10px;"></p>
+                                                        </span>
+                                                    </td>
+                                                </tr>-->
+												
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="text-align: left;width: 100%;max-width: 300px;display: inline-block;vertical-align: top;font-size: 1.5em;">
+                        <table style="width: 100%;border-spacing: 0;font-family: sans-serif;color: #333333;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 0px 10px;">
+                                        <table style="border-spacing: 0;font-family: sans-serif;color: #333333;width: 100%;font-size: 14px;text-align: left;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding: 10px 0px;">
+                                                        <span style="float: none;display: block;text-align: left;"><%= config_json.email_title_provider_detail %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 0px;background-color: #FFFFFF; border-top-left-radius: 10px;border-top-right-radius: 10px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px; overflow: hidden;">
+                                                        <span style="float: none;display: block;text-align: left;">
+                                                            <p style="float: left;width: 100%;">
+                                                                <span style="float: left;width: 20%;">
+                                                                    <img style="width: 40px;margin: 0px 10px;border-radius: 150px;border: 2px solid #f1f1f1" src="<%= provider_picture %>" alt=""></img>
+                                                                </span>
+                                                                <span style="float: right;width: 78%;">
+
+                                                                    <span style="font-size: 12px;color: #616161">
+                                                                        <strong><%= config_json.email_title_name %></strong> : <%= provider_name %>
+                                                                        <br>
+                                                                    </span>
+                                                                </span>
+                                                            </p>
+                                                            <p style="clear: both;margin-bottom: 10px;"></p>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table style="width: 100%;">
+            <tr>
+                <td style="padding: 0;text-align: center;padding-bottom: 10px;">
+                    <div style="width: 100%;text-align: center;">
+                        <img style="width: 3em;" src="<%= support %>" alt="logo"></img>
+                        <div>
+                            <p style="color: #038291;font-size: 1.2em; margin: 0px;"><%= title %> <%= config_json.email_title_support %></p>
+                            <p style="margin: 10px;">
+                                <a style="text-decoration: underline;color:#000000;" href="#"><%= config_json.email_title_contact_us %></a> <%= config_json.email_title_other_info %>
+                                <br>
+                                <a style="text-decoration: underline;color:#000000;" href="#"><%= config_json.email_title_track %></a>
+                            </p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

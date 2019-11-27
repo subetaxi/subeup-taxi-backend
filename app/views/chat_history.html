@@ -1,0 +1,89 @@
+<% include header.html %>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.js"></script>
+               
+    <div class="page-content-wrap">
+        <div class="content-frame">      
+
+            <div class="content-frame-top">                        
+                <div class="page-title">                    
+                    <h2><span class="fa fa-comments"></span> Messages</h2>
+                </div>                                                    
+                <div class="pull-right">                            
+                    <button class="btn btn-default content-frame-right-toggle"><span class="fa fa-bars"></span></button>
+                </div>                           
+            </div>  
+
+            <div class="content-frame-body content-frame-body-left">
+                        
+                <div class="messages messages-img" id="messages">
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            
+              var config = {
+                apiKey: "<%=setting_detail.firebase_apiKey%>",
+                authDomain: "<%=setting_detail.firebase_authDomain%>",
+                databaseURL: "<%=setting_detail.firebase_databaseURL%>",
+                projectId: "<%=setting_detail.firebase_projectId%>",
+                storageBucket: "<%=setting_detail.firebase_storageBucket%>",
+                messagingSenderId: "<%=setting_detail.firebase_messagingSenderId%>"
+              };
+            firebase.initializeApp(config);
+
+            firebase.auth().signInWithEmailAndPassword('admin@gmail.com', '123456').catch(function(error) {
+                firebase.auth().createUserWithEmailAndPassword('admin@gmail.com', '123456').catch(function(error) {
+                });
+            });
+            var database = firebase.database();
+
+            var date_array = [];
+            var trip_id = '<%=trip_data._id%>';
+            var getvalue = firebase.database().ref(trip_id);
+              getvalue.on('value', (data)=> {
+
+                if(data.val() == null){
+                  date_array = [];
+                }else{
+                  date_array = [];
+                  var keys = Object.keys(data.val());
+                  keys.forEach((k)=> {
+                    var date = new Date(data.child(k).val().message_time);
+                    var date1 = (date.getMonth()+1) + '/' + date.getDate() + '/' +  date.getFullYear();
+                    var date2 = new Date(date1);
+                    date2 = date2.setHours(0,0,0,0);
+                    date2 = new Date(date2);
+
+                    let index = date_array.findIndex((date)=>date.date==date1);
+                    if(index==-1){
+                      date_array.push({
+                        date: date1,
+                        message_date: date2,
+                        messages: [data.child(k).val()]
+                      });
+                    } else {
+                      date_array[index].messages.push(data.child(k).val())
+                    }
+                  });
+                  $('#messages').empty();
+                    date_array.forEach(function(data){
+                        data.messages.forEach(function(messages){
+                            if(messages.type == 10){
+                                $('#messages').append('<div class="item in item-visible"><div class="image"><img src="<%= trip_data.user_detail.picture != '' ? trip_data.user_detail.picture: "default.png" %>"></div><div class="text"><div class="heading"><a href="#"><%= trip_data.user_detail.first_name %><%= trip_data.user_detail.last_name %></a><span class="date">'+moment(messages.time).format("DD-MM-YYYY HH:mm")+'</span></div>'+messages.message+'</div></div>')
+                            } else {
+                                $('#messages').append('<div class="item item-visible"><div class="image"><img src="<%= trip_data.provider_detail.picture != '' ? trip_data.provider_detail.picture: "default.png" %>"></div><div class="text"><div class="heading"><a href="#"><%= trip_data.provider_detail.first_name %><%= trip_data.provider_detail.last_name %></a><span class="date">'+moment(messages.time).format("DD-MM-YYYY HH:mm")+'</span></div>'+messages.message+'</div></div>')
+                            }
+                            
+                        })
+                    })
+                }
+              });
+        });
+    </script>
+<% include footer_list.html %>

@@ -1,0 +1,306 @@
+<% include header.html %>
+<!-- PAGE CONTENT WRAPPER -->
+
+<div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %>
+    <!-- START TIMELINE FILTER -->
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-horizontal" id="weekly_form" role="form" method="post" action="/admin_partner_weekly_earning">
+                    <input type="hidden" name="page" id="page" value="0" />
+                    <input type="hidden" name="type" id="type" value="<%= type %>" />
+                    <div class="form-group">
+
+                        <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div style="text-align: center;">
+                                    <label><%= config_json.title_country %></label>
+                                </div>
+                                <select class="form-control select" id="selected_country" data-live-search="true"  name="selected_country">
+
+                                    <% country_list.forEach(function(country){
+                                    if(country._id == selected_country){ %>
+                                    <option value="<%= country._id %>" selected="selected"><%= country.countryname %></option>
+                                    <% } else { %>
+                                    <option value="<%= country._id %>"><%= country.countryname %></option>
+                                    <% } %>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="text-align: center;">
+                                    <label><%= config_json.title_city %></label>
+                                </div>
+                                <select class="form-control select" id="selected_city" data-live-search="true" name="selected_city">
+                                    <option value="all" selected="selected">All</option>
+                                    <% city_list.forEach(function(city){
+                                    if(city._id == selected_city){ %>
+                                    <option value="<%= city._id %>" selected="selected"><%= city.cityname %></option>
+                                    <% } else { %>
+                                    <option value="<%= city._id %>"><%= city.cityname %></option>
+                                    <% } %>
+                                    <% }) %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="text-align: center;">
+                                <label><%= config_json.title_search %></label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                                    <select class="form-control select" id="sel" placeholder="Select to Sort" name="search_item">
+                                        <% if(search_item == "provider_detail.first_name") { %>
+                                        <option value='provider_detail.first_name' selected="selected"><%= config_json.title_name %></option>
+                                        <option value='provider_detail.email'><%= config_json.title_email %></option>
+
+                                        <% } else { %>
+                                        <option value='provider_detail.first_name'><%= config_json.title_name %></option>
+                                        <option value='provider_detail.email' selected="selected"><%= config_json.title_email %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-body panel-body-search">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                                            <input type="text" class="form-control" value="<%= search_value %>" name="search_value" placeholder="<%= config_json.title_search_text %>"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="text-align: center;">
+                                <label><%= config_json.title_date_filter %></label>
+                            </div>
+                            <div class="col-md-12">
+
+
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                                    <select class="form-control select" placeholder='Select to sort' name="weekly_filter" id="weekly_filter">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="col-md-12">
+                            <ul class="pagination" >
+                                <% include paginate_lookup.html %>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div  class="form-group col-md-4" >
+                        <div class="col-md-6">
+                            <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;"><span><%= config_json.button_apply %></span></button>
+                        </div>
+
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-danger pull-right" style="height: 35px; width: 100%;" onClick ="export_excel()"><i class="fa fa-download"></i><%= config_json.button_export_excel %></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% if(detail.length != 0) { %>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-6 no_padding">
+                    <div class="col-md-3">
+                        <h3><%= config_json.title_total_trips %></h3><br>
+                        <h4><%= (trip_total[0].total_trip).toFixed(2) %></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h3><%= config_json.title_total_payment %></h3><br>
+                        <h4><%= (trip_total[0].total).toFixed(2) %></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h3><%= config_json.title_card %></h3><br>
+                        <h4><%= (trip_total[0].card_payment).toFixed(2) %></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h3><%= config_json.title_cash %></h3><br>
+                        <h4><%= (trip_total[0].cash_payment).toFixed(2) %></h4>
+                    </div>
+                </div>
+                <div class="col-md-6 no_padding">
+                    <div class="col-md-3">
+                        <h3><%= config_json.title_bonus %></h3><br>
+                        <h4><%= (trip_total[0].promo_payment).toFixed(2) %></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h3><%= config_json.title_total_wallet_payment %></h3><br>
+                        <h4><%= (trip_total[0].wallet_payment).toFixed(2) %></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h3><%= config_json.title_total_admin_earning %></h3><br>
+                        <h4><%= (trip_total[0].admin_earning).toFixed(2) %></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h3><%= config_json.title_partner_earning %></h3><br>
+                        <h4><%= (trip_total[0].provider_earning).toFixed(2) %></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
+<div class="row">
+    <div class="col-md-12">
+        <!-- START SIMPLE DATATABLE -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table text-center" id="customers" style="margin-bottom: 65px;">
+
+                        <thead>
+                        <tr>
+                            <th><%= config_json.title_partner_id %></th>
+                            <th><%= config_json.title_name %></th>
+                            <th><%= config_json.title_phone %></th>
+
+                            <th><%= config_json.title_total %></th>
+                            <th><%= config_json.title_cash %></th>
+                            <th><%= config_json.title_partner_profit %></th>
+                            <th><%= config_json.title_pay_to_partner %></th>
+
+
+                            <th><%= config_json.button_action %></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <% detail.forEach(function(data){ %>
+                        <tr>
+                            <td><% if(data.provider_detail.length > 0){ %>
+                                <%= data.provider_detail[0].unique_id %>
+                                <% } %></td>
+                            <td><% if(data.provider_detail.length > 0){ %>
+                                <%= data.provider_detail[0].first_name + " " + data.provider_detail[0].last_name %> %>
+                                <% } %></td>
+
+                            <td><% if(data.provider_detail.length > 0){ %>
+                                <%= data.provider_detail[0].country_phone_code+data.provider_detail[0].phone %> %>
+                                <% } %></td>
+                            <td><%= data.total %></td>
+                            <td><%= data.provider_have_cash %></td>
+                            <td><%= data.provider_service_fees %></td>
+                            <td><%= (data.pay_to_provider).toFixed(2) %></td>
+
+                            <td>
+                                
+                                <div class="btn-group" style="margin-right:15px;">
+                                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><%= config_json.button_action %> <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <form method="post" action="/admin_partner_weekly_earning_statement">
+                                                <input type="hidden" name="id" value="<%= data._id %>" />
+                                                  <input type="hidden" name="week_start_date_view" value="<%= week_start_date_view %>" />
+                                                  <input type="hidden" name="week_end_date_view" value="<%= week_end_date_view %>" />
+                                                  
+                                                <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.button_view_statements %> </button>
+                                            </form>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END SIMPLE DATATABLE -->
+
+    </div>
+</div>
+
+</div>
+<!-- PAGE CONTENT WRAPPER -->
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+
+
+<script type='text/javascript' src='js/dist/table2excel.js'></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#pay_amount").validate({
+            rules: {
+                amount: 'required'
+            },
+            messages: {
+                amount: 'Enter amount to pay'
+            }
+        });
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        var today = new Date();
+        var getDay = today.getDay();
+var lastWeekEndDay = today.getDate() + 6 - getDay;
+var lastWeekEndDate = new Date(today.setDate(lastWeekEndDay));
+today = new Date(lastWeekEndDate);
+var lastWeekStartDate = new Date(today.setDate(today.getDate() - 6));
+
+for (var i = 0; i < 10; i++) {
+    
+    var week_start_date_view = lastWeekStartDate.getDate() + ' ' + monthNames[lastWeekStartDate.getMonth()] + ' ' + lastWeekStartDate.getFullYear();
+    var week_end_date_view = lastWeekEndDate.getDate() + ' ' + monthNames[lastWeekEndDate.getMonth()] + ' ' + lastWeekEndDate.getFullYear();
+    
+    $('#weekly_filter').append('<option value="'+week_start_date_view+'-'+week_end_date_view+'">'+week_start_date_view+' '+'-'+' '+week_end_date_view+'</option>');
+    
+    lastWeekEndDate = new Date(lastWeekEndDate.setDate(lastWeekEndDate.getDate() - 7));
+    lastWeekStartDate = new Date(lastWeekStartDate.setDate(lastWeekStartDate.getDate() - 7));
+}
+    <% detail.forEach(function(data){ %>
+            $('#<%= data._id %>').click(function(){
+                var id = '<%= data._id %>';
+                document.getElementById('provider_weekly_earning_id').value = id;
+                $("#pay").modal('show');
+            });
+        <% }); %>
+    });
+
+    function export_excel(){
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/generate_partner_weekly_earning_excel',
+            data: $('#weekly_form').serialize(),
+            dataType: "json",
+            success: function (res) {
+                window.open(res)
+            }
+        });
+    }
+</script>
+
+
+<% include footer_list.html %>

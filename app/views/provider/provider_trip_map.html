@@ -1,0 +1,230 @@
+<% include provider_header.html %> 
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+
+  <div class="row">
+    <div class="col-md-12">
+        <!-- Map and Side Panel -->
+        <div class="panel panel-default">
+        <div class="panel-body panel-body-map" ng-app="meanMapApp">
+            <!-- Google Map -->
+            <div>
+                <div id="map" style="width:100%; height:450px;"></div>
+                <div id="legend"></div>
+                
+            </div> 
+        </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="table_bg" id="customers">
+          <div class="table">
+              
+            <div class="table_top">
+                 <div class="table_id" style="width: 20%;"><%= config_json.title_user_name %></div>
+                 <div class="table_id Pickup" style="width: 20%;"><%= config_json.title_provider_name %></div>
+                 <div class="table_id Pickup" style="width: 20%;"><%= config_json.title_date_time %></div>
+                 <div class="table_id Pickup" style="width: 20%;"><%= config_json.title_pickup_address %></div>
+                 <div class="table_id Pickup" style="width: 20%;"><%= config_json.title_destination_address %></div>
+             </div>
+
+            <div class="table_top table_cont">
+              <div class="table_id"  style="width: 20%;"><%= user_name %></div>
+              <div class="table_id"  style="width: 20%;">
+                <% if(provider_name == "" || provider_name == undefined){ %>
+                  No Provider
+                <% } else { %>
+                  <%= provider_name %>
+                <% } %>
+              </div>
+              <div class="table_id"  style="width: 20%;"><%= moment(data.created_at).format("DD MMM 'YY") %></br><%= moment(data.created_at).format("hh:mm a") %></div>
+              <div class="table_id"  style="width: 20%;"><%= data.source_address %></div>
+              <div class="table_id"  style="width: 20%;"><%= data.destination_address %></div>
+              
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="table_bg" id="customers">
+          <div class="table">
+              
+            <div class="table_top">
+                <div class="table_id" style="width: 20%;"><%= config_json.title_status %></div>
+               <div class="table_id Pickup" style="width: 20%;"><%= config_json.title_amount %></div>
+               <div class="table_id Pickup" style="width: 20%;"><%= config_json.title_payment_mode %></div>
+               <div class="table_id Pickup" style="width: 20%;"><%= config_json.title_payment_status %></div>
+               <div class="table_id Pickup" style="width: 20%;"><%= config_json.title_response %></div>
+              
+            </div>
+            <div class="table_top table_cont">
+              <div class="table_id"  style="width: 20%;"><% if(data.is_trip_cancelled == 1) { %>
+                <% if(data.is_trip_cancelled_by_provider == 1) { %>
+                                                          <span class="label label-danger"><%= config_json.title_cancle_by_provider %></span>
+                                                       <% } else { %>
+                                                          <span class="label label-danger"><%= config_json.title_cancle_by_user %></span>
+                                                       <% } %>
+                <% } else { if(data.is_provider_status == 2) { %>
+                <span class="label label-warning"><%= config_json.title_accepted_request %></span>
+                <% } else if(data.is_provider_status == 4) { %>
+                <span class="label label-info"><%= config_json.title_trip_status_arrived %></span>
+                <% } else if(data.is_provider_status == 6) { %>
+                <span class="label label-info"><%= config_json.title_trip_status_in_trip %></span>
+                <% } else if(data.is_provider_status == 9) { %>
+                <span class="label label-success"><%= config_json.title_trip_status_completed %></span>
+                <% } else if(data.is_provider_status == 0) { %>
+                <span class="label label-error"><%= config_json.title_trip_status_waiting %></span>
+                <% }} %>
+              </div>
+              <div class="table_id"  style="width: 20%;"><%= data.total %></div>
+              <div class="table_id"  style="width: 20%;"><% if(data.payment_mode == 1) { %>
+                <span class="label label-default"><%= config_json.title_pay_by_cash %></span>
+                <% } else { %>
+                <span class="label label-primary"><%= config_json.title_pay_by_card %></span></td>
+                <% } %>
+              </div>
+              <div class="table_id"  style="width: 20%;"><% if(data.is_pending_payments == 1) { %>
+                                                  <span class="label label-warning"><%= config_json.title_pending %></span>
+                                                  <% } else { %>
+                                                    <% if(data.is_paid == 1) { %>
+                                                    <span class="label label-success"><%= config_json.title_paid %></span>
+                                                    <% } else { %>
+                                                    <span class="label label-danger"><%= config_json.title_not_paid %></span>
+                                                    <% } %>
+                                                  <% } %>
+              </div>
+              <div class="table_id"  style="width: 20%;"><% if(data.is_provider_accepted == 1) { %>
+                <span class="label label-success"><%= config_json.title_accepted_request %></span>
+                <% } else if(data.is_provider_accepted == 0) { %>
+                <span class="label label-warning"><%= config_json.titel_trip_rejected %></span>
+                 <% } else { %>
+                <span class="label label-warning"><%= config_json.title_trip_status_no_response %></span>
+                <% } %>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>
+</body>
+        <!-- END PRELOADS -->
+
+    
+    <!-- Google Maps API -->
+    <script src="<%=url%>" async defer"></script>
+    <script>
+function initialize() {
+  var iconBase = '/map_pin/'
+  var map_view = {
+    center:new google.maps.LatLng(22 , 70),
+    zoom:15,
+    streetViewControl: false,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  var map=new google.maps.Map(document.getElementById("map"),map_view);
+
+  <% if(typeof trip_path_data != 'undefined'  && data.is_trip_cancelled_by_user != 1){ %>
+  
+
+    var providerStartLocation = {
+              lat: <%= trip_path_data.providerStartLocation[0] %>,
+              lng: <%= trip_path_data.providerStartLocation[1] %>
+    };
+    
+    var providerStartLocation_initialLocation = new google.maps.LatLng(providerStartLocation);
+
+    if(<%= trip_path_data.providerStartLocation[0] %> !== 0 && <%= trip_path_data.providerStartLocation[1] %> !== 0)
+    {
+    var marker = new google.maps.Marker({
+        position: providerStartLocation_initialLocation,
+        map: map,
+        icon: iconBase + 'driver.png'
+    });
+  }
+
+    var startTripLocation = {
+              lat: <%= trip_path_data.startTripLocation[0] %>,
+              lng: <%= trip_path_data.startTripLocation[1] %>
+    };
+ 
+    var startTripLocation_initialLocation = new google.maps.LatLng(startTripLocation);
+
+    if(<%= trip_path_data.startTripLocation[0] %> !== 0 && <%= trip_path_data.startTripLocation[1] %> !== 0)
+    {
+        var marker = new google.maps.Marker({
+            position: startTripLocation_initialLocation,
+            map: map,
+            icon: iconBase + 'pickup.png'
+        });
+
+    }
+    if(<%= data.is_trip_cancelled_by_provider %> == 1)
+    {
+      
+        var bounds = new google.maps.LatLngBounds(startTripLocation_initialLocation, providerStartLocation_initialLocation);
+        map.fitBounds(bounds);
+    }
+    else
+    {
+      
+      var endTripLocation = {
+              lat: <%= trip_path_data.endTripLocation[0] %>,
+              lng: <%= trip_path_data.endTripLocation[1] %>
+      };
+      
+      var endTripLocation_initialLocation = new google.maps.LatLng(endTripLocation);
+
+      if(<%= trip_path_data.endTripLocation[0] %> !== 0 && <%= trip_path_data.endTripLocation[1] %> !== 0)
+      {
+          var marker = new google.maps.Marker({
+              position: endTripLocation_initialLocation,
+              map: map,
+              icon: iconBase + 'destination.png'
+          });
+      }
+
+      
+
+      var bounds = new google.maps.LatLngBounds(startTripLocation_initialLocation,endTripLocation_initialLocation, providerStartLocation_initialLocation);
+      map.fitBounds(bounds);
+        var trip_path_array = [];
+      <% trip_path_data.startTripToEndTripLocations.forEach(function(location){ %>
+        var lat = <%= location[0] %>;
+        var lng = <%= location[1] %>;
+        var trip_path = {'lat':lat,'lng':lng };
+        trip_path_array.push(trip_path);
+
+      <% }) %>
+      
+      var trippath = new google.maps.Polyline({
+            path: trip_path_array,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+      });
+      trippath.setMap(map);
+    }
+
+  <% } else if(data.is_trip_cancelled_by_user == 1){%>   
+   
+    $('#map_path').hide();
+
+  <% } %>      
+
+var legend = document.getElementById('legend');
+legend.innerHTML = '<img src="/map_pin/driver.png " style="height:25px; "/>Provider Location<br />' +
+                   '<img src="/map_pin/pickup.png " style="height:25px; "/>Pickup Location<br />' +
+                   '<img src="/map_pin/destination.png " style="height:25px; "/>Destination Location<br />';
+
+map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<% include provider_footer.html %> 

@@ -1,0 +1,2029 @@
+<% include header.html %>
+<!-- PAGE TITLE -->
+<style type="text/css">
+    .required {
+        color:#f00;
+    }
+</style>
+<!-- END PAGE TITLE -->
+<link href="css/mdtimepicker.css" rel="stylesheet">
+
+<script type='text/javascript' src='js/mdtimepicker.js'></script>
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+    <div class="row">
+
+        <!-- for edit city type form -->
+            <% if(typeof city_type_data != 'undefined'){ %>
+            <form class="form-horizontal" method="post" id="update_city_type_detail" action="/update_city_type_detail">
+                <div id="main_div" class="col-md-12">
+                    <div class="panel panel-default tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li onclick="main_tab(0)" class="active"><a href="#tab-first" role="tab" data-toggle="tab"><%= config_json.button_add_city %></a></li>
+                            <li onclick="main_tab(1)"><a href="#tab-second" role="tab" data-toggle="tab"><%= config_json.zone_to_zone_price %></a></li>
+                            <!-- <li onclick="main_tab(2)"><a href="#tab-third" role="tab" data-toggle="tab"><%= config_json.zone_for_queue %></a></li> -->
+                            <li onclick="main_tab(3)"><a href="#tab-fourth" role="tab" data-toggle="tab"><%= config_json.airport_to_city_price %></a></li>
+                            <li onclick="main_tab(4)"><a href="#tab-fifth" role="tab" data-toggle="tab"><%= config_json.city_to_city_price %></a></li>
+                            <li onclick="main_tab(5)"><a href="#tab-six" role="tab" data-toggle="tab"><%= config_json.car_rental_price %></a></li>
+                            <li onclick="main_tab(6)"><a href="#tab-seven" role="tab" data-toggle="tab"><%= config_json.rich_area_surge %></a></li>
+                        </ul>
+
+                        <input type="hidden" class="form-control" name="id" id="id" value="<%= city_type_data._id %>" />
+                        <div class="panel-body tab-content tab-validate" style="min-height: calc(100vh - 180px);">
+                            <div class="tab-pane active" id="tab-first">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="hidden" class="form-control" id="cityids" name="cityids" value="<%= city_type_data.cityid %>" />
+                                        <div class="form-group">
+
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_country %></label>
+
+                                            <div class="col-md-8 col-xs-7">
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" name="countryid" id="countryid" disabled="true" value="<%= country_data.countryname %>">
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_city %></label>
+
+                                            <div class="col-md-8 col-xs-7">
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" name="cityname" id="cityname" disabled="true" value="<%= city_data.cityname %>">
+                                                    
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_type %></label>
+
+                                            <div class="col-md-8 col-xs-7">
+                                                <div class="col-md-8 ">
+                                                <input type="text" class="form-control" name="typename" id="typename" disabled="true" value="<%= type_data.typename %>">
+                                                    
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        
+
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_max_space %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="max_space" id="max_space" value="<%= city_type_data.max_space %>" onkeypress="return isNumberKey(event);"
+                                                           />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_provider_profit %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 c">
+                                                    <input type="text" class="form-control" name="provider_profit" id="provider_profit" value="<%= city_type_data.provider_profit %>"
+                                                           onkeypress="return isNumberKey(event);" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_min_fair %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="min_fare" id="min_fare" value="<%= city_type_data.min_fare %>" onkeypress="return isNumberKey(event);"
+                                                           />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_distance_for_base_price %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <select name="base_price_distance" class="form-control select">
+                                                        <%for (i=0; i<=25; i++) {
+                                                        if (city_type_data.base_price_distance == i) { %>
+                                                        <option value="<%= i %>" selected=""><%= i %></option>
+                                                        <% }else { %>
+                                                        <option value="<%= i %>" ><%= i %></option>
+                                                        <% } %>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_base_price %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <input type="text" class="form-control" name="base_price" id="base_price" value="<%= city_type_data.base_price %>" onkeypress="return isNumberKey(event);"
+                                                           />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_price_per_unit_distance %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <input type="text" class="form-control" name="price_per_unit_distance" id="price_per_unit_distance" value="<%= city_type_data.price_per_unit_distance %>"
+                                                           onkeypress="return isNumberKey(event);" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_price_for_total_unit_time %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <input type="text" class="form-control" name="price_for_total_time" id="price_for_total_time" value="<%= city_type_data.price_for_total_time %>"
+                                                           onkeypress="return isNumberKey(event);" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_waiting_time_start_after_minute %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <input type="text" class="form-control" name="waiting_time_start_after_minute" id="waiting_time_start_after_minute" value="<%= city_type_data.waiting_time_start_after_minute %>"
+                                                           onkeypress="return isNumberKeyWithoutPoint(event);" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_price_for_waiting_time %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <input type="text" class="form-control" name="price_for_waiting_time" id="price_for_waiting_time" value="<%= city_type_data.price_for_waiting_time %>"
+                                                           onkeypress="return isNumberKey(event);" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_is_car_rental_business %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <select class="form-control select" id="is_car_rental_business" name="is_car_rental_business">
+                                                        <% if(city_type_data.is_car_rental_business == "1") { %>
+
+                                                        <option value="1" selected = "selected"><%= config_json.title_on %></option>
+                                                        <option value="0"><%= config_json.title_off %></option>
+                                                        <% } else{ %>
+
+                                                        <option value="1"><%= config_json.title_on %></option>
+                                                        <option value="0" selected = "selected"><%= config_json.title_off %></option>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        
+                                        <div class="form-group" >
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_is_business %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <select class="form-control select" id="is_business" name="is_business">
+                                                        <% if(city_type_data.is_business == "1") { %>
+
+                                                        <option value="1" selected = "selected"><%= config_json.title_on %></option>
+                                                        <option value="0"><%= config_json.title_off %></option>
+                                                        <% } else{ %>
+
+                                                        <option value="1"><%= config_json.title_on %></option>
+                                                        <option value="0" selected = "selected"><%= config_json.title_off %></option>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_cancellation_fee %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="cancellation_fee" id="cancellation_fee" value="<%= city_type_data.cancellation_fee %>"
+                                                           onkeypress="return isNumberKey(event);" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_tax %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="tax" id="tax" value="<%= city_type_data.tax %>" onkeypress="return isNumberKey(event);"
+                                                           />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_user_miscellaneous_fee %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" onkeypress="return isNumberKey(event);" value="<%= city_type_data.user_miscellaneous_fee %>" name="user_miscellaneous_fee" id="user_miscellaneous_fee" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_user_miscellaneous_tax %>">?</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_user_tax %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" onkeypress="return isNumberKey(event);" value="<%= city_type_data.user_tax %>" name="user_tax" id="user_tax" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_user_tax %>">?</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_provider_miscellaneous_fee %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" onkeypress="return isNumberKey(event);" value="<%= city_type_data.provider_miscellaneous_fee %>" name="provider_miscellaneous_fee" id="provider_miscellaneous_fee" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_provider_miscellaneous_tax %>">?</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_provider_tax %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" onkeypress="return isNumberKey(event);" value="<%= city_type_data.provider_tax %>" name="provider_tax" id="provider_tax" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_provider_tax %>">?</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" >
+                                            <label class="col-md-6 col-xs-5 control-label">Is Zone</label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <select class="form-control select" id="is_zone" name="is_zone">
+                                                        <% if(city_type_data.is_zone == "1") { %>
+
+                                                        <option value="1" selected = "selected"><%= config_json.title_on %></option>
+                                                        <option value="0"><%= config_json.title_off %></option>
+                                                        <% } else{ %>
+
+                                                        <option value="1"><%= config_json.title_on %></option>
+                                                        <option value="0" selected = "selected"><%= config_json.title_off %></option>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group" id="zone_multiplier">
+                                            <label class="col-md-6 col-xs-5 control-label">Zone Multiplier</label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="zone_multiplier" value="<%= city_type_data.zone_multiplier %>" onkeypress="return isNumberKey(event);" />
+                                                </div>
+
+                                            </div>
+                                        </div> -->
+
+                                        <div class="form-group" >
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_is_surge_hours %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9 ">
+                                                    <select class="form-control select" id="is_surge_hours" name="is_surge_hours">
+                                                        <% if(city_type_data.is_surge_hours == "1") { %>
+
+                                                        <option value="1" selected = "selected"><%= config_json.title_on %></option>
+                                                        <option value="0"><%= config_json.title_off %></option>
+                                                        <% } else{ %>
+
+                                                        <option value="1"><%= config_json.title_on %></option>
+                                                        <option value="0" selected = "selected"><%= config_json.title_off %></option>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                       <!--  <div class="form-group" id="surge_start_hours">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_surge_time_start %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <select name="surge_start_hour" class="form-control select">
+                                                        <%for (i=0; i<=23; i++) {
+                                                        if (city_type_data.surge_start_hour == i) { %>
+                                                        <option value="<%= i %>" selected=""><%= i %></option>
+                                                        <% }else { %>
+                                                        <option value="<%= i %>" ><%= i %></option>
+                                                        <% } %>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="surge_end_hours">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_surge_time_end %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <select name="surge_end_hour" class="form-control select">
+                                                        <%for (i=0; i<=23; i++) {
+                                                        if (city_type_data.surge_end_hour == i) { %>
+                                                        <option value="<%= i %>" selected=""><%= i %></option>
+                                                        <% }else { %>
+                                                        <option value="<%= i %>" ><%= i %></option>
+                                                        <% } %>
+                                                        <% } %>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" id="surge_multipliers">
+                                            <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_surge_multiplier %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="surge_multiplier" id="surge_multiplier" value="<%= city_type_data.surge_multiplier %>"
+                                                           onkeypress="return isNumberKey(event);" />
+                                                </div>
+
+                                            </div>
+                                        </div> -->
+
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top: 50px;">
+                                    <!-- <div class="col-md-3">
+                                    </div> -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_surge_time %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="panel panel-default tabs">
+                                                    <ul class="nav nav-tabs" role="tablist">
+                                                        <li><a href="#0" id="tab0" onclick="select_tab(0)" role="tab" data-toggle="tab"><%= config_json.sun %></a></li>
+                                                        <li><a href="#1" role="tab" onclick="select_tab(1)" data-toggle="tab"><%= config_json.mon %></a></li>
+                                                        <li><a href="#2" role="tab" onclick="select_tab(2)" data-toggle="tab"><%= config_json.tue %></a></li>
+                                                        <li><a href="#3" role="tab" onclick="select_tab(3)" data-toggle="tab"><%= config_json.wed %></a></li>
+                                                        <li><a href="#4" role="tab" onclick="select_tab(4)" data-toggle="tab"><%= config_json.thu %></a></li>
+                                                        <li><a href="#5" role="tab" onclick="select_tab(5)" data-toggle="tab"><%= config_json.fri %></a></li>
+                                                        <li><a href="#6" role="tab" onclick="select_tab(6)" data-toggle="tab"><%= config_json.sat %></a></li>
+
+                                                    </ul>
+
+                                                    <div class="panel-body tab-content">
+                                                        <%if(city_type_data.surge_hours){%>
+                                                        <% city_type_data.surge_hours.forEach(function(surge_data){ %>
+                                                            <div class="tab-pane" id="<%=surge_data.day%>">
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-4 control-label text-left"><%= config_json.title_is_surge_hours %></label>
+                                                                        <div class="col-md-4">
+                                                                            <label class="switch">
+                                                                                <% if( surge_data.is_surge == false ) { %>
+                                                                                <input type="checkbox" class="switch" id="switch<%=surge_data.day%>" onchange="change_switch('<%=surge_data.day%>')" name="sms_notification" unchecked />
+                                                                                <% } else{ %>
+                                                                                <input type="checkbox" id="switch<%=surge_data.day%>" onchange="change_switch('<%=surge_data.day%>')" class="switch" name="sms_notification" checked />
+                                                                                <% } %>
+                                                                                <span></span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <button type="button" class="btn btn-primary" style="text-align:center;margin: 0 auto;" onclick="add_time()"><span class="fa fa-plus"></span><%= config_json.add_time %></button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th><%= config_json.surge_start_time %></th>
+                                                                                        <th><%= config_json.surge_end_time %></th>
+                                                                                        <th><%= config_json.surge_multiplier %></th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="day_time<%=surge_data.day%>">
+                                                                                    
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <% }) %>
+                                                        <% } %>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                             <div class="tab-pane" id="tab-fourth">
+                                <div class="panel-body">
+                                    <div id="airport_data">
+                                            
+                                </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab-fifth">
+                                <div class="panel-body">
+                                    <div id="dest_city">
+                                            
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab-seven">
+                                <div class="panel-body">
+                                    <div id="rich_area_surge">
+                                            
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab-third">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab-second">
+                                <div class="zone_data">
+                                    <div class="panel-heading"><%= config_json.zone_to_zone_price %></div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-4 form-group"> 
+                                                <div class="form-group"> 
+                                                    <div>
+                                                        <div> 
+                                                            <label><%=config_json.select_zone1%></label>
+                                                        <select class="form-control select" id="zone1" data-live-search="true" name="zone1[]" >  
+                                                            <% city_zone.forEach(function (city_zone_detail) {    %> 
+                                                                <option id="<%= city_zone_detail._id %>" value="<%= city_zone_detail._id %>"><%= city_zone_detail.title %></option>   
+                                                            <% }); %> 
+                                                        </select> 
+                                                        </div> 
+                                                    </div>  
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-4 form-group"> 
+                                                <div class="form-group"> 
+                                                    <div>
+                                                        <div> 
+                                                            <label><%=config_json.select_zone2%></label>
+                                                        <select  class="form-control select" id="zone2" data-live-search="true" name="zone2[]" >  
+                                                            <% city_zone.forEach(function (city_zone_detail) {    %> 
+                                                                <option value="<%= city_zone_detail._id %>"><%= city_zone_detail.title %></option>   
+                                                            <%    });    %> 
+                                                        </select> 
+                                                        </div> 
+                                                    </div>  
+                                                </div> 
+                                            </div>
+                                            <div class="col-md-2 form-group"> 
+                                                <div class="form-group"> 
+                                                    
+                                                    <div> 
+                                                        <label><%= config_json.title_amount %></label> 
+                                                        
+                                                            <input type="text" id="amount" class="form-control" name="amount[]" value=""  /> 
+                                                        
+                                                    </div>
+                                                    <lable id="zone_error" style="color: red;"></lable>
+                                                </div> 
+                                            </div> 
+                                            <div class="col-md-2 form-group"> 
+                                                <button type="button" class="btn btn-primary btn-block" id="plush_button" style="width:80px;margin-top: 22px;"><%= config_json.button_add %></button>
+                                            </div>
+                                        </div>
+                                          <table class="table" id="customre2">               
+                                            <thead>
+                                              <tr>
+                                                <th><%= config_json.title_from %></th>
+                                                <th><%= config_json.title_to %></th>
+                                                <th><%= config_json.title_amount %></th>
+                                                <th></th>
+                                              </tr>
+                                            </thead>
+
+                                            <tbody id="append">                                   
+
+                                              <% zonevalue.forEach(function(data){ %>                                      
+
+                                                  <tr class="demo" id="remove<%= data._id %>">
+                                                    <td><%= data.from_detail.title %></td>
+                                                    <td><%= data.to_detail.title %></td>
+                                                    <td><input type="text" id="amount<%= data._id %>" value="<%= data.amount %>"></td>
+                                                    <td><button type="button" class="btn btn-primary btn-block" onclick="updateentry('<%= data._id %>')" style="float:left;text-align:center;width:80px;margin: 0 auto;"><%= config_json.button_update %></button>
+                                                        <button  type="button" class="btn btn-danger btn-block" onclick="deleteentry('<%= data._id %>')" style="text-align:center;width:80px;margin: 0 auto;"><%= config_json.button_delete %></button>
+
+                                                    </td>
+                                                  </tr>
+
+                                              <% }) %>
+                                            </tbody>
+                                            </table>            
+                                        
+                                        <div class="col-md-12" style="text-align: center;">
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab-six">
+                                <div class="panel-body">
+                                    <button type="button" class="btn btn-primary btn-block" onclick="add_carrental_form()" style="text-align:center;width:120px;margin: 0 auto;"><%= config_json.add_package %></button>
+                                    <div id="car_rental_data">
+                                        <div class="table-responsive" style="padding-bottom: 60px;">
+                                            <table class="table">               
+                                                <thead>
+                                                    <tr>
+                                                        <th><%= config_json.title_package_name %></th>
+                                                        <th><%= config_json.title_distance_for_base_price %></th>
+                                                        <th><%= config_json.title_time_for_base_price %></th>
+                                                        <th><%= config_json.title_base_price %></th>
+                                                        <th><%= config_json.title_price_per_unit_distance %></th>
+                                                        <th><%= config_json.title_price_for_total_unit_time %></th>
+                                                        <th><%= config_json.title_is_business %></th>
+                                                        <th width="15%"><%= config_json.title_is_action %></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody id="car_rental">
+                                                    <% city_type_data.car_rental_list.forEach(function(car_rental_data){ %>
+                                                        <tr id="new_car_rental<%=car_rental_data._id%>">
+                                                            <td><input class="form-control" type="text" name="carrental_typename" id="carrental_typename<%=car_rental_data._id%>" value="<%=car_rental_data.typename%>"></td>
+                                                            <td><input  onkeypress="return isNumberKey(event);" class="form-control" type="text" name=carrental_"base_price_distance" id="carrental_base_price_distance<%=car_rental_data._id%>" value="<%=car_rental_data.base_price_distance%>"></td>
+                                                            <td><input onkeypress="return isNumberKey(event);" class="form-control" type="text" name="carrental_base_price_time" id="carrental_base_price_time<%=car_rental_data._id%>" value="<%=car_rental_data.base_price_time%>"></td>
+                                                            <td><input onkeypress="return isNumberKey(event);" class="form-control" type="text" name="carrental_base_price" id="carrental_base_price<%=car_rental_data._id%>" value="<%=car_rental_data.base_price%>"></td>
+                                                            <td><input onkeypress="return isNumberKey(event);" class="form-control" type="text" name="carrental_price_per_unit_distance" id="carrental_price_per_unit_distance<%=car_rental_data._id%>" value="<%=car_rental_data.price_per_unit_distance%>"></td>
+                                                            <td><input onkeypress="return isNumberKey(event);" class="form-control" type="text" name="carrental_price_for_total_time" id="carrental_price_for_total_time<%=car_rental_data._id%>" value="<%=car_rental_data.price_for_total_time%>"></td>
+
+
+                                                            <td><select class="form-control select" id="carrental_is_business<%=car_rental_data._id%>" name="carrental_is_business">
+                                                                <% if(car_rental_data.is_business == "1") { %>
+
+                                                                    <option value="1" selected = "selected"><%= config_json.title_on %></option>
+                                                                    <option value="0"><%= config_json.title_off %></option>
+                                                                    <% } else{ %>
+
+                                                                    <option value="1"><%= config_json.title_on %></option>
+                                                                    <option value="0" selected = "selected"><%= config_json.title_off %></option>
+                                                                <% } %>
+                                                                </select>
+                                                            </td>
+
+                                                            <td><button type="button" onclick="update_carrental_data('<%=car_rental_data._id%>')" class="btn btn-primary" style="float:left;text-align:center;"><%= config_json.button_update %></button>
+                                                                <button  type="button" onclick="delete_carrental_data('<%=car_rental_data._id%>')" class="btn btn-danger" style="text-align:center;margin-left:10px; "><%= config_json.button_delete %></button>
+                                                            </td>
+                                                        </tr>   
+                                                    <% }); %>
+                                                    <!-- <tr>
+                                                        <td><input class="form-control" type="text" value="Hourly"></td>
+                                                        <td><input class="form-control" type="text" value="20"></td>
+                                                        <td><input class="form-control" type="text" value="60"></td>
+                                                        <td><input class="form-control" type="text" value="500"></td>
+                                                        <td><input class="form-control" type="text" value="20"></td>
+                                                        <td><input class="form-control" type="text" value="2"></td>
+                                                        <td><select class="form-control select" id="is_car_rental_business" name="is_car_rental_business">
+                                                                <option value="1"><%= config_json.title_on %></option>
+                                                                <option value="0"><%= config_json.title_off %></option>
+                                                            </select>
+                                                        </td>
+
+                                                        <td><button type="button" class="btn btn-primary" style="float:left;text-align:center;margin: 0 auto;"><%= config_json.button_update %></button>
+                                                            <button  type="button" class="btn btn-danger" style="text-align:center;margin: 0 auto;"><%= config_json.button_delete %></button>
+
+                                                        </td>
+                                                    </tr> -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <div id="footer" class="panel-footer">
+                            <button id="submit" type="submit" name="submit" value="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= config_json.button_submit %></button>
+                        </div>
+                    </div>
+                </div>
+                <div id="zone_queue" class="col-md-4" style="display: none;">
+                    <div class="panel panel-default tabs">
+                        <div class="panel-heading"><%= config_json.zone_for_queue %></div>
+                        <div class="panel-body tab-content tab-validate" style="min-height: calc(100vh - 180px);">
+                            <!-- <div class="tab-pane active" id="tab-first"> -->
+                                <% city_zone.forEach(function (city_zone_detail){%>
+                                    <div class="col-md-6"> 
+                                        <label class="check">
+                                            <%if(city_type_data.zone_ids && String(city_type_data.zone_ids).indexOf(String(city_zone_detail._id)) == -1){ %>
+                                                <input type="checkbox" id="<%=city_zone_detail.id%>" value="<%=city_zone_detail.id%>" name="zone_ids[]" class="icheckbox"/> <%=city_zone_detail.title%>
+
+                                            <% } else { %>
+                                                <input type="checkbox" id="<%=city_zone_detail.id%>" value="<%=city_zone_detail.id%>" name="zone_ids[]" class="icheckbox" checked/> <%=city_zone_detail.title%>
+                                            <% } %>
+                                        </label>
+                                    </div>
+                                <% }) %>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- for add city type form -->
+
+            <% }else{ %>
+
+            <form class="form-horizontal" method="post" id="add_city_type_detail">
+                <div id="main_div" class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_country %></label>
+
+                                        <div class="col-md-8 col-xs-7">
+                                            <div class="col-md-8">
+                                                <select class="form-control select"  data-live-search="true" name="countryid" id="countryid">
+                                                    <option selected disabled hidden style='display: none'>Select country....</option>
+                                                    <% city_type_data_country.forEach(function(country_data) { %>
+                                                    <option value="<%= country_data._id %>"><%= country_data.countryname %></option>
+                                                    <% }); %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_city %></label>
+
+                                        <div class="col-md-8 col-xs-7">
+                                            <div class="col-md-8">
+
+                                                <select class="form-control select" data-live-search="true" name="cityid" id='cityid'>
+                                                    <option selected disabled hidden style='display: none'>Select city....</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_type %></label>
+
+                                        <div class="col-md-8 col-xs-7">
+                                            <div class="col-md-8">
+                                                <select class="form-control  select " name="typename" id='typename'>
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_provider_profit %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="provider_profit" id="provider_profit"
+                                                           />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_provider_profit %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_min_fair %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="min_fare" id="min_fare" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_min_fare %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_distance_for_base_price %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+
+                                                <div class="input-group">
+                                                    <select class="form-control select" name="base_price_distance" id="base_price_distance">
+                                                        <% for(i=0; i<=25; i++) { %>
+                                                        <option value='<%= i %>'><%= i %> </option>
+                                                        <% } %>
+                                                    </select>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_distance_for_base_price %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_base_price %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="base_price" id="base_price" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_base_price %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_price_per_unit_distance %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="price_per_unit_distance" id="price_per_unit_distance"
+                                                           />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_price_per_unit_distance %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_price_for_total_unit_time %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="price_for_total_time" id="price_for_total_time"
+                                                           />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_price_for_total_unit_time %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_waiting_time_start_after_minute %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKeyWithoutPoint(event);" name="waiting_time_start_after_minute" id="waiting_time_start_after_minute"
+                                                           />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_waiting_time_start_after_minute %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_price_for_waiting_time %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="price_for_waiting" id="price_for_waiting"
+                                                           />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_price_for_waiting_time %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_max_space %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="max_space" id="max_space" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_max_space %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_is_car_rental_business %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <select class="form-control select" id="is_car_rental_business" name="is_car_rental_business">
+                                                        <option value="1"><%= config_json.title_on %></option>
+                                                        <option value="0"><%= config_json.title_off %></option>
+                                                    </select>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_is_business %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+
+                                    
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_is_business %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <select class="form-control select" id="is_business" name="is_business">
+                                                        <option value="1"><%= config_json.title_on %></option>
+                                                        <option value="0"><%= config_json.title_off %></option>
+                                                    </select>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_is_business %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_cancellation_fee %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="cancellation_fee" id="cancellation_fee"
+                                                           />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_cancellation_fee %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_tax %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="tax" id="tax" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_tax %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_user_miscellaneous_fee %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="user_miscellaneous_fee" id="user_miscellaneous_fee" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_user_miscellaneous_tax %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_user_tax %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="user_tax" id="user_tax" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_user_tax %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_provider_miscellaneous_fee %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="provider_miscellaneous_fee" id="provider_miscellaneous_fee" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_provider_miscellaneous_tax %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_provider_tax %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="provider_tax" id="provider_tax" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_provider_tax %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group" >
+                                        <label class="col-md-6 col-xs-5 control-label">Is Zone</label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9 ">
+                                                <select class="form-control select" id="is_zone" name="is_zone">
+                                                   
+                                                    <option value="1" selected = "selected"><%= config_json.title_on %></option>
+                                                    <option value="0"><%= config_json.title_off %></option>
+                                                   
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group" id="zone_multiplier">
+                                        <label class="col-md-6 col-xs-5 control-label">Zone Multiplier</label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="zone_multiplier" value="1" onkeypress="return isNumberKey(event);" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                     -->
+                                    <div class="form-group">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_is_surge_hours %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <select class="form-control select" id="is_surge_hours" name="is_surge_hours">
+                                                        <option value="1"><%= config_json.title_on %></option>
+                                                        <option value="0"><%= config_json.title_off %></option>
+                                                    </select>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_is_surge_hours %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="form-group" id="surge_start_hours">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_surge_time_start %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <select class="form-control select" name="surge_start_hour" id="surge_start_hour">
+                                                        <% for(i=0; i<=23; i++) { %>
+                                                        <option value='<%= i %>'><%= i %> </option>
+                                                        <% } %>
+                                                    </select>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_surge_time_start %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="surge_end_hours">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_surge_time_end %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <select class="form-control select" name="surge_end_hour" id="surge_end_hour">
+                                                        <% for(i=0; i<=23; i++) { %>
+                                                        <option value='<%= i %>'><%= i %> </option>
+                                                        <% } %>
+                                                    </select>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_surge_time_end %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group" id="surge_multipliers">
+                                        <label class="col-md-6 col-xs-5 control-label"><%= config_json.title_surge_multiplier %></label>
+
+                                        <div class="col-md-6 col-xs-7">
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" onkeypress="return isNumberKey(event);" name="surge_multiplier" id="surge_multiplier"
+                                                           />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_surge_multiplier %>">?</button>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div> -->
+                                    
+                                </div>
+
+                            </div>
+                           <div class="row" style="margin-top: 50px;">
+                                    <!-- <div class="col-md-3">
+                                    </div> -->
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_surge_time %></label>
+
+                                            <div class="col-md-6 col-xs-7">
+                                                <div class="panel panel-default tabs">
+                                                    <ul class="nav nav-tabs" role="tablist">
+                                                        <li><a href="#0" id="tab0" onclick="select_tab(0)" role="tab" data-toggle="tab"><%= config_json.sun %></a></li>
+                                                        <li><a href="#1" role="tab" onclick="select_tab(1)" data-toggle="tab"><%= config_json.mon %></a></li>
+                                                        <li><a href="#2" role="tab" onclick="select_tab(2)" data-toggle="tab"><%= config_json.tue %></a></li>
+                                                        <li><a href="#3" role="tab" onclick="select_tab(3)" data-toggle="tab"><%= config_json.wed %></a></li>
+                                                        <li><a href="#4" role="tab" onclick="select_tab(4)" data-toggle="tab"><%= config_json.thu %></a></li>
+                                                        <li><a href="#5" role="tab" onclick="select_tab(5)" data-toggle="tab"><%= config_json.fri %></a></li>
+                                                        <li><a href="#6" role="tab" onclick="select_tab(6)" data-toggle="tab"><%= config_json.sat %></a></li>
+                                                    </ul>
+
+                                                    <div class="panel-body tab-content">
+                                                        <% surge_hours.forEach(function(surge_data){ %>
+                                                            <div class="tab-pane" id="<%=surge_data.day%>">
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                        <label class="col-md-4 control-label text-left"><%= config_json.title_is_surge_hours %></label>
+                                                                        <div class="col-md-4">
+                                                                            <label class="switch">
+                                                                                <% if( surge_data.is_surge == false ) { %>
+                                                                                <input type="checkbox" class="switch" id="switch<%=surge_data.day%>" onchange="change_switch('<%=surge_data.day%>')" name="sms_notification" unchecked />
+                                                                                <% } else{ %>
+                                                                                <input type="checkbox" id="switch<%=surge_data.day%>" onchange="change_switch('<%=surge_data.day%>')" class="switch" name="sms_notification" checked />
+                                                                                <% } %>
+                                                                                <span></span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <button type="button" class="btn btn-primary" style="text-align:center;margin: 0 auto;" onclick="add_time()"><span class="fa fa-plus"></span><%= config_json.add_time %></button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th><%= config_json.surge_start_time %></th>
+                                                                                        <th><%= config_json.surge_end_time %></th>
+                                                                                        <th><%= config_json.surge_multiplier %></th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody id="day_time<%=surge_data.day%>">
+                                                                                    
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <% }) %>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                        </div>
+
+                        <div class="panel-footer">
+                            <button id="submit" type="submit" name="submit" value="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= config_json.button_submit %></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+            <% } %>
+
+        
+        
+    </div>
+
+</div>
+<!-- END PAGE CONTENT WRAPPER -->
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+
+
+<div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="addtime_modal" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+            <label></label>
+        </div>
+        <div class="modal-body">
+            <div class="form-group col-md-12">
+                <div class="col-md-12">
+                  <lable><%= config_json.surge_start_time %></lable>
+                </div>  
+                <div class="col-md-12">
+                       <input type="text" class="form-control" name="start_time" id="start_time" readonly />
+                </div>
+            </div>
+             <div class="form-group col-md-12">
+                <div class="col-md-12">
+                  <lable><%= config_json.surge_end_time %></lable>
+                </div>  
+                <div class="col-md-12">
+                       <input type="text" class="form-control" name="end_time" id="end_time" readonly />
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-12">
+                  <lable><%= config_json.surge_multiplier %></lable>
+                </div>  
+                <div class="col-md-12">
+                       <input type="text" onkeypress="return isNumberKey(event);" class="form-control" name="surge_multiplier" id="surge_multiplier" />
+                </div>
+            </div>
+            <lable id="time_error" class="error"></lable>
+
+        </div>
+        <div class="modal-footer" style="text-align: center;">
+            <input type="button" onclick="add_time_to_array()" class="btn btn-primary" id="ride_laters" value="Apply">
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<script type='text/javascript'>
+    $('#tab0').click();
+    var selected_tab = 0;
+    var city_zone = [];
+    <% if(typeof city_type_data != 'undefined' && city_type_data.surge_hours){ %>
+        city_zone = <%-JSON.stringify(city_zone)%>;
+
+        var city_type_data = <%-JSON.stringify(city_type_data)%>;
+
+        var city_type_id = '<%=city_type_data._id%>';
+
+        $('#rich_area_surge').empty();
+        city_zone.forEach(function(city_zone_detail, index){
+            if(index == 0)
+            {
+                $('#rich_area_surge').append('<div class="panel-body">');
+            }
+            var surge_multiplier = 1;
+            if(city_type_data.rich_area_surge){
+                    var surge_index = city_type_data.rich_area_surge.findIndex((x)=>(x.id).toString() == (city_zone_detail._id).toString())
+                if(surge_index !== -1){
+                    surge_multiplier = city_type_data.rich_area_surge[surge_index].surge_multiplier;
+                }
+            }
+            
+            $('#rich_area_surge .panel-body').append('<div class="form-group col-md-6"><label class="col-md-6 col-xs-5 control-label">'+ city_zone_detail.title +' Surge Multiplier' + '</label><div class="col-md-6 col-xs-7"><div class="col-md-9"><input type="hidden" value="'+city_zone_detail._id+'"  name="rich_area_surge['+index+'][id]"><div class="input-group"><input type="text" onkeypress="return isNumberKey(event);" id="'+city_zone_detail._id+'" class="form-control" value="'+surge_multiplier+'"  name="rich_area_surge['+index+'][surge_multiplier]" required/><span class="input-group-btn"><button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_surge_multiplier %>">?</button></span></div></div></div></div>');  
+
+            if(index == city_zone.length-1)
+            {
+                $('#rich_area_surge').append('</div>');
+            }
+        });
+    <% } %>
+
+    <% if(typeof city_type_data != 'undefined' && city_type_data.surge_hours){ %>
+        surge_hours = <%- JSON.stringify(city_type_data.surge_hours) %>;
+        
+    <%} else { %>
+        surge_hours = <%- JSON.stringify(surge_hours) %>;
+    <% } %>
+    set_surge_time();
+
+    function set_surge_time(){
+        surge_hours.forEach(function(surge_data){
+            $('#day_time'+surge_data.day).empty();
+            surge_data.day_time.forEach(function(day_time_data, index){
+                $('#day_time'+surge_data.day).append('<tr><td>'+day_time_data.start_time+'</td><td>'+day_time_data.end_time+'</td><td>'+day_time_data.multiplier+'</td><td><span class="fa fa-times" onclick="delete_time(\''+index+'\')"></span></td></tr>')
+            })
+            
+        })
+        $('#surge_hours').val(surge_hours);
+    }
+
+    function change_switch(id){
+        if($('#switch'+id).is(":checked")) {
+            surge_hours[selected_tab].is_surge = true;
+        } else {
+            surge_hours[selected_tab].is_surge = false;
+        }
+    }
+
+    function delete_time(index){
+        surge_hours[selected_tab].day_time.splice(index, 1);
+        set_surge_time()
+    }
+
+    function main_tab(tab){
+        if(tab == 5){
+            $('#footer').hide()
+        } else {
+            $('#footer').show()
+
+        }
+
+        if(tab==1){
+            $('#main_div').removeClass('col-md-12')
+            $('#main_div').addClass('col-md-8')
+            $('#zone_queue').show();
+        } else {
+            $('#main_div').removeClass('col-md-8')
+            $('#main_div').addClass('col-md-12')
+            $('#zone_queue').hide();
+        }
+    }
+
+    $('#start_time').mdtimepicker({
+      timeFormat: 'hh:mm',
+      theme: '#33414e',
+      readOnly: true,
+      format: 'hh:mm',
+      hourPadding: true
+    });
+
+    $('#end_time').mdtimepicker({
+      timeFormat: 'hh:mm',
+      theme: '#33414e',
+      readOnly: true,
+      format: 'hh:mm',
+      hourPadding: true
+    });
+
+    function select_tab(index){
+        selected_tab = index;
+    }
+
+    function add_time(){
+        $('#addtime_modal').modal('show')
+    }
+
+    function add_time_to_array(){
+        var start_time = $('#start_time').val();
+        var end_time = $('#end_time').val();
+        var surge_multiplier = $('#surge_multiplier').val();
+        if(start_time && end_time ){
+            if(surge_multiplier != ''){
+                var start_date = new Date(Date.now())
+                var start_time_date1=start_time.split(':');
+                start_date.setHours(start_time_date1[0] , start_time_date1[1] , 0,0)
+                start_time_date1=start_date.getTime();
+
+                var end_date = new Date(Date.now())
+                end_time_date1=end_time.split(':');
+                end_date.setHours(end_time_date1[0] , end_time_date1[1] , 0,0)
+                end_time_date1=end_date.getTime();
+
+                if(start_time_date1>=end_time_date1)
+                {
+                    $('#time_error').text('<%= config_json.surge_time_error %>')
+                } else {
+                    var already_added = false;
+                    var current_date = new Date()
+                    if(!selected_tab){
+                        selected_tab = 0;
+                    }
+                    surge_hours[selected_tab].day_time.forEach(function(day_time){
+                        var start_time1 = day_time.start_time.split(':');
+                        var end_time1 = day_time.end_time.split(':');
+                        var start_time_date = current_date.setHours(start_time1[0], start_time1[1], 0 ,0);
+                        var end_time_date = current_date.setHours(end_time1[0], end_time1[1], 0 ,0);
+                        start_time_date = new Date(start_time_date);
+                        end_time_date = new Date(end_time_date);
+                        start_time_date = start_time_date.getTime();
+                        end_time_date = end_time_date.getTime();
+
+                        if( ( start_time_date <= start_time_date1) && (start_time_date1 <= end_time_date )) {
+                            already_added = true; 
+                        }
+                        else if(start_time_date1<=start_time_date && end_time_date<=end_time_date1){
+                            already_added = true; 
+                        }
+
+                        if( ( start_time_date <= end_time_date1 ) && (end_time_date1 <= end_time_date)) {
+                            already_added = true; 
+
+                        }
+                        else if(start_time_date1<=start_time_date && end_time_date<=end_time_date1){
+                            already_added = true; 
+                        }
+                    });
+                    if(already_added){
+                        $('#time_error').text('<%= config_json.please_select_proper_time %>')
+                    } else {
+                        surge_hours[selected_tab].day_time.push({
+                            start_time: start_time,
+                            end_time: end_time,
+                            multiplier: surge_multiplier
+                        });
+                        $('#addtime_modal').modal('hide');
+                        $('#start_time').val('');
+                        $('#end_time').val('');
+                        set_surge_time();
+                    }
+                }
+            } else {
+                $('#time_error').text('<%= config_json.surge_multiplier_is_required %>')
+            }
+
+        } else {
+            $('#time_error').text('<%= config_json.select_start_end_time %>')
+        }
+    }
+
+    function add_carrental_form(){
+        $('#car_rental').append('<tr id="new_car_rental"><td><input class="form-control" type="text" name="carrental_typename" id="carrental_typename" value=""></td><td><input onkeypress="return isNumberKey(event);" class="form-control" type="text" name="carrental_base_price_distance" id="carrental_base_price_distance" value=""></td><td><input onkeypress="return isNumberKey(event);" class="form-control" type="text" name="carrental_base_price_time" id="carrental_base_price_time" value=""></td><td><input onkeypress="return isNumberKey(event);" class="form-control" type="text" name="carrental_base_price" id="carrental_base_price" value=""></td><td><input onkeypress="return isNumberKey(event);" class="form-control" type="text" name="carrental_price_per_unit_distance" id="carrental_price_per_unit_distance" value=""></td><td><input class="form-control" type="text" onkeypress="return isNumberKey(event);" name="carrental_price_for_total_time" id="carrental_price_for_total_time" value=""></td><td><select class="form-control select" id="carrental_is_business" name="carrental_is_business"><option value="1" selected = "selected"><%= config_json.title_on %></option><option value="0"><%= config_json.title_off %></option></select></td><td><button type="button" onclick="add_carrental_data()" class="btn btn-primary" style="float:left;text-align:center;margin: 0 auto;"><%= config_json.button_add %></button></td></tr>')
+    }
+
+    function add_carrental_data(){
+        if($('#carrental_typename').val() && $('#carrental_base_price_distance').val() && $('#carrental_base_price_time').val() && $('#carrental_base_price').val() &&  $('#carrental_price_per_unit_distance').val() && $('#carrental_price_for_total_time').val() && $('#carrental_is_business').val()){
+            var json = {
+                typename:  $('#carrental_typename').val(),
+                base_price_distance: $('#carrental_base_price_distance').val(),
+                base_price_time: $('#carrental_base_price_time').val(),
+                base_price: $('#carrental_base_price').val(),
+                price_per_unit_distance: $('#carrental_price_per_unit_distance').val(),
+                price_for_total_time: $('#carrental_price_for_total_time').val(),
+                is_business: $('#carrental_is_business').val(),
+                city_type_id: $('#id').val(),
+                provider_profit: $('#provider_profit').val()
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/add_carrental_data',
+                data: json,
+                dataType: "json",
+                success:function(response){
+                    $('#new_car_rental').remove();
+                    $('#car_rental').append('<tr id="new_car_rental'+response.carrental_data._id+'"><td><input class="form-control" type="text" name="carrental_typename" onkeypress="return isNumberKey(event);" id="carrental_typename'+response.carrental_data._id+'" value="'+response.carrental_data.typename+'"></td><td><input class="form-control" type="text" name="carrental_base_price_distance" onkeypress="return isNumberKey(event);" id="carrental_base_price_distance'+response.carrental_data._id+'" value="'+response.carrental_data.base_price_distance+'"></td><td><input class="form-control" type="text" onkeypress="return isNumberKey(event);" name="carrental_base_price_time" id="carrental_base_price_time'+response.carrental_data._id+'" value="'+response.carrental_data.base_price_time+'"></td><td><input class="form-control" type="text" name="carrental_base_price" id="carrental_base_price'+response.carrental_data._id+'"onkeypress="return isNumberKey(event);"  value="'+response.carrental_data.base_price+'"></td><td><input class="form-control" type="text" name="carrental_price_per_unit_distance" onkeypress="return isNumberKey(event);" id="carrental_price_per_unit_distance'+response.carrental_data._id+'" value="'+response.carrental_data.price_per_unit_distance+'"></td><td><input class="form-control" type="text" name="carrental_price_for_total_time" id="carrental_price_for_total_time'+response.carrental_data._id+'"onkeypress="return isNumberKey(event);"  value="'+response.carrental_data.price_for_total_time+'"></td><td><select class="form-control select" id="carrental_is_business'+response.carrental_data._id+'" name="carrental_is_business"><option value="1" selected = "selected"><%= config_json.title_on %></option><option value="0"><%= config_json.title_off %></option></select></td><td><button type="button" onclick="update_carrental_data('+"'"+response.carrental_data._id+"'"+')" class="btn btn-primary" style="float:left;text-align:center;margin: 0 auto;"><%= config_json.button_update %></button> <button type="button" onclick="delete_carrental_data('+"'"+response.carrental_data._id+"'"+')" class="btn btn-danger" style="float:left;text-align:center;margin: 0 auto;"><%= config_json.button_delete %></button></td></tr>')
+                }
+            });
+        }
+    }
+
+    function update_carrental_data(id){
+        if($('#carrental_typename'+id).val() && $('#carrental_base_price_distance'+id).val() &&  $('#carrental_base_price_time'+id).val() && $('#carrental_base_price'+id).val() && $('#carrental_price_per_unit_distance'+id).val() &&  $('#carrental_price_for_total_time'+id).val() &&  $('#carrental_is_business'+id).val()){
+            var json = {
+                typename:  $('#carrental_typename'+id).val(),
+                base_price_distance: $('#carrental_base_price_distance'+id).val(),
+                base_price_time: $('#carrental_base_price_time'+id).val(),
+                base_price: $('#carrental_base_price'+id).val(),
+                price_per_unit_distance: $('#carrental_price_per_unit_distance'+id).val(),
+                price_for_total_time: $('#carrental_price_for_total_time'+id).val(),
+                is_business: $('#carrental_is_business'+id).val(),
+                id: id,
+                provider_profit: $('#provider_profit').val()
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/update_carrental_data',
+                data: json,
+                dataType: "json",
+                success:function(response){
+                    
+                }
+            });
+        }
+    }
+
+    function delete_carrental_data(id){
+        $.ajax({
+            type: 'POST',
+            url: '/delete_carrental_data',
+            data: {id: id , city_type_id: $('#id').val()},
+            dataType: "json",
+            success:function(response){
+                $('#new_car_rental'+id).remove();
+            }
+        });
+    }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        {
+            if (charCode == 46)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+     function isNumberKeyWithoutPoint(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        {
+            // if (charCode == 46)
+            // {
+            //     return true;
+            // } else
+            // {
+                return false;
+            // }
+        }
+        return true;
+    }
+
+
+
+    function updateentry(id){
+            var amount = $('#amount'+id).val();
+            if(amount == "")
+            {
+                alert('Please give amount');
+            }
+            else
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/updatezonevalueajax',
+                    data: {'id': id ,'amount': amount },
+                    dataType: "json",
+                      success:function(response){
+                        if(response.success){
+                            alert('Successfully updated');
+                        }else{
+                            alert('Something is wrong');
+                        }
+                      }
+                });
+            }
+        }
+        function deleteentry(id){
+            $.ajax({
+                    type: 'POST',
+                    url: '/deletezonevalueajax',
+                    data: {'id': id},
+                    dataType: "json",
+                      success:function(response){
+                        if(response.success){
+                            $('#remove'+id).remove();
+                        }else{
+                            alert('Something is wrong');
+                        }
+                      }
+                });
+        }
+        
+    $(document).ready(function () {
+
+
+
+        $('#plush_button').click(function(e){
+            $('#zone_error').text('');
+            var zone1 = $('#zone1').val();
+            var zone2 = $('#zone2').val();
+            var amount = $('#amount').val();
+            var service_type_id = $('#id').val();
+            var cityid = $('#cityids').val();
+            if(amount!= ""){
+
+                // if(zone1 == zone2)
+                // {
+                //     $('#zone_error').text('Both are not same')
+                // }
+                // else
+                // {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/zonevalueajax',
+                        data: {'zone1': zone1, 'zone2':zone2 ,'amount':amount, cityid: cityid ,'id':service_type_id},
+                        dataType: "json",
+                          success:function(response){
+                            if(response.success){
+                                $('#append').append('<tr class="demo" id="remove'+response.zone_value._id+'" > <td>'+$('#zone1 option:selected').text()+'</td><td>'+$('#zone2 option:selected').text()+'</td><td><input type="text" id="amount'+response.zone_value._id+'" value="'+amount+'"></td><td> <button type="button" class="btn btn-primary btn-block" onclick="updateentry('+"'"+response.zone_value._id+"'"+')" style="float:left;text-align:center;width:80px;margin: 0 auto;"><%= config_json.button_update %></button><button type="button" class="btn btn-danger btn-block" onclick="deleteentry('+"'"+response.zone_value._id+"'"+')" style = "text-align:center; width:80px; margin: 0 auto;"> Delete </button></td> </tr>');
+
+                               
+                            }else{
+                                $('#zone_error').text(response.message)
+                            }
+                          }
+                    });
+                // }
+            }else{
+                $('#zone_error').text('Please give amount');
+            }
+        });
+
+        
+
+        ////////////////// for change is surge hour hide and show surge multiplier , end hour and start hour /////////////
+
+        var is_payment_mode_card = $('#is_surge_hours :selected').text();
+
+            if(is_payment_mode_card=="ON")
+            {
+                $("#surge_end_hours").css("display", "block");
+                $("#surge_multipliers").css("display", "block");
+                $("#surge_start_hours").css("display", "block");
+            }
+            else
+            {
+                $("#surge_end_hours").css("display", "none");
+                $("#surge_multipliers").css("display", "none");
+                $("#surge_start_hours").css("display", "none");
+            }
+
+            $('#is_zone').change(function (e) {
+                if(this.value==1)
+                {
+                    $("#zone_multiplier").css("display", "block");                
+                }
+                else
+                {
+                    $("#zone_multiplier").css("display", "none");
+                    
+                }
+            });
+
+        $('#is_surge_hours').change(function (e) {
+
+            if(this.value==1)
+            {
+                $("#surge_end_hours").css("display", "block");
+                $("#surge_multipliers").css("display", "block");
+                $("#surge_start_hours").css("display", "block");
+            }
+            else
+            {
+                $("#surge_end_hours").css("display", "none");
+                $("#surge_multipliers").css("display", "none");
+                $("#surge_start_hours").css("display", "none");
+            }
+
+        });
+        ///////////////////////////
+
+        $("#add_city_type_detail").validate({
+            ignore:[],
+            errorPlacement: function(error, element) {
+                if(element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/add_city_type_detail',
+                    data: $('#add_city_type_detail').serialize(),
+                    dataType: "json",
+                    success:function(response){
+                        $.ajax({
+                            type: 'POST',
+                            url: '/update_surge_time',
+                            data: {'surge_hours': surge_hours, 'id': response.id},
+                            dataType: "json",
+                            success:function(response){
+                                window.location.href="/city_type";
+                            }
+                        });
+                    }
+                });
+            },
+            invalidHandler: function() {
+                setTimeout(function() {
+                    $('.nav-tabs a small.required').remove();
+                    var validatePane = $('.tab-content.tab-validate .tab-pane:has(input.error)').each(function() {
+                        var id = $(this).attr('id');
+                        $('.nav-tabs a[href="#' + id + '"]').tab('show');
+                        // $('.nav-tabs').find('a[href^="#' + id + '"]').append(' <small class="required">***</small>');
+                    });
+                });            
+            },
+            rules: {
+                countryid: "required",
+                cityid: "required",
+                typename: "required",
+                base_price_distance: "required",
+                base_price: "required",
+                min_fare: "required",
+                provider_profit: "required",
+                price_per_unit_distance: "required",
+                price_for_waiting: "required",
+                price_for_total_time: "required",
+                tax: "required",
+                max_space: "required",
+                cancellation_fee: "required",
+                user_miscellaneous_fee: "required",
+                provider_miscellaneous_fee: "required",
+                user_tax: "required",
+                provider_tax: "required",
+                airport_array: "required",
+                destcity_array: "required",
+                rich_area_surge: "required"
+            }
+            
+        });
+
+        $("#update_city_type_detail").validate({
+            ignore:[],
+            errorPlacement: function(error, element) {
+                if(element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/update_city_type_detail',
+                    data: $('#update_city_type_detail').serialize(),
+                    dataType: "json",
+                    success:function(response){
+                        $.ajax({
+                            type: 'POST',
+                            url: '/update_surge_time',
+                            data: {'surge_hours': surge_hours, 'id': $('#id').val()},
+                            dataType: "json",
+                            success:function(response){
+                                window.location.href="/city_type";
+                            }
+                        });
+                    }
+                });
+            },
+            invalidHandler: function() {
+                setTimeout(function() {
+                    $('.nav-tabs a small.required').remove();
+                    var validatePane = $('.tab-content.tab-validate .tab-pane:has(input.error)').each(function() {
+                        var id = $(this).attr('id');
+                        $('.nav-tabs a[href="#' + id + '"]').tab('show');
+                        // $('.nav-tabs').find('a[href^="#' + id + '"]').append(' <small class="required">***</small>');
+                    });
+                });            
+            },
+            rules: {
+                countryid: "required",
+                cityid: "required",
+                typename: "required",
+                base_price_distance: "required",
+                base_price: "required",
+                min_fare: "required",
+                provider_profit: "required",
+                price_per_unit_distance: "required",
+                price_for_waiting: "required",
+                price_for_total_time: "required",
+                tax: "required",
+                max_space: "required",
+                cancellation_fee: "required",
+                user_miscellaneous_fee: "required",
+                provider_miscellaneous_fee: "required",
+                user_tax: "required",
+                provider_tax: "required",
+                airport_array: "required",
+                destcity_array: "required",
+                rich_area_surge: "required"
+            }
+            
+        });
+
+        <% if(typeof city_type_data != 'undefined'){ %>
+            destination_city('<%= city_type_data.cityid %>');
+        <% } %>
+
+        ///////// change city fill type dropdown for that city //////////////////
+        $('#cityid').change(function () {
+            $('#typename').empty();
+            var cityid = document.getElementById('cityid').value;
+      
+            //var array = [];
+            var unique_array = [];
+            //var difference = [];
+            var city_type_array = [];
+            var type_array = [];
+
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_servicetype_list',
+                data: 'cityid=' + cityid,
+                dataType: "json",
+                success: function (res) {
+                    var res_type_list = res.type_list;
+                    var res_reg_city_type_list = res.city_type;
+
+                    ////////////// fill type dropdown only for not already added type //////////
+                    for (var index in res_type_list)
+                    {
+                        type_array.push(res_type_list[index].typename);
+                    }
+                    for (var index in res_reg_city_type_list)
+                    {   
+                        city_type_array.push(res_reg_city_type_list[index].type_detail.typename);
+                    }
+                    unique_array = type_array.filter(function (current) {
+                        return city_type_array.filter(function (current_b) {
+                            return current_b == current
+                        }).length == 0
+                    });
+
+                    if (unique_array == "")
+                    {
+                        $("#message").html('<font color="red">type not available for this city</font>');
+                        $("#submit").attr("disabled", true);
+                    } else
+                    {
+                        for (var index in unique_array)
+                        {
+                            $("#message").html('<font color="red"></font>');
+                            $("#submit").attr("disabled", false);
+                            var service_type = unique_array[index];
+
+                            $("#typename").append("<option>" + service_type + "</option>");
+                        }
+                    }
+                    ///////////////////////////////////////////
+                    $('#typename').selectpicker('refresh');
+                }
+            });
+            destination_city(cityid);
+        });
+
+
+        function destination_city(cityid)
+        {
+            var destination_city;
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_destination_city_list',
+                data: 'cityid=' + cityid,
+                dataType: "json",
+                success: function (res) {
+                    $('#airport_data').empty();
+
+                    $('#dest_city').empty();
+                    res.dest_city_list.forEach(function(city_detail, index){
+                    
+                        if(index == 0)
+                        {
+                            $('#dest_city').append('<div class="panel-body">');
+                        }
+
+                        $('#dest_city .panel-body').append('<div class="form-group col-md-6"><label class="col-md-6 col-xs-5 control-label">'+ res.city_detail.cityname + ' to ' + city_detail.cityname + ' Price' + '</label><div class="col-md-6 col-xs-7"><div class="col-md-9"><input type="hidden" value="'+city_detail._id+'" name="destcity_array['+index+'][id]"><div class="input-group"><input type="text" onkeypress="return isNumberKey(event);" id="'+city_detail._id+'" class="form-control" name="destcity_array['+index+'][price]" required/><span class="input-group-btn"><button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_surge_multiplier %>">?</button></span></div></div></div></div>');  
+
+                        if(index == res.dest_city_list.length-1)
+                        {
+                            $('#dest_city').append('</div>');
+                        }
+
+
+                    });
+                    res.airport_list.forEach(function(airport_data, index){
+                        if(index == 0)
+                        {
+                            $('#airport_data').append('<div class="panel-body">');
+                        }
+                
+                        $('#airport_data .panel-body').append('<div class="form-group col-md-6"><label class="col-md-6 col-xs-5 control-label">'+airport_data.title+'</label><div class="col-md-6 col-xs-7"><div class="col-md-9"><input type="hidden" value="'+airport_data._id+'" name="airport_array['+index+'][id]"><div class="input-group"><input type="text" onkeypress="return isNumberKey(event);" id="'+airport_data._id+'" class="form-control" name="airport_array['+index+'][price]" required/><span class="input-group-btn"><button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=process.env.tooltip_surge_multiplier %>">?</button></span></div></div></div></div>');
+
+                        if(index == res.airport_list.length-1)
+                        {
+                            $('#airport_data').append('</div>');
+                        }
+
+                    })
+                
+                    <% if(typeof city_type_data != 'undefined'){ %>
+                            
+                        $.ajax({
+                            type: 'POST',
+                            url: '/fetch_destination_city_value',
+                            data: {cityid: '<%= city_type_data.cityid %>', service_type_id: '<%= city_type_data._id %>'},   
+                            dataType: "json",
+                            success: function (res) {
+
+                                res.city_to_city_list.forEach(function(city_to_city_detail){
+                                    $('#'+city_to_city_detail.destination_city_id).val(city_to_city_detail.price)
+                                })  
+                            }
+                        });
+                        $.ajax({
+                            type: 'POST',
+                            url: '/fetch_airport_value',
+                            data: {cityid: '<%= city_type_data.cityid %>', service_type_id: '<%= city_type_data._id %>'},   
+                            dataType: "json",
+                            success: function (res) {
+
+                                res.airporty_to_city_list.forEach(function(airporty_to_city_detail){
+                                   $('#'+airporty_to_city_detail.airport_id).val(airporty_to_city_detail.price)
+                                }); 
+                            }
+                        });
+                    <% } %>
+                }
+            });
+        }
+        /////////////////////
+
+        ///////// for change country fill city dropdown
+        $('#countryid').change(function () {
+            $('#cityid').empty();
+            var countryid = document.getElementById('countryid').value;
+
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_city_list',
+                data: 'countryid=' + countryid,
+                dataType: "json",
+                success: function (res) {
+                    //var res =  JSON.stringify(res);
+                    $("#cityid").append("<option selected disabled hidden style='display: none'>Select City...</option>");
+                    for (var index in res)
+                    {
+                        var city_name = res[index].cityname;
+                        var city_id = res[index]._id;
+                        $("#cityid").append("<option value=" + city_id + ">" + city_name + "</option>");
+                    }
+                    $('#cityid').selectpicker('refresh');
+                }
+            });
+        });
+        /////////////////////////
+    });
+</script>
+<% include footer_form.html %>
+
+

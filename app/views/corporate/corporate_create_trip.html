@@ -1,0 +1,1963 @@
+<% include corporate_header.html %>
+<style>
+  img{
+    cursor: pointer;
+  }
+  .selectpicker{
+    border: 0 !important;
+    border-bottom: 1px solid #a59d9d !important;
+    border-radius: 0 !important;
+    background-color: unset !important;
+  }
+  .form-control{
+    height: 40px !important;
+  }
+  .tag_button{
+    background: gray;
+    height: 25px;
+    width: unset;
+    color: #fff;
+    letter-spacing: 0.5px;
+    font-size: 10px;
+    padding: 5px;
+  }
+  .selected_tag_button{
+    background-color: #43A422;
+  }
+
+  #provider_filter_distance + .select{
+    height: 25px !important;
+  }
+  #provider_filter_distance + .select .dropdown-toggle{
+    height: 25px !important;
+  }
+  #provider_filter_distance + .select .filter-option{
+    line-height: 27px !important;
+  }
+  #current_location_service_type_id + .select{
+    height: 25px !important;
+  }
+  #current_location_service_type_id + .select .dropdown-toggle{
+    height: 25px !important;
+  }
+  #current_location_service_type_id + .select .filter-option{
+    line-height: 27px !important;
+  }
+  h6{
+    margin-bottom: 0 !important;
+  }
+  .get_provider_info{
+    margin-top: 55px !important;
+    padding-top: 0 !important;
+  }
+  .pickup_info{
+    padding-top: 0 !important;
+  }
+
+  h6 span {
+    font-size: 12px;
+  }
+
+  .map_height{
+    height: calc( 100vh - 215px) !important;
+  }
+  .bootstrap-select{
+    background-color: #fff !important;
+  }
+
+  .fix_height_div{
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .fix_height_div h5{
+    margin-top: 0;
+  }
+
+</style>
+
+<% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+      <p align="center"> <strong><%= message %></strong></p>
+    </div>
+<% } %>  
+<div class="alert alert-success" role="alert" id="request_error" style="display:none">
+    <button type="button" id="close" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+    <p align="center" id="request_message"> <strong></strong></p>
+</div>
+
+    <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-timepicker.min.js'></script>
+
+    <link rel="stylesheet" href="dispatcher_new_design/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="dispatcher_new_design/css/style.css" type="text/css" />
+<body class="gray_bg" style="background-color: #fff;">
+    <div class="top" style="display: none;">
+      <div class="top_left clr">
+        <div class="menu_icon"><a href="javascript:void(0)" class="line"><span></span></a></div>
+        <div class="hide_btn"><a href="javascript:void(0)"><i class="fa fa-chevron-left"></i></a></div>
+      </div>
+    </div>
+
+    <div class="container" style="background-color: #fff;height: 93%;padding-left: 0;    padding-right: 0;">
+      <div  class="left_panel" style="background: #000;d-color: #fff;    box-shadow: 0px 0px 3px 1px gray;">
+        <div class="main_info" style="background-color: #333952;">
+          
+          <div class="content fix_height_div">
+            <div class="panel panel-default tabs">
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#tab-one" role="tab" data-toggle="tab"><%= config_json.button_new_request %></a></li>
+                <li><a href="#tab-two" role="tab" data-toggle="tab"><%= config_json.button_accepted_request %></a></li>
+                <li><a href="#tab-three" role="tab" data-toggle="tab"><%= config_json.button_arrived_request %></a></li>
+                <li><a href="#tab-four" role="tab" data-toggle="tab"><%= config_json.button_started_request %></a></li>
+              </ul>
+
+              <div class="tab-content tab-validate">
+                <div class="tab-pane active" id="tab-one">
+                  <div id="new_request">
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab-two">
+                  <div id="accepted_request">
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab-three">
+                  <div id="arrived_request">
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab-four">
+                  <div id="started_request">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!-- <div class="content fix_height_div">
+            <h5>New Request</h5>
+            <div id="new_request">
+            </div>
+          </div>
+          <div class="content fix_height_div">
+            <h5>Accepted</h5>
+            <div id="accepted_request">
+            </div>
+          </div>
+          <div class="content fix_height_div">
+            <h5>Arrived</h5>
+            <div id="arrived_request">
+            </div>
+          </div>
+          <div class="content fix_height_div">
+            <h5>Started</h5>
+            <div id="started_request">
+            </div>
+          </div> -->
+        </div>
+
+      </div>
+
+      <div class="overflowdiv">
+        <!--mainpage start -->
+        <div class="main_page">
+
+          <input type="hidden" id="src_lat_lng" name="src_lat_lng" />
+          <input type="hidden" id="dest_lat_lng" name="dest_lat_lng" />
+          <input type="hidden"  name="server_time" id="server_time"  />
+          <input type="hidden" id="surge_start_time" name="surge_start_time" />
+          <input type="hidden" id="surge_end_time" name="surge_end_time" />
+          <input type="hidden" id="current_latitude" name="latitude" />
+          <input type="hidden" id="current_longitude" name="longitude" />
+
+          <form id="signupForm" class= "form-horizontal" method="post">
+
+            <input type="hidden" id="lat" name="latitude" />
+            <input type="hidden" id="lng" name="longitude" />
+            <input type="hidden" id="dlat" name="d_latitude" />
+            <input type="hidden" id="dlng" name="d_longitude" />
+            <input type="hidden"  name="timezone" id="timezone"  />
+            <input type="hidden"  name="city_id" id="city_id"  />
+            <input type="hidden"  name="payment_id" id="payment_id" value="0" />
+            <input type="hidden" name="is_ride_later" id="is_ride_later" value="0">
+            <input type="hidden" name="start_time" id="start_time">
+            <input type="hidden"  name="country" value="<%= corporates.country %>" />
+            <input type="hidden"  name="country_phone_code" value="<%= corporates.country_phone_code %>" />
+            <input type="hidden" name="payment_mode" value="0">
+            <input type="hidden"  name="is_surge_hours" id="is_surge_hours"  />
+            <input type="hidden" name="user_type" value="2">
+            <input type="hidden"  name="user_type_id" value="<%= corporates._id %>"  />
+            <input type="hidden"  name="trip_type"  value="<%= constant_json.TRIP_TYPE_CORPORATE %>"  />
+            <input type="hidden" name="device" value="web">
+            <input type="hidden"  name="token" id="token"  />
+            <input type="hidden"  name="city" id="city" />
+            <input type="hidden"  name="user_id" id="user_id" />
+            <div class="panel panel-default" id="provider_search_button" style="padding-top: 10px;box-shadow: 0 0 3px 0px gray;border-radius: 0;margin-bottom: 2px;" id="provider_filter">
+              <div class="panel-body" style="padding: 0;">
+              <!--<div class="col-md-2">-->
+                <!--<select class="select form-control" id="provider_type_filter" >-->
+                  <!--<option value="1">All</option>-->
+                  <!--<option value="2">Online</option>-->
+                  <!--<option value="3">Offline</option>-->
+                  <!--&lt;!&ndash;<option value="4">In Trip</option>&ndash;&gt;-->
+                  <!--<option value="5">Request Accepted</option>-->
+                  <!--<option value="6">Arrived at Destination</option>-->
+                  <!--<option value="7">Request Started</option>-->
+                <!--</select>-->
+              <!--</div>-->
+                <div class="col-md-1">
+                  <select class="select form-control" id="provider_filter_distance" onchange="get_all_provider()">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>50</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <button type="button" onclick="provider_filter(1)" id="tag_button1" class="tag_button selected_tag_button">All</button>
+                  <button type="button" onclick="provider_filter(2)" id="tag_button2" class="tag_button">Online</button>
+                  <button type="button" onclick="provider_filter(3)" id="tag_button3" class="tag_button">Offline</button>
+                  <button type="button" onclick="provider_filter(4)" id="tag_button4" class="tag_button">Accepted</button>
+                  <button type="button" onclick="provider_filter(5)" id="tag_button5" class="tag_button">Arrived</button>
+                  <button type="button" onclick="provider_filter(6)" id="tag_button6" class="tag_button">Started</button>
+                  <span id="all_provider_marker_length"></span>
+                </div>
+                <div class="col-md-3">
+                  <input type="text" id="current_location_address" style="height: 25px;border: 0;border-bottom: 1px solid #a59d9d;border-radius: 0;">
+                </div>
+                <div class="col-md-2">
+                  <select id="current_location_service_type_id" style="" onchange="get_all_provider()" name="service_type_id1" class="form-control select">
+                    <option style="display: none" value="" selected>All Type</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="map_div" id="wrapper" style="box-shadow: 0 0 3px 0px gray;">
+              <div class="fr" id="new_request_div"><span onclick="new_request_creat()" class="new_req_btn" style="top: 95px;"><img src="map_pin/new_request.png"  style="float: right;"/></span></div>
+              <div class="fr" id="mapview_div"><span onclick="go_to_mapview()" class="new_req_btn1"><img src="map_pin/home.png" style="float: right;" /></span></div>
+
+              <div id="map" style="width:100%; height: 100%;"></div>
+            </div>
+            <div class="new_req_info" style="box-shadow: 0 0 3px 0px gray;">
+              <div class="set_location">
+                <div class="row clr">
+                  <div class="col_4 green_bg">
+                    <input type="text" id="pickup" name="source_address" placeholder="Set Pickup Location" required/>
+                    <span><i class="fa fa-map-marker"></i></span>
+                  </div>
+                  <div class="col_4 red_bg">
+                    <input type="text" id="destination" name="destination_address" placeholder="Set Destination Location"/>
+                    <span><i class="fa fa-map-marker"></i></span>
+                  </div>
+                  <div class="col_4">
+                    <select id="service_type_id"  name="service_type_id" class="form-control select">
+                      <option style="display: none" selected>Select Service Type</option>
+                    </select>
+                    <!--<lable id="message" style="color:red;" ></lable>-->
+                    <span id="message" style="color:red;"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="select_info">
+                <div class="row clr">
+                  <div class="col_4">
+                      <div class="select_div" style="margin-bottom: 10px;">
+                        <select id="select_user" name="select_user" data-live-search="true" class="form-control select">
+                          <option selected>Select User</option>
+                          <% user_list.forEach(function(user){ %>
+                            <option id="<%= user._id %>" data-phone="<%= user.phone %>" data-first_name="<%= user.first_name %>" data-last_name="<%= user.last_name %>" data-email="<%= user.email %>" value="<%= user._id %>"><%= user.first_name %> <%= user.last_name %> (<%= user.phone %>)</option>
+                          <% }) %>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col_4">
+                    <div class="form_group">
+                        <input type="tel" class="form-control" onkeypress="return isNumberKeyOnly(event);" minlength="8"
+                               maxlength="12" name="phone" id="phone" placeholder="Phone Number" readonly>
+                      </div>
+                      
+                  </div>
+                  <div class="col_4">
+                    <div class="time_info clr" id="min_fare_div" style="display: none;">
+                      <div class="col_4">
+                        <h6>Distance</h6><span id="total_distance"></span> km
+                      </div>
+                      <div class="col_4">
+                        <h6>Time</h6><span id="total_time"></span> min
+                      </div>
+                      <div class="col_4">
+                        <h6>Fare</h6><span id="min_fare_lable"></span>
+                      </div>
+                    </div>
+                    <!--<div class="price">-->
+                      <!--<label>Fare</label> : <span id="min_fare_lable"></span>-->
+                    <!--</div>-->
+                    <div class="book_btn">
+                      <div class="row clr">
+                        <div class="col_6"><button id="ridenow" type="submit">Book Now</button></div>
+                        <div class="col_6"><button type="button" id="ridelater" class="btn">Book Later</button></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="get_provider_info" style="display: none;margin-top: 70px;box-shadow: -3px -5px 2px -5px #333;">
+              <div class="row clr">
+                <div class="col_2">
+                  <h6>Provider Id</h6>
+                  <span id="provider_info_unique_id"></span>
+                </div>
+                <div class="col_2">
+                  <h6>Name</h6>
+                  <span id="provider_info_name"></span>
+                </div>
+                <div class="col_2">
+                  <h6>Email</h6>
+                  <span id="provider_info_email"></span>
+                </div>
+                <div class="col_2">
+                  <h6>Phone</h6>
+                  <span id="provider_info_phone"></span>
+                </div>
+                <div class="col_2">
+                  <h6>Status</h6>
+                  <span id="provider_info_status"></span>
+                </div>
+                <div class="col_2">
+                  <h6>Rating</h6>
+                  <span id="provider_info_rating"></span>
+                </div>
+              </div>
+              <div class="row clr" style="margin-top: 20px;margin-left: 15px;" id="provider_info_trip">
+                <div class="col_3">
+                  <div class="select_div">
+                    <input type="hidden" name="select_trip_provider" id="select_trip_provider">
+                    <select id="select_trip" name="trip_id" class="form-control">
+                    </select>
+                  </div>
+                </div>
+                <div class="col_3">
+                  <button type="button" onclick="assign_request()" class="btn-block" id="send_request1">Send Request</button>
+                </div>
+              </div>
+            </div>
+            <div class="pickup_info" style="display: none;box-shadow: 0 0 3px 0px gray;">
+              <div class="row clr">
+                <div class="col_2">
+                  <h6>Trip</h6>
+                  <span id="show_unique_id"></span> <br><span id="show_created_date"></span>
+                </div>
+                <!--<div class="col_2">-->
+                  <!--<h6>Pickup Time</h6>-->
+                  <!--<span>ASAP</span>-->
+                <!--</div>-->
+                <div class="col_2">
+                  <h6>Provider</h6>
+                  <span id="show_provider_name"></span> <br><span id="show_provider_phone"></span>
+                </div>
+
+                <div class="col_2">
+                  <h6>User</h6>
+                  <span id="show_user_name"></span> <br><span id="show_user_phone"></span>
+                </div>
+
+                <div class="col_2">
+                  <h6>Pickup</h6>
+                  <span id="show_source_address"></span>
+                </div>
+                <div class="col_2">
+                  <h6>Destination</h6>
+                  <span id="show_destination_address"></span>
+                </div>
+                <div class="col_2">
+                  <h6>Trip Type</h6>
+                  <span id="show_trip_type"></span>
+                </div>
+              </div>
+            </div>
+
+          </form>
+          <form id="send_request_form">
+            <div class="no_provider_found_div" style="display: none;margin-top: 10px;">
+                <input type="hidden" name="trip_id" id="send_trip_id">
+                <div class="select_info">
+                  <div class="clr">
+                    <div class="col_3">
+                        <div class="select_div">
+                          <select id="provider_type1" name="provider_type" data-live-search="true" class="form-control select">
+                            <option selected value="1">Nearest</option>
+                            <option value="2">Manual</option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="col_9" id="provider_div1" style="display: none;">
+                      <div class="col_4">
+                        <select id="select_provider1" name="provider_id" data-live-search="true" class="form-control">
+                          <option selected style="display: none;">Select Provider</option>
+                        </select>
+                      </div>
+                      <div class="col_8">
+                        <div class="col_6">
+                          <input type="text" class="form-control" name="provider_full_name" id="provider_full_name1" placeholder="Full Name">
+                        </div>
+                        <div class="col_6">
+                          <input type="tel" class="form-control" name="provider_phone" id="provider_phone1" placeholder="Phone Number">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="text_center">
+                <button id="send_request">Send Request</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="ridelater_modal" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+            <label><%= config_json.title_select_date_time %></label>
+          </div>
+          <div class="modal-body">
+            <div class="form-group col-md-12">
+              <div class="col-md-12">
+                <lable>Select Date</lable>
+              </div>
+
+              <div class="col-md-12">
+                <input type="text" class="form-control datepicker" placeholder="Select date" name="date" id="date" readonly/>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <div class="col-md-12">
+                <lable>Select Time</lable>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="form-control timepicker" name="time" id="time" readonly />
+              </div>
+            </div>
+            <lable id="date_time_error" class="error"></lable>
+
+          </div>
+          <div class="modal-footer" style="text-align: center;">
+            <input type="button" class="btn btn-primary" id="ride_laters" value="Apply">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type='text/javascript' src='dispatcher_new_design/js/moment.min.js'></script>
+    <script src="<%=map_key%>"></script>
+  <script>
+    var interval;
+    var provider_array = [];
+    var surge_time = [];
+    var providers = [];
+    var provider_markers = [];
+    var map;
+    var pickup_marker;
+    var destination_marker;
+    var iconBase = '/map_pin/';
+    var directionsDisplay = new google.maps.DirectionsRenderer();;
+    var directionsService = new google.maps.DirectionsService();
+    var request_list = [];
+    var accepted_request_list = [];
+    var arrived_request_list = [];
+    var started_request_list = [];
+
+    var all_provider = [];
+    var all_provider_marker = [];
+    var all_provider_interval;
+    var providers1 = [];
+    var show_provider_info_interval;
+    var near_by_driver_interval;
+    var selected_filter_type = [1];
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+
+      var mapProp = {
+        center: new google.maps.LatLng(22, 70),
+        zoom:18,
+        streetViewControl: false,
+        mapTypeId:google.maps.MapTypeId.ROADMAP,
+          zoomControlOptions: {
+              position: google.maps.ControlPosition.RIGHT_CENTER
+          },
+      };
+
+      map=new google.maps.Map(document.getElementById("map"),mapProp);
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+        pickup_marker = new google.maps.Marker({
+          map: map,
+          icon: iconBase + "pickup.png",
+          position: initialLocation,
+          draggable:true
+        });
+
+        google.maps.event.addListener(pickup_marker,'dragend', function(event) {
+          pickup_marker_drag(event)
+          get_service_type_list();
+        });
+        map.setCenter(initialLocation);
+        $('#current_latitude').val(position.coords.latitude);
+        $('#current_longitude').val(position.coords.longitude);
+        $('#current_location_address').val('');
+          get_all_service_type();
+      });
+
+      var pickup = document.getElementById('pickup');
+      var options = {
+          componentRestrictions: {country: '<%= country_code %>'}
+      };
+      var searchBoxpickup = new google.maps.places.Autocomplete(pickup , options);
+      searchBoxpickup.bindTo('bounds', map);
+      searchBoxpickup.addListener('place_changed', function() {
+        var bounds = new google.maps.LatLngBounds();
+        var place = searchBoxpickup.getPlace();
+        if(pickup_marker){
+          pickup_marker.setPosition(place.geometry.location);
+        } else {
+          pickup_marker = new google.maps.Marker({
+            map: map,
+            icon: iconBase + "pickup.png",
+            position: place.geometry.location,
+            draggable:true
+          });
+        }
+
+        document.getElementById('src_lat_lng').value = place.geometry.location;
+        document.getElementById('lat').value=place.geometry.location.lat();
+        document.getElementById('lng').value=place.geometry.location.lng();
+
+        if(destination_marker){
+          draw_path();
+        } else {
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+          }
+        }
+        get_service_type_list();
+      });
+
+        var current_location_address = document.getElementById('current_location_address');
+        var options1 = {
+            componentRestrictions: {country: '<%= country_code %>'}
+        };
+        var searchBoxpickup1 = new google.maps.places.Autocomplete(current_location_address , options1);
+        searchBoxpickup1.bindTo('bounds', map);
+        searchBoxpickup1.addListener('place_changed', function() {
+            var bounds = new google.maps.LatLngBounds();
+            var place = searchBoxpickup1.getPlace();
+            pickup_marker.setPosition(place.geometry.location);
+
+            document.getElementById('current_latitude').value=place.geometry.location.lat();
+            document.getElementById('current_longitude').value=place.geometry.location.lng();
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+            }
+            get_all_service_type();
+        });
+
+      var destination = document.getElementById('destination');
+      var options = {
+          componentRestrictions: {country: '<%= country_code %>'}
+      };
+      var searchBoxdestination = new google.maps.places.Autocomplete(destination , options);
+      searchBoxdestination.bindTo('bounds', map);
+      searchBoxdestination.addListener('place_changed', function() {
+        var place = searchBoxdestination.getPlace();
+        var bounds = new google.maps.LatLngBounds();
+        if(!destination_marker){
+          destination_marker = new google.maps.Marker({
+            map: map,
+            icon: iconBase + "destination.png",
+            position: place.geometry.location,
+            draggable:true
+          });
+          google.maps.event.addListener(destination_marker,'dragend', function(event) {
+            destination_marker_drag(event)
+          });
+        } else {
+          destination_marker.setPosition(place.geometry.location);
+        }
+        document.getElementById('dest_lat_lng').value = place.geometry.location;
+        document.getElementById('dlat').value=place.geometry.location.lat();
+        document.getElementById('dlng').value=place.geometry.location.lng();
+        draw_path();
+        get_fare_estimate();
+      });
+
+    }
+
+    function pickup_marker_drag(event)
+    {
+      var initialLocation = new google.maps.LatLng(event.latLng.lat(),event.latLng.lng());
+      var geocoder = new google.maps.Geocoder();
+      document.getElementById('src_lat_lng').value = initialLocation;
+      document.getElementById('lat').value=event.latLng.lat();
+      document.getElementById('lng').value=event.latLng.lng();
+      geocoder.geocode({'latLng': initialLocation}, function(results, status) {
+          if(status == google.maps.GeocoderStatus.OK) {
+              var address = results[0].formatted_address;
+              document.getElementById('pickup').value=address;
+          }
+      });
+      if(destination_marker){
+          draw_path();
+          get_fare_estimate();
+      }
+    }
+
+    function destination_marker_drag(event)
+    {
+      var initialLocation = new google.maps.LatLng(event.latLng.lat(),event.latLng.lng());
+      var geocoder = new google.maps.Geocoder();
+      document.getElementById('dest_lat_lng').value = initialLocation;
+      document.getElementById('dlat').value=event.latLng.lat();
+      document.getElementById('dlng').value=event.latLng.lng();
+      geocoder.geocode({'latLng': initialLocation}, function(results, status) {
+          if(status == google.maps.GeocoderStatus.OK) {
+              var address = results[0].formatted_address;
+              document.getElementById('destination').value=address;
+          }
+      });
+      draw_path();
+      get_fare_estimate();
+    }
+
+    function draw_path()
+    {
+      var bounds = new google.maps.LatLngBounds();
+      var pick_up = new google.maps.LatLng($('#lat').val() , $('#lng').val());
+      var destination = new google.maps.LatLng($('#dlat').val() , $('#dlng').val());
+      bounds.extend(pick_up);
+      bounds.extend(destination);
+      map.fitBounds(bounds);
+      var request = {
+          origin: pick_up,
+          destination: destination,
+          travelMode: google.maps.TravelMode.DRIVING
+      };
+      directionsService.route(request, function (response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+              directionsDisplay.setDirections(response);
+              directionsDisplay.setMap(map);
+              directionsDisplay.setOptions( { suppressMarkers: true } );
+          }
+      });
+    }
+
+    function get_service_type_list(){
+        $('#select_provider').empty();
+        $("#select_provider").append("<option selected style='display: none;'>Select Provider</option>");
+        $('#select_provider').selectpicker('refresh');
+        provider_array = [];
+        $('#provider_full_name').val('');
+        $('#provider_phone').val('');
+        var latitude = $('#lat').val();
+        var longitude = $('#lng').val();
+        $.ajax({
+          type: 'POST',
+          url: '/typelist_for_dispatcher',
+          data: {'subAdminCountry': '<%= country %>','latitude':latitude,'longitude':longitude},
+          dataType: "json",
+          success:function(response){
+              clearInterval(near_by_driver_interval);
+            $("#service_type_id").empty();
+            if(response.success){
+                $("#message").text("");
+                $('#ridenow').attr('disabled', true);
+              response.citytypes.forEach(function (city_type) {
+                  var service_type_name = city_type.type_details.typename;
+                  var service_type_id = city_type._id;
+                  $("#service_type_id").append("<option value="+service_type_id + ">"+ service_type_name+ "</option>");
+                  var surge_start_time = city_type.surge_start_hour;
+                  var surge_end_time = city_type.surge_end_hour;
+                  surge_time.push({
+                      'type_id' : service_type_id,
+                      'surge_start_time': surge_start_time,
+                      'surge_end_time' : surge_end_time
+                  });
+              });
+              $('#server_time').val(response.server_time);
+              $('#timezone').val(response.city_detail.timezone);
+              $('#city_id').val(response.city_detail._id);
+
+              if(response.citytypes.length>0){
+                  get_near_by_driver(response.citytypes[0]._id);
+                  get_fare_estimate();
+                  // near_by_driver_interval = setInterval(function () {
+                  //     get_near_by_driver(response.citytypes[0]._id);
+                  // },5000);
+              }
+            } else {
+                $("#service_type_id").append("<option selected style='display: none;'>Select Service Type</option>");
+                $("#message").text("Service Type Not Available");
+                $('#ridenow').attr('disabled', true);
+                for (var i = 0; i < provider_markers.length; i++) {
+                    provider_markers[i].setMap(null);
+                }
+            }
+            $('#service_type_id').selectpicker('refresh');
+          }
+        });
+    }
+
+    $('#select_user').change(function(){
+
+        var user=$('#select_user').val();
+        if(user == "Select User")
+        {
+            $('#first_name').val('');
+            $('#last_name').val('');
+            $('#email').val('');
+            $('#phone').val('');
+
+            $('#first_name').attr('readonly', false)
+            $('#last_name').attr('readonly', false)
+            $('#email').attr('readonly', false)
+            $('#phone').attr('readonly', false)
+
+        }
+        else
+        {
+            $('#first_name').val($('#'+user).attr('data-first_name'));
+            $('#last_name').val($('#'+user).attr('data-last_name'));
+            $('#last_name').attr('readonly', true)
+            $('#email').val($('#'+user).attr('data-email'));
+            $('#phone').val($('#'+user).attr('data-phone'));
+
+            $('#first_name').attr('readonly', true)
+            $('#last_name').attr('readonly', true)
+            $('#email').attr('readonly', true)
+            $('#phone').attr('readonly', true)
+        }
+
+    });
+
+    $("#service_type_id").change(function () {
+        clearInterval(near_by_driver_interval);
+        get_near_by_driver(this.value);
+        var abc = this.value;
+        // near_by_driver_interval = setInterval(function () {
+        //     get_near_by_driver(abc);
+        // },5000)
+        get_fare_estimate();
+    })
+
+    function get_near_by_driver(service_type_id) {
+        var latitude = $('#lat').val();
+        var longitude = $('#lng').val();
+        $.ajax({
+            type: 'POST',
+            url: '/get_nearby_provider',
+            data: {'service_type_id': service_type_id, 'latitude':latitude,'longitude':longitude},
+            dataType: "json",
+            success: function (response) {
+
+                $('#select_provider').empty();
+                $("#select_provider").append("<option selected style='display: none;'>Select Provider</option>");
+
+                provider_array = [];
+                //$('#provider_full_name').val('');
+                //$('#provider_phone').val('');
+                for (var i = 0; i < provider_markers.length; i++) {
+                    provider_markers[i].setMap(null);
+                }
+                provider_markers = [];
+                providers = [];
+                if(response.success){
+                    $("#message").text("");
+                    $('#ridenow').attr('disabled', false);
+                    response.providers.forEach(function (provider_data) {
+                        provider_array.push({
+                            _id: provider_data._id,
+                            full_name: provider_data.first_name + ' ' + provider_data.last_name,
+                            phone: provider_data.phone
+                        })
+                        var providerLocation = provider_data.providerLocation;
+                        var  contentString;
+                        var lat = providerLocation[0];
+                        var lon = providerLocation[1];
+                        var  contentString =
+                            '<p><b>Username</b>: ' +provider_data.first_name + ' ' + provider_data.last_name +
+                            '<br><b>Rating</b>: ' + provider_data.rate +
+                            '</p>';
+
+                        providers.push({
+                            picture: provider_data.picture,
+                            latlon: new google.maps.LatLng(lat, lon),
+                            message: new google.maps.InfoWindow({
+                                content: contentString,
+                                maxWidth: 320
+                            })
+                        });
+                        $('#select_provider').append("<option value="+provider_data._id + ">"+ provider_data.first_name + ' ' + provider_data.last_name + "</option>");
+                    });
+                    $('#select_provider').selectpicker('refresh');
+                    providers.forEach(function(loc_data, i){
+                        var icon = iconBase + "driver.png";
+                        var marker = new google.maps.Marker({
+                            position: loc_data.latlon,
+                            map: map,
+                            icon: icon,
+                        });
+                        provider_markers.push(marker);
+
+                        google.maps.event.addListener(marker, 'click', function(e){
+                            loc_data.message.open(map, marker);
+                            setTimeout(function () { loc_data.message.close(); }, 5000);
+                        });
+                    });
+                    if(provider_markers.length == 0){
+                        $('#provider_length').text('No Provider Found')
+                    } else {
+                        $('#provider_length').text(provider_markers.length + ' Provider Available')
+                    }
+                } else {
+                    $("#message").text("Provider not found");
+                    $('#ridenow').attr('disabled', true);
+                }
+            }
+        });
+    }
+
+    function get_near_by_driver_running_request(service_type_id, latitude, longitude) {
+        $.ajax({
+            type: 'POST',
+            url: '/get_nearby_provider',
+            data: {'service_type_id': service_type_id, 'latitude':latitude,'longitude':longitude},
+            dataType: "json",
+            success: function (response) {
+                $('#select_provider1').empty();
+                $("#select_provider1").append("<option selected style='display: none;'>Select Provider</option>");
+                provider_array = [];
+                $('#provider_full_name1').val('');
+                $('#provider_phone1').val('');
+                for (var i = 0; i < provider_markers.length; i++) {
+                    provider_markers[i].setMap(null);
+                }
+                provider_markers = [];
+                if(response.success){
+                    $("#message1").text("");
+                    $('#send_request').attr('disabled', false);
+                    response.providers.forEach(function (provider_data) {
+                        provider_array.push({
+                            _id: provider_data._id,
+                            full_name: provider_data.first_name + ' ' + provider_data.last_name,
+                            phone: provider_data.phone
+                        })
+                        var providerLocation = provider_data.providerLocation;
+                        var  contentString;
+                        var lat = providerLocation[0];
+                        var lon = providerLocation[1];
+                        var  contentString =
+                            '<p><b>Username</b>: ' +provider_data.first_name + ' ' + provider_data.last_name +
+                            '<br><b>Rating</b>: ' + provider_data.rate +
+                            '</p>';
+
+                        providers.push({
+                            latlon: new google.maps.LatLng(lat, lon),
+                            message: new google.maps.InfoWindow({
+                                content: contentString,
+                                maxWidth: 320
+                            })
+                        });
+                        $('#select_provider1').append("<option value="+provider_data._id + ">"+ provider_data.first_name + ' ' + provider_data.last_name + "</option>");
+                    });
+                    $('#select_provider1').selectpicker('refresh');
+                    providers.forEach(function(loc_data, i){
+                        var icon = iconBase + "driver.png";
+                        var marker = new google.maps.Marker({
+                            position: loc_data.latlon,
+                            map: map,
+                            icon: icon,
+                        });
+                        provider_markers.push(marker);
+                        google.maps.event.addListener(marker, 'click', function(e){
+                            loc_data.message.open(map, marker);
+                            setTimeout(function () { loc_data.message.close(); }, 5000);
+                        });
+                    });
+                } else {
+                    $("#message1").text("Provider not found");
+                    $('#send_request').attr('disabled', true);
+                }
+            }
+        });
+    }
+
+    $('#select_provider').change(function () {
+        var index = provider_array.findIndex((x)=>x._id == this.value);
+        $("#select_provider").append("<option value="+this.value+" selected style='display: none;'>Select Provider</option>");
+        $('#select_provider').selectpicker('refresh');
+        $('#provider_full_name').val(provider_array[index].full_name)
+        $('#provider_phone').val(provider_array[index].phone)
+        $('#provider_full_name').attr('readonly', false)
+        $('#provider_phone').attr('readonly', false)
+    })
+
+    $('#select_provider1').change(function () {
+        var index = provider_array.findIndex((x)=>x._id == this.value);
+        $("#select_provider1").append("<option value="+this.value+" selected style='display: none;'>Select Provider</option>");
+        $('#select_provider1').selectpicker('refresh');
+        $('#provider_full_name1').val(provider_array[index].full_name)
+        $('#provider_phone1').val(provider_array[index].phone)
+        $('#provider_full_name1').attr('readonly', false)
+        $('#provider_phone1').attr('readonly', false)
+    })
+
+    $('#provider_type').change(function () {
+        if(this.value == 2){
+            $('#provider_div').show();
+            $('#provider_full_name').attr('required', true);
+            $('#provider_phone').attr('required', true);
+        } else {
+            $('#provider_div').hide();
+            //$('#provider_full_name').val('');
+            //$('#provider_phone').val('');
+            $('#provider_full_name').attr('required', false);
+            $('#provider_phone').attr('required', false);
+        }
+    })
+
+    $('#provider_type1').change(function () {
+        if(this.value == 2){
+            $('#provider_div1').show();
+            $('#provider_full_name1').attr('required', true);
+            $('#provider_phone1').attr('required', true);
+        } else {
+            $('#provider_div1').hide();
+            //$('#provider_full_name1').val('');
+            //$('#provider_phone1').val('');
+            $('#provider_full_name1').attr('required', false);
+            $('#provider_phone1').attr('required', false);
+        }
+    })
+
+    function get_fare_estimate(){
+        var latitude = $('#lat').val();
+        var longitude = $('#lng').val();
+        var dest_latitude = $('#dlat').val();
+        var dest_longitude = $('#dlng').val();
+        if(latitude && longitude && dest_latitude && dest_longitude) {
+
+            var origin = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+            var destination = {lat: parseFloat(dest_latitude), lng: parseFloat(dest_longitude)};
+
+            var service = new google.maps.DistanceMatrixService;
+            service.getDistanceMatrix({
+                origins: [origin],
+                destinations: [destination],
+                travelMode: 'DRIVING',
+                unitSystem: google.maps.UnitSystem.METRIC,
+                avoidHighways: false,
+                avoidTolls: false
+            }, function (response, status) {
+                var distance = 0;
+                var time = 0;
+                if (status == 'OK') {
+                    var results = response.rows[0].elements;
+                    distance = results[0].distance.value;
+                    time = results[0].duration.value;
+                }
+                var zone = $('#timezone').val();
+                var server_time = $('#server_time').val();
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {'zone': zone, 'server_time': server_time},
+                    url: "/getsurge_time",
+                    success: function (response) {
+                        var response = response.split(" ");
+                        response = response[1].split(":");
+                        var hour = response[0];
+                        var surge_start_time = document.getElementById('surge_start_time').value;
+                        var surge_end_time = document.getElementById('surge_end_time').value;
+                        if(parseInt(hour) >= Number(surge_start_time) && parseInt(hour) <= Number(surge_end_time))
+                        {
+                            is_surge_hours = 1;
+                        }
+                        else
+                        {
+                            is_surge_hours = 0;
+                        }
+                        var service_type_id = $('#service_type_id').val();
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {'service_type_id': service_type_id , pickup_latitude : latitude ,pickup_longitude : longitude ,
+                                destination_latitude : dest_latitude ,destination_longitude: dest_longitude ,
+                                'is_surge_hours' : is_surge_hours , 'time' : time , 'distance' : distance},
+                            url: "/getfareestimate",
+                            success:function(response) {
+                                $('#min_fare_div').show();
+                                $('#total_time').text((response.time).toFixed(2));
+                                $('#min_fare_lable').text((response.estimated_fare).toFixed(2));
+                                $('#total_distance').text(response.distance);
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    }
+    $(document).ready(function(){
+
+        $("#signupForm").validate({
+            rules: {
+                source_address: "required",
+                service_type_id: "required",
+                select_user: {
+                    required: false
+                },
+                phone: {
+                    required: true,
+                    minlength : '<%= phone_number_min_length %>',
+                    maxlength :'<%= phone_number_length %>'
+                }
+            },
+            submitHandler: function(form) {
+                if ($('#provider_type').val() == 1) {
+                    $('#select_provider').val('');
+                }
+                $('#ridenow').attr('disabled', true);
+                $.ajax({
+                    type: 'POST',
+                    url: '/checkuser',
+                    data: $("#signupForm").serialize(),
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success == false) {
+                            $('#message').text("<%= admin_messages.error_trip_already_running %>")
+                            // trip_error("<%= config_json.error_trip_already_running %>")
+                            $('#ridenow').attr('disabled', false);
+                        }
+                        else {
+                            var token = response.user.token;
+                            $('#user_id').val(response.user._id);
+                            $('#token').val(response.user.token);
+                            var trip_type = $('#is_ride_later').val()
+                            if (trip_type == 1) {
+                                $.ajax({
+                                    type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                    url: '/createtrip', // the url where we want to POST
+                                    data: $("#signupForm").serialize(), // our data object
+                                    datatype: "json",
+                                    success: function (response) {
+                                      $('#ridenow').attr('disabled', false);
+                                        if (response.success == false) {
+                                          if(response.error_code == '464'){
+                                            $('#message').text("<%= admin_messages.error_payment_is_pending %>")
+                                          } else if(response.error_code == '435') {
+                                            $('#message').text("<%= admin_messages.error_please_add_card_first %>");
+                                          } else {
+                                            $('#message').text("<%= admin_messages.error_create_trip_failed %>");
+                                          }
+                                        }
+                                        else {
+                                            window.location.href = 'corporate_create_trip';
+                                        }
+                                    }
+                                });
+                            } else {
+                                var zone = $('#timezone').val();
+                                var server_time = $('#server_time').val();
+                                $.ajax({
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {'zone': zone, 'server_time': server_time},
+                                    url: "/getsurge_time",
+                                    success: function (surge_response) {
+                                        var response = surge_response.split(" ");
+                                        response = response[1].split(":");
+                                        var hour = response[0];
+                                        var surge_start_time = document.getElementById('surge_start_time').value;
+                                        var surge_end_time = document.getElementById('surge_end_time').value;
+                                        if (parseInt(hour) >= Number(surge_start_time) && parseInt(hour) <= Number(surge_end_time)) {
+                                            is_surge_hours = 1;
+                                        }
+                                        else {
+                                            is_surge_hours = 0;
+                                        }
+                                        $('#is_surge_hours').val(is_surge_hours);
+                                        $.ajax({
+                                            type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                            url: '/createtrip', // the url where we want to POST
+                                            data: $("#signupForm").serialize(), // our data object
+                                            datatype: "json",
+                                            success: function (trip_response) {
+                                              $('#ridenow').attr('disabled', false);
+                                                if (trip_response.success == false) {
+                                                    if(trip_response.error_code == '464'){
+                                                      $('#message').text("<%= admin_messages.error_payment_is_pending %>")
+                                                    } else if(trip_response.error_code == '435') {
+                                                      $('#message').text("<%= admin_messages.error_please_add_card_first %>");
+                                                    } else {
+                                                      $('#message').text("<%= admin_messages.error_create_trip_failed %>");
+                                                      var type = $('#service_type_id').val();
+                                                      // clearInterval(near_by_driver_interval)
+                                                      // get_near_by_driver(type);
+                                                    }
+                                                } else {
+                                                    location.reload();
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        })
+
+        $('#send_request_form').submit(function (e) {
+            e.preventDefault();
+
+            if($('#provider_type1').val() == 1){
+              $('#select_provider1').val('');
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/send_request',
+                data: $("#send_request_form").serialize(),
+                dataType: "json",
+                success: function (response) {
+                    if (response.success == false)
+                    {
+                        show_trip_data($('#send_trip_id').val(), 'accepted_request');
+                        if (trip_response.error_code == 464)
+                        {
+                            trip_error("<%= admin_messages.error_payment_is_pending %>")
+                        }
+                        else
+                        {
+                            trip_error("<%= admin_messages.error_provider_not_found %>")
+                        }
+                    } else {
+                        location.reload();
+                    }
+                }
+            });
+        })
+
+        $('#date').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: new Date(Date.now())
+        }).on("input change", function (e) {
+
+            $('.datepicker-dropdown').hide()
+        });
+
+        $('#time').timepicker({
+            format: 'hh-ii-ss',
+            showSeconds: true,
+            showMeridian: false,
+            minuteStep: 5,
+            secondStep: 5
+        });
+    });
+    $('#ridelater').on('click' , function(){
+        if($('#server_time').val() && $('#timezone').val()){
+          var now = $('#server_time').val();
+          var new_time = new Date(now).toLocaleString("en-US", {timeZone: $('#timezone').val()})
+          new_time = new Date(new_time)
+          new_time = new_time.getTime() + (<%= scheduled_request_pre_start_minute %>*60000);
+          new_time = new Date(new_time)
+          $('#date').datepicker("setStartDate", new_time );
+
+          $("#date").datepicker().datepicker("setDate", new_time);
+
+          $('#time').timepicker('setTime', new_time);
+
+          $('#ridelater_modal').modal('show');
+        }
+    })
+
+    $('#ride_laters').click(function(){
+        if($('#date').val()=="" || $('#time').val() ==""){
+            $('#date_time_error').text("<%= admin_messages.title_select_data_time %>")
+        }else{
+
+            $.ajax({
+                type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url         : '/get_server_time', /// the url where we want to POST
+                data        : {}, // our data object
+                datatype    :"json",
+                success:function(response){
+                    var now = response.server_date;
+                    var now1 = new Date(now).toLocaleString("en-US", {timeZone: $('#timezone').val()})
+                    now1 = new Date(now1)
+
+                    var time = $('#time').val()
+                    time = time.split(':');
+                    var date_time = $('#date').val()
+
+                    date_time = date_time.split('-');
+
+
+                    var new_date_time1 = new Date(Date.now())
+                    var new_date_time = new Date(new_date_time1).toLocaleString("en-US", {timeZone: $('#timezone').val()})
+                    new_date_time = new Date(new_date_time)
+                    new_date_time.setDate(date_time[2])
+                    new_date_time.setMonth(date_time[1]-1)
+                    new_date_time.setYear(date_time[0])
+                    new_date_time.setHours(time[0])
+                    new_date_time.setMinutes(time[1])
+                    new_date_time.setSeconds(time[2])
+
+                    var timeDiff = Math.round(new_date_time.getTime() - now1.getTime());
+
+                    if(timeDiff/60000 >= <%= scheduled_request_pre_start_minute %>)
+                    {
+                        $('#ridelater_modal').modal('hide');
+                        $('#date_time_error').text("");
+                        $('#is_ride_later').val(1);
+                        $('#start_time').val(timeDiff);
+                        // $('#ridenow').click();
+                        $("#signupForm").submit();
+                    }
+                    else
+                    {
+                        $('#date_time_error').text("<%= admin_messages.title_select_prpper_time %>");
+                    }
+                }
+            });
+
+        }
+    });
+
+
+    function trip_error(message){
+        $('#request_error').show();
+        $('#request_message').text(message);
+        setTimeout(function () {
+            $('#request_error').hide();
+        }, 3000);
+    }
+    function isNumberKeyOnly(evt){
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    $(document).ready(function(){
+        get_trips();
+        interval = setInterval(function () {
+            get_trips();
+        },5000);
+        go_to_mapview();
+        $('#provider_type_filter').change(function () {
+            get_all_provider();
+        })
+    });
+
+    function get_trips() {
+        $.ajax({
+            type: 'POST',
+            url: '/dispatcher_new_request',
+            data: {dispatcher_id: '<%= corporates._id %>'},
+            dataType: "json",
+            success: function (response) {
+                $('#new_request').empty();
+                $('#accepted_request').empty();
+                $('#started_request').empty();
+                $('#arrived_request').empty();
+                request_list = response.request_list;
+                started_request_list = response.started_request_list;
+                accepted_request_list = response.accepted_request_list;
+                arrived_request_list = response.arrived_request_list;
+
+                response.accepted_request_list.forEach(function (request) {
+                    $('#accepted_request').append('<a class="content_in" id="trip' + request._id + '"><div class="details blue clr" onclick="show_trip_data(\'' + request._id + '\',\'' + 'accepted_request' + '\')">' +
+                        '<div class="name"><h6>' + request.unique_id + '</h6><span id="status' + request._id + '"></span></div>\n' +
+                        '               <div class="time">Pick Up at<br />' + moment(request.created_at).format("DD MMM 'YY hh:mm:a") + '</div>\n' +
+                        '                <div class="req_btn"><span class="fa fa-close" onclick="cancel_trip(\'' + request._id + '\',\'' + request.user_id + '\')"></span></div>\n' +
+                        '              </div>\n' +
+                        '            </a>');
+                    if(request.is_provider_status == 2){
+                        $('#status'+request._id).text(request.provider_detail.first_name+ ' ' +request.provider_detail.last_name+ ' Start for Pickup');
+                    } else {
+                        $('#status'+request._id).text(request.provider_detail.first_name+ ' ' +request.provider_detail.last_name+ ' Accepted');
+                    }
+                });
+                response.arrived_request_list.forEach(function (request) {
+                    $('#arrived_request').append('<a class="content_in" id="trip' + request._id + '"><div class="details blue clr" onclick="show_trip_data(\'' + request._id + '\',\'' + 'arrived_request' + '\')">' +
+                        '<div class="name"><h6>' + request.unique_id + '</h6><span id="status' + request._id + '"></span></div>\n' +
+                        '               <div class="time">Pick Up at<br />' + moment(request.created_at).format("DD MMM 'YY hh:mm:a") + '</div>\n' +
+                        '                <div class="req_btn"><span class="fa fa-close" onclick="cancel_trip(\'' + request._id + '\',\'' + request.user_id + '\')"></span></div>\n' +
+                        '              </div>\n' +
+                        '            </a>');
+
+                    $('#status'+request._id).text(request.provider_detail.first_name+ ' ' +request.provider_detail.last_name+ ' Arrived At Pickup');
+
+                });
+
+                response.started_request_list.forEach(function (request) {
+                    $('#started_request').append('<a class="content_in" id="trip' + request._id + '"><div class="details blue clr" onclick="show_trip_data(\'' + request._id + '\',\'' + 'started_request' + '\')">' +
+                        '<div class="name" style="width: unset;"><h6>' + request.unique_id + '</h6><span id="status' + request._id + '"></span></div>\n' +
+                        '              </div>\n' +
+                        '            </a>');
+                    $('#status'+request._id).text(request.provider_detail.first_name+ ' ' +request.provider_detail.last_name+ ' Trip Started');
+                });
+
+                response.request_list.forEach(function (request) {
+                    if(request.is_provider_accepted == 2) {
+                        var time_left_to_responds_trip = request.time_left_to_responds_trip;
+                        if(time_left_to_responds_trip >0) {
+                            $('#new_request').append('<a class="content_in" id="trip' + request._id + '"><div class="details blue clr" onclick="show_trip_data(\'' + request._id + '\',\'' + 'request' + '\')">' +
+                                '<div class="name"><h6>' + request.unique_id + '</h6>Waiting For Accept</div>\n' +
+                                '               <div class="time">Pick Up at<br />' + moment(request.created_at).format("DD MMM 'YY hh:mm:a") + '</div>\n' +
+                                '                 <div class="req_btn"><span class="fa fa-close" onclick="cancel_trip(\'' + request._id + '\',\'' + request.user_id + '\')"></span></div>\n' +
+                                '               <div class="time_loader"><div class="green"  id="' + request._id + '">' + request.time_left_to_responds_trip + 'sec</div></div>' +
+                                '              </div>\n' +
+                                '            </a>');
+
+                            var count = 1;
+                            var count_interval = setInterval(function () {
+                                if (time_left_to_responds_trip - count <= 0) {
+                                    $('#trip' + request._id).hide();
+                                }
+                                $('#' + request._id).text(time_left_to_responds_trip - count + 'sec');
+                                count++;
+                                if (count == 5) {
+                                    clearInterval(count_interval);
+                                }
+                            }, 1000);
+                        }
+                    } else {
+                        $('#new_request').append('<a class="content_in"><div class="details red clr" onclick="show_trip_data(\'' + request._id + '\',\'' + 'request' + '\')">' +
+                            '<div class="name"><h6>' + request.unique_id + '</h6>No Provider</div>\n' +
+                            '               <div class="time">Pick Up at<br />'+moment(request.created_at).format("DD MMM 'YY hh:mm:a")+'</div>\n' +
+                            '               <div class="req_btn"><span class="fa fa-close" onclick="cancel_trip(\'' + request._id + '\',\'' + request.user_id + '\')"></span></div>\n' +
+                            '              </div>\n' +
+                            '            </a>');
+                    }
+                })
+            }
+        });
+    }
+
+    function cancel_trip(trip_id, user_id) {
+        $.ajax({
+            type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/canceltrip', /// the url where we want to POST
+            data        : {"user_id": user_id , type: '<%= constant_json.TRIP_TYPE_CORPORATE %>', "trip_id":trip_id}, // our data object
+            datatype    :"json",
+            success:function(response){
+                trip_error('Trip Cancelled Successfully')
+                location.reload()
+            }
+        });
+    }
+
+    function new_request_creat() {
+        clearInterval(show_provider_info_interval);
+        $('.get_provider_info').hide();
+        clearInterval(all_provider_interval);
+        for (var i = 0; i < all_provider_marker.length; i++) {
+            all_provider_marker[i].setMap(null);
+        }
+        all_provider_marker = [];
+        initialize();
+        $('#lat').val('');
+        $('#lng').val('');
+        $('#dlat').val('');
+        $('#dlng').val('');
+        $('#src_lat_lng').val('');
+        $('#dest_lat_lng').val('');
+        $('#pickup').val('');
+        $('#destination').val('');
+        $('#service_type_id').val('');
+        $('#first_name').val('');
+        $('#last_name').val('');
+        $('#email').val('');
+        $('#phone').val('');
+        $('#provider_full_name').val('');
+        $('#provider_phone').val('');
+        $('#min_fare_div').hide();
+
+        $('#select_user').val('Select User')
+        $('#select_user').selectpicker('refresh');
+
+        $('#provider_type').val(1)
+        provider_array = [];
+
+        for (var i = 0; i < provider_markers.length; i++) {
+            provider_markers[i].setMap(null);
+        }
+        provider_markers = [];
+        $('#provider_filter').hide();
+        $('#provider_search_button').hide();
+        $('#new_request_div').hide();
+        $('#mapview_div').show();
+        $('.pickup_info').hide();
+        $('.no_provider_found_div').hide();
+        if(pickup_marker){
+          pickup_marker.setOptions({draggable: true});
+        }
+    }
+
+    function show_trip_data(request_id, type){
+        $('#provider_search_button').hide();
+        $('#provider_filter').hide();
+        clearInterval(show_provider_info_interval);
+        $('.get_provider_info').hide();
+        for (var i = 0; i < all_provider_marker.length; i++) {
+            all_provider_marker[i].setMap(null);
+        }
+        all_provider_marker = [];
+        clearInterval(all_provider_interval);
+
+        provider_array = [];
+        for (var i = 0; i < provider_markers.length; i++) {
+            provider_markers[i].setMap(null);
+        }
+        provider_markers = [];
+
+        var index;
+        var request_data;
+        if(type == 'started_request'){
+            index = started_request_list.findIndex((x)=>x._id == request_id);
+            request_data = started_request_list[index];
+            $('.no_provider_found_div').hide();
+        } else if(type == 'accepted_request'){
+            index = accepted_request_list.findIndex((x)=>x._id == request_id);
+            request_data = accepted_request_list[index];
+            $('.no_provider_found_div').hide();
+        } else {
+            index = request_list.findIndex((x)=>x._id == request_id);
+            request_data = request_list[index];
+            if(request_list[index].is_provider_accepted == 3){
+                $('.no_provider_found_div').show();
+                get_near_by_driver_running_request(request_data.service_type_id, request_data.sourceLocation[0], request_data.sourceLocation[1])
+                $('#send_trip_id').val(request_list[index]._id);
+            } 
+            else {
+                $('.no_provider_found_div').hide();
+            }
+        }
+        if(request_data.provider_detail){
+            $('#show_provider_name').text(request_data.provider_detail.first_name+ ' ' +request_data.provider_detail.last_name);
+            $('#show_provider_phone').text(request_data.provider_detail.phone);
+            var sourceLocation = new google.maps.LatLng(request_data.provider_detail.providerLocation[0], request_data.provider_detail.providerLocation[1]);
+            var marker = new google.maps.Marker({
+                map: map,
+                icon: iconBase + "driver.png",
+                position: sourceLocation,
+                draggable:false
+            });
+            provider_markers.push(marker)
+        } else {
+            $('#show_provider_name').text('');
+            $('#show_provider_phone').text('');
+        }
+        if(request_data.user_detail){
+            $('#show_user_name').text(request_data.user_detail.first_name+ ' ' +request_data.user_detail.last_name);
+            $('#show_user_phone').text(request_data.user_detail.phone);
+        } else {
+            $('#show_user_name').text('');
+            $('#show_user_phone').text('');
+        }
+        $('#show_unique_id').text(request_data.unique_id);
+        $('#show_source_address').text(request_data.source_address);
+        $('#show_destination_address').text(request_data.destination_address);
+        show_trip_type(request_data.trip_type)
+        $('#show_created_date').text(moment(request_data.created_at).format("DD MMM 'YY hh:mm:a"))
+        $('.pickup_info').show();
+        $('.new_req_info').hide();
+        $('.main_page .map_div').addClass('map_height');
+
+        pickup_marker.setMap(null);
+
+        if(destination_marker){
+            destination_marker.setMap(null);
+            destination_marker = undefined;
+        }
+
+        if(directionsDisplay){
+            directionsDisplay.setMap(null);
+        }
+
+
+        var sourceLocation = new google.maps.LatLng(request_data.sourceLocation[0], request_data.sourceLocation[1]);
+        pickup_marker = new google.maps.Marker({
+            map: map,
+            icon: iconBase + "pickup.png",
+            position: sourceLocation,
+            draggable:false
+        });
+        var destinationLocation = new google.maps.LatLng(request_data.destinationLocation[0], request_data.destinationLocation[1]);
+        destination_marker = new google.maps.Marker({
+            map: map,
+            icon: iconBase + "destination.png",
+            position: destinationLocation,
+            draggable:false
+        });
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(sourceLocation);
+        bounds.extend(destinationLocation);
+        map.fitBounds(bounds);
+        $('#new_request_div').show();
+        $('#mapview_div').show();
+    }
+
+    function go_to_mapview() {
+        $('#loading').show();
+        $('#new_request_div').show();
+        $('#mapview_div').hide();
+
+        $('#provider_filter').show();
+        $('#provider_search_button').show();
+        $('.new_req_info').hide();
+        $('.pickup_info').hide();
+        $('.no_provider_found_div').hide();
+        $('.map_div').removeClass('map_height');
+        clearInterval(all_provider_interval);
+
+        get_all_provider();
+        all_provider_interval = setInterval(function () {
+            get_all_provider();
+        },5000);
+        if(destination_marker){
+            destination_marker.setMap(null);
+            destination_marker = undefined;
+        }
+        if(directionsDisplay)
+        {
+            directionsDisplay.setMap(null);
+        }
+        for (var i = 0; i < provider_markers.length; i++) {
+            provider_markers[i].setMap(null);
+        }
+        provider_markers = [];
+        if(pickup_marker){
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                pickup_marker.setPosition(initialLocation);
+            });
+            pickup_marker.setOptions({draggable: false});
+        }
+    }
+
+    function get_all_service_type() {
+        var latitude = $('#current_latitude').val();
+        var longitude = $('#current_longitude').val();
+        $.ajax({
+            type: 'POST',
+            url: '/typelist_for_dispatcher',
+            data: {'subAdminCountry': '<%= country %>', 'latitude': latitude, 'longitude': longitude},
+            dataType: "json",
+            success: function (response) {
+                $("#current_location_service_type_id").empty();
+                $("#current_location_service_type_id").append("<option value='' selected>All Type</option>");
+                if(response.success){
+                    response.citytypes.forEach(function (city_type) {
+                        var service_type_name = city_type.type_details.typename;
+                        var service_type_id = city_type._id;
+                        $("#current_location_service_type_id").append("<option value="+service_type_id + ">"+ service_type_name+ "</option>");
+                    });
+                } else {
+
+                }
+                $('#current_location_service_type_id').selectpicker('refresh');
+            }
+        });
+    }
+
+    function provider_filter(type) {
+        if($('#tag_button'+type).hasClass('selected_tag_button')){
+            var index = selected_filter_type.indexOf(type)
+            selected_filter_type.splice(index, 1)
+            $('#tag_button'+type).removeClass('selected_tag_button')
+        } else {
+            selected_filter_type.push(type)
+            $('#tag_button'+type).addClass('selected_tag_button')
+        }
+        get_all_provider();
+    }
+
+    function get_all_provider() {
+        var current_location_service_type_id = $('#current_location_service_type_id').val();
+        var latitude = $('#current_latitude').val();
+        var longitude = $('#current_longitude').val();
+        $.ajax({
+            type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url: '/get_all_provider', /// the url where we want to POST
+            data: {"default_Search_radious": $('#provider_filter_distance').val(), current_location_service_type_id: current_location_service_type_id,  country: '<%= corporates.country %>', latitude: latitude, longitude: longitude}, // our data object
+            datatype: "json",
+            success: function (response) {
+                $('#loading').hide();
+                for (var i = 0; i < all_provider_marker.length; i++) {
+                    all_provider_marker[i].setMap(null);
+                }
+                all_provider_marker = [];
+                if(response.success) {
+                    all_provider = response.providers;
+                    providers1 = [];
+                    all_provider.forEach(function (provider_data) {
+
+                        var providerLocation = provider_data.providerLocation;
+                        var contentString;
+                        var lat = providerLocation[0];
+                        var lon = providerLocation[1];
+                        var contentString =
+                            '<p><b>Username</b>: ' + provider_data.first_name + ' ' + provider_data.last_name +
+                            '<br><b>Rating</b>: ' + provider_data.rate +
+                            '</p>';
+                        var status = '';
+                        if(provider_data.is_available == 0){
+                            status = 4;
+                            if(provider_data.trip_detail.is_provider_status == 4){
+                                status = 6;
+                            } else if(provider_data.trip_detail.is_provider_status == 6){
+                                status = 7;
+                            } else {
+                                status = 5;
+                            }
+                        } else if(provider_data.is_available == 1 && provider_data.is_active == 1){
+                            status = 2;
+                        } else if(provider_data.is_available == 1 && provider_data.is_active == 0){
+                            status = 3;
+                        }
+                        provider_data.status = status;
+                        providers1.push({
+                            latlon: new google.maps.LatLng(lat, lon),
+                            status: status,
+                            bearing: provider_data.bearing,
+                            typeimage: provider_data.type_detail.map_pin_image_url,
+                            _id: provider_data._id,
+                            message: new google.maps.InfoWindow({
+                                content: contentString,
+                                maxWidth: 320
+                            })
+                        });
+                    })
+                    
+                    providers1.forEach(function (loc_data, i) {
+                        var icon = iconBase + "driver.png";
+                        if(loc_data.status == 2){
+                            icon = iconBase + "driver.png";
+                        } else if(loc_data.status == 3){
+                            icon = iconBase + "driver.png";
+                        } else {
+                            icon = iconBase + "driver.png";
+                        }
+                        // var provider_type_filter = $('#provider_type_filter').val();
+                        var index = selected_filter_type.indexOf(loc_data.status);
+                        var all_index = selected_filter_type.indexOf(1);
+                        if(all_index !== -1 || index !== -1) {
+                            var marker = new google.maps.Marker({
+                                position: loc_data.latlon,
+                                map: map,
+                                icon: icon,
+                                draggable:false
+
+                            });
+                            all_provider_marker.push(marker);
+
+                            google.maps.event.addListener(marker, 'click', function (e) {
+                                show_provider_info(loc_data._id);
+                                loc_data.message.open(map, marker);
+                                setTimeout(function () {
+                                    loc_data.message.close();
+                                }, 5000);
+                            });
+                        }
+                    });
+                   
+                    if(all_provider_marker.length == 0){
+                        $('#all_provider_marker_length').text('No Provider Found')
+                    } else {
+                        $('#all_provider_marker_length').text(all_provider_marker.length+' Provider Available')
+                    }
+                } else {
+                    all_provider = [];
+                    $('#all_provider_marker_length').text('No Provider Found')
+                }
+            }
+        });
+    }
+
+    function show_provider_info(id) {
+        show_provider_info1(id)
+        clearInterval(show_provider_info_interval);
+        show_provider_info_interval = setInterval(function () {
+            show_provider_info1(id)
+        },5000);
+    }
+    function show_provider_info1(id) {
+        var index = all_provider.findIndex((x)=>x._id == id);
+        if(index !== -1){
+            $('.get_provider_info').show();
+            $('.map_div').addClass('map_height');
+            $('#provider_info_unique_id').text(all_provider[index].unique_id);
+            $('#provider_info_name').text(all_provider[index].first_name + ' ' + all_provider[index].last_name);
+            $('#provider_info_email').text(all_provider[index].email);
+            $('#provider_info_phone').text(all_provider[index].phone);
+            $('#provider_info_rating').text(all_provider[index].rate + ' ('+all_provider[index].rate_count +')');
+
+            if(all_provider[index].status == 3){
+                $('#provider_info_trip').hide();
+                $('.pickup_info').hide();
+                all_provider[index].status = all_provider[index].status + ' ('+moment(all_provider[index].location_updated_time).format("DD MMM 'YY hh:mm:ss:a") +')'
+            } else if(all_provider[index].status == 4 || all_provider[index].status == 5 || all_provider[index].status == 6 ||all_provider[index].status == 7){
+                $('#provider_info_trip').hide();
+                $.ajax({
+                    type: 'POST',
+                    url: '/get_trip_info',
+                    data: {
+                        "trip_id": all_provider[index].is_trip[0]
+                    },
+                    datatype: "json",
+                    success: function (response) {
+                        if(response.success){
+                            $('#show_unique_id').text(response.request_data.unique_id);
+                            $('#show_provider_phone').text(response.request_data.provider_detail.phone);
+                            $('#show_user_phone').text(response.request_data.user_detail.phone);
+                            $('#show_source_address').text(response.request_data.source_address);
+                            $('#show_destination_address').text(response.request_data.destination_address);
+                            show_trip_type(response.request_data.trip_type)
+                            $('#show_created_date').text(moment(response.request_data.created_at).format("DD MMM 'YY hh:mm:a"))
+                            $('#show_provider_name').text(response.request_data.provider_detail.first_name+ ' ' +response.request_data.provider_detail.last_name);
+                            $('#show_user_name').text(response.request_data.user_detail.first_name + ' ' + response.request_data.user_detail.last_name);
+                            $('.pickup_info').show();
+                        } else {
+                            $('.pickup_info').hide();
+                        }
+                    }
+                });
+            } else if(all_provider[index].status == 2){
+
+                $('#select_trip').empty();
+                $('.pickup_info').hide();
+                if(all_provider[index].is_trip.length>0){
+                    $('#provider_info_trip').hide();
+                } else {
+                    $('#provider_info_trip').show();
+                }
+                if(request_list.length > 0){
+                    $('#select_trip_provider').val(all_provider[index]._id);
+                    request_list.forEach(function (request) {
+                        if(request.is_provider_accepted == 3 && all_provider[index].service_type == request.service_type_id && all_provider[index].is_approved == 1){
+                            $('#select_trip').append("<option value="+request._id + ">"+request.unique_id + "</option>")
+                        }
+                    })
+                    $('#select_trip').selectpicker('refresh');
+                }
+            }
+            if(all_provider[index].status == 2){
+                $('#provider_info_status').text('Online');
+            } else if(all_provider[index].status == 4 || all_provider[index].status == 5 || all_provider[index].status == 6 ) {
+                $('#provider_info_status').text('In Trip');
+            } else {
+                $('#provider_info_status').text('Offline' + all_provider[index].status.slice(1));
+            }
+
+        } else {
+            $('.get_provider_info').show();
+        }
+    }
+
+    function show_trip_type(type) {
+
+        var string = '';
+        switch(type) {
+            case 0:
+                string = "User";
+                break;
+            case 1:
+                string = "User";
+                break;
+            case 2:
+                string = "Hotel";
+                break;
+            case 3:
+                string = "Dispatcher";
+                break;
+            case 6:
+                string = "Provider";
+                break;
+            case 7:
+                string = "Corporate";
+                break;
+            default:
+                string = type;
+        }
+        $('#show_trip_type').text(string);
+    }
+
+    function assign_request(){
+        $.ajax({
+            type: 'POST',
+            url: '/send_request',
+            data: {trip_id: $('#select_trip').val(), provider_id: $('#select_trip_provider').val()},
+            dataType: "json",
+            success: function (response) {
+                if (response.success == false)
+                {
+                    show_trip_data($('#select_trip').val(), 'accepted_request');
+                    if (trip_response.error_code == 464)
+                    {
+                        trip_error("<%= admin_messages.error_payment_is_pending %>")
+                    }
+                    else
+                    {
+                        trip_error("<%= admin_messages.error_provider_not_found %>")
+                    }
+                } else {
+                    location.reload();
+                }
+            }
+        });
+    }
+
+  </script>
+
+  <script type="text/javascript">
+                                                                                                                                                                                                                                                  
+
+    $(document).ready(function(){
+
+        $(window).on('load resize',function(){
+
+            if($(window).width() >=1024){
+              $('.hide_btn').click(function(){
+                $('.container').toggleClass('hide_panel');
+              });
+            }
+            else {
+              $('.hide_btn, .content_in').click(function(){
+                $('.container').removeClass('hide_panel');
+                $('.left_panel').toggle();
+                $('.leftmenu').hide();
+              });
+
+            }
+        });
+
+        $(window).on('load resize', function(){
+          if($(window).width() >= 1024){
+            $('.menu_icon a, .leftmenu ul li a').click(function(){
+              $('.container').toggleClass('show_left');
+            });
+          }
+          else {
+            $('.menu_icon a, .leftmenu ul li a').click(function(){
+              $('.container').removeClass('show_left');
+              $('.leftmenu').toggle();
+              $('.left_panel').hide();
+            });
+          }
+        });
+        $('.content:last-child').css('border-bottom', 'none');
+
+        /* new request info */
+        $('.new_req_info').hide();
+        $('.new_req_btn').click(function(){
+          $('.new_req_info').show();
+          $('.main_page .map_div').addClass('map_height');
+        });
+
+        /* tab */
+        $('.tab_con').hide();
+        $('.leftmenu ul li a, .content_in').click(function(e){
+          e.preventDefault();
+          $('.leftmenu ul li').removeClass('active');
+          $(this).parent().addClass('active');
+          var tab = $(this).attr('href');
+          $('.main_page').hide();
+          $('.tab_con').hide();
+          $(tab).fadeIn('slow');
+        });
+
+
+
+        /* action button */
+        $('.action_btn').click(function(){
+          $(this).siblings('ul').slideToggle();
+        });
+
+        $('#pro_info').on('change', function(){
+          if( this.value == 'manually'){
+            $(".provider_info").show();
+          }
+          else
+          {
+            $(".provider_info").hide();
+          }
+        });
+
+        $('.provider_details').hide();
+
+          $('#pro_name').change(function () {
+            $('.provider_details').hide();
+            $('#'+$(this).val()).show();
+          })
+
+        });
+
+        var i = 0;
+        var dragging = false;
+        $('#dragbar').mousedown(function(e){
+        e.preventDefault();
+
+        dragging = true;
+        var main = $('#main');
+        var wrapper = $('#wrapper');
+        var ghostbar = $('<div>',
+            {id:'ghostbar',
+            css: {
+            width: main.outerWidth(),
+            top: e.pageY,
+            left: main.offset().left
+          }
+        }).appendTo('#wrapper');
+
+        $(document).mousemove(function(e){
+          ghostbar.css("top", (e.pageY + 2));
+        });
+
+        $(document).mouseup(function(e){
+          if (dragging)
+          {
+           var percentage = ((e.pageY - $('#wrapper').offset().top) / $('#wrapper').height()) * 100;
+           var mainPercentage = 100-percentage;
+
+           $('#sidebar').css("height",percentage + "%");
+           $('#main').css("height",mainPercentage + "%");
+           $('#ghostbar').remove();
+           $(document).unbind('mousemove');
+           dragging = false
+          }
+        });
+    });
+
+
+
+</script>
+</body>
+<% include footer_form.html %>

@@ -1,0 +1,62 @@
+
+{
+    
+    "smsUniqueId" : 1,
+    "smsUniqueTitle" : "USER_OTP_VERIFICATION",
+    "smsContent" : "Dear User, OTP to complete your registration process is : XXXXXX"
+}
+
+
+{
+    
+    "smsUniqueId" : 2,
+    "smsUniqueTitle" : "PROVIDER_OTP_VERIFICATION",
+    "smsContent" : "Dear Provider, OTP to complete your registration process is : XXXXXX"
+}
+
+
+{
+    
+    "smsUniqueId" : 5,
+    "smsUniqueTitle" : "TRIP_ACCEPTED",
+    "smsContent" : "Your Trip Accepted."
+}
+
+
+{
+    
+    "smsUniqueId" : 6,
+    "smsUniqueTitle" : "WEEKLY_PAYMENT",
+    "smsContent" : "Your Weekly Payment."
+}
+
+{
+    
+    "smsUniqueId" : 7,
+    "smsUniqueTitle" : "START_RIDE",
+    "smsContent" : "%USERNAME% Start ride with %PROVIDERNAME% Provider from Pickup %PICKUPADD% to Destination %DESTINATIONADD%"
+}
+
+
+{
+    
+    "smsUniqueId" : 3,
+    "smsUniqueTitle" : "FORGOT_PASSWORD",
+    "smsContent" : "Password is successfully reset to : XXXXXX"
+}
+
+
+{
+    
+    "smsUniqueId" : 4,
+    "smsUniqueTitle" : "RIDE_BOOKING",
+    "smsContent" : "Your Ride Booking Successfully."
+}
+
+
+{
+    
+    "smsUniqueId" : 8,
+    "smsUniqueTitle" : "EMERGENCY_HELP",
+    "smsContent" : "%USERNAME% Need to help here."
+}

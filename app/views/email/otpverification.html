@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Reset Password</title>
+    <style type="text/css" media="screen">
+        .ExternalClass * {
+            line-height: 100%
+        }
+        /* Début style responsive (via media queries) */
+        
+        @media only screen and (max-width: 480px) {
+            *[id=email-penrose-conteneur] {
+                width: 100% !important;
+            }
+            table[class=resp-full-table] {
+                width: 100%!important;
+                clear: both;
+            }
+            td[class=resp-full-td] {
+                width: 100%!important;
+                clear: both;
+            }
+            img[class="email-penrose-img-header"] {
+                width: 100% !important;
+                max-width: 340px !important;
+            }
+        }
+        /* Fin style responsive */
+    </style>
+
+</head>
+
+<body style="background-color:#ecf0f1">
+    <div align="center" style="background-color:#ecf0f1;">
+
+        <!-- Début en-tête -->
+
+
+
+        <!-- Fin en-tête -->
+
+        <table id="email-penrose-conteneur" width="660" align="center" style="border-right:1px solid #e2e8ea; border-bottom:1px solid #e2e8ea; border-left:1px solid #e2e8ea; background-color:#ffffff;"
+            border="0" cellspacing="0" cellpadding="0">
+
+            <!-- Début bloc "mise en avant" -->
+
+            <tr>
+
+                <td style="background-color:#048c9d">
+
+                    <div style=""><img alt="email_img" src="http://192.241.130.45/email_img.png" style="width: 660px;"></div>
+
+                </td>
+            </tr>
+
+
+
+
+
+
+
+            <!-- Début article 1 -->
+
+            <tr>
+                <td style="border-bottom: 1px solid #e2e8ea">
+                    <table width="660" class="resp-full-table" align="center" border="0" cellspacing="0" cellpadding="0" style="padding:20px;">
+                        <tr>
+                            <td width="100%">
+
+                                <table width="100%" align="right" class="resp-full-table" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+                                    border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td width="100%" class="resp-full-td" valign="top" style="text-align : justify;">
+
+                                            <div style="padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;">
+                                                <strong style="font-weight: bold;"><h1><%= title %></h1></strong>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="100%" class="resp-full-td" valign="top" style="text-align : justify;">
+
+                                            <div style="padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;">
+                                             <%= emailContent %>
+                                            </div>
+                                            <br>
+
+
+
+                                            <br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="100%" class="resp-full-td" valign="top" style="text-align : justify;">
+
+                                            <div style="padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;">
+                                                
+                                                <%= emailAdminInfo %>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <!-- Fin article 1 -->
+
+        </table>
+
+        <!-- Début footer -->
+
+
+        <!-- Fin footer -->
+
+    </div>
+</body>
+
+</html>

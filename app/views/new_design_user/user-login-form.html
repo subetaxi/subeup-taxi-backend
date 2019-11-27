@@ -1,0 +1,295 @@
+<% include header.html %>
+
+<body>
+	<header>
+		<div class="top_img"></div>
+		
+	</header>
+	
+	<div class="inner_con login_page">			
+		<div class="container">
+			<div class="login_form">
+				<form action="/user_login" id="login_form" class="form-horizontal" method="post">
+                                    <% if(typeof message != 'undefined'){ %>
+                                    <div class="error alert">
+                                        <button type="button" class="closebtn" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                                        <p align="center"> <strong> <%= message %></strong></p>
+                                    </div>
+                                    <% } %>
+                                    <h3>Sign In</h3>
+					<!-- <div class="form_group">
+						<label>Email</label>
+						<input type="email" name="email" placeholder="Enter your email" required/>
+						<div class="error_msg">Please enter your email</div>
+                    </div> -->
+                    <div class="form_group">
+						<label>Phone</label>
+						<input type="text" name="phone" id="phone" placeholder="Enter your phone" onkeypress="return isNumberKey(event)" required maxlength="10"/>
+						<div class="error_msg">Please enter your phone</div>
+					</div>
+					<div class="form_group">
+						<label>Password</label>
+						<input type="password" name="password" placeholder="Enter your password" required/>
+						<div class="error_msg">Please enter your password</div>
+					</div>
+					<div class="sub_btn">
+						<button type="submit" style="width: 100%;"><a class="btn">Next<i class="fa fa-long-arrow-right"></i></a></button>
+					</div>
+                     <div class="class_forgot">
+                        <p class="acc_text clear_for">Don't have an account? <a href="#">Sign up</a></p>
+                        <p class="fpsw"><a href="/forgot_password_user">Forgot Password ?</a></p>  
+                    </div>
+					<h3>Or</h3>
+					<div onclick="facebook_login()" class="fb_btn">
+						<a class="btn">Continue with facebook<i class="fa fa-long-arrow-right"></i></a>
+					</div>
+					<div style="padding-top:20px;" onclick="google_login()" class="fb_btn">
+						<a class="btn" style="background-color: red;border-color: red;">Continue with google<i class="fa fa-long-arrow-right"></i></a>
+					</div>
+				</form>
+			</div>
+		</div>		
+	</div>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+	<meta name="google-signin-client_id" content="<%= constant_json.google_user_app_id %>">
+
+<script type="text/javascript">
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        {
+            if (charCode == 46)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    var currentTab = 0;
+    $(function () {
+        $(".tabs").tabs({
+            select: function (e, i) {
+                currentTab = i.index;
+            }
+        });
+
+    });
+
+    $("#btnNext").live("click", function () {
+        var tabs = $('.tabs').tabs();
+        var c = $('.tabs').tabs("length");
+        currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
+        tabs.tabs('select', currentTab);
+        $("#btnPrevious").show();
+        if (currentTab == (c - 1)) {
+            $("#btnNext").hide();
+        } else {
+            $("#btnNext").show();
+        }
+    });
+    $("#btnPrevious").live("click", function () {
+        var tabs = $('.tabs').tabs();
+        var c = $('.tabs').tabs("length");
+        currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
+        tabs.tabs('select', currentTab);
+        if (currentTab == 0) {
+            $("#btnNext").show();
+            $("#btnPrevious").hide();
+        }
+        if (currentTab < (c - 1)) {
+            $("#btnNext").show();
+        }
+    });
+
+    if ($(window).width() < 767) {
+        $('.menuOpen').click(function () {
+            $('.menu2').toggleClass('dis_block');
+        });
+    }
+
+    $(document).ready(function() {
+        var _URL = window.URL || window.webkitURL;
+
+        window.fbAsyncInit = function() {
+
+            var auth2;
+			FB.init({
+				appId            : '<%= constant_json.facebook_user_app_id %>',
+				autoLogAppEvents : true,
+				xfbml            : true,
+				version          : 'v2.10'
+			});
+			FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+
+
+    });
+
+    function facebook_login(){
+        FB.login(function(response) {
+            if (response.authResponse) {
+                FB.api('/me?fields=id', function(response) {
+                    var id = response.id;
+                    var json = {
+                        social_unique_id: id,
+                        device_type: "web",
+                        login_by: "facebook",
+                        type: 1
+                    }
+
+					$.ajax({
+						type: 'POST',
+						url: '/user_social_login_web',
+						data: json,
+						dataType: "json",
+						success:function(res){
+							if(res.success){
+								window.location.href=res.url;
+							} else {
+								location.reload();
+							}
+						}
+					});
+
+                });
+            }
+        });
+    }
+    function google_login(){
+
+        gapi.load('auth2', function() {
+
+            var auth2 = gapi.auth2.getAuthInstance();
+            if(auth2){
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                });
+            }
+
+            var type = $('#type').val()
+            var auth2;
+            if(type == 1){
+                auth2 = gapi.auth2.init({
+                    client_id: '<%= constant_json.google_user_app_id %>',
+                    fetch_basic_profile: true,
+                    scope: 'profile'
+                });
+            } else {
+                auth2 = gapi.auth2.init({
+                    client_id: '<%= constant_json.google_provider_app_id %>',
+                    fetch_basic_profile: true,
+                    scope: 'profile'
+                });
+            }
+
+            auth2.signIn().then(function() {
+                // console.log(auth2.currentUser.get().getId());
+                if (auth2.isSignedIn.get()) {
+
+                    var profile = auth2.currentUser.get().getBasicProfile();
+                    var id = profile.getId();
+                    var json = {
+                        social_unique_id: id,
+                        device_type: "web",
+                        login_by: "google",
+                        type: 1
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user_social_login_web',
+                        data: json,
+                        dataType: "json",
+                        success:function(res){
+                            if(res.success){
+                                window.location.href=res.url;
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    });
+
+                }
+
+            });
+        });
+
+    }
+
+</script>
+<script src="js/owl.carousel.js"></script>
+ <script>
+	jQuery(document).ready(function($) {
+	 
+	  $('.nonloop').owlCarousel({
+		nav:true,
+		center: false,
+		dots: true,
+		items:2,
+		loop: false,
+		 slideBy: 2,	
+		responsive: {
+		 0: {
+				items: 1,
+			  },
+		 600: {
+				items: 2,
+			  },
+		 1024: {
+			items: 3
+		  }
+		 
+		}
+	  });
+	});
+</script> 	
+<script>
+  $(function() {
+	var Accordion = function(el, multiple) {
+		this.el = el || {};
+		this.multiple = multiple || false;
+
+		// Variables privadas
+		var links = this.el.find('.link');
+		// Evento
+		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+	}
+
+	Accordion.prototype.dropdown = function(e) {
+		var $el = e.data.el;
+			$this = $(this),
+			$next = $this.next();
+
+		$next.slideToggle();
+		$this.parent().toggleClass('open2');
+
+		if (!e.data.multiple) {
+			$el.find('.submenu').not($next).slideUp().parent().removeClass('open2');
+		};
+	}	
+
+	var accordion = new Accordion($('.accordion'), false);
+});
+
+</script>	
+
+
+</body>
+<% include footer.html %>
+
+</html>

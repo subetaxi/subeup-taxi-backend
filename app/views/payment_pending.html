@@ -1,0 +1,224 @@
+
+	<html>
+		<head>
+			<title><%= constant_json.app_name %></title>
+	        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+	        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+	        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+	        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+	        <script type="text/javascript" src="js/actions.js"></script>
+
+	        <script type='text/css' src='js/clock-picker/bootstrap-clockpicker.min.css'></script>
+	        <script type='text/javascript' src='js/clock-picker/bootstrap-clockpicker.min.js'></script>
+
+	        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	        <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+	        <!-- END META SECTION -->
+
+	        <!-- CSS INCLUDE -->
+	        <link rel="stylesheet" type="text/css" href="css/theme-default.css" />
+	        <link rel="stylesheet" type="text/css" href="css/map.css" />
+	        <!-- EOF CSS INCLUDE -->
+
+		</head>
+
+		<body>
+			<div class="" style="margin: 20px;">
+				<div class="page-content ">
+		  			<div class="page-content-wrap">
+		  				<div class="row">
+		            		<div class="col-md-6">
+		            			<div class="panel panel-default">
+		                    		<div class="panel-body">
+		                    			<h1 class="text-center">Your Payment Pending</h1>
+		                    			<div class="text-center">
+		                    				<a href="payment_transaction"><button class="btn btn-info" type="button">
+		                    					Pay	
+		                    				</button></a>
+		                    			</div>
+		                    		</div>
+		                    	</div>
+		            		</div>
+		            		<div class="col-md-6">
+		            			<div class="panel panel-default">
+		            				<div class="panel-heading">
+		                                    <h3 class="panel-title">Card Detail</h3>         
+		                                    <ul class="panel-controls">
+		                                        <li>
+		                                        	<button class="btn btn-info" data-toggle="modal" type="button" id="modal_card" data-target="#modal_add_new_card" >Add Card</button>
+		                                        	<!-- <a href="" data-toggle="modal" type="button" id="modal_card" data-target="#modal_add_new_card" class="control-primary"  ><span class="fa fa-plus"></span></a></li> -->
+		                                        </li>
+		                                    </ul>
+		                                </div>
+		                    		<div class="panel-body">
+		                    			<div class="panel-body list-group list-group-contacts" >
+		                    				<% payment_transaction_detail.card_detail.forEach(function(data){ %>
+		                    					<a class="list-group-item" style="border-bottom: 1px;"> 
+			                                        <span class="contacts-title">Card Number</span>
+			                                        <p>* * * * * * * * <%= data.last_four %></p>
+			                                        <%if(payment_transaction_detail.card_detail.length>1){%>
+			                                        	<div class="list-group-controls">
+				                                            <span class="fa fa-times-circle-o" onclick="remove_card('<%= data._id %>')" style="font-size: 30px"></span>
+				                                        </div>
+			                                    	<%}%>                                                  
+			                                                                            
+			                                    </a>     
+		                    				<% }) %>
+		                    				  
+		                    			</div>
+		                    		</div>
+		                    	</div>
+		            		</div>
+		            	</div>
+		            </div>
+		        </div>
+		    </div>
+		</body>
+	</html>
+
+	<div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="modal_add_new_card" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+	    <div class="modal-dialog modal-sm" style="z-index:9999;">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" id='modal-dismiss' class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+	                <h4 class="modal-title" id="smallModalHead"><%= config_json.title_add_card %></h4>
+	            </div>
+	            <form action="/admin_add_card" id="payment-form" method="post">
+	                 <input type="hidden" name="type" value="5"/>
+	                <span class="payment-errors"></span>
+
+	                <div class="modal-body form-horizontal">                        
+	                    <div class="form-group">
+	                        <div class="col-md-12" id="image">
+	                            <input type="hidden" name="card_type" id="card_type"/>
+	                            
+	                            <input type="text" onkeyup="movetoNext(this, 'Exp_month')" placeholder="Card Number" onkeypress="return isNumberKey(event)" maxlength="19" data-stripe="number"  class="form-control" autocomplete="off" id="Card_number" name="Card_number"/>
+	                        </div>
+	                    </div>
+
+	                    <div class="form-group">
+	                       
+	                        <div class="col-md-4">
+	                            <input type="text" data-stripe="exp_month" onkeyup="movetoNext(this, 'Exp_year')" onkeypress="return isNumberKey(event)" placeholder="MM" maxlength="2" class="form-control" id="Exp_month" name="Exp_month"/>
+	                        </div>
+	                        <div class="col-md-4">
+	                            <input type="text" onkeyup="movetoNext(this, 'cvv')" onkeypress="return isNumberKey(event)" data-stripe="exp_year" class="form-control" maxlength="2" id="Exp_year" placeholder="YY" name="Exp_year"/>
+	                        </div>
+	                        <div class="col-md-4">
+	                            <input type="text" id="cvv" data-stripe="cvc" onkeypress="return isNumberKey(event)" class="form-control" maxlength="3" placeholder="CVV" name="cvv"/>
+	                        </div>
+	                    </div>    
+	                </div>
+	                <div class="modal-footer">
+	                    <input type="submit" class="submit btn btn-info" value="submit" />
+	                    
+	                </div>
+	            </form>
+	        </div>
+	    </div>
+	</div> 
+
+	<script type="text/javascript">
+	    function isNumberKey(evt){
+	        var charCode = (evt.which) ? evt.which : event.keyCode
+	        if (charCode > 31 && (charCode < 48 || charCode > 57))
+	            return false;
+	        return true;
+	    }
+	    
+	    $(document).ready(function() {
+	        $('#Card_number').keyup(function(event) {
+
+	            var Card_number = $('#Card_number').val();
+	      document.getElementById('Card_number').addEventListener('input', function (e) {
+	        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+	            });
+
+	      if(Card_number.length == 2)
+	            {
+
+	                $.ajax({
+	                    type       : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+	                    url         : '/corporate_card_type', // the url where we want to POST  
+	                    data        :'Card_number='+Card_number, // our data object
+	                   datatype    :"json",
+	                   success:function(response){ 
+	                        $('#cvv').val('');
+	                        $('#cvv').attr("maxlength",response.code.size )  
+	                        document.getElementById('card_type').value=response.type;
+	                        $("#image").append("<img src='' style='position:absolute; margin-top:-20px;'/>");         
+	                    }
+	                })
+	            }
+	        });
+	        $('#modal_card').click(function(event){
+
+	            $('#Card_number').val('');
+	            $('#Exp_month').val('');
+	            $('#Exp_year').val('');
+	            $('#cvv').val('');
+	            $('.payment-errors').text('');
+	        });
+	    });
+
+	    function movetoNext(current, nextFieldID) {
+	        if (current.value.length >= current.maxLength) {
+	        	document.getElementById(nextFieldID).focus();
+	        }
+	    }
+	</script>
+
+
+	<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+	<script type="text/javascript">
+	    
+	    Stripe.setPublishableKey('<%= payment_transaction_detail.stripe_public_key %>');
+
+	    $(function() {
+	        var $form = $('#payment-form');
+	        $form.submit(function(event) {
+
+	            $form.find('.submit').prop('disabled', true);
+	            $('#modal-dismiss').hide();
+	            Stripe.card.createToken($form, stripeResponseHandler);
+	            return false;
+	      });
+	    });
+
+	    function stripeResponseHandler(status, response) {
+	         
+	        var $form = $('#payment-form');
+	        if (response.error) { 
+
+	            $form.find('.payment-errors').text(response.error.message);
+	            $form.find('.submit').prop('disabled', false); // Re-enable submission
+	            $('#modal-dismiss').show();
+	        } 
+	        else { 
+	            var token = response.id;
+	            last_four = response.card.last4;
+	            
+	            $form.append($('<input type="hidden" name="payment_token">').val(token));
+	            $form.append($('<input type="hidden" name="last_four">').val(last_four));
+	            $form.get(0).submit();
+	            $('#modal_change_password').modal('hide');
+	        }
+	    };
+	    
+
+	function remove_card(card_id) {
+      $.ajax({
+          type: 'POST',
+          url: 'admin_delete_card',
+          data: {'card_id': card_id},
+          dataType: "json",
+          success: function (res) {
+              location.reload();
+          }
+      });
+  	}
+	</script>
+<% include footer_form.html %>

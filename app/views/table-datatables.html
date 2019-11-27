@@ -1,0 +1,159 @@
+<% include header.html %>
+               
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+
+                <div class="row">
+  <div class="col-md-6">
+   <div class="panel panel-default">
+    <form class="form-horizontal" role="form" method="post" action="/providers_sort">                                    
+     <div class="form-group">                                        
+      <div class="col-md-6">
+       <div class="btn-group">
+        <div class="input-group">
+         <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+         <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+          <option value='first_name'>Name</option>
+          <option value='email'>Email</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+   <div class="btn-group">
+    <div class="input-group">
+     <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+     <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+      <option value=1>Ascending</option>
+      <option value=-1>Discending</option>
+    </select>
+  </div>
+</div>
+</div>
+</div>
+<button type="submit" class="btn btn-info" style="width: 100%">Sort</button>
+</form>
+</div>
+</div>
+<div class="col-md-6">
+ <div class="panel panel-default">
+  <form class="form-horizontal" role="form" method="post" action="/providers_search">
+   <div class="form-group">                                        
+    <div class="col-md-6">
+     <div class="btn-group">
+      <div class="input-group">
+       <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+       <select class="form-control select" placeholder="Select to Sort" name="search_item">
+        <option value='first_name'>Name</option>
+        <option value='email'>Email</option>
+        <option value='address'>Address</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="col-md-6">
+ <div class="panel panel-default">
+  <div class="panel-body panel-body-search">
+   <div class="input-group">
+    <span class="input-group-addon"><span class="fa fa-search"></span></span>
+    <input type="text" class="form-control" name="search_value" placeholder="Search..."/>
+  </div>                                                                
+</div>
+</div>
+</div>
+<button type="submit" class="btn btn-info" style="width: 100%">Search</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>                
+                
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <!-- START SIMPLE DATATABLE -->
+                            <div class="panel panel-default">                                
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table datatable_simple">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                      <th>E-mail</th>
+                                                      <th>Phone</th>
+                                                      <th>Address</th>
+                                                      <th>Zip code</th>
+                                                      <th>Status</th>
+                                                      <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <% detail.forEach(function(data){ %>
+                                            <tbody>
+                                                <tr>
+                                                    <td><%= data.first_name +' '+ data.last_name %></td>
+                                                      <td><%= data.email %></td>
+                                                      <td><%= data.phone %></td>
+                                                      <td><%= data.address %></td>
+                                                      <td><%= data.zipcode %></td>
+                                                      <td><% if(data.is_approved == 1 ) { %>
+                                                        <span class="badge badge-success">Approved</span>
+                                                         <% }else{ %>
+                                                         <span class="badge badge-danger">Decline</span>
+                                                         <% } %>
+                                                     </td>
+                                                     <td>
+                                                         <div class="btn-group">
+                                                            <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Action <span class="caret"></span></a>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                               <li><a href="/profile_detail_edit?id=<%= data.id %>">Edit Detail</a></li>
+                                                               <li><a href="#">View Banking Detail</a></li>
+                                                               <li><a href="#">View History</a></li>
+                                                               <% if(data.is_approved == 1){ %>                                                    
+                                                               <li><a href="/profile_is_approved?id=<%= data.id %>&&is_approved=<%= data.is_approved %>&&is_doc_uploaded=<%= data.is_document_uploaded %>">Decline</a></li>
+                                                               <% } else { %>
+                                                               <li><a href="/profile_is_approved?id=<%= data.id %>&&is_approved=<%= data.is_approved %>&&is_doc_uploaded=<%= data.is_document_uploaded %>">Approve</a></li>
+                                                               <% } %>
+                                                           </ul>
+                                                       </div>
+                                                   </td>
+                                                </tr>
+                                            </tbody>
+                                               <% }); %>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END SIMPLE DATATABLE -->
+
+                        </div>
+                    </div>                                
+                    
+                </div>
+                <!-- PAGE CONTENT WRAPPER -->                                
+            </div>    
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->       
+        
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-sign-out"></span> Log <strong>Out</strong> ?</div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to log out?</p>                    
+                        <p>Press No if youwant to continue work. Press Yes to logout current user.</p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <a href="pages-login.html" class="btn btn-success btn-lg">Yes</a>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MESSAGE BOX-->
+
+<% include footer.html %>

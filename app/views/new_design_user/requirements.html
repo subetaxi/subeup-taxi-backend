@@ -1,0 +1,264 @@
+<% include header.html %>
+<body>	
+
+		
+		<div class="sub_banner_safety requirement">
+			<div class="width42">
+				<div class="img_div"></div>
+				<div class="start_box">
+					<a href="#">
+						<div class="text_in">Start riding with SubeUp</div>
+						<div href="#" class="signup">Sign up<i class="fa  fa-long-arrow-right"></i></div>
+					</a>
+					
+				</div>
+			</div>
+			<div class="container">				
+				<div class="width56">
+					<h1>Driver requirements<span>How to drive with SubeUp</span></h1>				
+					<p>Make money driving people around your city. Sign up now to get more information about driving in your city.</p>	
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+	<div class="inner_con safety requirement_in">
+		<div class="container">
+			<div class="start_box">
+				<a href="/">
+					<div class="text_in">Start riding with SubeUp</div>
+					<div href="#" class="signup">Sign up<i class="fa  fa-long-arrow-right"></i></div>
+				</a>
+				
+			</div>					
+		</div>
+		<div class="rsecttion1">
+			<div class="container">
+				<h2>Three ways to earn</h2>
+				<div class="travel_info">
+					<div class="row">
+						<div class="col_3">
+							<div class="icon_div"><img src="new_design/images/icon1.png" alt="briefcase"></div>
+							<div class="overflow_div">
+								<h4>Driver cum owner</h4>
+								<p>A driver cum owner drives a vehicle that he or she owns. Requirements vary by city, but there are a few minimum requirements:</p>
+								<ul>
+									<li>Driving License</li>
+									<li>Vehicle Registration</li>
+									<li>Vehicle Insurance</li>
+									<li>Vehicle Permit</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col_3">
+							<div class="icon_div"><img src="new_design/images/icon2.png" alt="icon"></div>
+							<div class="overflow_div">
+								<h4>Driver under partner</h4>
+								<p>A driver under partner drives a vehicle owned by a non-driving partner. The following document is required of a driver under partner:</p>
+								<ul>
+									<li>Driving License</li>
+								
+								</ul>
+							</div>
+						</div>
+						<div class="col_3">
+							<div class="icon_div"><img src="new_design/images/icon3.png" alt="icon"></div>	
+							<div class="overflow_div">
+								<h4>Non-driving partner</h4>
+								<p>A non-driving partner or fleet partner is someone who does not drive on the SubeUp platform but owns vehicle(s) and manages at least one driver. Becoming a non-driving partner requires:</p>
+								<ul>
+									<li>Driving License or Photo ID</li>
+									<li>Vehicle Insurance</li>
+									<li>Vehicle Registration</li>
+									<li>Vehicle Permit</li>
+								</ul>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="dsection2 rsecttion2">
+				<div class="container">
+					<h2><span>Hit the road</span> It’s easy to get started</h2>
+					<div class="row">
+						<div class="col_3 line">
+							<div class="number">1</div>
+							<div class="info_dt">
+								<h4>Sign up online</h4>
+								<p>Tell us about yourself and your car, if you have one. If you don’t, we’ll help you get one.</p>
+								<div class="signupbtnd">
+									<a href="/" class="btn">SIGN UP NOW<i class="fa fa-long-arrow-right"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="col_3 line">
+							<div class="number">2</div>
+							<div class="info_dt">
+								<h4>Share some documents</h4>
+								<p>We’ll need a copy of the required documents mentioned above. It is also necessary to have a commercial car. In case you have any question, come to our Greenlight hub.</p>
+								<div class="signupbtnd">
+									<!-- <a href="#" class="btn">Learn more<i class="fa fa-long-arrow-right"></i></a> -->
+								</div>
+							</div>
+						</div>
+						<div class="col_3">
+							<div class="number">3</div>
+							<div class="info_dt">
+								<h4>Activate your account</h4>
+								<p>Bring your car to a local Greenlight hub. Requirements vary by city, so sign up to see more information.</p>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+		</div>
+		
+		<div class="safetysection2 rsecttion3">
+			<div class="width40 img2"></div>
+			<div class="container">
+				<div class="width60">
+					<h2><span>More information</span>Local vehicle requirements</h2>
+					<p>In addition to the minimum requirements above, each city has its own regulations for vehicles.</p>
+					<!-- <a href="#">LOCAL DOCUMENT DETAILS<i class="fa  fa-angle-right"></i></a> -->
+					
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+		<div class="safetysection5 bg2">
+			<div class="container">
+				<h2>Be your own boss</h2>
+				<a href="/" class="btn">SIGN UP TO DRIVE<i class="fa fa-long-arrow-right"></i></a>
+			
+			</div>
+		</div>
+		<div class="safetysection6">
+			<div class="container">
+				<p>The information provided on this web page is intended for informational purposes only and may not be applicable in your country, region, or city. It is subject to change and may be updated without notice.</p>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui1.js"></script>
+<script type="text/javascript">
+    var currentTab = 0;
+    $(function () {
+        $("#tabs").tabs({
+            select: function (e, i) {
+                currentTab = i.index;
+            }
+        });
+    });
+    $("#btnNext").live("click", function () {
+        var tabs = $('#tabs').tabs();
+        var c = $('#tabs').tabs("length");
+        currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
+        tabs.tabs('select', currentTab);
+        $("#btnPrevious").show();
+        if (currentTab == (c - 1)) {
+            $("#btnNext").hide();
+        } else {
+            $("#btnNext").show();
+        }
+    });
+    $("#btnPrevious").live("click", function () {
+        var tabs = $('#tabs').tabs();
+        var c = $('#tabs').tabs("length");
+        currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
+        tabs.tabs('select', currentTab);
+        if (currentTab == 0) {
+            $("#btnNext").show();
+            $("#btnPrevious").hide();
+        }
+        if (currentTab < (c - 1)) {
+            $("#btnNext").show();
+        }
+    });
+</script>
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+    $('.menuOpen').click(function(){
+    $('.menu, .map, .bcome_driver').toggle();
+});
+
+if ($(window).width() < 767) {
+    $('.menuOpen').click(function(){
+    $('.menu2').toggleClass('dis_block');
+});
+}
+});
+
+
+	
+</script>
+<script src="js/owl.carousel.js"></script>
+ <script>
+	jQuery(document).ready(function($) {
+	 
+	  $('.nonloop').owlCarousel({
+		nav:true,
+		center: false,
+		dots: true,
+		items:2,
+		loop: false,
+		 slideBy: 2,	
+		responsive: {
+		 0: {
+				items: 1,
+			  },
+		 600: {
+				items: 2,
+			  },
+		 1024: {
+			items: 3
+		  }
+		 
+		}
+	  });
+	});
+</script> 	
+<script>
+  $(function() {
+	var Accordion = function(el, multiple) {
+		this.el = el || {};
+		this.multiple = multiple || false;
+
+		// Variables privadas
+		var links = this.el.find('.link');
+		// Evento
+		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+	}
+
+	Accordion.prototype.dropdown = function(e) {
+		var $el = e.data.el;
+			$this = $(this),
+			$next = $this.next();
+
+		$next.slideToggle();
+		$this.parent().toggleClass('open2');
+
+		if (!e.data.multiple) {
+			$el.find('.submenu').not($next).slideUp().parent().removeClass('open2');
+		};
+	}	
+
+	var accordion = new Accordion($('.accordion'), false);
+});
+
+
+</script>	
+	
+	
+
+</body>
+<% include footer.html %>
+</html>

@@ -1,0 +1,74 @@
+
+    <!--upload file-->
+    <script type="text/javascript">
+        $(document).ready(function(){
+                setTimeout(function() {
+                    $('.alert').fadeOut('fast');
+                }, 3000)
+            });
+</script>  
+<script src="user_panel/js/bootstrap-select.min.js"></script>
+        <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>
+        <script type='text/javascript' src='js/plugins/jquery-validation/jquery.validate.js'></script>                
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-file-input.js"></script>
+
+        <!-- END PLUGINS -->
+        <script type="text/javascript" src="js/plugins/tableexport/tableExport.js"></script>
+<script type="text/javascript" src="js/plugins/tableexport/jquery.base64.js"></script>
+  <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-select.js'></script>
+        <!-- START THIS PAGE PLUGINS-->        
+              
+        <script type="text/javascript" src="js/plugins.js"></script> 
+
+    <!--menu script-->
+    <script type="text/javascript">
+        function htmlbodyHeightUpdate(){
+        var height3 = $( window ).height()
+        var height1 = $('.nav').height()+50
+        height2 = $('.main').height()
+        if(height2 > height3){
+            $('html').height(Math.max(height1,height3,height2)+10);
+            $('body').height(Math.max(height1,height3,height2)+10);
+        }
+        else
+        {
+            $('html').height(Math.max(height1,height3,height2));
+            $('body').height(Math.max(height1,height3,height2));
+        }
+        
+    }
+    $(document).ready(function () {
+        htmlbodyHeightUpdate()
+        $( window ).resize(function() {
+            htmlbodyHeightUpdate()
+        });
+        $( window ).scroll(function() {
+            height2 = $('.main').height()
+            htmlbodyHeightUpdate()
+        });
+    });
+    function act_btn_top1(n)
+        {
+            $(".act_btn_dit"+n).slideToggle();
+        }
+    </script>
+
+    <!--brojer height-->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.navbar-inverse').height($(window).height());
+        });
+
+
+    </script>
+
+      <!--toggle-->
+    <script type="text/javascript">
+        
+        
+
+        
+    </script>
+    
+  </body>
+</html>

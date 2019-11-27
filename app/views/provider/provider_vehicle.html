@@ -1,0 +1,158 @@
+<% include provider_header.html %>
+               
+              <% if(typeof message != 'undefined'){ %>
+       <div class="alert alert-success" role="alert" style="padding-top: 75px;margin-bottom: -135px;">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+          <p align="center"> <strong><%= message %></strong></p>
+      </div>
+      <% } %>   
+
+
+<style>
+  
+  .btn-default {
+    width:100%; 
+    font-family: 'RobotoRegular';font-size: 12px;background-color: #047f8f;border-color: #047f8f;float: left;color:#fff;
+  }
+  .btn-default:hover{
+    background-color: #1a1d2e;
+    border-color: #1a1d2e;
+    color: #fff;
+    border-radius: 0;
+
+  }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+
+      <div style="" class="edit_input_rgt">
+          <a href="/provider_add_vehicle"><button class="btn" style="background-color: #1a1d2e;border-color: #1a1d2e;color: #fff;" type="button"><%= config_json.button_add_vehicle %></button></a>
+      </div>
+    
+       <div class="row">
+           <div class="table_bg" id="customers">
+               <div class="table">
+                   <div class="table_top">
+                       <div class="table_id" style="width: 8%;"><%= config_json.title_name %></div>
+                       <div class="table_id Pickup" style="width: 12%;"><%= config_json.title_plate_no %></div>
+                       <div class="table_id Pickup" style="width: 12%;"><%= config_json.title_model %></div>
+                       <div class="table_id Pickup" style="width: 12%;"><%= config_json.title_color %></div>
+                       <div class="table_id Pickup" style="width: 12%;"><%= config_json.title_passing_year %></div>
+                       <div class="table_id Pickup" style="width: 14%;"><%= config_json.title_service_type %></div>
+                       <div class="table_id Pickup" style="width: 16%;"><%= config_json.title_accessibility %></div>
+                      
+                       <div class="table_id Pickup" style="width: 12%;"><%= config_json.button_action %></div>
+
+                   </div>
+                   <% vehicle_list.forEach(function(data , index){ %>
+
+                   <div class="table_top table_cont">
+                       <div class="table_id"  style="width: 8%;">
+                           <% if(data.is_vehicle_documents_expired){ %>
+                                <span id="vehicle_document_expired" style="color: red;" class="fa fa-circle"></span>
+                           <% } %>
+                            <%= data.name %></div>
+                        <div class="table_id"  style="width: 12%;">
+                                  <%= data.plate_no %>
+                        </div>
+                        <div class="table_id Pickup" style="width: 12%;"><%= data.model %></div>
+                        <div class="table_id Pickup" style="width: 12%;" ><%= data.color %></div>
+                       
+                        <div class="table_id payment" style="width: 14%;"><%= data.passing_year %></div>
+
+                        <div class="table_id payment" style="width: 14%;"><% if(data.typename == undefined){ %>
+                                        <%= config_json.title_not_approved %>
+                                    <% } else { %>
+                                        <%= data.typename %>
+                                    <% } %>
+                        </div>
+                        
+                        <div class="table_id payment" style="width: 16%;">
+                            <% if(data.accessibility != undefined){ %>
+                            <% if(data.accessibility.length > 0 ){ %>
+                            <%= data.accessibility %>
+                            <% } %>
+                            <% } %>
+                        </div>
+                        
+                        
+                        
+                       <div class="table_id Pickup" style="width: 12%;">
+                           <div class="">
+                               <div class="select_btn_bg">
+                                   <div class="action_btn_bg">
+                                       <div class="act_btn_top" onclick="act_btn_top1(<%=index%>)">Action</div>
+                                        <ul style="display: none;" class="act_btn_dit<%=index%>">
+                                      
+                                          
+                                                     <li>
+                                                      <form method="post" action="/provider_edit_vehicle_detail">
+                                                            <input type="hidden" name="provider_id" value="<%= data.provider_id %>" />
+                                                            <input type="hidden" name="vehicle_id" value="<%= data._id %>" />
+                                                            <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.title_edit_detail %> </button> 
+                                                       </form>
+                                                      </li>
+                                                   
+                                                           <li>
+                                                      <form method="post" action="/provider_vehicle_document_list">
+                                                            <input type="hidden" name="provider_id" value="<%= data.provider_id %>" />
+                                                            <input type="hidden" name="vehicle_id" value="<%= data._id %>" />
+                                                            <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.title_document %> </button> 
+                                                       </form>
+                                                      </li>
+                                                           
+                                        </ul>
+                                   </div>
+                                 </div>
+                           </div>
+                       </div>
+                   </div>
+                   <% }); %>
+
+
+               </div>
+           </div>
+       </div>
+      
+  </div> 
+        
+      <!-- END TIMELINE FILTER -->                
+                
+                                       
+                    
+                </div>
+                <!-- PAGE CONTENT WRAPPER -->                                
+            </div>    
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->  
+
+        <script type="text/javascript">
+  $(document).ready(function() {
+
+    var trip_id_array = new Array();
+      var interval;
+       $('#start_date').datepicker({
+         format: 'yyyy-mm-dd',
+         endDate: new Date(Date.now())
+
+       }).on("input change", function (e) { 
+        var end_date = $('#start_date').datepicker('getDate');
+        end_date.setDate(end_date.getDate() + 1);
+        $('#end_date').datepicker('setStartDate', end_date);
+      });
+
+       $('#end_date').datepicker({
+         format: 'yyyy-mm-dd',
+         endDate: new Date(Date.now())
+
+       }).on("input change", function (e) { 
+        var start_date = $('#end_date').datepicker('getDate');
+        start_date.setDate(start_date.getDate() - 1);
+        $('#start_date').datepicker('setEndDate', start_date);
+      });
+
+        
+   
+ });
+</script>  
+<% include provider_footer.html %> 

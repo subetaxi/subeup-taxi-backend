@@ -1,0 +1,198 @@
+<% include partner_header.html %>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+<!--style.responsive-->
+<link rel="stylesheet" type="text/css" href="css/responsive.css">
+<!-- PAGE CONTENT WRAPPER -->
+<div class="main">
+    <!--header scection-->
+
+    <!--header scection-->
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <!--            <div class="col-md-4">
+                            <h2><strong><%= detail.invoice_number %></strong></h2>
+                        </div>
+            -->            <div class="margin">
+            <div class="invoice" style="margin-bottom: 10px;">
+                <div class="col-md-6">
+                    
+                    <span>Total Earning</span><br>
+                    <h2><strong><%= detail.currency %> <%= detail.total_provider_service_fees %></strong></h2>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="pull-right"><strong><%= moment(detail.provider_trip_end_time).format("DD MMM 'YY") %></strong></h3>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+            <!--content scection-->
+            <div class="content_bg" style="margin-top: 0px;">
+                <div class="margin">
+                    <!--invoice section-->
+                    <div class="invoice_bg">
+                        <div class="margin">
+                            <div class="invoice">
+                                <div class="col-md-12">
+                                    <div class="invo_head cont_top">
+                                        <h1>STATISTICS</h1>
+                                    </div>
+
+                                    <div class="invoice_table" style="margin-top:20px">
+                                        <div class="col-md-12 no_padding">
+                                            <!-- START SIMPLE DATATABLE -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="col-md-2">
+                                                        <h3 style="display: inline"><%= provider_daily_analytic_data.total_online_time %></h3><br>
+                                                        <%= config_json.online_mins %>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h3 style="display: inline"><%= provider_daily_analytic_data.received %></h3><br>
+                                                        <%= config_json.received %>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h3 style="display: inline"><%= provider_daily_analytic_data.accepted %> <h5 style="display: inline;">
+                                                            (<%= provider_daily_analytic_data.acception_ratio %>%)</h5></h3><br>
+                                                        <%= config_json.accepted %>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h3 style="display: inline"><%= provider_daily_analytic_data.completed %> <h5 style="display: inline;">(<%= provider_daily_analytic_data.completed_ratio %>%)</h5></h3><br>
+                                                        <%= config_json.completed %>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h3 style="display: inline"><%= provider_daily_analytic_data.rejected %> <h5 style="display: inline;">(<%= provider_daily_analytic_data.rejection_ratio %>%)</h5></h3><br>
+                                                        <%= config_json.titel_trip_rejected %>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <h3 style="display: inline"><%= provider_daily_analytic_data.cancelled %> <h5 style="display: inline;">(<%= provider_daily_analytic_data.cancellation_ratio %>%)</h5></h3><br>
+                                                        <%= config_json.title_cancelled_request %>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- END SIMPLE DATATABLE -->
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="invo_head cont_top">
+                                        <h1>TRIP EARNINGS</h1>
+                                    </div>
+
+                                    <div class="invoice_table_bg">
+                                        <div class="invoice_table">
+                                            <div class="invo_one">
+                                                <div class="invo_one_lft">Service Price</div>
+                                                <div class="invo_one_rgt"><%= detail.service_total %></div>
+                                            </div>
+                                            <div class="invo_one invo_one_bg">
+                                                <div class="invo_one_lft">Surge Price</div>
+                                                <div class="invo_one_rgt"><%= detail.total_service_surge_fees %></div>
+                                            </div>
+
+                                            <div class="invo_one">
+                                                <div class="invo_one_lft">Tax Fees</div>
+                                                <div class="invo_one_rgt"><%= detail.total_provider_tax_fees %></div>
+                                            </div>
+                                            <div class="invo_one invo_one_bg">
+                                                <div class="invo_one_lft">Miscellaneous Fees</div>
+                                                <div class="invo_one_rgt"><%= detail.total_provider_miscellaneous_fees %></div>
+                                            </div>
+
+                                            <div class="invo_one">
+                                                <div class="invo_one_lft">Toll Amount</div>
+                                                <div class="invo_one_rgt"><%= detail.total_toll_amount %></div>
+                                            </div>
+                                            <div class="invo_one invo_one_bg">
+                                                <div class="invo_one_lft">Tip Amount</div>
+                                                <div class="invo_one_rgt"><%= detail.total_tip_amount %></div>
+                                            </div>
+
+                                            <!--                                <div class="invo_total">
+                                                                                <div class="invo_one_lft"><%= config_json.title_total %></div>
+                                                                                <div class="invo_one_rgt"><%= detail.total %></div>
+                                                                            </div>-->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="invo_head cont_top">
+                                        <h1>PAYMENT TRANSACTIONS</h1>
+                                    </div>
+                                    <div class="invoice_table_bg">
+                                        <div class="invoice_table">
+                                            <div class="invo_one">
+                                                <div class="invo_one_lft">Provider Have Cash</div>
+                                                <div class="invo_one_rgt"><%= detail.total_provider_have_cash %></div>
+                                            </div>
+                                            <div class="invo_one invo_one_bg">
+                                                <div class="invo_one_lft">Deduct Wallet Amount</div>
+                                                <div class="invo_one_rgt"><%= detail.total_deduct_wallet_amount %></div>
+                                            </div>
+
+                                            <div class="invo_one">
+                                                <div class="invo_one_lft">Added Wallet Amount</div>
+                                                <div class="invo_one_rgt"><%= detail.total_added_wallet_amount %></div>
+                                            </div>
+
+                                            <div class="invo_one">
+                                                <div class="invo_one_lft">TOTAL EARNING</div>
+                                                <div class="invo_one_rgt"><%= detail.total_provider_service_fees %></div>
+                                            </div>
+                                            <div class="invo_one invo_one_bg">
+                                                <div class="invo_one_lft">PAID IN WALLET</div>
+                                                <div class="invo_one_rgt"><%= detail.total_paid_in_wallet_payment %></div>
+                                            </div>
+                                            <div class="invo_one invo_one_bg">
+                                                <div class="invo_one_lft">Transferred Amount</div>
+                                                <div class="invo_one_rgt"><%= detail.total_transferred_amount %></div>
+                                            </div>
+                                            
+                                            <div class="invo_one">
+                                                <div class="invo_one_lft">PAY TO PROVIDER</div>
+                                                <div class="invo_one_rgt"><%= detail.total_pay_to_provider %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <!--invoice section-->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--content scection-->
+</div>
+</body>
+<!-- END PAGE CONTENT WRAPPER -->
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+<script type="text/javascript" src='js/dist/pdfmake.min.js'></script>
+<script type="text/javascript" src='js/dist/vfs_fonts.js'></script>
+
+
+<% include footer_list.html %>
+

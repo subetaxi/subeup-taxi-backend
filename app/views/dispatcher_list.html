@@ -1,0 +1,342 @@
+<% include header.html %>
+
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div id="content" >
+  <div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+      <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %> 
+    <!-- START TIMELINE FILTER --> 
+   
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                       
+                        <form class="form-horizontal" role="form" method="post" action="/add_dispatcher">
+                            <div class="col-md-4" style="text-align: center;">
+                            </div>
+                            <div class="col-md-4" style="text-align: center;">
+                                <button type="submit" class="btn btn-success btn-block"><span class="fa fa-plus"></span><%= config_json.button_add_new_dispatcher %></button>
+                            </div>
+                            <div class="col-md-4" style="text-align: center;">
+                            </div>
+                        </form>
+                    </div>
+                   
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12">                           
+      <div class="panel panel-default">                                
+        <div class="panel-body">
+          <form class="form-horizontal" role="form" method="post" action="/dispatcher">  
+            <input type="hidden" name="page" id="page" value="1" />
+            <div class="form-group">     
+
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_sort %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_field == "unique_id") { %>
+                      <option value='unique_id' selected><%= config_json.title_id %></option>
+                      <option value='first_name'><%= config_json.title_name %></option>
+                      <option value='email'><%= config_json.title_email %></option>
+                      <% } else if(sort_field == "first_name") { %>
+                      <option value='unique_id'><%= config_json.title_id %></option>
+                      <option value='first_name' selected><%= config_json.title_name %></option>
+                      <option value='email'><%= config_json.title_email %></option>
+                      <% } else{ %>
+                      <option value='unique_id'><%= config_json.title_id %></option>
+                      <option value='first_name' ><%= config_json.title_name %></option>
+                      <option value='email' selected><%= config_json.title_email %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_order == "1") { %>
+                      <option value="1" selected><%= config_json.sort_asc %></option>
+                      <option value="-1"><%= config_json.sort_desc %></option>
+                      <% } else{ %>
+                      <option value="1" ><%= config_json.sort_asc %></option>
+                      <option value="-1" selected><%= config_json.sort_desc %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_search %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" id="sel" placeholder="Select to Sort" name="search_item">
+                      <% if(search_item == "first_name") { %>
+                      <option value='first_name' selected><%= config_json.title_name %></option>
+                      <option value='email'><%= config_json.title_email %></option>
+                      <option value='country'><%= config_json.title_country %></option>
+                      <% } else if(search_item == "email") { %>
+                      <option value='first_name'><%= config_json.title_name %></option>
+                      <option value='email' selected><%= config_json.title_email %></option>
+                      <option value='country'><%= config_json.title_country %></option>
+                      <% } else{ %>
+                      <option value='first_name' ><%= config_json.title_name %></option>
+                      <option value='email' ><%= config_json.title_email %></option>
+                      <option value='country' selected><%= config_json.title_country %></option>
+                      <% } %>
+                    </select>
+                  </div> 
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body panel-body-search">
+                      <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                        <input type="text" class="form-control" value="<%= search_value %>" name="search_value" placeholder="Search..."/>
+                      </div>                                                                
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_date_filter %></label>   
+                </div>
+                <div class="col-md-12">
+
+                  <div class="btn-group">
+                    <div class="input-group">
+                      <input type="text" class="form-control datepicker" value="<%= filter_start_date %>" placeholder="Start Date" name="start_date" id="start_date" readonly/>
+                      <span class="input-group-addon add-on">-</span>
+                      <input type="text" class="form-control datepicker"  value="<%= filter_end_date %>" placeholder="End Date" name="end_date" id="end_date" readonly/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-8">
+              <div class="col-md-12">
+
+              <ul class="pagination" >
+         
+
+            <% include paginate.html %>
+
+           
+        </ul>                  
+              </div>
+            </div>
+
+            <div  class="form-group col-md-4" >
+              <div class="col-md-6">
+                <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= config_json.button_apply %></span></button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick ="export_excel()"><i class="fa fa-download"></i><%= config_json.button_export_excel %></button>     
+<!--                    <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick ="$('#customers2').tableExport({type:'excel', escape:'false', ignoreColumn: [7]});"> <%= config_json.button_export_excel %></button>-->
+              </div>
+            </div>    
+
+            
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- END TIMELINE FILTER -->
+  <!-- START TIMELINE FILTER --> 
+  <!-- END TIMELINE FILTER -->
+  <!-- START TIMELINE FILTER --> 
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">                                        
+             
+                                            
+                                    
+        <div class="table-responsive" style="padding-bottom: 175px;">
+          <table class="table text-center" id="customers2">               
+            <thead>
+              <tr>
+              <th><%= config_json.title_id %></th>
+                <th><%= config_json.title_name %></th>
+                <th><%= config_json.title_email %></th>
+                <th><%= config_json.title_phone %></th>
+                <th><%= config_json.title_country %></th>
+                <th><%= config_json.title_total_request %></th>
+                <th><%= config_json.title_completed %></th>
+                <th><%= config_json.button_action %></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% detail.forEach(function(data){ %>
+                <tr class="demo" >
+                  <td><%= data.unique_id %></td>
+                  <td ><%= data.first_name +' '+ data.last_name %></td>
+                  <td><% if(is_public_demo == true ) { %>
+                          <%= config_json.PUBLIC_DEMO_EMAIL %>
+                          <% }else{ %>
+                           <%= data.email %> 
+                           <% } %></td>
+                  <td><%=  data.country_phone_code + data.phone %></td>
+                  <td><%= data.country %></td>
+                  <td><%= data.total_trip %></td>
+                  <td><%= data.completed_trip %></td>
+                  <td>
+                   <div class="btn-group">
+                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><%= config_json.button_action %> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <form method="post" action="/edit_dispatcher">
+                          <input type="hidden" name="id" value="<%= data.id %>" />
+                          <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.title_edit_detail %></button>
+                        </form>
+                      </li>
+                      <li>
+                  <form method="post" action="/admin_dispatcher_bank_detail">
+                    <input type="hidden" name="id" value="<%= data.id %>" />
+                    <button type="submit" class="btn btn-default" style="width:100%;"><%= config_json.button_banking_detail %> </button>
+                  </form>
+                </li>
+                     </ul>
+                    </div>
+                  </td>
+                </tr>
+                <div class="modal animated fadeIn" id="service_type_select<%= data.id %>" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+                  <div class="modal-dialog" style="width: 300px;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                        <h4 class="modal-title"><%= config_json.title_service_type %></h4>
+                      </div>
+                      <form class="form-horizontal" id="demo">  
+                        <div class="modal-body">
+                          <div class="form-group">
+                            <div class="col-md-12">
+                              <select class="form-control select" name="service_type_list" id="service_type_list<%= data.id %>">
+                                <option selected disabled hidden style='display: none'></option>
+                              </select>
+                              <div id="message<%= data.id %>"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                         <input type="button" name="button" id="submit<%= data.id %>" value="submit">
+                        </div>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+              <% }); %> 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>                                                    
+  </div>                               
+</div>    
+
+
+
+
+
+<script type="text/javascript" src="js/dist/pdfmake.min.js"></script>
+<script type="text/javascript" src="js/dist/vfs_fonts.js"></script>
+<script type="text/javascript">
+
+  /*$(document).ready(function(){
+
+    $('#demo').click(function(e){
+
+      $('#header').show();
+      var docDefinition = {
+        content: [{
+          style: 'tableExample',
+          table: {
+
+            body: [
+            [ 'PROVIDER NAME', 'EMAIL', 'PHONE', 'ADDRESS' , 'ZIPCODE'],
+            <% detail.forEach(function(data){ %>
+              [ '<%= data.first_name %>  <%= data.last_name %>', '<%= data.email %>', '<%= data.country_phone_code %>  <%= data.phone %>', '<%= data.address %>','<%= data.zipcode %>'],
+              <% }); %>
+            ]
+          }
+        }]
+      };
+
+      pdfMake.createPdf(docDefinition).download(Math.random()+".pdf");
+      $('#header').hide();
+
+    });
+  });*/
+
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+   $('#start_date').datepicker({
+     format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now())
+
+   }).on("input change", function (e) { 
+    var end_date = $('#start_date').datepicker('getDate');
+    end_date.setDate(end_date.getDate() + 1);
+    $('#end_date').datepicker('setStartDate', end_date);
+    $('.datepicker-dropdown').hide()
+  });
+
+   $('#end_date').datepicker({
+     format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now())
+
+   }).on("input change", function (e) { 
+    var start_date = $('#end_date').datepicker('getDate');
+    start_date.setDate(start_date.getDate() - 1);
+    $('#start_date').datepicker('setEndDate', start_date);
+    $('.datepicker-dropdown').hide()
+  });
+
+   
+ });
+ 
+ function export_excel(){
+            $.ajax({
+                      type: 'POST',
+                      url: '/genetare_dispatcher_excel',
+                      data: $('.form-horizontal').serialize(),
+                      dataType: "json",
+                      success: function (res) {
+                          window.open(res)
+                      }
+            });
+      }
+ 
+</script>  
+
+</div>
+
+<% include footer_list.html %> 

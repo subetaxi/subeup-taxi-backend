@@ -1,0 +1,134 @@
+<% include header.html %>
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+        <p align="center"> <strong> <%= message %></strong></p>
+    </div>
+    <% } %>
+
+    <div class="alert alert-success" role="alert" id="promo_error" style="display:none">
+        <button type="button" id="close" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+        <p align="center" id="message"> <strong></strong></p>
+    </div>
+    <!-- START TIMELINE FILTER -->
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post" action="/referral_history">
+                    <div class="form-group">
+
+                        <input type="hidden" name="user_id" value="<%=user_id%>" >
+
+                        <div class="col-md-4">
+                            <div style="text-align: center;">
+                                <label><%= config_json.title_date_filter %></label>
+                            </div>
+                            <div class="col-md-12">
+
+                                <div class="btn-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" value="<%= filter_start_date %>" placeholder="Start Date" name="start_date"
+                                               id="start_date" readonly/>
+                                        <span class="input-group-addon add-on">-</span>
+                                        <input type="text" class="form-control datepicker" value="<%= filter_end_date %>" placeholder="End Date" name="end_date"
+                                               id="end_date" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-4" style="    margin-top: 20px;">
+                            <div class="col-md-6">
+                                <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= config_json.button_apply %></span></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-default">
+
+
+                <div class="table-responsive" style="padding-bottom: 175px;">
+                    <table class="table text-center" id="customers2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <%= config_json.title_id %>
+                                </th>
+                                <th>
+                                    <%= config_json.title_name %>
+                                </th>
+                                <th>
+                                    <%= config_json.title_phone %>
+                                </th>
+                                <th>
+                                    <%= config_json.title_created_date %>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% user_list.forEach(function(data){ %>
+                                <tr>
+                                    <td>
+                                        <%= data.unique_id %>
+                                    </td>
+                                    <td>
+                                        <%= data.first_name %> <%= data.last_name %>
+                                    </td>
+                                    <td>
+                                        <%= data.country_phone_code %><%= data.phone %>
+                                    </td>
+                                    <td>
+                                        <%= moment(data.created_at).tz(timezone_for_display_date).format("DD MMM 'YY") %></br><%= moment(data.created_at).tz(timezone_for_display_date).format("hh:mm a") %>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#start_date').datepicker({
+            format: 'yyyy-mm-dd',
+            endDate: new Date(Date.now())
+
+        }).on("input change", function (e) {
+            var end_date = $('#start_date').datepicker('getDate');
+            end_date.setDate(end_date.getDate() + 1);
+            $('#end_date').datepicker('setStartDate', end_date);
+        });
+
+        $('#end_date').datepicker({
+            format: 'yyyy-mm-dd',
+            endDate: new Date(Date.now())
+
+        }).on("input change", function (e) {
+            var start_date = $('#end_date').datepicker('getDate');
+            start_date.setDate(start_date.getDate() - 1);
+            $('#start_date').datepicker('setEndDate', start_date);
+        });
+    });
+</script>
+
+<% include footer_list.html %>

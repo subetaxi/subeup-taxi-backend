@@ -1,0 +1,138 @@
+{
+    "emailUniqueId" : 1,
+    "emailUniqueTitle" : "USER_FORGOT_PASSWORD",
+    "emailTitle" : "Reset Password",
+    "emailContent" : "Password is successfully reset to XXXXXX. Please don t forget to change the password once you log in next time.",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+{
+    "emailUniqueId" : 11,
+    "emailUniqueTitle" : "PROVIDER_DECLINE",
+    "emailTitle" : "Decline as a Provider",
+    "emailContent" : " Please reach out to us for further details",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 12,
+    "emailUniqueTitle" : "PROVIDER_APPROVED",
+    "emailTitle" : "Welcome",
+    "emailContent" : " You are successfully approved as a provider. You are ready to serve.",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 13,
+    "emailUniqueTitle" : "PROVIDER_FORGOT_PASSWORD",
+    "emailTitle" : "Reset Password",
+    "emailContent" : "Password is successfully reset to XXXXXX. Please don t forget to change the password once you log in next time.",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 2,
+    "emailUniqueTitle" : "OTP_VERIFICATION",
+    "emailTitle" : "Your OTP Verification",
+    "emailContent" : "Email Verification code for complete your registration process is : XXXXXX.",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 3,
+    "emailUniqueTitle" : "USER_DECLINE",
+    "emailTitle" : "Decline as a User",
+    "emailContent" : " Please reach out to us for further details",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 4,
+    "emailUniqueTitle" : "USER_REGISTER",
+    "emailTitle" : "Registration",
+    "emailContent" : "Welcome to Ride , XXXXXX !",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 5,
+    "emailUniqueTitle" : "PENDING_PAYMENTS",
+    "emailTitle" : "Payment Pending",
+    "emailContent" : "Payment Panding Amount: XXXXXX",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 31,
+    "emailUniqueTitle" : "DISPATCHER_REGISTER",
+    "emailTitle" : "Dispatcher Registration",
+    "emailContent" : "Welcome  , XXXXXX !",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+
+
+{
+    "emailUniqueId" : 21,
+    "emailUniqueTitle" : "PARTNER_REGISTER",
+    "emailTitle" : "Partner Registration",
+    "emailContent" : "Welcome , XXXXXX !",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 22,
+    "emailUniqueTitle" : "PARTNER_DECLINE",
+    "emailTitle" : "Decline as a Partner",
+    "emailContent" : " Please reach out to us for further details",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 23,
+    "emailUniqueTitle" : "PARTNER_APPROVED",
+    "emailTitle" : "Welcome",
+    "emailContent" : " You are successfully approved as a partner. You are ready to serve.",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 14,
+    "emailUniqueTitle" : "PROVIDER_REGISTER",
+    "emailTitle" : "Provider Register",
+    "emailContent" : "Welcome , XXXXXX !",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 6,
+    "emailUniqueTitle" : "USER_APPROVED",
+    "emailTitle" : "Approved as a User",
+    "emailContent" : " Please reach out to us for further details",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 41,
+    "emailUniqueTitle" : "ADD_HOTEL",
+    "emailTitle" : "Hotel Added",
+    "emailContent" : "Welcome , XXXXXX !",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+
+{
+    "emailUniqueId" : 15,
+    "emailUniqueTitle" : "PROVIDER_DOCUMENT_EXPIRED",
+    "emailTitle" : "Provider Document Expired",
+    "emailContent" : "Document is Expired Please Update Your Ducument<br>",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+
+{
+    "emailUniqueId" : 16,
+    "emailUniqueTitle" : "USER_DOCUMENT_EXPIRED",
+    "emailTitle" : "User Document Expired",
+    "emailContent" : "Document is Expired Please Update Your Ducument<br>",
+    "emailAdminInfo" : "For any query or consolation info@info.com"
+}
+    

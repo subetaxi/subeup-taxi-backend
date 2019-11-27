@@ -1,0 +1,176 @@
+{
+
+	"PUSH_CERTIFICATE_PATH" : "app/ios_push",
+	"PROVIDER_OFFLINE_MIN" : "25",
+	"PUBLIC_DEMO_EMAIL" : "xxx@elluminatiinc.com",
+	"INVOICE_APP_NAME_CODE" : "TA",
+	"INVOICE_PROVIDER_TRIP_EARNING_CODE" : "PTE",
+	"REPORT_PROVIDER_DAILY_EARNING_CODE" : "PDE",
+	"STATEMENT_PROVIDER_WEEKLY_EARNING_CODE" : "PWE",
+	"STATEMENT_PARTNER_WEEKLY_EARNING_CODE" : "PPWE",
+	
+	
+	"facebook_user_app_id" : "1861175364114058",
+	"facebook_provider_app_id" : "126933474457184",
+	"google_user_app_id" : "716711612373-vt7hvf2sdsu7qdr5uvv9asslln85af32.apps.googleusercontent.com",
+	"google_provider_app_id" : "716711612373-8putfpa96ut9u890qg0b9n52ed0vmu1l.apps.googleusercontent.com",
+	
+	"authorised_signature_image_url" : "web_images/authorised_image.png",
+	
+	"app_name" : "SubeUp",
+	"partner_panel_name" : "SubeUp PARTNER PANEL",
+	"dispatcher_panel_name" : "SubeUp DISPATCHER PANEL ",
+	"hotel_panel_name" : "SubeUp HOTEL PANEL",
+	
+	"ZERO" : "0",
+	"YES" : "1",
+	"NO" : "0",
+	"TRUE" : "1",
+	"FALSE" : "0",
+	"ON" : "1",
+	"OFF" : "0",
+	
+	"DEGREE_TO_KM" : "111",
+	
+	"ADMIN_UNIQUE_NUMBER" : "0",
+	"SUB_ADMIN_UNIQUE_NUMBER" : "1",
+	"DISPATCHER_UNIQUE_NUMBER" : "2",
+	"PARTNER_UNIQUE_NUMBER" : "4",
+	"CORPORATE_UNIQUE_NUMBER" : "5",
+	"USER_UNIQUE_NUMBER" : "10",
+	"PROVIDER_UNIQUE_NUMBER" : "11",
+	
+	"PAYMENT_MODE_CARD" : "0",
+	"PAYMENT_MODE_CASH" : "1",
+	
+	"PAYMENT_BY_STRIPE" : "10",
+	"PAYMENT_BY_PAYPAL" : "11",
+	"PAYMENT_BY_BITCOIN" : "12",
+	
+	"PAYMENT_BY_STRIPE_STRING" : "Stripe",
+	"PAYMENT_BY_PAYPAL_STRING" : "PayPal",
+	"PAYMENT_BY_BITCOIN_STRING" : "Bitcoin",
+
+	
+	"TRIP_PROFIT_AMOUNT" : "1",
+	"TRIP_PROFIT_DEDUCT_AMOUNT" : "2",
+	
+	"ADD_WALLET_AMOUNT" : "1",
+	"DEDUCT_WALLET_AMOUNT" : "2",
+	
+	
+	"ADDED_BY_ADMIN" : "1",
+	"ADDED_BY_CARD" : "2",
+	"ADDED_BY_REFERRAL" : "3",
+	"TRIP_PROFIT" : "6",
+	"PAID_TRIP_AMOUNT" : "4",
+	"SET_TRIP_PROFIT" : "6",
+	
+	
+	"PROVIDER_TYPE_NORMAL" : "0",
+	"PROVIDER_TYPE_PARTNER" : "1",
+	"PROVIDER_TYPE_NORMAL_STRING" : "Normal",
+	"PROVIDER_TYPE_PARTNER_STRING" : "Partner",
+	
+	"USER_TYPE_NORMAL" : "0",
+	"USER_TYPE_CORPORATE" : "1",
+	"USER_TYPE_DISPATCHER" : "2",
+	"USER_TYPE_HOTEL" : "3",
+	"USER_TYPE_PROVIDER" : "4",
+	
+	"USER_TYPE_NORMAL_STRING" : "Normal",
+	"USER_TYPE_CORPORATE_STRING" : "Corporate",
+	"USER_TYPE_DISPATCHER_STRING" : "Dispatcher",
+	"USER_TYPE_HOTEL_STRING" : "Hotel",
+	"USER_TYPE_PROVIDER_STRING" : "Provider",
+	
+	
+	"TRIP_TYPE_NORMAL" : "0",
+	"TRIP_TYPE_VISITOR" : "1",
+	"TRIP_TYPE_HOTEL" : "2",
+	"TRIP_TYPE_DISPATCHER" : "3",
+	"TRIP_TYPE_SCHEDULE" : "5",
+	"TRIP_TYPE_PROVIDER" : "6",
+	"TRIP_TYPE_CORPORATE": "7",
+	
+	"TRIP_TYPE_AIRPORT" : "11",
+	"TRIP_TYPE_ZONE" : "12",
+	"TRIP_TYPE_CITY" : "13",
+	"TRIP_TYPE_CAR_RENTAL": "14",
+	
+
+	"TRIP_TYPE_POOL_STRING" : "Pool",
+	"TRIP_TYPE_BUS_STRING" : "Bus",
+	
+	
+	"DAY_TAG" : "DAY",
+	"WEEK_TAG" : "WEEK",
+
+	"CORPORATE_REQUEST_WAITING": "0",
+	"CORPORATE_REQUEST_ACCEPTED": "1",
+	"CORPORATE_REQUEST_REJECTED": "1",
+	
+	"DATE_FORMAT" : "YYYY-MM-DD hh:mm:ss",
+	"DATE_FORMAT_MMDDYYYY" : "DDMMYYYY",
+	"DATE_FORMATE_DDMM" : "DDMMhhmm",
+	
+	"DATE_FORMAT_MMM_D_YYYY" : "MMM d YYYY",
+	"DATE_FORMAT_MM_DD_YYYY" : "MM/DD/YYYY",
+	"DATE_FORMAT_DD_MM_YYYY" : "DD/MM/YYYY",
+	"DATE_FORMAT_MMM_D_YYYY" : "MMM D, YYYY",
+	
+	
+	"PUSH_MESSAGE" : "message",
+	"PUSH_DEVICE_TYPE_ANDROID" : "android",
+	"PUSH_DEVICE_TYPE_IOS" : "ios",
+	"PUSH_NOTIFICATION_SOUND_FILE_IN_IOS" : "default",
+	
+	
+	"SMS_CODE_FOR_USER_OTP_VERIFICATION" : "1",
+	"SMS_CODE_FOR_PROVIDER_OTP_VERIFICATION" : "2",
+	"SMS_CODE_FOR_FORGOT_PASSWORD" : "3",
+	"SMS_CODE_FOR_RIDE_BOOKING" : "4",
+	"SMS_CODE_FOR_PROVIDER_ACCEPTED" : "5",
+	"SMS_CODE_FOR_PROVIDER_WEEKLY_PAYMENT" : "6",
+
+	"EMAIL_CODE_FOR_USER_FORGOT_PASSWORD" : "1",
+	"EMAIL_CODE_FOR_OTP_VERIFICATION" : "2",
+	"EMAIL_CODE_FOR_PROVIDER_DECLINE" : "11",
+	"EMAIL_CODE_FOR_PROVIDER_APPROVED" : "12",
+	"EMAIL_CODE_FOR_PROVIDER_FORGOT_PASSWORD" : "13",
+	
+
+	"IOS_PROVIDER_CERT_FILE_NAME" : "provider_cert.pem",
+	"IOS_PROVIDER_KEY_FILE_NAME" : "provider_key.pem",
+	"IOS_USER_CERT_FILE_NAME" : "user_cert.pem",
+	"IOS_USER_KEY_FILE_NAME" : "user_key.pem",
+	
+
+	"LOGO_IMAGE_NAME" : "logo.png",
+	"TITLE_IMAGE_NAME" : "title_image.png",
+	"MAIL_TITLE_IMAGE_NAME" : "mail_title_image.png",
+	"AUTHORISED_IMAGE_NAME" : "authorised_image.png",
+	"USER_LOGO" : "user_logo.png",
+	
+
+	"LOGO_WIDTH" : "250",
+	"LOGO_HEIGHT" : "250",
+	"TITLE_ICON_WIDTH" : "45",
+	"TITLE_ICON_HEIGHT" : "45",
+	"MAIL_TITLE_WIDTH" : "1024",
+	"MAIL_TITLE_HEIGHT" : "265",
+	"AUTHORISED_SIGNATURE_WIDTH" : "45",
+	"AUTHORISED_SIGNATURE_HEIGHT" : "45",
+	
+	"USER_LOGO_WIDTH" : "121",
+	"USER_LOGO_HEIGHT" : "45",
+
+	"NEAREST_PROVIDER_TYPE_SINGLE": "1",
+	"NEAREST_PROVIDER_TYPE_MULTIPLE": "2",
+
+	"SOCKET_CONNNECT": "'connection'",
+	"SOCKET_JOIN_TRIP": "'join_trip'",
+	"SOCKET_UPDATE_LOCATION": "'update_location'"
+
+
+}

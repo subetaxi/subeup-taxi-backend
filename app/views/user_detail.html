@@ -1,0 +1,149 @@
+<% if(type== "dispatcher")
+{ %>
+    <% include dispatcher/dispatcher_header.html %>
+<% } else if(type== "provider") { %>}
+     <% include provider/provider_header.html %>
+<% } else if(type=="corporate"){ %>
+    <% include corporate/corporate_header.html %>
+<% } else { %>
+    <% include hotel_header.html %>
+<% } %>
+<div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+            <p align="center"> <strong><%= message %></strong></p>
+        </div>
+        <% } %>
+
+            <!-- PAGE CONTENT WRAPPER -->
+            
+
+
+
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+
+                        <form action="#" class="form-horizontal">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <h3><span class="fa fa-user"></span> <%= user_detail.first_name + " " +  user_detail.last_name  %></h3>
+
+                                    <div class="text-center" id="user_image">
+
+                                        <% if(user_detail.picture  == "")
+                            { %>
+                                            <img src="default.png" alt="" style="height: 120px; width: 120px;" />
+                                            <% }
+                            else
+                            { %>
+                                                <img src="<%= setting_detail.image_base_url + user_detail.picture %>" class="img-thumbnail" />
+                                                <% } %>
+
+                                    </div>
+                                </div>
+                                <div class="panel-body form-group-separated">
+
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_user_id %></label>
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" value="<%= user_detail.unique_id %>" class="form-control" readonly/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_phone %></label>
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" value="<%= user_detail.country_phone_code  +  user_detail.phone %>" class="form-control" readonly />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_email %></label>
+                                        <div class="col-md-9 col-xs-7">
+
+                                            <% if(is_public_demo == true) { %>
+                                                <input type="text" class="form-control" value="<%= config_json.PUBLIC_DEMO_EMAIL %>" name="email" id='email' readonly />
+                                                <% } else{ %>
+                                                    <input type="text" value="<%= user_detail.email %>" class="form-control" readonly/>
+                                                    <% } %>
+
+
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-md-6 col-sm-8 col-xs-12">
+
+                        <form action="#" class="form-horizontal">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+
+                                    <h3><span class="col-md-4" style="text-align: center;"></span> <%= config_json.title_profile %></h3>
+
+                                </div>
+                                <div class="panel-body form-group-separated">
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_first_name %></label>
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" value="<%= user_detail.first_name %>" class="form-control" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_last_name %></label>
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" value="<%= user_detail.last_name %>" class="form-control" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_country %></label>
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" value="<%= user_detail.country %>" class="form-control" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_city %></label>
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" value="<%= user_detail.city %>" class="form-control" readonly/>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_address %></label>
+                                        <div class="col-md-9 col-xs-7">
+                                            <textarea class="form-control" rows="5" readonly><%= user_detail.address %></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+            <!-- END PAGE CONTENT WRAPPER -->
+            </div>
+            <!-- END PAGE CONTENT -->
+            </div>
+            <!-- END PAGE CONTAINER -->
+
+            <% include footer_form.html %>

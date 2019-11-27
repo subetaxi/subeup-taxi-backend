@@ -1,0 +1,459 @@
+<% include header.html %>
+
+<style>
+	.pac-container{
+		margin-top: 76px;
+		color: black;
+		box-shadow: none;
+
+	}
+	.pac-item{
+		height: 44px;
+		font-size: 14px;
+		font-weight: 100;
+		padding-top: 7px;
+		color: black;
+		border-top: 0;
+		border-left: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+	}
+	.pac-icon.pac-icon-marker{
+		display: none;
+		color: black;
+	}
+	.pac-item-query{
+		margin-left: 12px;
+		font-size: 14px;
+		font-weight: 100;
+		color: black;
+	}
+	.pac-matched{
+		font-size: 14px;
+		font-weight: 100;
+		color: black;
+	}
+	.pac-container:after {
+		background-image: none !important;
+		height: 0px;
+	}
+
+	.pac-icon {
+		display: none !important;
+	}
+
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=map_key%>&libraries=places"></script>
+
+<script>
+
+    $(document).ready(function() {
+        $('.popup-with-form').magnificPopup({
+            type: 'inline',
+            preloader: false,
+            focus: '#name',
+
+            // When elemened is focused, some mobile browsers in some cases zoom in
+            // It looks not nice, so we disable it:
+            callbacks: {
+                beforeOpen: function() {
+                    if($(window).width() < 700) {
+                        this.st.focus = false;
+                    } else {
+                        this.st.focus = '#name';
+                    }
+                }
+            }
+        });
+
+        $('#pichup_address').focus(function () {
+
+            $('.pac-container').css('margin-top', '76px');
+			setTimeout(function () {
+
+                if($('.pac-item').html() != '' && $('.pac-item').html() != undefined){
+                    $('.form_info_fare').height(324)
+                }
+            },500);
+
+        })
+        $('#pichup_address').focusout(function () {
+            $('.form_info_fare').css('height', 'unset');
+        })
+        $('#destination_adress').focus(function () {
+            $('.pac-container').css('margin-top', '20px');
+            setTimeout(function () {
+                if($('.pac-item').html() != '' && $('.pac-item').html() != undefined){
+                    $('.form_info_fare').height(324)
+                }
+            },500);
+        })
+        $('#destination_adress').focusout(function () {
+            $('.form_info_fare').css('height', 'unset');
+        })
+
+        $('#pichup_address').keypress(function () {
+            setTimeout(function () {
+                if($('.pac-item').html() != '' && $('.pac-item').html() != undefined){
+                    $('.form_info_fare').height(324)
+                } else {
+                    $('.form_info_fare').css('height', 'unset');
+				}
+            },500);
+        })
+        $('#destination_adress').keypress(function () {
+            setTimeout(function () {
+                if($('.pac-item').html() != '' && $('.pac-item').html() != undefined){
+                    $('.form_info_fare').height(324)
+                } else {
+                    $('.form_info_fare').css('height', 'unset');
+                }
+            },500);
+        })
+    });
+	var map;
+    var iconBase = '/map_pin/';
+    var pickup_marker;
+    var destination_marker;
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+	google.maps.event.addDomListener(window, 'load', initialize);
+		function initialize() {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				directionsDisplay = new google.maps.DirectionsRenderer();
+			    var mapProp = {
+			      center:new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
+			      zoom:18,
+			      streetViewControl: false,
+			      mapTypeId:google.maps.MapTypeId.ROADMAP
+			    };
+
+			    map=new google.maps.Map(document.getElementById("map"),mapProp);
+			    directionsDisplay.setMap(map);
+
+                var input = document.getElementById('pichup_address');
+                var searchBox = new google.maps.places.Autocomplete(input , {});
+                searchBox.bindTo('bounds', map);
+
+                searchBox.addListener('place_changed', function() {
+                    var place = searchBox.getPlace();
+                    var location = place.geometry.location;
+                    $('#pickup_latitude').val(location.lat())
+                    $('#pickup_longitude').val(location.lng())
+                    if (!place.geometry) {
+                        return;
+                    }
+                    if (place.geometry.viewport) {
+                        map.fitBounds(place.geometry.viewport);
+                    } else {
+                        map.setCenter(place.geometry.location);
+                    }
+                    var initialLocation = new google.maps.LatLng(location.lat(), location.lng());
+                    if(pickup_marker){
+                        pickup_marker.setMap(null);
+                    }
+                    pickup_marker = new google.maps.Marker({
+                        map: map,
+                        icon: iconBase + "pickup.png",
+                        position: initialLocation
+                    });
+                    pickup_marker.setMap(map);
+
+                    if($('#destination_latitude').val() != '' && $('#destination_longitude').val()){
+                        draw_path();
+                    }
+                });
+
+                var input1 = document.getElementById('destination_adress');
+                var searchBox1 = new google.maps.places.Autocomplete(input1 , {});
+                searchBox1.bindTo('bounds', map);
+
+                searchBox1.addListener('place_changed', function() {
+                    var place1 = searchBox1.getPlace();
+                    var location = place1.geometry.location;
+                    $('#destination_latitude').val(location.lat())
+                    $('#destination_longitude').val(location.lng())
+                    if (!place1.geometry) {
+                        return;
+                    }
+                    if (place1.geometry.viewport) {
+                        map.fitBounds(place1.geometry.viewport);
+                    } else {
+                        map.setCenter(place1.geometry.location);
+                    }
+                    var initialLocation = new google.maps.LatLng(location.lat(), location.lng());
+                    if(destination_marker){
+                        destination_marker.setMap(null);
+                    }
+                    destination_marker = new google.maps.Marker({
+                        map: map,
+                        icon: iconBase + "destination.png",
+                        position: initialLocation
+                    });
+                    destination_marker.setMap(map);
+                    if($('#pickup_latitude').val() != '' && $('#pickup_longitude').val()){
+                        draw_path();
+					}
+
+                });
+
+			});
+		}
+
+		function draw_path() {
+            $('#get_fare_estimate1').hide();
+		    $('#get_fare_estimate2').show();
+
+            var bounds = new google.maps.LatLngBounds();
+            var pick_up = new google.maps.LatLng($('#pickup_latitude').val() , $('#pickup_longitude').val());
+            var destination = new google.maps.LatLng($('#destination_latitude').val() , $('#destination_longitude').val());
+            bounds.extend(pick_up);
+            bounds.extend(destination);
+            map.fitBounds(bounds);
+            var request = {
+                origin: pick_up,
+                destination: destination,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            directionsService.route(request, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                    directionsDisplay.setMap(map);
+                    directionsDisplay.setOptions( { suppressMarkers: true } );
+                }
+            });
+            get_fare_estimate();
+        }
+        
+        function get_fare_estimate() {
+            var pick_up = new google.maps.LatLng($('#pickup_latitude').val() , $('#pickup_longitude').val());
+            var destination = new google.maps.LatLng($('#destination_latitude').val() , $('#destination_longitude').val());
+            var service = new google.maps.DistanceMatrixService;
+            service.getDistanceMatrix({
+                origins: [pick_up],
+                destinations: [destination],
+                travelMode: 'DRIVING',
+                unitSystem: google.maps.UnitSystem.METRIC,
+                avoidHighways: false,
+                avoidTolls: false
+            }, function(response, status) {
+
+                var results = response.rows[0].elements;
+                if(results[0].distance == undefined)
+                {
+                    alert("please enter pickup and destination same country")
+                }
+                else {
+                    var distance = results[0].distance.value;
+                    var time = results[0].duration.text;
+                    time = time.split(" ");
+                    if (time[1] == "hour") {
+                        time = parseInt(time[0] * 60) + parseInt(time[2]);
+                    }
+                    else {
+                        time = time[0];
+                    }
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {pickup_latitude : $('#pickup_latitude').val(), pickup_longitude : $('#pickup_longitude').val(),
+							destination_latitude : $('#destination_latitude').val() ,destination_longitude: $('#destination_longitude').val() ,
+							'time' : time*60 , 'distance' : distance},
+                    url: "/get_fare_estimate_all_type",
+                    success: function (response) {
+                        $('.option_list').empty();
+                        if(response.success){
+                            $('#drop_box').show();
+                            $('#drop_box1').hide();
+                            response.type_list.forEach(function (type_data) {
+                                $('.option_list').append('<li onclick="open_fare_estimate_modal(\''+type_data.estimated_fare+'\', \''+type_data.cancellation_fee+'\', \''+type_data.min_fare+'\', \''+type_data.base_price+'\', \''+type_data.name+'\', \''+type_data.price_per_unit_time+'\', \''+type_data.price_per_unit_distance+'\' )"><a><span class="fl">'+type_data.name+'</span><span class="fr">'+ response.currencysign +' '+type_data.estimated_fare+'<img src="new_design/images/questions.png"/></span></a></li>')
+                            });
+                        } else {
+                            $('#drop_box').hide();
+                            $('#drop_box1').show();
+						}
+                    }
+                });
+            });
+        }
+
+    	function open_fare_estimate_modal(estimated_fare, cancellation_fee, min_fare, base_price, name, price_per_unit_time, price_per_unit_distance){
+
+		    $('#estimated_fare').text(estimated_fare);
+            $('#base_price').text(base_price);
+            $('#name').text(name);
+            $('#price_per_unit_time').text(price_per_unit_time);
+            $('#price_per_unit_distance').text(price_per_unit_distance);
+            $('#cancellation_fee').text(cancellation_fee);
+            $('#min_fare').text(min_fare);
+            $.magnificPopup.open({
+                items: {
+                    src: '#popup1'
+                },
+                type: 'inline'
+            });
+		}
+	</script>
+
+<body class="home">
+	<div class="inner_con">
+		<div class="map_page">
+
+			<div id="map" style="border:0; height: 100%;"></div>
+
+            <% if (typeof data != 'undefined') {%>
+                <div class="fareinfo">
+                        <div class="form_info_fare">
+                            <form>
+                                <div class="left_line"></div>
+                                <div class="form_div">
+                                    <input type="hidden" id="pickup_latitude" name="pickup_latitude" value="<%= data.pickup_latitude %>">
+                                    <input type="hidden" id="pickup_longitude" name="pickup_longitude" value="<%= data.pickup_longitude %>">
+                                    <input type="text" id="pichup_address" name="pichup_address" value="<%= data.pichup_address %>">
+                                </div>
+                                <div class="form_div2">
+                                    <input type="hidden" id="destination_latitude" name="destination_latitude" value="<%= data.destination_latitude %>">
+                                    <input type="hidden" id="destination_longitude" name="destination_longitude" value="<%= data.destination_longitude %>">
+                                    <input type="text" id="destination_adress" name="destination_adress" value="<%= data.destination_adress %>">
+                                    <button type="button" class="btn" id="get_fare_estimate1" onclick="get_fare_estimate()" style="background-color: #164939; height: 44px;"><i class="fa fa-long-arrow-right"></i></button>
+                                    <!-- <button type="button" class="btn" style="background-color: #164939;display: none;height: 44px;" id="get_fare_estimate2" onclick="get_fare_estimate()"><i class="fa fa-long-arrow-right"></i></button> -->
+                                </div>
+                            </form>
+                        </div>
+        
+                        <div class="drop_box" id="drop_box" hidden>
+                            <div class="option_div">Your Options:</div>
+                            <ul class="option_list">
+                            </ul>
+                            <div class="sign_btn"><a href="/" class="btn">Sign up to ride<i class="fa fa-long-arrow-right"></i></a></div>
+                        </div>
+                        <div class="drop_box" id="drop_box1" hidden>
+                            <div class="option_div">Sorry, we’re unable to provide a fare estimate for that trip.</div>
+                        </div>
+        
+                    </div>
+                <%} else { %> 
+                    <div class="fareinfo">
+                            <!--<div class="title_info">-->
+                                <!--<h3>SubeUp fare estimator</h3>-->
+                                <!--<p>How much does SubeUp cost in your city? Calculate a fare estimate for your next trip. Simply enter a pickup location and destination to get started.</p>-->
+                            <!--</div>-->
+                            <!--<button class="btn get_btn">Get started<i class="fa fa-long-arrow-right"></i></button>-->
+                            <div class="form_info_fare">
+                                <form>
+                                    <div class="left_line"></div>
+                                    <div class="form_div">
+                                        <input type="hidden" id="pickup_latitude" name="pickup_latitude">
+                                        <input type="hidden" id="pickup_longitude" name="pickup_longitude">
+                                        <input type="text" id="pichup_address" name="pichup_address" placeholder="Enter pickup location">
+                                    </div>
+                                    <div class="form_div2">
+                                        <input type="hidden" id="destination_latitude" name="destination_latitude">
+                                        <input type="hidden" id="destination_longitude" name="destination_longitude">
+                                        <input type="text" id="destination_adress" name="destination_adress" placeholder="Enter a destination">
+                                        <button type="button" id="get_fare_estimate1" style="height: 44px;"><i class="fa fa-long-arrow-right"></i></button>
+                                        <button type="button" class="btn" style="background-color: #164939;display: none;height: 44px;" id="get_fare_estimate2" onclick="get_fare_estimate()"><i class="fa fa-long-arrow-right"></i></button>
+                                    </div>
+                                </form>
+                                <!--<div class="result_div">-->
+                                    <!--<ul class="result_list">-->
+                                        <!--<li><b>Ahmedabad, Gujarat</b></li>-->
+                                        <!--<li>Ahmedabad Airport, <b>Ahmedabad, Gujarat</b></li>-->
+                                        <!--<li>Ahmedabad Junction, <b>Ahmedabad, Gujarat</b></li>-->
+                                        <!--<li>Ahmedabad Railway Station, Sakar Bazzar, <b>Ahmedabad, Gujarat</b></li>-->
+                                        <!--<li>Ahmedabad Railway Station, Suodagarpole, Laxmi Bazar, <b>Ahmedabad, Gujarat</b></li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            </div>
+            
+                            <div class="drop_box" id="drop_box" hidden>
+                                <div class="option_div">Your Options:</div>
+                                <ul class="option_list">
+                                </ul>
+                                <div class="sign_btn"><a href="/" class="btn">Sign up to ride<i class="fa fa-long-arrow-right"></i></a></div>
+                            </div>
+                            <div class="drop_box" id="drop_box1" hidden>
+                                <div class="option_div">Sorry, we’re unable to provide a fare estimate for that trip.</div>
+                            </div>
+            
+                        </div>
+                <%} %> 
+		</div>
+	</div>
+
+	<div id="popup1" class="white-popup-block mfp-hide popup_box">
+		<div class="title"><h2 id="name"></h2><p>Spacious, Affordable sedans</p></div>
+		<div class="price_list row">
+
+			<div class="col_2">
+				<div class="price_in">
+					<h4>PICK UP</h4>
+					<div class="price_con">
+						<div class="fl">
+							Base Price
+						</div>
+
+						<div id="base_price" class="fr">
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="price_in">
+					<h4>CANCELLATIONS</h4>
+					<div class="price_con">
+						<div class="fl">
+							Cancellation Fee
+						</div>
+
+						<div id="cancellation_fee" class="fr">
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col_2">
+				<div class="price_in">
+					<h4>ON TRIP</h4>
+					<div class="price_con">
+						<div class="fl">
+							Minimum Fare
+						</div>
+
+						<div id="min_fare" class="fr">
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="price_con">
+						<div class="fl">
+							Time Price
+						</div>
+
+						<div id="price_per_unit_time" class="fr">
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="price_con">
+						<div class="fl">
+							Distance Price
+						</div>
+
+						<div id="price_per_unit_distance" class="fr">
+						</div>
+						<div class="clear"></div>
+					</div>
+
+				</div>
+			</div>
+			<div class="clear"></div>
+
+		</div>
+		<div class="sign_btn_pop"><a href="/" class="btn">Sign up to ride<i class="fa fa-long-arrow-right"></i></a></div>
+		<p class="notice">You agree to pay the fare shown at booking. If your route or destination changes on trip, your fare may change based on the rates above and other applicable taxes, tolls, charges and adjustments. US Partners: Rates used to calculate partner fares are published at partners.SubeUp.com and require an active partner account to view. Additional wait time charges may apply to your trip if the driver has waited 5 minutes: ₹1.05 per minute. Wait time charges will increase when fares are elevated due to higher demand.</p>
+	</div>
+	
+
+</body>
+</html>

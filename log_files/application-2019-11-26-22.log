@@ -1,0 +1,10 @@
+{"message":[{"_id":"5ddc7d825a1e953c8aced0b0","cityid":"5ddc7b4e5a1e953c8aced0af","__v":0,"updated_at":"2019-11-26T01:18:58.465Z","created_at":"2019-11-26T01:18:58.465Z","kmlzone":[["-84.3689279871582","33.772657245731395"],["-84.35982993417968","33.7712302989091"],["-84.35716918283691","33.76908983411614"],["-84.35631087595214","33.76409520832984"],["-84.3575983362793","33.759243007400386"],["-84.35854247385254","33.75560367644488"],["-84.36214736276855","33.75217828264739"],["-84.37227538400879","33.75310600698056"],["-84.37862685495605","33.758743500534706"],["-84.37931350046386","33.76459468400801"],["-84.37948516184082","33.77051681658601"],["-84.37656691843261","33.774155514316966"],["-84.37098792368164","33.77486896633884"]],"fill_opacity":0.30196078431372547,"fill":"#000000","stroke_width":1.2,"stroke_opacity":1,"stroke":"","description":"","styleHash":"","styleUrl":"","title":"Jimmy Carter Presidential"}],"level":"info"}
+{"message":{},"level":"info"}
+{"message":{"provider_id":"5ddd17305a1e953c8aced0d5","provider_page_type":"online_providers"},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{"provider_id":"5ddd17305a1e953c8aced0d5","provider_page_type":"approved_providers"},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}
+{"message":[],"level":"info"}
+{"message":[],"level":"info"}
+{"message":"250 2.0.0 OK  1574809094 n5sm5736816qkf.48 - gsmtp","level":"info"}

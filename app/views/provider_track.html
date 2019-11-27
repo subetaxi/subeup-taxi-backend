@@ -1,0 +1,333 @@
+<% include header.html %> 
+<div class="page-content-wrap">
+    <div class="row">
+        <!-- Map and Side Panel -->
+        <div class="panel panel-default">
+            <div class="panel-body panel-body-map">
+                <!-- Google Map -->
+
+                <div class="row">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="col-md-12">         
+                                <div class="col-md-3">
+                                    <select class="form-control select"  data-live-search="true" name="countryid" id="countryid">
+                                        <option selected disabled hidden style='display: none'><%= config_json.title_select_country %></option>
+                                        <% country.forEach(function(country_data) { %>
+                                        <option value="<%= country_data._id %>"><%= country_data.countryname %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control select" data-live-search="true" name="cityid" id='cityid'>
+                                        <option selected disabled hidden style='display: none'><%= config_json.title_select_city %></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-control select" data-live-search="true" name="providerid" id='providerid'>
+                                        <option selected disabled value='select' hidden style='display: none'><%= config_json.title_select_provider %></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-info" style="width: 100%" type="button" id="clear"><%= config_json.button_clear %></button>
+                                </div>
+                            </div>                                
+                        </div>
+                        <div class="panel-body panel-body-map">
+                            <div id="map" style="width: 100%; min-height: 615px;"></div>
+                        </div>
+                        <div id="legend"></div>
+                    </div>
+
+                </div>               
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+<!-- END PRELOADS -->
+
+<script src="socket.io/socket.io.js"></script>
+<!-- Google Maps API -->
+<script src="<%=map_url%>"></script>
+<script type="text/javascript" src="js/marker_animation.js"></script>
+
+<script>
+    var provider_detail_array = [];
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+        var iconBase = '/map_pin/';
+        var provider_markers = [];
+
+        var URL = window.location.protocol + '//'+ window.location.hostname;
+        
+        var socket = io.connect(URL);
+
+        socket.on('connect',function() {
+        });
+
+        socket.on('disconnect',function() {
+        });
+        var providerid;
+        // navigator.geolocation.getCurrentPosition(function (position) {
+
+            var latitude = 22;
+            var longitude = 70;
+            <% if(setting_detail.location && setting_detail.location.length>0){ %>
+                latitude = Number('<%= setting_detail.location[0] %>')
+                longitude = Number('<%= setting_detail.location[1] %>')
+            <% } %>
+
+            var map_view = {
+                center: new google.maps.LatLng(latitude, longitude),
+                zoom: 10,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById("map"), map_view);
+
+
+////////////////////////////////////////////////////////////////////////////////
+            var interval;
+//////////for provider pin assign && pin smoothely move///////////////////////
+            $('#providerid').change(function () {
+
+                var id = "'"+providerid+"'"
+                socket.off(id);
+
+                providerid = document.getElementById('providerid').value;
+
+                var marker_selected_provider = undefined;
+                var position = [];
+
+
+
+
+                provider_markers.forEach(function (marker) {
+                    marker.setMap(null);
+                });
+
+                locations = [];
+
+                for (var index in provider_detail_array)
+                {
+                    var provider_id = provider_detail_array[index]._id;
+                    if (providerid == provider_id)
+                    {
+
+                        var lat = provider_detail_array[index].providerLocation[0];
+                        var lon = provider_detail_array[index].providerLocation[1];
+
+                        // map.setCenter({ lat : lat, lng : lon });
+                        var position = [lat, lon];
+
+                        var latlng = new google.maps.LatLng(lat, lon);
+                        map.panTo(latlng);
+                        var car_model = "";
+                        var index = provider_detail_array[index].vehicle_detail.findIndex(x => x.is_selected == true);
+                       if(index > -1){
+                         car_model = provider_detail_array[index].vehicle_detail[index].model;
+                       }
+
+                        var contentString =
+                                '<p><b><%= config_json.title_provider_name %></b>: ' + provider_detail_array[index].first_name + ' ' + provider_detail_array[index].last_name +
+                                '<br><b><%= config_json.title_provider_phone %></b>: ' + provider_detail_array[index].country_phone_code + provider_detail_array[index].phone +
+                                '<br><b><%= config_json.title_car_model %></b>: ' + provider_detail_array[index].car_model +
+                                '<br><b><%= config_json.title_rating %></b>: ' + provider_detail_array[index].rate +
+                                '</p>';
+
+                        locations.push({
+                            latlon: new google.maps.LatLng(lat, lon),
+                            message: new google.maps.InfoWindow({
+                                content: contentString,
+                                maxWidth: 320, disableAutoPan: true
+                            })
+                        });
+
+                        locations.forEach(function (loc_data, i) {
+                            marker_selected_provider = new google.maps.Marker({
+                                position: loc_data.latlon,
+                                map: map,
+                                icon: iconBase + "provider_online.png",
+                            });
+
+                            provider_markers.push(marker_selected_provider);
+
+                            google.maps.event.addListener(marker_selected_provider, 'click', function (e) {
+                                // When clicked, open the selected marker's message
+                                currentSelectedMarker = loc_data;
+                                loc_data.message.open(map, marker_selected_provider);
+                                setTimeout(function () {
+                                    loc_data.message.close();
+                                }, 5000);
+                            });
+
+                        });
+
+
+
+                    }
+                }
+                var numDeltas = 100;
+                var delay = 100; //milliseconds
+                var i = 0;
+                var lat;
+                var lng;
+                // clearInterval(interval);
+                // interval = setInterval(function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/fetch_provider_detail',
+                        data: 'providerid=' + providerid,
+                        dataType: "json",
+                        success: function (res) {
+                            var test = JSON.stringify(res);
+
+                            var new_lat = res.providerLocation[0];
+                            var new_lon = res.providerLocation[1];
+
+                            var result = [new_lat, new_lon];
+                            // transition(result);
+                            move_marker(result)
+
+                            // function transition(result) {
+                            //     i = 0;
+                            //     if (result[0] == position[0] && result[1] == position[1])
+                            //     {
+                            //         lat = 0;
+                            //         lng = 0;
+                            //         moveMarker();
+                            //     } else
+                            //     {
+                            //         lat = (result[0] - position[0]) / numDeltas;
+                            //         lng = (result[1] - position[1]) / numDeltas;
+                            //         moveMarker();
+                            //     }
+                            // }
+
+                            // function moveMarker() {
+                            //     position[0] += lat;
+                            //     position[1] += lng;
+                            //     var latlng = new google.maps.LatLng(position[0], position[1]);
+                            //     marker_selected_provider.setPosition(latlng);
+
+
+                            //     if (i != numDeltas) {
+                            //         i++;
+                            //         map.panTo(latlng);
+                            //         setTimeout(moveMarker, delay);
+
+                            //     }
+                            // }
+
+                            function move_marker(location){
+                                var latlng = new google.maps.LatLng(location[0], location[1]);
+                                marker_selected_provider.animateTo(latlng, {  easing: "linear", duration: 3000,
+                                    complete: function() {
+                                        map.panTo(latlng);
+                                    }
+                                });
+                            }
+                            var id = "'"+providerid+"'"
+                            socket.on(id, function(data, ack){
+                                var new_lat = data.location[0];
+                                var new_lon = data.location[1];
+                                var result = [new_lat, new_lon];
+                                move_marker(result);
+                            })
+
+                        }
+
+                    });
+                // }, 10000)
+            });
+
+/////////////////////////////////////////////////////////////////////////////////
+        // });
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#cityid").attr("disabled", true);
+        $("#providerid").attr("disabled", true);
+
+        $('#countryid').change(function () {
+            $("#cityid").attr("disabled", false);
+            $("#providerid").attr("disabled", true);
+            $('#cityid').empty();
+            $('#providerid').empty();
+            var countryid = document.getElementById('countryid').value;
+
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_city_list',
+                data: 'countryid=' + countryid,
+                dataType: "json",
+                success: function (res) {
+                    //var res =  JSON.stringify(res);
+                    $("#cityid").append("<option selected disabled hidden style='display: none'>Select City...</option>");
+                    for (var index in res)
+                    {
+                        var city_name = res[index].cityname;
+                        var city_id = res[index]._id;
+                        $("#cityid").append("<option value=" + city_id + ">" + city_name + "</option>");
+                    }
+                    $('#cityid').selectpicker('refresh');
+                    $('#providerid').selectpicker('refresh');
+                }
+            });
+        });
+
+        $('#cityid').change(function () {
+            $("#providerid").attr("disabled", false);
+
+
+            $('#providerid').empty();
+
+            var cityid = document.getElementById('cityid').value;
+            var countryid = document.getElementById('countryid').value;
+
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_provider_list',
+                data: {'cityid': cityid, 'countryid': countryid},
+                dataType: "json",
+                success: function (res) {
+                    provider_detail_array = res;
+                    $("#providerid").append("<option selected disabled value='select'  hidden style='display: none'>Select Provider...</option>");
+                    for (var index in res)
+                    {
+                        var provider_name = res[index].first_name + ' ' + res[index].last_name;
+                        var provider_id = res[index]._id;
+                        $("#providerid").append("<option value=" + provider_id + ">" + provider_name +" " + "(" + res[index].email + ")" + "</option>");
+                    }
+                    $('#providerid').selectpicker('refresh');
+                }
+            });
+        });
+
+        $('#clear').click(function () {
+
+            $('#cityid').empty();
+            $("#cityid").attr("disabled", true);
+            $('#cityid').selectpicker('refresh');
+
+            $('#providerid').empty();
+            $("#providerid").attr("disabled", true);
+            $('#providerid').selectpicker('refresh');
+
+            $('#countryid').val($(this).attr('alt'));
+            $('#countryid').selectpicker('refresh');
+
+        });
+    });
+</script>
+
+<% include footer_list.html %>

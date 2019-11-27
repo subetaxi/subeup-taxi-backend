@@ -1,0 +1,298 @@
+{"message":"+1","level":"info"}
+{"message":{"is_document_uploaded":1},"level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials x126sm6292268qkc.87 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":"update location : Wed Nov 27 2019 04:04:51 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":5193395562410567000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827561989631%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":777259781560676700},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1187493221792767200,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827568866754%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":5691418194861396000},"level":"info"}
+{"message":"diff: 9.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":587915017533575200,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827575108892%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":591331265920455400},"level":"info"}
+{"message":"diff: 15.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":6827530287326887000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827582026837%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":4012241845635963400},"level":"info"}
+{"message":"diff: 22.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:06:32 GMT+0000 (UTC)","level":"info"}
+{"message":{"multicast_id":3455999056933620000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827592237411%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":1093710505486252300},"level":"info"}
+{"message":"diff: 32.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":8844870872114348000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827602548465%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6986725377913728000},"level":"info"}
+{"message":"diff: 2.00","level":"info"}
+{"message":"diff: 14.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":6429058989407468000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827619503470%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6209945850476467000},"level":"info"}
+{"message":"mail sent user invoice","level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials q35sm155475qta.19 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials m186sm6349025qkc.39 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":89175276060999100,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827658619236%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":792632909069416400},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":5089680580933974000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827661636912%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6321700407659169000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3562963119897686500,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827694843432%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":7646901404701879000},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7560273153569716000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827698266034%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":3272512926753813500},"level":"info"}
+{"message":"diff: 5.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":6229975468883775000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827710130961%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":1407739611981396200},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4109625370807847400,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827711800431%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":8060091180614889000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":5492357721478661000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827713559928%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:08:33 GMT+0000 (UTC)","level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":1984004708629486300},"level":"info"}
+{"message":"diff: 21.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7097206492962754000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827729912389%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":5661315129575237000},"level":"info"}
+{"message":"diff: 1.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3882374274568832000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574827735889759%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":3366178413887914500},"level":"info"}
+{"message":"mail sent user invoice","level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials x10sm7141128qtj.25 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials k196sm6214110qke.97 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":null,"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1086711570379240100,"success":0,"failure":1,"canonical_ids":0,"results":[{"error":"MissingRegistration"}]},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:12:52 GMT+0000 (UTC)","level":"info"}
+{"message":{"message_id":6028588341624935000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4406786948983870500,"success":0,"failure":1,"canonical_ids":0,"results":[{"error":"MissingRegistration"}]},"level":"info"}
+{"message":{"message_id":9097011172122279000},"level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials q34sm7083355qte.50 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":{},"level":"info"}
+{"message":{"provider_id":"5ddd17305a1e953c8aced0d5","provider_page_type":"approved_providers"},"level":"info"}
+{"message":{"type":"admin","provider_id":"5ddd17305a1e953c8aced0d5","vehicle_id":"5ddd17765a1e953c8aced0da","name":"A","plate_no":"A","model":"A","color":"A","passing_year":"2019","service_type":"5ddc7f315a1e953c8aced0b1","submit":"submit"},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:13:50 GMT+0000 (UTC)","level":"info"}
+{"message":[],"level":"info"}
+{"message":[],"level":"info"}
+{"message":[{"_id":"5ddc7d825a1e953c8aced0b0","cityid":"5ddc7b4e5a1e953c8aced0af","__v":0,"updated_at":"2019-11-26T01:18:58.465Z","created_at":"2019-11-26T01:18:58.465Z","kmlzone":[["-84.3689279871582","33.772657245731395"],["-84.35982993417968","33.7712302989091"],["-84.35716918283691","33.76908983411614"],["-84.35631087595214","33.76409520832984"],["-84.3575983362793","33.759243007400386"],["-84.35854247385254","33.75560367644488"],["-84.36214736276855","33.75217828264739"],["-84.37227538400879","33.75310600698056"],["-84.37862685495605","33.758743500534706"],["-84.37931350046386","33.76459468400801"],["-84.37948516184082","33.77051681658601"],["-84.37656691843261","33.774155514316966"],["-84.37098792368164","33.77486896633884"]],"fill_opacity":0.30196078431372547,"fill":"#000000","stroke_width":1.2,"stroke_opacity":1,"stroke":"","description":"","styleHash":"","styleUrl":"","title":"Jimmy Carter Presidential"}],"level":"info"}
+{"message":[],"level":"info"}
+{"message":[],"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:17:08 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3556755490504379400,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828306547919%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":1223864601111819800},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":8057519929896746000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828313070465%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":1191944726388289800},"level":"info"}
+{"message":"diff: 9.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4940681457767914000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828320485802%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":7954638733486813000},"level":"info"}
+{"message":"diff: 16.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1269921216639487500,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828325645928%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":2107754718755978500},"level":"info"}
+{"message":"diff: 22.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:18:52 GMT+0000 (UTC)","level":"info"}
+{"message":{"multicast_id":6054072571863329000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828332087384%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":1208265872361692200},"level":"info"}
+{"message":"diff: 28.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1602449397248770600,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828340459685%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":3779438294294973400},"level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials h37sm7088532qth.78 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":"mail sent user invoice","level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials p78sm6160374qke.131 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":8563559975876472000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828368233811%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6912179975675817000},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7934075175458782000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828373171055%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":4145386202418353000},"level":"info"}
+{"message":"diff: 7.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1066422074683402800,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828379841122%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6883813532984453000},"level":"info"}
+{"message":"diff: 13.00","level":"info"}
+{"message":"diff: 41.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7203752029556082000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828416863478%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6128358764211592000},"level":"info"}
+{"message":"diff: 51.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":6427261581342195000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574828426446550%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":7544506610061608000},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:26:04 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:28:13 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":9020837933215098000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574829091767875%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":5548883706866951000},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1748449511053321500,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574829096147779%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":5421245695945304000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":2872131310701005000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574829097182616%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":3730842343421987000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1520870985613260500,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574829098036805%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":5828774445789904000},"level":"info"}
+{"message":"diff: 9.00","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:31:59 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:33:46 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:33:50 GMT+0000 (UTC)","level":"info"}
+{"message":"diff: 142.00","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:33:54 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:33:57 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":9084197298653548000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574829239390805%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":3913287717241405400},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:33:59 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:01 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:04 GMT+0000 (UTC)","level":"info"}
+{"message":"diff: 154.00","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:08 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:11 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:15 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:18 GMT+0000 (UTC)","level":"info"}
+{"message":"diff: 166.00","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:22 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:25 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:29 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:33 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:36 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:40 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:44 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:47 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:50 GMT+0000 (UTC)","level":"info"}
+{"message":"diff: 201.00","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:54 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:34:57 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:00 GMT+0000 (UTC)","level":"info"}
+{"message":"diff: 211.00","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:04 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:08 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4974721818643532000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574829310920980%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":4892195779038326000},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:11 GMT+0000 (UTC)","level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials w5sm6097026qkf.43 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":"update location : Wed Nov 27 2019 04:35:15 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:18 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:22 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:25 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:28 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:31 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:35 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:38 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:41 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:45 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:48 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:52 GMT+0000 (UTC)","level":"info"}
+{"message":"diff: 43.00","level":"info"}
+{"message":"mail sent user invoice","level":"info"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials k3sm6252128qkj.119 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":"update location : Wed Nov 27 2019 04:35:56 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:35:59 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:03 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:07 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:11 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:14 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:18 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:21 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:24 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:27 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:31 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:36 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:45 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:54 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:36:57 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:04 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:09 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:14 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:18 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:25 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:30 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:34 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:39 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:44 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:48 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:52 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:37:57 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:38:04 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:45:30 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4826571988559551000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574829934038758%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":4940220500276645000},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:45:38 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:45:44 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:45:48 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:45:54 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3688349382248324000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574829955231178%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":2673994710028539000},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:45:58 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:02 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:08 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:10 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:14 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:30 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:42 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:47 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:52 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:56 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:46:59 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:47:05 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:47:09 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:47:14 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:47:22 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:47:26 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:47:32 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:47:38 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:47:50 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:47:53 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:48:02 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:48:08 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:48:42 GMT+0000 (UTC)","level":"info"}
+{"status":400,"message":"The 'To' number +11425364758 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"code":"EAUTH","response":"535-5.7.8 Username and Password not accepted. Learn more at\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials q34sm7124997qte.50 - gsmtp","responseCode":535,"command":"AUTH PLAIN","level":"error"}
+{"message":"update location : Wed Nov 27 2019 04:53:12 GMT+0000 (UTC)","level":"info"}
+{"message":[],"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:55:55 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:56:14 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:56:25 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:56:34 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:56:40 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:56:48 GMT+0000 (UTC)","level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:56:51 GMT+0000 (UTC)","level":"info"}
+{"message":{},"level":"info"}
+{"message":[],"level":"info"}
+{"message":{},"level":"info"}
+{"message":{"provider_id":"5ddd17305a1e953c8aced0d5","provider_page_type":"approved_providers"},"level":"info"}
+{"message":{"type":"admin","provider_id":"5ddd17305a1e953c8aced0d5","vehicle_id":"5ddd17765a1e953c8aced0da","name":"A","plate_no":"A","model":"A","color":"A","passing_year":"2019","service_type":"5ddc7fb05a1e953c8aced0b3","submit":"submit"},"level":"info"}
+{"message":{},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 04:58:34 GMT+0000 (UTC)","level":"info"}

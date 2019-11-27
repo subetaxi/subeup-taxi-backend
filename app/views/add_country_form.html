@@ -1,0 +1,750 @@
+<% include header.html %>
+<!-- PAGE TITLE -->
+
+<!-- END PAGE TITLE -->
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- for edit country form -->
+            <% if(typeof country_data != 'undefined'){ %>
+            <% country_data.forEach(function(data){ %>
+            <form class="form-horizontal" method="post" action="/update_country_detail">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <input type="hidden" class="form-control" name="id" value="<%= data.id %>" />
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_countyry_name %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="countryname" value="<%= data.countryname %>" disabled="true" />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_currency_code %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="currencycode" value="<%= data.currencycode %>" readonly/>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_country_code %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="countrycode" value="<%= data.countrycode %>" readonly/>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" name="alpha2" value="<%= data.alpha2 %>"/>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_currency_sign %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="currencysign" value="<%= data.currencysign %>" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_country_phone_code %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="countryphonecode" value="<%= data.countryphonecode %>" readonly/>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_country_bussiness %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" name="isBusiness">
+                                                <% if(data.isBusiness == "1") { %>
+                                                <option value="1" selected = "selected"><%= config_json.title_on %></option>
+                                                <option value="0"><%= config_json.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="1"><%= config_json.title_on %></option>
+                                                <option value="0" selected = "selected"><%= config_json.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_is_auto_transfer_in_country %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" name="is_auto_transfer">
+                                                <% if(data.is_auto_transfer == true) { %>
+                                                <option value="true" selected = "selected"><%= config_json.title_on %></option>
+                                                <option value="false"><%= config_json.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="true"><%= config_json.title_on %></option>
+                                                <option value="false" selected = "selected"><%= config_json.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_auto_transfer_day %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="auto_transfer_day" value="<%= data.auto_transfer_day %>" onkeypress="return isNumberKey(event);"
+                                            />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_auto_transfer_time_zone %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="countrytimezone" value="<%= data.countrytimezone %>" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_phone_number_min_length %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="phone_number_min_length" value="<%= data.phone_number_min_length %>" onkeypress="return isNumberKey(event);"
+                                                   />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_phone_number_max_length %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="phone_number_length" value="<%= data.phone_number_length %>" onkeypress="return isNumberKey(event);"
+                                                   />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_referral_in_country %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" name="is_referral">
+                                                <% if(data.is_referral == true) { %>
+                                                <option value="true" selected = "selected"><%= config_json.title_on %></option>
+                                                <option value="false"><%= config_json.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="true"><%= config_json.title_on %></option>
+                                                <option value="false" selected = "selected"><%= config_json.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_default_referral_bonus_to_user %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="referral_bonus_to_user" id="referral_bonus_to_user" value="<%= data.referral_bonus_to_user %>"
+                                                   onkeypress="return isNumberKey(event);" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_default_bonus_to_referral_user %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="bonus_to_userreferral" value="<%= data.bonus_to_userreferral %>" onkeypress="return isNumberKey(event);"
+                                                   />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_user_referral_max_use %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="userreferral" value="<%= data.userreferral %>" onkeypress="return isNumberKey(event);"
+                                                   />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_provider_referral_in_country %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" name="is_provider_referral">
+                                                <% if(data.is_provider_referral == true) { %>
+                                                    <option value="true" selected = "selected"><%= config_json.title_on %></option>
+                                                    <option value="false"><%= config_json.title_off %></option>
+                                                <% } else{ %>
+                                                    <option value="true"><%= config_json.title_on %></option>
+                                                    <option value="false" selected = "selected"><%= config_json.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_default_referral_bonus_to_provider %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="referral_bonus_to_provider" id="referral_bonus_to_provider" value="<%= data.referral_bonus_to_provider %>"
+                                                   onkeypress="return isNumberKey(event);" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_default_bonus_to_referral_provider %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="bonus_to_providerreferral" value="<%= data.bonus_to_providerreferral %>" onkeypress="return isNumberKey(event);"
+                                                   />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_provider_referral_max_use %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="providerreferral" value="<%= data.providerreferral %>" onkeypress="return isNumberKey(event);"
+                                                   />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button type="submit" name="update" value="update" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= config_json.button_submit %></button>
+                    </div>
+                </div>
+            </form>
+
+            <% }); %>
+
+            <!-- for edit country form -->
+            <% }else{ %>
+            <form class="form-horizontal" method="post" action="/add_country_detail"  enctype="multipart/form-data">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_countyry_name %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" data-live-search="true" name="countryname" id="countryname">
+                                                <option selected disabled hidden style='display: none'><%= config_json.title_select_country %></option>
+                                                <% country.forEach(function(data) { %>
+                                                <option value="<%= data.name %>"><%= data.name %></option>
+                                                <% }); %>
+                                            </select>
+                                            <div id="countrycheck"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_currency_code %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" data-live-search="true" name="currencycode" id="currencycode">
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_country_code %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="countrycode" id='countrycode' />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" name="alpha2" id="alpha2"/>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_currency_sign %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="currencysign" id="currencysign" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="country_all_timezone" id="country_all_timezone"/>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_country_phone_code %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="countryphonecode" id='countryphonecode' />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_country_bussiness %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" name="isBusiness">
+                                                <option value="1"><%= config_json.title_on %></option>
+                                                <option value="0"><%= config_json.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_is_auto_transfer_in_country %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" name="is_auto_transfer">
+                                                <option value="true"><%= config_json.title_on %></option>
+                                                <option value="false"><%= config_json.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_auto_transfer_day %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="auto_transfer_day" id="auto_transfer_day" onkeypress="return isNumberKey(event);"
+                                                />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= tooltip_json.tooltip_referral_bonus_amount_to_self %>">?</button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_auto_transfer_time_zone %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" data-live-search="true" name="countrytimezone" id="countrytimezone">
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_phone_number_min_length %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="phone_number_min_length" id="phone_number_min_length" onkeypress="return isNumberKey(event);" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= tooltip_json.tooltip_phone_number_length %>">?</button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_phone_number_max_length %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="phone_number_length" id="phone_number_length" onkeypress="return isNumberKey(event);" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= tooltip_json.tooltip_phone_number_length %>">?</button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_referral_in_country %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" name="is_referral">
+                                                <option value="true"><%= config_json.title_on %></option>
+                                                <option value="false"><%= config_json.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_default_referral_bonus_to_user %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="referral_bonus_to_user" id="referral_bonus_to_user" onkeypress="return isNumberKey(event);"
+                                                       />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= tooltip_json.tooltip_referral_bonus_amount_to_friend %>">?</button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_default_bonus_to_referral_user %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="bonus_to_userreferral" id="bonus_to_userreferral" onkeypress="return isNumberKey(event);"
+                                                       />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= tooltip_json.tooltip_referral_bonus_amount_to_self %>">?</button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_user_referral_max_use %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="userreferral" id="userreferral" onkeypress="return isNumberKey(event);" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= tooltip_json.tooltip_user_referral_max_use %>">?</button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_provider_referral_in_country %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <select class="form-control select" name="is_provider_referral">
+                                               
+                                                    <option value="true" selected = "selected"><%= config_json.title_on %></option>
+                                                    <option value="false" ><%= config_json.title_off %></option>
+                                               
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_default_referral_bonus_to_provider %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="referral_bonus_to_provider" id="referral_bonus_to_provider" value=""
+                                                   onkeypress="return isNumberKey(event);" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_default_bonus_to_referral_provider %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="bonus_to_providerreferral" value="" onkeypress="return isNumberKey(event);"
+                                                   />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_provider_referral_max_use %></label>
+
+                                    <div class="col-md-9">
+                                        <div class="col-md-9 col-xs-7">
+                                            <input type="text" class="form-control" name="providerreferral" value="" onkeypress="return isNumberKey(event);"
+                                                   />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+<!-- 
+                                 <div class="form-group">
+                                                <label class="col-md-3 col-xs-3 control-label"><%= config_json.title_zone_kml_file %></label>
+
+                                                <div class="col-md-6 col-xs-6">
+                                                    <div class="col-md-12">
+                                                        <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" title="Insert KML file" name="kmlzone" id="file3" />
+                                                    </div>
+                                                   
+
+                                                </div>
+                                                
+                                    </div> -->
+
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        <button id="submit" type="submit" name="submit" value="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= config_json.button_submit %></button>
+                    </div>
+                </div>
+            </form>
+            <% } %>
+
+        </div>
+    </div>
+
+</div>
+<!-- END PAGE CONTENT WRAPPER -->
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+
+
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        {
+            if (charCode == 46)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    $(document).ready(function () {
+
+        $(".form-horizontal").validate({
+            rules: {
+                countryname: "required",
+                countrycode: "required",
+                currency: "required",
+                currencycode: "required",
+                currencysign: "required",
+                countrytimezone: "required",
+                countryphonecode: "required",
+                referral_bonus_to_user: "required",
+                bonus_to_userreferral: "required",
+                userreferral: "required",
+                phone_number_length:"required",
+                phone_number_min_length:"required"
+            },
+            errorPlacement: function (error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        ////////// check country already added or not ////////////
+        $("#countryname").change(function () {
+            var value = this.value;
+
+            $("#submit").attr("disabled", true);
+
+            $.ajax({
+                type: 'POST',
+                url: '/check_country_available',
+                data: 'countryname=' + value,
+                dataType: "json",
+                success: function (res) {
+
+                    if (res == 1)
+                    {
+                        $("#submit").attr("disabled", true);
+                        //alert(document.getElementById('city').value);
+                        $("#countrycheck").html('<font color="red">Country  Already Added</font>');
+                    } 
+                    else
+                    {
+                        $("#countrycheck").html("");
+
+                        $("#submit").attr("disabled", false);
+                    }
+                }
+            });
+        });
+        /////////////// selcted country fill country code, timezone , currency code, sign and phone code ///////////
+
+        $('#countryname').change(function () {
+            $('#currencycode').empty();
+            $('#countrytimezone').empty();
+            var countryname = document.getElementById('countryname').value;
+
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_country_detail',
+                data: 'countryname=' + countryname,
+                dataType: "json",
+                success: function (res) {
+                    
+                    var country_code = res.lookup.alpha3;
+                    var country_currency_code = res.lookup.currencies;
+                    var country_phone_code = res.lookup.countryCallingCodes;
+                    var currency_symbol = res.currency_symbol;
+                    var country_timezone = res.country_timezone;
+                    document.getElementById("currencysign").value = currency_symbol;
+                    document.getElementById("countrycode").value = country_code;
+                    document.getElementById("alpha2").value = res.lookup.alpha2;
+                    document.getElementById("countryphonecode").value = country_phone_code;
+                    for (index in country_currency_code)
+                    {
+                        var currencycode = country_currency_code[index];
+                        $('#currencycode').append('<option>' + currencycode + '</option>');
+                        $('#currencycode').selectpicker('refresh');
+                    }
+
+                    var all_time_zone = [];
+                    for (index in country_timezone)
+                    {
+                        var countrytimezone_list = country_timezone[index].name;
+                        all_time_zone.push(countrytimezone_list);
+                        $('#countrytimezone').append('<option>' + countrytimezone_list + '</option>');
+                        $('#countrytimezone').selectpicker('refresh');
+                    }
+                    document.getElementById("country_all_timezone").value = all_time_zone;
+
+                }
+            });
+        });
+        ////////////////////////
+    });
+</script>
+<% include footer_form.html %>

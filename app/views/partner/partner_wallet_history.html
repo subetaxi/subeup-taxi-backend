@@ -1,0 +1,164 @@
+<% include partner_header.html %>
+               
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+<% if(typeof message != 'undefined'){ %>
+       <div class="alert alert-success" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+          <p align="center"> <strong><%= message %></strong></p>
+      </div>
+      <% } %>   
+      
+  </div> 
+        
+      <!-- END TIMELINE FILTER -->                
+                
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <!-- START SIMPLE DATATABLE -->
+                            <div class="panel panel-default">                                
+                                <div class="table-responsive" style="padding-bottom: 175px;">
+                                        <table class="table text-center" id="customers2">
+                                            <thead>
+                                                <tr>
+                                                    <th><%= config_json.title_id %></th>
+                                                    <th><%= config_json.title_date %></th>
+                                                    <th><%= config_json.title_currency %></th>
+                                                    <th><%= config_json.title_wallet_amount %></th>
+                                                    <th><%= config_json.title_add_cut %></th>
+                                                    <th><%= config_json.title_wallet %></th>
+                                                    <th><%= config_json.title_wallet_description %></th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                                <% detail.forEach(function(data){ %>
+                                                <tr>
+                                                    <td><%= data.unique_id %></td>
+                                                    <td><%= moment(data.created_at).tz(timezone_for_display_date).format("DD MMM 'YY") %></td>
+                                                    <td><%= partner_detail.wallet_currency_code %></td>
+                                                    <td><%= data.wallet_amount %> </td>
+                                                    <td><%= data.added_wallet %> </td>
+                                                    <td><%= data.total_wallet_amount %> </td>
+                                                    <td><%= data.wallet_description %> </td>
+
+                                                </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                            <!-- END SIMPLE DATATABLE -->
+
+                        </div>
+                    </div>                                
+                    
+                </div>
+                <!-- PAGE CONTENT WRAPPER -->                                
+            </div>    
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->  
+
+        <script type="text/javascript">
+  $(document).ready(function() {
+    var trip_id_array = new Array();
+      var interval;
+       $('#start_date').datepicker({
+         format: 'yyyy-mm-dd',
+         endDate: new Date(Date.now())
+
+       }).on("input change", function (e) { 
+        var end_date = $('#start_date').datepicker('getDate');
+        end_date.setDate(end_date.getDate() + 1);
+        $('#end_date').datepicker('setStartDate', end_date);
+        $('.datepicker-dropdown').hide()
+      });
+
+       $('#end_date').datepicker({
+         format: 'yyyy-mm-dd',
+         endDate: new Date(Date.now())
+
+       }).on("input change", function (e) { 
+        var start_date = $('#end_date').datepicker('getDate');
+        start_date.setDate(start_date.getDate() - 1);
+        $('#start_date').datepicker('setEndDate', start_date);
+        $('.datepicker-dropdown').hide()
+      });
+
+       <% detail.forEach(function(data){ %>
+
+            trip_id_array.push('<%= data._id %>')
+
+        <% }); %>
+
+       if(trip_id_array.length >0)
+       {
+          clearInterval(interval);
+          interval = setInterval(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/requsest_status_ajax',
+                data: {'trip_id_array':trip_id_array},
+                dataType: "json",
+                success: function (res) {
+                  res.forEach(function(trip_data){
+
+                    $('#provider'+trip_data.trip_detail._id).html(trip_data.provider);
+                    $('#pr_name'+trip_data.trip_detail._id).html(trip_data.provider);
+
+                    if(trip_data.trip_detail.is_trip_cancelled == 1)
+                    {
+                      if(trip_data.trip_detail.is_trip_cancelled_by_provider == 1)
+                      {
+                        $('#'+trip_data.trip_detail._id).html('<span class="label label-danger"><%= config_json.title_total_cancelled_by_provider %></span>');
+                      }
+                      else if(trip_data.trip_detail.is_trip_cancelled_by_user == 1)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-danger"><%= config_json.title_total_cancelled_by_user %></span>');
+                      }
+                      else
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-danger"><%= config_json.title_total_cancelled %></span>');
+                      }
+                    }
+                    else
+                    {
+                      if(trip_data.trip_detail.is_provider_status == 2)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-warning"><%= config_json.title_trip_status_coming %></span>');
+                      }
+                      else if(trip_data.trip_detail.is_provider_status == 4)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-info"><%= config_json.title_trip_status_arrived %></span>');
+                      }
+                      else if(trip_data.trip_detail.is_provider_status == 6)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-info"><%= config_json.title_trip_status_trip_started %></span>');
+                      }
+                      else if(trip_data.trip_detail.is_provider_status == 9)
+                      {
+                          $('#'+trip_data.trip_detail._id).html('<span class="label label-success"><%= config_json.title_trip_status_completed %></span>');
+                      }
+                      else if(trip_data.trip_detail.is_provider_status == 1 || trip_data.trip_detail.is_provider_status == 0)
+                      {
+                          if(trip_data.trip_detail.is_provider_accepted == 1)
+                          {
+                            $('#'+trip_data.trip_detail._id).html('<span class="label label-info"><%= config_json.title_accepted_request %></span>');
+                          } 
+                          else
+                          {
+                            $('#'+trip_data.trip_detail._id).html('<span class="label label-info"><%= config_json.title_trip_status_waiting %></span>');
+                          }
+                      }
+                    }
+                  })
+                }
+            });
+          },1000);
+       }
+   
+ });
+</script>  
+<% include footer_list.html %>

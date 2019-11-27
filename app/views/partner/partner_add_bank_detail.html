@@ -1,0 +1,209 @@
+<% include partner_header.html %>
+<div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+      <p align="center"> <strong><%= message %></strong></p>
+  </div>
+  <% } %> 
+
+  <% if(typeof detail != 'undefined'){ %>
+<form class="form-horizontal" id="bank_detail_add_form_partner1" enctype="multipart/form-data" method="post">
+   <div class="panel panel-default">
+    <div class="panel-body form-group-separated">  
+        <input type="hidden" name="partner_id" value="<%= partners._id %>">
+        <input type="hidden" name="token" value="<%= partners.token %>">
+
+        <div class="form-group">
+           <label class="col-md-3 control-label"><%= config_json.title_bank_account_number %></label>
+           <div class="col-md-6">
+            <input type="text" class="form-control"  name="account_number1"  id="account_number1" readonly value="********"/>
+        </div>
+    </div>   
+
+    <div class="form-group">
+      <div class="col-md-12 col-xs-5">
+     
+       <input type="submit" name="Remove" id="Remove" value="Remove" class="act">
+   </div>
+</div>
+</div>
+</div>
+</form>
+<% } else { %>
+<form class="form-horizontal" id="bank_detail_add_form_partner" enctype="multipart/form-data" method="post" action="/add_bank_detail_partner">
+   <div class="panel panel-default">
+    <div class="panel-body form-group-separated">  
+
+        <!-- <input type="hidden" name="bank_holder_type" value="4"> -->
+        <input type="hidden" name="partners_id" value="<%= partners._id %>">
+        <input type="hidden" name="account_holder_name" value="<%= partners.first_name+' '+partners.last_name %>">
+        <input type="hidden" name="token" value="<%= partners.token %>">
+        <input type="hidden" name="account_holder_type" value="individual">
+        <input type="hidden" name="web" value="1">
+
+        <div class="form-group">
+           <label class="col-md-3 control-label"><%= config_json.title_upload_id %></label>
+           <div class="col-md-6">
+            <input type="file" required class="form-control"  name="document"  id="document" accept="image/*" />
+        </div>
+    </div>
+
+    <div class="form-group">
+     <label class="col-md-3 control-label"><%= config_json.title_bank_account_number %></label>
+     <div class="col-md-6">
+        <input type="text" class="form-control"   name="account_number" id="account_number" required />
+    </div>
+</div>
+
+<div class="form-group">
+ <label class="col-md-3 control-label"><%= config_json.title_routing_number %></label>
+ <div class="col-md-6">
+    <input type="text" onkeypress="return isNumberKey(event)" class="form-control"  name="routing_number" id="routing_number" required />
+</div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-3 control-label"><%= config_json.title_SSN %></label>
+  <div class="col-md-6">
+    <input type="text" class="form-control"  name="personal_id_number" id="personal_id_number" required />
+</div>
+</div>
+
+
+<div class="form-group">
+ <label class="col-md-3 control-label"><%= config_json.title_birth_date %></label>
+ <div class="col-md-6">
+    <input type="text"  class="form-control" name="dob" id="dob" required/>
+</div>
+</div>
+
+
+<div class="form-group">
+  <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_password %></label>
+  <div class="col-md-6 col-xs-7">
+   <input type="password"  id="password" class="form-control" name="password" required/>
+</div>
+</div>        
+
+<div class="form-group">
+  <div class="col-md-12 col-xs-5">
+   <!-- <button class="btn btn-primary btn-rounded pull-right" type="submit" name="add" > <%= config_json.button_add %></button> -->
+   <input type="submit" name="" value="<%= config_json.button_add %>" class="act" class="btn btn-primary btn-rounded pull-right">
+</div>
+</div>
+</div>
+</div>
+</form>
+<% } %>
+</div>
+
+<script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+  $( function() {
+     $('#dob').datepicker({
+        format: 'dd-mm-yyyy'
+    });
+ });
+  function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+</script>       
+<script type="text/javascript">
+   $(document).ready(function(){
+        // alert('abc');
+        // var myVar = setInterval(function(){ myTimer() }, 3000);
+        function myTimer() {
+            $.ajax({
+                type: 'POST',
+                url: '/get_bank_detail_partner',
+                data: { 'partner_id': '<%=partners._id%>', 'token': '<%=partners.token%>'},
+                dataType: "json",
+                success: function(response){
+                    if (response.success == false) {
+                        myTimer()
+                        console.log(false);
+                    // clearInterval(myVar);
+                    
+                }else{
+
+                    // alert(JSON.stringify(response));
+                    // window.location.reload();
+                    console.log(response.bankdetails);
+                    $('#account_number1').val($('#account_number1').val() + response.bankdetails.account_number);
+                }
+            },
+            error: function() {
+                // alert('error');
+            }
+        })
+        }
+        myTimer();
+        $( "#bank_detail_add_form_partner" ).submit(function(event) {
+            event.preventDefault();
+
+            var form = $('#bank_detail_add_form_partner')[0];
+
+            var data = new FormData(form);
+            $.ajax({
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                url: '/add_bank_detail_partner',
+                dataType: "json",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function(response){
+                    // alert(JSON.stringify(response));
+                    if (response.error_code == 434) {
+                        alert('Incorrect Password Try Again');
+                    }else if (response.error_code == 601){
+                        alert('Problem in Add bank detail Try Again');
+                    }else if (response.success == true) {
+                        location.reload();
+                        alert('Detail Added Successfully');
+                    }else{
+                        alert(JSON.stringify(response.stripe_error+' Try Again'));
+                    }
+                },
+                error: function() {
+                }
+            })
+        });
+
+        $( "#bank_detail_add_form_partner1" ).submit(function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/delete_bank_detail_partner',
+                data: $('#bank_detail_add_form_partner1').serialize(),
+                dataType: "json",
+                success: function(response){
+                    if (response.success == false) {
+                        console.log(false);
+                        // alert(response.stripe_error);
+                    }else{
+                        alert('Deleted Successfully');
+
+                        location.reload();
+                    }
+                },
+                error: function() {
+                // alert('error');
+            }
+        })
+        });
+
+        
+    });
+</script>
+<% include footer_form.html %>

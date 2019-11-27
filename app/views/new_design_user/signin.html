@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<% include header.html %>
+
+<body class="home">
+
+	<div class="inner_con terms signin">
+		<div class="termsin">
+			<div class="mar_r marginleft"></div>
+			<div class="container">
+				<div class="signin_con">
+					<h1>Sign In</h1>
+					<div class="row">
+						<div class="col_2">
+							<h4>Driver</h4>
+							<p>Find everything you need to track your success on <br />the road.</p>
+							<form method="post" action="login">
+								<input type="hidden" name="type" value="driver" />
+								<button type="submit" class="btn rider_btn">DRIVER SIGN IN<i class="fa fa-long-arrow-right"></i></button>
+							</form>
+							<!--<a href="#" class="btn">DRIVER SIGN IN<i class="fa fa-long-arrow-right"></i></a>-->
+						</div>
+						<div class="col_2">
+							<h4>Rider</h4>
+							<p>Manage your payment options, review trip history, <br />and more.</p>
+							<form method="post" action="login">
+								<input type="hidden" name="type" value="user" />
+								<button type="submit" class="btn rider_btn">RIDER SIGN IN<i class="fa fa-long-arrow-right"></i></button>
+							</form>
+							<!--<a href="login" class="btn rider_btn">RIDER SIGN IN<i class="fa fa-long-arrow-right"></i></a>-->
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+<script type="text/javascript">
+    var currentTab = 0;
+    $(function () {
+        $(".tabs").tabs({
+            select: function (e, i) {
+                currentTab = i.index;
+            }
+        });
+    });
+    $("#btnNext").live("click", function () {
+        var tabs = $('.tabs').tabs();
+        var c = $('.tabs').tabs("length");
+        currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
+        tabs.tabs('select', currentTab);
+        $("#btnPrevious").show();
+        if (currentTab == (c - 1)) {
+            $("#btnNext").hide();
+        } else {
+            $("#btnNext").show();
+        }
+    });
+    $("#btnPrevious").live("click", function () {
+        var tabs = $('.tabs').tabs();
+        var c = $('.tabs').tabs("length");
+        currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
+        tabs.tabs('select', currentTab);
+        if (currentTab == 0) {
+            $("#btnNext").show();
+            $("#btnPrevious").hide();
+        }
+        if (currentTab < (c - 1)) {
+            $("#btnNext").show();
+        }
+    });
+</script>
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+    $('.menuOpen').click(function(){
+    $('.menu, .map, .bcome_driver').toggle();
+});
+
+if ($(window).width() < 767) {
+    $('.menuOpen').click(function(){
+    $('.menu2').toggleClass('dis_block');
+});
+}
+});
+
+
+
+</script>
+<script src="js/owl.carousel.js"></script>
+ <script>
+	jQuery(document).ready(function($) {
+
+	  $('.nonloop').owlCarousel({
+		nav:true,
+		center: false,
+		dots: true,
+		items:2,
+		loop: false,
+		 slideBy: 2,
+		responsive: {
+		 0: {
+				items: 1,
+			  },
+		 600: {
+				items: 2,
+			  },
+		 1024: {
+			items: 3
+		  }
+
+		}
+	  });
+	});
+</script>
+<script>
+  $(function() {
+	var Accordion = function(el, multiple) {
+		this.el = el || {};
+		this.multiple = multiple || false;
+
+		// Variables privadas
+		var links = this.el.find('.link');
+		// Evento
+		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+	}
+
+	Accordion.prototype.dropdown = function(e) {
+		var $el = e.data.el;
+			$this = $(this),
+			$next = $this.next();
+
+		$next.slideToggle();
+		$this.parent().toggleClass('open2');
+
+		if (!e.data.multiple) {
+			$el.find('.submenu').not($next).slideUp().parent().removeClass('open2');
+		};
+	}
+
+	var accordion = new Accordion($('.accordion'), false);
+});
+
+</script>
+
+
+</body>
+<% include footer.html %>
+</html>

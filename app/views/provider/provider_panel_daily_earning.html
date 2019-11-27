@@ -1,0 +1,191 @@
+<% include provider_header.html %>
+<!-- PAGE CONTENT WRAPPER -->
+
+<% if(typeof message != 'undefined'){ %>
+       <div class="alert alert-success" role="alert" style="padding-top: 75px;margin-bottom: -135px;">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+          <p align="center"> <strong><%= message %></strong></p>
+      </div>
+ <% } %>  
+<style>
+  
+  .btn-default {
+    width:100%; 
+    font-family: 'RobotoRegular';font-size: 15px;background-color: #047f8f;border-color: #047f8f;float: left;color:#fff;
+  }
+  .btn-default:hover{
+    background-color: #1a1d2e;
+    border-color: #1a1d2e;
+    color: #fff;
+    border-radius: 0;
+
+  }
+</style>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+      <div class="row">
+          <form class="form-horizontal" role="form" method="post" action="/provider_daily_earning">
+                  <div class="table_head">
+                    <div class="hist_head box_selet_lft">
+                     <input type="hidden" name="page" id="page" value="0" />   
+                      <input type="hidden" name="type" id="type" value="<%= type %>" />   
+
+                      <div class="hist_lft hist_lft2">
+                          <div class="filter_text"><%= config_json.title_sort %></div>  
+                          <div class="filter_select box_selet " >
+                              <select class="selectpicker" name="sort_item">
+                                  <% if(sort_field == "user_detail.first_name") { %>
+                                    <option value='unique_id' ><%= config_json.title_id %>
+                                    <option value='provider_detail.first_name' selected="selected"><%= config_json.title_name %></option>
+                                  <% } else { %>
+                                    <option value='unique_id' selected="selected"><%= config_json.title_id %>
+                                    <option value='provider_detail.first_name'><%= config_json.title_name %></option>
+                                  <% } %>
+                              </select>
+                          </div>
+                         <div class="filter_select filter_select2 ">
+                              <select class="selectpicker" name="sort_item">
+                                    <% if(sort_order == "1") { %>
+                                      <option value="1" selected><%= config_json.sort_asc %></option>
+                                      <option value="-1"><%= config_json.sort_desc %></option>
+                                      <% } else{ %>
+                                      <option value="1" ><%= config_json.sort_asc %></option>
+                                      <option value="-1" selected><%= config_json.sort_desc %></option>
+                                      <% } %>
+                              </select>
+                          </div>
+                      </div>
+
+                       <div class="hist_lft hist_lft2">  
+                          <div class="filter_text">Search</div>
+                          <div class="filter_select box_selet " >
+                              <select class="selectpicker" name="search_item">>
+                                  <% if(search_item == "provider_detail.first_name") { %>
+                                    <option value='provider_detail.first_name' selected="selected"><%= config_json.title_name %></option>
+                                    <option value='provider_detail.email'><%= config_json.title_email %></option>
+                                  <% } else { %>
+                                    <option value='provider_detail.first_name'><%= config_json.title_name %></option>
+                                    <option value='provider_detail.email' selected="selected"><%= config_json.title_email %></option>
+                                  <% } %>
+                              </select>
+                          </div>
+                          <div class="filetr_sea">
+                              <input type="text" value="<%= search_value %>" name="search_value"/>
+                              <input type="submit" name="" value="submit">
+                          </div>
+                      </div>
+
+
+                      <div class="hist_lft hist_lft2">
+                          
+                          <div class="filter_text"><%= config_json.title_date_filter %></div>
+                          <div class="date_start">
+                           
+                              <input type="text" class="datepicker" value="<%= filter_start_date %>" placeholder="Start Date" name="start_date" id="start_date" readonly/>
+
+                            </div>
+                          <div class="date_to">To</div>
+                          <div class="date_start">
+                              <input type="text" class="datepicker"  value="<%= filter_end_date %>" placeholder="End Date" name="end_date" id="end_date" readonly/>
+                          </div>
+                      </div>
+
+
+                      <div class="app_rgt_bg" style="margin-top: 21px;">
+                          <li><a onClick ="export_excel()"><img src="user_panel/images/book_img.png"></a></li>
+
+                          <input type="submit" id="apply_filter" name="" value="APPLY" class="act">
+                         
+                      </div>
+                  </div>
+          </form> 
+      </div>
+               <div class="row">
+                   <div class="table_bg" id="customers">
+                       <div class="table">
+                           <div class="table_top">
+                               <div class="table_id" style="width: 12%;"><%= config_json.title_trip_id %></div>
+                               <div class="table_id Pickup" style="width: 12%;"><%= config_json.title_trip_end_date %></div>
+                               <div class="table_id Pickup" style="width: 12%;"><%= config_json.title_total %></div>
+                               <div class="table_id Pickup" style="width: 12%;"><%= config_json.title_cash %></div>
+                               <div class="table_id Pickup" style="width: 12%;"><%= config_json.title_provider_profit %></div>
+                               <div class="table_id Pickup" style="width: 12%;"><%= config_json.title_pay_to_provider %></div>
+                               
+
+                           </div>
+
+                           <div class="table_top table_cont">
+
+
+                           </div>
+                           <% detail.forEach(function(data , index){ %>
+
+                           <div class="table_top table_cont">
+                               <div class="table_id"  style="width: 12%;"><%= data.unique_id %></div>
+                               <div class="table_id"  style="width: 12%;"><%= moment(data.provider_trip_end_time).tz(timezone_for_display_date).format("DD MMM 'YY") %></div>
+                               <div class="table_id"  style="width: 12%;"><%= (data.total).toFixed(2) %></div>
+                               <div class="table_id"  style="width: 12%;"><%= (data.provider_have_cash).toFixed(2) %></div>
+                               <div class="table_id"  style="width: 12%;"><%= (data.provider_service_fees).toFixed(2) %></div>
+                               <div class="table_id"  style="width: 12%;"><%= (data.pay_to_provider).toFixed(2) %></div>
+
+
+
+                           </div>
+                           <% }); %>
+
+
+                       </div>
+                   </div>
+               </div>
+      
+              </div> 
+        
+      <!-- END TIMELINE FILTER -->                
+                
+                                       
+                    
+                </div>
+                <!-- PAGE CONTENT WRAPPER -->                                
+            </div>    
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->  
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+   $('#start_date').datepicker({
+     format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now())
+
+   }).on("input change", function (e) { 
+    var end_date = $('#start_date').datepicker('getDate');
+    end_date.setDate(end_date.getDate() + 1);
+    $('#end_date').datepicker('setStartDate', end_date);
+  });
+
+   $('#end_date').datepicker({
+     format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now())
+
+   }).on("input change", function (e) { 
+    var start_date = $('#end_date').datepicker('getDate');
+    start_date.setDate(start_date.getDate() - 1);
+    $('#start_date').datepicker('setEndDate', start_date);
+  });
+
+   
+ });
+ 
+  function export_excel(){
+            $.ajax({
+                      type: 'POST',
+                      url: '/provider_daily_earning_export_excel',
+                      data: $('.form-horizontal').serialize(),
+                      dataType: "json",
+                      success: function (res) {
+                          window.open(res)
+                      }
+            });
+      }
+</script>   
+<% include provider_footer.html %> 

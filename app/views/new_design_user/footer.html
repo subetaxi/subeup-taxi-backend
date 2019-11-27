@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<body>
+
+	<footer>
+		<div class="container">
+			<div class="ftop">
+				<div class="col_3 flogo">
+					<a href="/">SubeUp</a>
+				</div>
+				<!-- <div class="col_9">
+					<div class="col_2">
+						<a href="/ride" class="btn signupbtn">SIGN UP TO RIDE</a>
+					</div>
+					<div class="col_2">
+						<a href="/drive" class="btn bdriver">Become a driver</a>
+					</div>
+					<div class="clear"></div>
+				</div> -->
+				<div class="clear"></div>
+			</div>
+			<!-- <div class="f_link">
+				<div class="col_3 contact">
+					<div class="con_info">
+						<a href="/fare-estimate"><i class="fa fa-map-marker"></i>Enter Your Location</a>
+						<a><i class="fa fa-globe"></i>ENGLISH</a>
+					</div>
+					
+				</div>
+				<div class="col_3">
+					<ul>
+						<li><a href="ride">Ride</a></li>
+						<li><a href="drive">Drive</a></li>
+						<li><a href="cities">Cities</a></li>
+
+
+					</ul>
+				</div>
+				<div class="col_3">
+					<ul>
+						<li><a href="how-it-works">How it Works</a></li>
+
+						<li><a href="safety">Safety</a></li>
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div> -->
+			<div class="location">
+				<div class="location_in">
+					<div class="title">
+						Top Countries
+					</div>
+					<div class="name" id="country_name">
+						<!-- <a href="#">San</a><a href="#">Francisco</a><a href="#">London</a><a href="#">Los Angeles</a><a href="#">Washington D.C.</a><a href="#">Mexico</a><a href="#">CitySao</a><a href="#">Paulo</a> -->
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="location_in">
+					<div class="title">
+						Top Cities
+					</div>
+					<div class="name" id="city_name">
+						<!-- <a href="#">USA</a><a href="#">France</a><a href="#">India</a><a href="#">Spain</a><a href="#">Mexico</a><a href="#">Russia</a> -->
+					</div>
+					<div class="clear"></div>
+				</div>
+
+			</div>
+			<div class="app_btn">
+				<div class="col_3">
+					<!-- &nbsp; -->
+					<div class="soc_icon">
+						<a href="https://www.facebook.com/ElluminatiIndia"><i class="fa fa-facebook"></i></a>
+						<a href="https://twitter.com/elluminatiIndia"><i class="fa fa-twitter "></i></a>
+						<a href="https://www.linkedin.com/company/elluminati/"><i class="fa fa-linkedin-square"></i></a>
+						<a href="https://www.instagram.com/elluminatiinc/"><i class="fa fa-instagram"></i></a>
+					</div>
+				</div>
+
+				<div class="overflow_div">
+					<a href="#"><img src="new_design/images/app_store.png" alt="app_store" /></a>
+					<a href="#"><img src="new_design/images/google_play.png" alt="google_play" /></a>
+					<!-- <a href="#"><img src="new_design/images/microsoft.png" alt="microsoft" /></a> -->
+				</div>
+			</div>
+			<div class="btm_link">
+				<div class="col_3">
+					© 2018 SubeUp Technologies Inc.
+				</div>
+				<div class="col_9">
+					<div class="col_3">
+						<ul>
+							<li><a href="/privacy">Privacy</a></li>
+						</ul>
+					</div>
+					<div class="col_3">
+						<ul>
+							<li><a href="/terms&condition">Terms</a></li>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		</div>
+
+	</footer>
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+		
+			$.ajax({
+				type: 'GET',
+				url: '/countries',
+				dataType: "json",
+				success: function (res) {
+					$.each(res.country, function (i, country) {
+						if(i > 5) {
+							return false;
+						} else {
+							$("#country_name").append("<a>" + country.countryname + "</a>");
+						}
+						
+					});
+				}
+			});
+			$.ajax({
+				type: 'POST',
+				url: '/citilist_selectedcountry',
+				data: {country: ""},
+				dataType: "json",
+				success: function (res) {
+					$.each(res.city, function (i, city) {
+						if(i > 5) {
+							return false;
+						} else {
+						$("#city_name").append("<a href='cities'>" + city.cityname + "</a>");
+						}
+					});
+				}
+			});
+		});
+
+	
+        setTimeout(function() {
+            $('.alert').fadeOut('fast');
+        }, 3000)
+
+	</script>
+
+
+
+</body>
+
+</html>

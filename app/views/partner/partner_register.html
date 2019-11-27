@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" class="body-full-height">
+    <head>        
+        <!-- META SECTION -->
+        <title><%= constant_json.partner_panel_name %></title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->     
+        <link rel="stylesheet" type="text/css" href="css/theme-default.css"/>   
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        
+    </head>
+    <body>
+     
+        
+        <div class="login-container">
+        <% if(typeof message != 'undefined'){ %>
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                    <p align="center"> <strong><%= message %></strong></p>
+                </div>
+            <% } %> 
+            <div class="login-box animated ">
+                <div class="login-body">
+                    <div class="login-title"><%= config_json.message_welcome %></div>
+                    <form action="/partner_register" class="form-horizontal" method="post" 
+                    id="signupForm" enctype="multipart/form-data">
+
+                    <input type="hidden" name="login_by" value="manual" />
+                    <input type="hidden" name="device_type" value="web" />
+                    <input type="hidden" name="country_id" value="" />
+                    <input type="hidden" name="city_id" value="" />
+                    <input type="hidden" name="wallet_currency_code" value="" />
+
+                    <input id="sample_input" type="hidden" name="pictureData">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" placeholder="First Name" name="first_name" id="first_name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" placeholder="Last Name" name="last_name" id="last_name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="email" class="form-control" placeholder="Email" name="email" id="email" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="password" class="form-control" placeholder="Password" name="password" id="Password" />
+                        </div>
+                    </div>
+                  <!--   -->
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <select name="country_phone_code" id="country" class="form-control select" data-live-search="true" style="  position:absolute;    ">
+                                <option selected disabled hidden style='display: none'><%= config_json.title_select_country %></option>
+                                <% country.forEach(function(data) 
+                                    {
+                                %>
+                                <option><%= data.countryphonecode %> <%= data.countryname %></option>
+                                <%
+                                    });
+                                %>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <input name="phone" id="phone" onkeypress="return isNumberKey(event)"  type="text" class="form-control" maxlength="10"  placeholder="Number"  />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <select name="city" id= "city" class="form-control select" data-live-search="true">
+                                <option selected disabled hidden style='display: none'><%= config_json.title_select_city %></option>
+                            </select>
+                            <label id = "citymessage" style="color: red;"></label>
+                        </div>
+                    </div>
+
+                     <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" placeholder="Address" name="address" id="address" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" placeholder="Partner Name" name="partner_company_name" id="partner_company_name" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="text-align:center;">
+                         <div class="col-md-12">
+                              <input type="file" class="btn-success btn-rounded fileinput" data-filename-placement="inside" name="idproof" title="Change Id Proof"/>
+                          </div>
+                    </div>
+
+                    <div class="form-group">    
+                        <div class="col-md-12">
+                            <button class="btn btn-info btn-block" id="reg_button"><%= config_json.button_register %></button>
+                        </div>
+                        <div class="col-md-12">
+                            <a href="partner_login" class="btn btn-link btn-block"><%= config_json.question_already_register %></a>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
+                
+            </div>
+        </div>
+    </body>
+</html>
+
+     
+        
+<script type="text/javascript">
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+</script>   
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        <script type="text/javascript" src="js/actions.js"></script>
+<script>
+$(function() {
+    $( "#signupForm" ).validate({
+
+        errorElement: 'div',
+        ignore : [],
+        rules: {
+            first_name: "required",
+            last_name: "required",
+            password: {
+                required: true,
+                minlength: 6  
+            },
+            email: {
+                required: true,
+                email: true
+          
+            },
+            phone: {
+                required: true,
+                minlength: $("#phone").attr("maxlength"),
+                maxlength: $("#phone").attr("maxlength")    
+            },
+            city : "required",
+            country_phone_code : "required",
+            idproof : {
+                required: true,
+                accept: "image/jpeg, image/pjpeg"
+            }
+        },
+        messages: {
+            idproof: { required: "Required" }
+        }
+    });
+});
+
+$(document).ready(function() {
+
+    var _URL = window.URL || window.webkitURL;
+    $("#profile_image").change(function(e) {
+        var file, img;
+        if ((file = this.files[0])) {
+            img = new Image();
+
+            img.onload = function(e) {
+                
+                if(this.width == this.height)
+                {
+                    $("#profile_image_dimention").html('<font color="red"></font>');
+                    $('#update').prop('disabled', false);
+                }
+                else
+                {
+                    $("#profile_image_dimention").html('<font color="red"><%= admin_messages.error_message_for_profile_image_aspect_ratio %> <b><%= config_json.profile_image_aspect_ratio %></b></font>');
+                    $('#update').prop('disabled', true);
+                }
+            };
+            img.src = _URL.createObjectURL(file);
+        }
+    });
+
+
+    $('#country').change(function(e){
+        var countryname= $("#country option:selected").text();
+        countryname = countryname.split(' ');
+        countryname = countryname.slice(1);
+        countryname = countryname.toString();
+        countryname = countryname.replace(/,/g, ' ');
+
+        $.ajax({
+                type: 'POST',
+                url: '/getcountryphonelength',
+                data: { 'countryname':countryname},
+                dataType: "json",
+                success:function(res){
+                    var wallet_currency_code = res.currencycode;
+                    $('input[name=wallet_currency_code]').val(wallet_currency_code);
+
+                    $("#phone").attr("maxlength", res);
+                    
+                    $("#signupForm" ).validate().settings.rules.phone.minlength=res.phone_number_min_length;
+                    $("#signupForm" ).validate().settings.rules.phone.maxlength=res.phone_number_length;
+                }
+        });
+
+        $('#city').empty();
+        var countryname = document.getElementById('country').value;
+        countryname = countryname.substr(countryname.indexOf(" ") + 1);
+
+        $.ajax({
+            type: 'POST',
+            url: '/city_list',
+            data: 'countryname='+countryname,
+            dataType: "json",
+            success:function(res){
+
+
+                $("#city").append("<option selected disabled hidden style='display: none'>Select City...</option>");
+
+                if(res == "")
+                {
+                    document.getElementById('citymessage').innerHTML="city not available";
+                     $('#reg_button').attr('disabled',true);
+                }
+                else
+                {
+                    for(var index in res)
+                    {
+                        document.getElementById('citymessage').innerHTML="";
+                        $('#reg_button').attr('disabled',false);
+                      var city_name = res[index].cityname;
+                      var city_id = res[index]._id;
+                      var country_id = res[index].countryid;
+                      $("#city").append("<option value="+city_id+">"+ city_name + "</option>");
+                      $('input[name=country_id]').val(country_id);
+                      $('input[name=city_id]').val(city_id);
+                      }
+                }
+                $('#city').selectpicker('refresh');
+            }
+        });
+    });
+});
+
+</script>   
+
+<link href="css/image-cropper/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="css/image-cropper/jquery.awesome-cropper.css">
+<script src="js/image-cropper/jquery.imgareaselect.js"></script> 
+<script src="js/image-cropper/jquery.awesome-cropper.js"></script> 
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
+        
+<script>
+    $(document).ready(function () {
+        $('#sample_input').awesomeCropper(
+            { width: 150, height: 150, debug: true }
+        );
+    });
+</script>
+        
+<% include footer_form.html %>    
+
+
+
+

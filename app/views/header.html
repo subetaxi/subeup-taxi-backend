@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- META SECTION -->
+        <title>
+            <%= constant_json.app_name %>
+        </title>
+        <!-- FORM VALIDATION -->
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        <script type="text/javascript" src="js/actions.js"></script>
+
+        <script type='text/css' src='js/clock-picker/bootstrap-clockpicker.min.css'></script>
+        <script type='text/javascript' src='js/clock-picker/bootstrap-clockpicker.min.js'></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var path = window.location.pathname;
+                var value = path.split('/');
+               
+                $('#' + value[1]).addClass('active');
+                var page_title = $('#' + value[1]).text();
+                $('#page_title').text(page_title);
+                $('#' + value[1]).parent().parent().addClass("active");
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/session_data',
+                    data: {'type': 'admin'},
+                    dataType: "json",
+                    success: function (response) {
+                        if(response.success){
+                            $('option[value=' + response.cookies + ']').attr('selected',true);
+                            if (response.session_data.type == 1) {
+                                var index = response.session_data.url_array.indexOf(value[1]);
+                                if (index == -1 && value[1] != 'dashboard') {
+                                    window.location.href = 'dashboard';
+                                }
+
+                                if (response.session_data.url_array.indexOf('today_requests') == -1) {
+                                    $('#today_requests').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('requests') == -1) {
+                                    $('#requests').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('schedules') == -1) {
+                                    $('#schedules').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('reviews') == -1) {
+                                    $('#reviews').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('cancelation_reasons') == -1) {
+                                    $('#cancelation_reasons').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('mapview') == -1) {
+                                    $('#mapview').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('provider_track') == -1) {
+                                    $('#provider_track').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('all_city') == -1) {
+                                    $('#all_city').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('all_city') == -1 && response.session_data.url_array.indexOf('provider_track') == -1 && response.session_data.url_array.indexOf('mapview') == -1) {
+                                    $('#map_menu').hide();
+                                }
+
+
+                                if (response.session_data.url_array.indexOf('online_providers') == -1) {
+                                    $('#online_providers').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('approved_providers') == -1) {
+                                    $('#approved_providers').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('pending_for_approvel') == -1) {
+                                    $('#pending_for_approvel').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('pending_for_approvel') == -1 && response.session_data.url_array.indexOf('online_providers') == -1 && response.session_data.url_array.indexOf('approved_providers') == -1) {
+                                    $('#provider_menu').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('users') == -1) {
+                                    $('#users').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('declined_users') == -1) {
+                                    $('#declined_users').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('users') == -1 && response.session_data.url_array.indexOf('declined_users') == -1) {
+                                    $('#user_menu').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('dispatcher') == -1) {
+                                    $('#dispatcher_menu').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('corporate') == -1) {
+                                    $('#corporate_menu').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('hotel') == -1) {
+                                    $('#hotel_menu').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('partners') == -1) {
+                                    $('#partner_menu').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('service_types') == -1) {
+                                    $('#service_types').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('country') == -1) {
+                                    $('#country').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('city') == -1) {
+                                    $('#city').hide();
+                                }
+
+
+
+                                if (response.session_data.url_array.indexOf('city_type') == -1) {
+                                    $('#city_type').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('all_city') == -1 && response.session_data.url_array.indexOf('service_types') == -1 && response.session_data.url_array.indexOf('country') == -1 && response.session_data.url_array.indexOf('city') == -1 && response.session_data.url_array.indexOf('city_type') == -1) {
+                                    $('#type_menu').hide();
+                                }
+                                
+                                if (response.session_data.url_array.indexOf('trip_earning') == -1) {
+                                    $('#trip_earning').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('daily_earning') == -1) {
+                                    $('#daily_earning').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('weekly_earning') == -1) {
+                                    $('#weekly_earning').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('admin_partner_weekly_earning') == -1) {
+                                    $('#admin_partner_weekly_earning').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('wallet_history') == -1) {
+                                    $('#wallet_history').hide();
+                                }
+                                 if (response.session_data.url_array.indexOf('transaction_history') == -1) {
+                                    $('#transaction_history').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('transaction_history') == -1 && response.session_data.url_array.indexOf('trip_earning') == -1 && response.session_data.url_array.indexOf('daily_earning') == -1 && response.session_data.url_array.indexOf('weekly_earning') == -1 && response.session_data.url_array.indexOf('admin_partner_weekly_earning') == -1 && response.session_data.url_array.indexOf('wallet_history') == -1) {
+                                    $('#trip_earning_menu').hide();
+                                }
+                            
+
+                                if (response.session_data.url_array.indexOf('languages') == -1) {
+                                    $('#languages').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('promotions') == -1) {
+                                    $('#promotions').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('documents') == -1) {
+                                    $('#documents').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('email') == -1) {
+                                    $('#email').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('sms') == -1) {
+                                    $('#sms').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('admin_list') == -1) {
+                                    $('#admin_list').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('terms_and_privacy_setting') == -1) {
+                                    $('#terms_and_privacy_setting').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('settings') == -1) {
+                                    $('#settings').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('installation_settings') == -1) {
+                                    $('#installation_settings').hide();
+                                }
+                                if (response.session_data.url_array.indexOf('languages') == -1 && response.session_data.url_array.indexOf('promotions') == -1 && response.session_data.url_array.indexOf('documents') == -1 && response.session_data.url_array.indexOf('email') == -1 && response.session_data.url_array.indexOf('sms') == -1 && response.session_data.url_array.indexOf('terms_and_privacy_setting') == -1 && response.session_data.url_array.indexOf('admin_list') == -1 && response.session_data.url_array.indexOf('settings') == -1 && response.session_data.url_array.indexOf('installation_settings') == -1) {
+                                    $('#setting_menu').hide();
+                                }
+
+                                if (response.session_data.url_array.indexOf('send_mass_notification') == -1) {
+                                    $('#send_mass_notification_menu').hide();
+                                }
+
+
+                            }
+                        } else {
+                            window.location = 'payment_pending'
+                        }
+                    }
+                });
+
+                $('#dispatcher_menu').click(function () {
+                    window.location.href = $('#dispatchers').attr('href');
+
+                })
+                $('#corporate_menu').click(function () {
+                    window.location.href = $('#corporates').attr('href');
+
+                })
+
+                $('#hotel_menu').click(function () {
+
+                    window.location.href = $('#hotels').attr('href');
+
+                })
+
+
+                $('#partner_menu').click(function () {
+                    window.location.href = $('#partner').attr('href');
+
+                })
+
+                $('.day').click(function () {
+                    alert("day")
+                })
+
+            });
+        </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+        <!-- END META SECTION -->
+
+        <!-- CSS INCLUDE -->
+        <link rel="stylesheet" type="text/css" href="css/theme-default.css" />
+        <link rel="stylesheet" type="text/css" href="css/map.css" />
+        <!-- EOF CSS INCLUDE -->
+
+    </head>
+
+    <body>
+        <!-- START PAGE CONTAINER -->
+        <div class="page-container">
+            <!-- START PAGE SIDEBAR -->
+            <div class="page-sidebar">
+                <!-- START X-NAVIGATION -->
+                <ul class="x-navigation">
+                    <li>
+
+                        <a style="text-align: center;">
+                            <%= config_json.app_name %>
+                        </a>
+                        <a href="#" class="x-navigation-control"></a>
+                    </li>
+                    <li class="xn-profile">
+
+                        <div class="profile">
+                            <div class="profile-image">
+                                <img src="web_images/logo.png" style="border:none" alt="Eber" />
+                            </div>
+                            <div class="profile-data">
+                                <div class="profile-data-name"></div>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+                    <ul id="menu-item">
+
+                        <li class="xn-openable deactive" id="dashboard_menu">
+                            <a href="/dashboard"><span class="fa fa-bar-chart-o"></span> <span class="xn-text"><%= config_json.menu_title_dashboard %></span></a>
+                            <ul>
+                                <li id="dashboard"><a href="/dashboard" id="home"><span class="fa fa-dashboard"></span> <span class="xn-text"><%= config_json.menu_title_dashboard %></span></a></li>
+                                <li id="today_requests"><a href="/today_requests"><span class="glyphicon glyphicon-send"></span> <span class="xn-text"><%= config_json.sub_menu_title_requests_on_today %></span></a></li>
+                                <li id="requests"><a href="/requests"><span class="fa fa-calendar"></span> <span class="xn-text"><%= config_json.sub_menu_title_completed_requests %></span></a></li>
+                                <li id="schedules"><a href="/schedules"><span class="fa fa-calendar-o"></span> <span class="xn-text"><%= config_json.sub_menu_title_schedule_requests %></span></a></li>
+                                <li id="reviews"><a href="/reviews"><span class="fa fa-thumbs-up"></span> <span class="xn-text"><%= config_json.sub_menu_title_reviews %></span></a></li>
+                                <li id="cancelation_reasons"><a href="/cancelation_reasons"><span class="fa fa-tasks"></span> <span class="xn-text"><%= config_json.sub_menu_title_cancellation_reason %></span></a></li>
+
+
+
+                            </ul>
+                        </li>
+
+                        <li class="xn-openable deactive" id="map_menu">
+                            <a href="/mapview"><span class="glyphicon glyphicon-send fa fa-map-marker"></span> <span class="xn-text"><%= config_json.menu_title_map_view %></span></a>
+                            <ul>
+                                <li id="mapview"><a href="/mapview"><span class="fa fa-map-marker"></span> <span class="xn-text"><%= config_json.sub_menu_title_providers_map_view %></span></a></li>
+                                <li id="provider_track"><a href="/provider_track"><span class="fa fa-map-marker"></span> <span class="xn-text"><%= config_json.title_provider_track %></span></a></li>
+                                <li id="all_city"><a href="/all_city"><span class="fa fa-road"></span> <span class="xn-text "><%= config_json.title_all_cities %></span></a></li>                                   
+
+                            </ul>
+                        </li>
+
+                        <li class="xn-openable deactive" id="provider_menu">
+                            <a href="#"><span class="fa fa-users"></span> <span class="xn-text"><%= config_json.menu_title_providers %></span></a>
+                            <ul>
+                                <li id="online_providers"><a href="/online_providers"><span class="fa fa-hand-o-right"></span> <span class="xn-text"><%= config_json.sub_menu_title_online_providers %></span></a></li>
+                                <li id="approved_providers"><a href="/approved_providers"><span class="fa fa-check"></span> <span class="xn-text"><%= config_json.sub_menu_title_approved_providers %></span></a></li>
+                                <li id="pending_for_approvel"><a href="/pending_for_approvel"><span class="fa fa-exclamation-triangle"></span> <span class="xn-text"><%= config_json.sub_menu_title_pending_for_approve_providers %></span></a></li>
+                            </ul>
+                        </li>
+
+                        <li class="xn-openable deactive" id="user_menu">
+                            <a href="#"><span class="fa fa-users"></span> <span class="xn-text"><%= config_json.title_users %></span></a>
+                            <ul>
+                                <li id="users"><a href="/users"><span class="glyphicon glyphicon-user"></span> <span class="xn-text"><%= config_json.title_users %></span></a></li>
+                                <li id="declined_users"><a href="/declined_users"><span class="fa fa-meh-o"></span> <span class="xn-text"><%= config_json.sub_menu_title_block_users %></span></a></li>
+
+                            </ul>
+                        </li>
+
+
+                        <li class="xn-openable deactive" id="dispatcher_menu">
+                            <a href="/dispatcher"><span class="fa fa-user"></span> <span class="xn-text"><%= config_json.sub_menu_title_dispatcher %></span></a>
+                            <ul>
+                                <li id="dispatcher" style="display: none;"><a href="/dispatcher" id="dispatchers"><span class="fa fa-user"></span> <span class="xn-text"><%= config_json.sub_menu_title_dispatcher %></span></a></li>
+
+
+                            </ul>
+                        </li>
+                        <li class="xn-openable deactive" id="corporate_menu">
+                            <a href="/corporate"><span class="fa fa-user"></span> <span class="xn-text"><%= config_json.sub_menu_title_corporate %></span></a>
+                            <ul>
+                                <li id="corporate" style="display: none;"><a href="/corporate" id="corporates"><span class="fa fa-user"></span> <span class="xn-text"><%= config_json.sub_menu_title_corporate %></span></a></li>
+
+
+                            </ul>
+                        </li>
+
+                        <li class="xn-openable deactive" id="hotel_menu">
+                            <a href="/hotel"><span class="fa fa-user"></span> <span class="xn-text"><%= config_json.sub_menu_title_hotel %></span></a>
+                            <ul>
+                                <li id="hotel" style="display: none;"><a href="/hotel" id="hotels"><span class="fa fa-user"></span> <span class="xn-text"><%= config_json.sub_menu_title_hotel %></span></a></li>
+
+                            </ul>
+                        </li>
+
+
+                        <li class="xn-openable deactive" id="partner_menu">
+                            <a href="/partners"><span class="fa fa-users"></span> <span class="xn-text"><%= config_json.sub_menu_title_partners %></span></a>
+                            <ul>
+                                <li id="partners" style="display: none;"><a href="/partners" id="partner"><span class="fa fa-users"></span> <span class="xn-text"><%= config_json.sub_menu_title_partners %></span></a></li>
+
+                            </ul>
+                        </li>
+
+
+                        <li class="xn-openable deactive " id="type_menu">
+                            <a href="# "><span class="fa fa-dashboard "></span> <span class="xn-text "><%= config_json.menu_title_city_type %></span></a>
+                            <ul>
+                                <li id="service_types"><a href="/service_types"><span class="fa fa-truck
+                                                                                      "></span> <span class="xn-text"><%= config_json.title_type %></span></a></li>
+                                <li id="country"><a href="/country"><span class="fa fa-globe
+                                                                          "></span> <span class="xn-text "><%= config_json.title_country %></span></a></li>
+                                <li id="city"><a href="/city"><span class="fa fa-road
+                                                                    "></span> <span class="xn-text "><%= config_json.title_city %></span></a></li>
+
+
+                                <li id="city_type"><a href="/city_type"><span class="fa fa-tasks
+                                                                              "></span> <span class="xn-text "><%= config_json.menu_title_city_service_types %></span></a></li>
+                            </ul>
+                        </li>
+
+
+
+
+                        <li class="xn-openable deactive" id="trip_earning_menu">
+                            <a href="/admin"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.menu_title_trip_payments %></span></a>
+                            <ul>
+                                <li id="trip_earning">
+                                    <a style="background: #273541"><form method="post" action="/trip_earning">
+                                            <input type="hidden" name="type" value="admin" />
+                                            <button type="submit" class="btn btn-default" style="border-color: #273541; background-color: #273541; text-align: left; color: white; width: 100%;"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.sub_menu_title_trip_earnings %></span></button>
+                                        </form></a>
+                                </li>
+
+
+                                <li id="daily_earning">
+                                    <a style="background: #273541"><form method="post" action="/daily_earning">
+                                            <input type="hidden" name="type" value="admin" />
+                                            <button type="submit" class="btn btn-default" style="border-color: #273541; background-color: #273541; text-align: left; color: white; width: 100%;"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.sub_menu_title_daily_earning %></span></button>
+                                        </form></a>
+                                </li>
+
+                                <li id="weekly_earning">
+                                    <a style="background: #273541"><form method="post" action="/weekly_earning">
+                                            <input type="hidden" name="type" value="admin" />
+                                            <button type="submit" class="btn btn-default" style="border-color: #273541; background-color: #273541; text-align: left; color: white; width: 100%;"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.sub_menu_title_weekly_earning %></span></button>
+                                        </form></a>
+                                </li>
+
+                                <li id="admin_partner_weekly_earning">
+                                    <a style="background: #273541"><form method="post" action="/admin_partner_weekly_earning">
+                                            <input type="hidden" name="type" value="admin" />
+                                            <button type="submit" class="btn btn-default" style="border-color: #273541; background-color: #273541; text-align: left; color: white; width: 100%;"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.sub_menu_title_partner_weekly_payments %></span></button>
+                                        </form></a>
+                                </li>
+
+                                <li id="wallet_history">
+                                    <a style="background: #273541"><form method="post" action="/wallet_history">
+                                            <input type="hidden" name="type" value="admin" />
+                                            <button type="submit" class="btn btn-default" style="border-color: #273541; background-color: #273541; text-align: left; color: white; width: 100%;"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.sub_menu_title_wallet_history %></span></button>
+                                        </form></a>
+                                </li>
+                                
+                                 <li id="transaction_history">
+                                    <a style="background: #273541"><form method="post" action="/transaction_history">
+                                            <input type="hidden" name="type" value="admin" />
+                                            <button type="submit" class="btn btn-default" style="border-color: #273541; background-color: #273541; text-align: left; color: white; width: 100%;"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.sub_menu_title_transaction_history %></span></button>
+                                        </form></a>
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+
+                        <li class="xn-openable deactive" id="report">
+                            <a href="/report"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.menu_title_report %></span></a>
+                            <ul>
+                                <li id="referral_report">
+                                    <a style="background: #273541">
+                                        <form method="post" action="/referral_report">
+                                            <button type="submit" class="btn btn-default" style="border-color: #273541; background-color: #273541; text-align: left; color: white; width: 100%;"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.sub_menu_title_referral_report %></span></button>
+                                        </form>
+                                    </a>
+                                </li>
+                                <li id="provider_referral_report">
+                                    <a style="background: #273541">
+                                        <form method="post" action="/provider_referral_report">
+                                            <button type="submit" class="btn btn-default" style="border-color: #273541; background-color: #273541; text-align: left; color: white; width: 100%;"><span class="fa fa-dollar"></span> <span class="xn-text"><%= config_json.sub_menu_title_provider_referral_report %></span></button>
+                                        </form>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="xn-openable deactive" id="setting_menu">
+                            <a href="/settings "><span class="fa fa-gears "></span> <span class="xn-text "><%= config_json.menu_title_settings %></span></a>
+                            <ul>
+
+                                <li id="languages"><a href="/languages"><span class="fa fa-language
+                                                                              "></span> <span class="xn-text "><%= config_json.menu_title_languages %></span></a></li>
+                                <li id="settings"><a href="/settings"><span class="fa fa-cog
+                                                                            "></span> <span class="xn-text "><%= config_json.menu_title_basic_settings %></span></a></li>
+                                <li id="installation_settings"><a href="/installation_settings"><span class="fa fa-list-ol "></span> <span class="xn-text "><%= config_json.sub_menu_title_installation_settings %></span></a></li>
+                                <li id="promotions"><a href="/promotions"><span class="glyphicon glyphicon-gift
+                                                                                "></span> <span class="xn-text"><%= config_json.sub_menu_title_promotions %></span></a></li>
+                                <li id="documents"><a href="/documents"><span class="fa fa-files-o
+                                                                              "></span> <span class="xn-text "><%= config_json.sub_menu_title_documents_for_country %></span></a></li>
+
+
+                                <li id="email"><a href="/email"><span class="glyphicon glyphicon-envelope
+                                                                      "></span> <span class="xn-text "><%= config_json.sub_menu_title_mail_template %></span></a></li>
+
+                                <li id="sms"><a href="/sms"><span class="glyphicon glyphicon-envelope
+                                                                  "></span> <span class="xn-text "><%= config_json.sub_menu_title_sms_template %></span></a></li>
+                                <li id="admin_list"><a href="/admin_list"><span  class="fa fa-user-md"></span> <span class="xn-text"><%= config_json.menu_title_admin %></span></a></li>
+                                <li id="terms_and_privacy_setting"><a href="/terms_and_privacy_setting"><span  class="fa fa-user-md"></span> <span class="xn-text"><%= config_json.menu_title_terms_and_privacy_setting %></span></a></li>
+
+
+                                <!--<li id="# "><a href="# "><span class="fa fa-files-o
+            "></span> <span class="xn-text "><%= config_json.Admin_subadmin %></span></a></li>-->
+                            </ul>
+                        </li>
+
+                        <li class="xn-openable deactive " id="send_mass_notification_menu">
+                            <a href="# "><span class="glyphicon glyphicon-send
+                                               "></span> <span class="xn-text "><%= config_json.menu_title_send_mass_notification %></span></a>
+                            <ul>
+                                <li id="send_mass_notification"><a href="/send_mass_notification"><span class="glyphicon glyphicon-envelope
+                                                                                                         "></span> <span class="xn-text "><%= config_json.menu_title_send_mass_notification %></span></a></li>
+
+
+<!--                                               <li id="send_mass_notification"><a href="/send_mass_sms"><span class="glyphicon glyphicon-envelope
+                                                                                                         "></span> <span class="xn-text ">Send Mass SMS</span></a></li>-->
+                            </ul>
+                        </li>
+
+                    </ul>
+                </ul>
+                <!-- END X-NAVIGATION -->
+            </div>
+            <!-- END PAGE SIDEBAR --> 
+            <!-- PAGE CONTENT -->
+            <div class="page-content ">
+
+                <!-- START X-NAVIGATION VERTICAL -->
+                <ul class="x-navigation x-navigation-horizontal x-navigation-panel ">
+                    <li class="xn-icon-button">
+                        <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+                    </li>
+                    <li style="text-align: center; width: 75%; ">
+                        <a href="# " class="mb-control pagination-centered "> <span id="page_title" class="mb-control pagination-centered "></span></a>
+                    </li>
+                    <li>
+                        <select id = "languageId">
+                                <option selected disabled hidden style='display: none' >Select Language..</option>
+                                <option value="<%= LANGUAGES.english %>"> <%= LANGUAGES.english %></option>
+                        </select>
+                    </li>
+                    <li class="xn-icon-button pull-right last">
+
+                        <a href="sign_out "><span class="fa fa-power-off "></span></a>
+                    </li>        
+                </ul>
+
+
+
+<script type="text/javascript">
+
+        $("#languageId").change(function(){
+             
+                 // console.log(window.location.pathname);
+                // document.cookie = "language="+this.value ;
+              $.ajax({
+                type: 'POST',
+                 url: '/change_language',
+                 data: {'language': this.value},
+                 dataType: "json",
+                 success: function (response) {
+                    console.log(response)
+                     // alert(JSON.stringify(response));
+                       // console.log(window.location.pathname);
+                     window.location.reload();
+                 }
+            })
+
+
+            // alert("The text has been changed." + this.value);
+        });
+
+</script> 

@@ -1,0 +1,208 @@
+<% include partner_header.html %>  
+
+	<!-- PAGE TITLE -->
+	<div class="page-title">                    
+		<h2><span class="fa fa-cogs"></span> <%= config_json.title_vehicle_detail %></h2>
+	</div>
+	<!-- END PAGE TITLE -->                     
+	
+	<!-- PAGE CONTENT WRAPPER -->
+	<div class="page-content-wrap">
+		<div class="col-md-6 col-sm-8 col-xs-12">
+			<% if(typeof vehicle_detail != 'undefined'){ %>
+			<form class="form-horizontal" method="post" action="/partner_update_vehicle_details" enctype="multipart/form-data">
+				<div class="panel panel-default">
+					<div class="panel-body form-group-separated">
+						
+                        <div class="form-group">
+							<input type="hidden"  class="form-control" value="<%= partner_id %>" name="partner_id"/>
+							<input type="hidden"  class="form-control" value="<%= vehicle_detail._id %>" name="vehicle_id"/>
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_name %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" value="<%= vehicle_detail.name %>" name="name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_plate_no %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" value="<%= vehicle_detail.plate_no %>" name="plate_no"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_model %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" value="<%= vehicle_detail.model %>" name="model"/>
+							</div>
+						</div> 
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_color %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" value="<%= vehicle_detail.color %>" name="color"/>
+							</div>
+						</div> 
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_passing_year %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text" readonly class="form-control" value="<%= vehicle_detail.passing_year %>" name="passing_year"/>
+							</div>
+						</div> 
+						
+						
+                                            
+                                            <div class="form-group" id="payment">
+                                                <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_accessibility %></label>
+                                                <div class="col-md-9 col-xs-7">
+                                                   <% vehicle_accesibility.forEach(function(data) { %>
+                                                   
+                                                   <% if(vehicle_detail.accessibility != undefined && vehicle_detail.accessibility.length>0){ %>
+                                                   <%  if(vehicle_detail.accessibility.indexOf(data.ID) == -1) { %> 
+                                                   <div class="col-md-12 col-xs-12 col-sm-12">  
+                                                         <label class="check"><input type="checkbox"  id="<%=data.ID%>" value="<%=data.ID%>" name="accessibility[]" class="icheckbox"/> <%=data.NAME%></label>
+                                      
+                                                    </div>
+                                                  <% }else {%> 
+                                                  <div class="col-md-12 col-xs-12 col-sm-12">  
+                                                         <label class="check"><input type="checkbox" checked id="<%=data.ID%>" value="<%=data.ID%>" name="accessibility[]" class="icheckbox"/> <%=data.NAME%></label>
+                                      
+                                                    </div>
+                                                 <%  } %>
+                                                 
+                                                 <%  } else {%>
+                                                 
+                                                 <div class="col-md-12 col-xs-12 col-sm-12">  
+                                                         <label class="check"><input type="checkbox"  id="<%=data.ID%>" value="<%=data.ID%>" name="accessibility[]" class="icheckbox"/> <%=data.NAME%></label>
+                                      
+                                                 </div>
+                                                 
+                                                     <%  } %>
+                                                    <% }); %>
+                                                </div>
+                                            </div>
+						                                         
+						<div class="form-group">
+							<div class="col-md-12 col-xs-12">
+								<button class="btn btn-primary btn-rounded pull-right" type="submit" name="submit" value="submit" id="update"><%= config_json.button_save %></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+                    
+                    
+                    <% }else {%>
+                    
+                    <form class="form-horizontal" method="post" action="/partner_add_vehicle_details" enctype="multipart/form-data">
+				<div class="panel panel-default">
+					<div class="panel-body form-group-separated">
+						
+                        <div class="form-group">
+							<input type="hidden"  class="form-control" value="<%= partner_id %>" name="partner_id"/>
+
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_name %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" value="" name="name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_plate_no %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" value="" name="plate_no"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_model %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" value="" name="model"/>
+							</div>
+						</div> 
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_color %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" value="" name="color"/>
+							</div>
+						</div> 
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_passing_year %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" value="" name="passing_year"/>
+							</div>
+						</div> 
+						
+						
+                                            
+                                            <div class="form-group" id="payment">
+                                                <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_accessibility %></label>
+                                                <div class="col-md-9 col-xs-7">
+
+                                                    <% vehicle_accesibility.forEach(function(data) { %>
+                                                    <div class="">  
+                                                        <label class="check"><input type="checkbox"  id="<%=data.ID%>" value="<%=data.ID%>" name="accessibility[]" class="icheckbox"/> <%=data.NAME%></label>
+                                                    </div>
+                                                    <% }); %>
+
+                                                </div>
+                                            </div>
+						                                         
+						<div class="form-group">
+							<div class="col-md-12 col-xs-12">
+								<button class="btn btn-primary btn-rounded pull-right" type="submit" name="submit" value="submit" id="update"><%= config_json.button_save %></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+                    
+                    <% }%>
+                    
+                    
+		</div>
+	</div>
+	<!-- END PAGE CONTENT WRAPPER -->                                                 
+</div>            
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+<script type="text/javascript">
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+        return false;
+    }
+    return true;
+}
+$(document).ready(function() {
+ 	$(".form-horizontal").validate({
+ 		ignore:[],
+	   	rules: {
+	     	name: "required",
+	     	plate_no: "required",
+	     	model: "required",
+	     	color: "required",
+		    service_type:{
+		        required: true
+		    }
+		}
+	});
+        
+        $('#is_payment_mode_card').change(function (e) {
+
+            if(this.value==1)
+            {
+                $("#payment").css("display", "block");
+            }
+            else
+            {
+                $("#payment").css("display", "none");
+            }
+
+        });
+
+
+	
+var _URL = window.URL || window.webkitURL;
+
+});
+
+</script>
+<% include footer_list.html %>

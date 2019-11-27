@@ -1,0 +1,171 @@
+<% include provider_header.html %>                    
+	<!-- PAGE TITLE -->
+	<div class="page-title">                    
+		<h2><span class="fa fa-cogs"></span> <%= config_json.title_vehicle_detail %></h2>
+	</div>
+	<!-- END PAGE TITLE -->                     
+	
+	<!-- PAGE CONTENT WRAPPER -->
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 box_selet_bg">
+		<div class="col-md-6 col-sm-8 col-xs-12">
+			<div class="box_selet_lft">
+			
+			<% if(typeof vehicle_detail != 'undefined'){ %>
+			<div class="box_sele_head">
+                            <h5><%= config_json.button_edit_vehicle %></h5>
+                        </div>
+				<form class="form-horizontal" method="post" action="/provider_update_vehicle_details" enctype="multipart/form-data">
+					<div class="edit_pro_cont_bg">
+						<div class="cont_pro">
+							<input type="hidden"  class="form-control" value="<%= provider_id %>" name="provider_id"/>
+							<input type="hidden"  class="form-control" value="<%= vehicle_detail._id %>" name="vehicle_id"/>
+
+							<div class="edit_input">
+	                            <div class="edit_label"><label><%= config_json.title_name %></label></div>
+	                            <div class="edit_input_rgt"><input id="name" type="text" name="name" value="<%= vehicle_detail.name %>"  ></div>
+	                        </div>
+	                        <div class="edit_input">
+	                            <div class="edit_label"><label><%= config_json.title_plate_no %></label></div>
+	                            <div class="edit_input_rgt"><input type="text" name="plate_no" value="<%= vehicle_detail.plate_no %>"  ></div>
+	                        </div>
+
+	                        <div class="edit_input">
+	                            <div class="edit_label"><label><%= config_json.title_model %></label></div>
+	                            <div class="edit_input_rgt"><input id="model" type="text" name="model" value="<%= vehicle_detail.model %>"  ></div>
+	                        </div>
+	                        <div class="edit_input">
+	                            <div class="edit_label"><label><%= config_json.title_color %></label></div>
+	                            <div class="edit_input_rgt"><input id="color" type="text" name="color" value="<%= vehicle_detail.color %>"  ></div>
+	                        </div>
+	                        <div class="edit_input">
+	                            <div class="edit_label"><label><%= config_json.title_passing_year %></label></div>
+	                            <div class="edit_input_rgt"><input id="name" type="text" name="passing_year" value="<%= vehicle_detail.passing_year %>"  ></div>
+	                        </div>
+                                                        <div class="edit_input">
+                                                            <div class="edit_label"><label><%= config_json.title_accessibility %></label></div>
+
+                                                            <% vehicle_accesibility.forEach(function(data) { %>
+                                                            <% if(vehicle_detail.accessibility != undefined && vehicle_detail.accessibility.length>0){ %>
+                                                            
+                                                            <% if(vehicle_detail.accessibility.indexOf(data.ID) == -1) { %> 
+                                                            <div class="">  
+                                                                <label class="check"><input type="checkbox"  id="<%=data.ID%>" value="<%=data.ID%>" name="accessibility[]" class="icheckbox"/> <%=data.NAME%></label>
+
+                                                            </div>
+                                                            <% }else {%> 
+                                                            <div class="">  
+                                                                <label class="check"><input type="checkbox" checked id="<%=data.ID%>" value="<%=data.ID%>" name="accessibility[]" class="icheckbox"/> <%=data.NAME%></label>
+
+                                                            </div>
+                                                            <%  } %>
+                                                            
+                                                             <%  } else {%>
+                                                                  <div class="">  
+                                                                <label class="check"><input type="checkbox"  id="<%=data.ID%>" value="<%=data.ID%>" name="accessibility[]" class="icheckbox"/> <%=data.NAME%></label>
+
+                                                            </div>
+                                                            <%  } %>
+
+                                                            <% }); %>
+
+                                                        </div> 
+							                             
+							<div class="form-group">
+								<div class="col-md-12 col-xs-12">
+									<button class="btn btn-primary btn-rounded pull-right" type="submit" name="submit" value="submit" id="update"><%= config_json.button_save %></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			<% } else { %> 
+			<div class="box_sele_head">
+                            <h5><%= config_json.button_add_vehicle %></h5>
+            </div>
+				<form class="form-horizontal" method="post" action="/provider_add_vehicle_details" enctype="multipart/form-data">
+					<div class="edit_pro_cont_bg">
+						<div class="cont_pro">
+							<input type="hidden"  class="form-control" value="<%= provider_id %>" name="provider_id"/>
+
+							<div class="edit_input">
+	                            <div class="edit_label"><label><%= config_json.title_name %></label></div>
+	                            <div class="edit_input_rgt"><input id="name" type="text" name="name" value=""  ></div>
+	                        </div>
+	                        <div class="edit_input">
+	                            <div class="edit_label"><label><%= config_json.title_plate_no %></label></div>
+	                            <div class="edit_input_rgt"><input type="text" name="plate_no" value=""  ></div>
+	                        </div>
+
+	                        <div class="edit_input">
+	                            <div class="edit_label"><label><%= config_json.title_model %></label></div>
+	                            <div class="edit_input_rgt"><input id="model" type="text" name="model" value=""  ></div>
+	                        </div>
+	                        <div class="edit_input">
+	                            <div class="edit_label"><label><%= config_json.title_color %></label></div>
+	                            <div class="edit_input_rgt"><input id="color" type="text" name="color" value=""  ></div>
+	                        </div>
+                                                        <div class="edit_input">
+                                                            <div class="edit_label"><label><%= config_json.title_passing_year %></label></div>
+                                                            <div class="edit_input_rgt"><input id="name" type="text" name="passing_year" value=""  ></div>
+                                                        </div>
+                                                        <div class="edit_input">
+                                                            <div class="edit_label"><label><%= config_json.title_accessibility %></label></div>
+                                                            <% vehicle_accesibility.forEach(function(data) { %>
+                                                            <div class="">  
+                                                                <label class="check"><input type="checkbox"  id="<%=data.ID%>" value="<%=data.ID%>" name="accessibility[]" class="icheckbox"/> <%=data.NAME%></label>
+
+                                                            </div>
+                                                            <% }); %>
+                                                        </div>                        
+
+							
+							
+							                                         
+							<div class="form-group">
+								<div class="col-md-12 col-xs-12">
+									<button class="btn btn-primary btn-rounded pull-right" type="submit" name="submit" value="submit" id="update"><%= config_json.button_save %></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			<% } %>
+		</div>
+		</div>
+	</div>
+	<!-- END PAGE CONTENT WRAPPER -->                                                 
+</div>            
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+<script type="text/javascript">
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+        return false;
+    }
+    return true;
+}
+$(document).ready(function() {
+ 	$(".form-horizontal").validate({
+ 		ignore:[],
+	   	rules: {
+	     	name: "required",
+	     	plate_no: "required",
+	     	model: "required",
+	     	color: "required",
+		    service_type:{
+		        required: true
+		    }
+		}
+	});
+
+
+	
+var _URL = window.URL || window.webkitURL;
+
+});
+
+</script>
+<% include provider_footer.html %>

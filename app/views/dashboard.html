@@ -1,0 +1,489 @@
+
+<% include header.html %>
+    <!-- PAGE CONTENT WRAPPER -->
+    <style type="text/css">
+    </style>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script> 
+    <script type="text/javascript" src="js/plugins/owl/owl.carousel.min.js"></script>
+    <div class="page-content-wrap">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="widget widget-default widget-carousel">
+                    <div class="owl-carousel" id="owl-example">
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= detail.total_users %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_users %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= detail.total_providers %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_providers %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= detail.total_countries %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_countries %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= detail.total_cities %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_cities %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END WIDGET SLIDER -->
+            </div>
+            <div class="col-md-4">
+                <div class="widget widget-default widget-carousel">
+                    <div class="owl-carousel" id="owl-example">
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= (detail.total_trips) %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_trips %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= detail.total_trips_completed %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_completed_trips %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= detail.cancelled_by_user %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_cancelled_by_user %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= detail.cancelled_by_provider %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_cancelled_by_provider %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= detail.is_trip_cancelled %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_cancelled_by_schedule %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= detail.running %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_running_trip %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="widget widget-default widget-carousel">
+                    <div class="owl-carousel" id="owl-example">
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= (detail.Total_payment).toFixed() %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_payment %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= (detail.total_card_payment).toFixed() %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_card %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= (detail.total_cash_payment).toFixed() %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_cash %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= (detail.total_referral_payment).toFixed() %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_refferal_payment %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= (detail.total_promo_payment).toFixed() %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_promotional_payment %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= (detail.total_wallet_payment).toFixed() %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_wallet_payment %>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="widget-int num-count">
+                                <%= (detail.total_remaining_payment).toFixed() %>
+                            </div>
+                            <div class="widget-title">
+                                <%= config_json.title_total_remaining_payment %>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title-box">
+                                <h3><%= config_json.title_Payment_chart %></h3>
+                            </div>
+                            <ul class="panel-controls" style="margin-top: 2px;">
+                                <li><a id="fullscreen_payment_chart" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body padding-0">
+                            <div class="chart-holder" id="payment_chart_percentage"  style="height: 200px;"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+
+                    <!-- START USERS ACTIVITY BLOCK -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title-box">
+                                <h3><%= config_json.title_earning_chart %></h3>
+                            </div>
+                            <ul class="panel-controls" style="margin-top: 2px;">
+                                <li><a id="fullscreen_earning_chart" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body padding-0">
+                            <div class="chart-holder" id="earning_chart"  style="height: 200px;"></div>
+                        </div>
+                    </div>
+                    <!-- END USERS ACTIVITY BLOCK -->
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <!-- START USERS ACTIVITY BLOCK -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title-box">
+                                <h3><%= config_json.title_registration_chart %></h3>
+                            </div>
+                            <ul class="panel-controls" style="margin-top: 2px;">
+                                <li><a id="fullscreen_registration_chart" class="panel-fullscreen"><span class="fa fa-expand"></span></a>
+                                </li><li><a id="refresh" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body padding-0">
+                            <div class="chart-holder" id="registartion_chart"  style="height: 200px;"></div>
+                        </div>
+                    </div>
+                    <!-- END USERS ACTIVITY BLOCK -->
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <!-- START USERS ACTIVITY BLOCK -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title-box">
+                                <h3><%= config_json.title_request_chart %></h3>
+                            </div>
+                            <ul class="panel-controls" style="margin-top: 2px;">
+                                <li><a id="fullscreen_request_chart" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body padding-0">
+                            <div class="chart-holder" id="request_chart"  style="height: 200px;"></div>
+                        </div>
+                    </div>
+                    <!-- END USERS ACTIVITY BLOCK -->
+
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title-box">
+                                <h3><%= config_json.title_country_chart %></h3>
+                            </div>
+                            <ul class="panel-controls" style="margin-top: 2px;">
+                                <li><a id="fullscreen_country_chart" class="panel-fullscreen"><span class="fa fa-expand"></span></a>
+                                </li><li><a id="refresh_country_chart" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body padding-0">
+                            <div class="chart-holder" id="country_chart"  style="height: 200px;"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12">
+
+                    <!-- START USERS ACTIVITY BLOCK -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title-box">
+                                <h3><%= config_json.title_version_chart %></h3>
+                            </div>
+                            <ul class="panel-controls" style="margin-top: 2px;">
+                                <li><a id="fullscreen_version_chart" class="panel-fullscreen"><span class="fa fa-expand"></span></a>
+                                </li><li><a id="refresh_version_chart" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body padding-0">
+                            <div class="chart-holder" id="version_chart"  style="height: 200px;"></div>
+                        </div>
+                    </div>
+                    <!-- END USERS ACTIVITY BLOCK -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript" src="js/plugins/morris/raphael-min.js"></script>
+<script type="text/javascript" src="js/plugins/morris/morris.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('#refresh').trigger('click');  
+        $('#refresh_country_chart').trigger('click');  
+        $('#refresh_version_chart').trigger('click');  
+
+        $(".panel-fullscreen").click(function(){
+            var span_class = $("#"+this.id + ' ' + "span").attr("class");
+
+            if(span_class == 'fa fa-expand')
+            {
+                $(".chart-holder").height(200);
+            }
+        });
+
+        Morris.Donut({
+            element: 'payment_chart_percentage',
+            data: [
+                <%if((detail.total_referral_payment_per).toFixed(2) != 0) { %>
+                    {label: 'Card', value: <%= (detail.total_card_payment_per).toFixed(2) %>},
+                <% } %>
+                <%if((detail.total_cash_payment_per).toFixed(2) != 0) { %>
+                    {label: 'Cash', value: <%= (detail.total_cash_payment_per).toFixed(2) %>},
+                <% } %>
+                <%if((detail.total_referral_payment_per).toFixed(2) != 0) { %>
+                    {label: 'Referral', value: <%= (detail.total_referral_payment_per).toFixed(2) %>},
+                <% } %>
+                <%if((detail.total_promo_payment_per).toFixed(2) != 0) { %>
+                    {label: 'Promotional', value: <%= (detail.total_promo_payment_per).toFixed(2) %>},
+                <% } %>
+                <%if((detail.total_wallet_payment_per).toFixed(2) != 0) { %>
+                    {label: 'Wallet', value: <%= (detail.total_wallet_payment_per).toFixed(2) %>},
+                <% } %>
+                <%if((detail.total_remaining_payment_per).toFixed(2) != 0) { %>
+                    {label: 'Remaining', value: <%= (detail.total_remaining_payment_per).toFixed(2) %>}
+                <% } %>
+                
+            ],
+            colors: ['#3366CC', '#B64645', '#FF9900', '#109618', '#DC3912', '#ff0000'],
+            resize: true
+        });   
+
+        Morris.Bar({
+            element: 'earning_chart',
+            data: [
+               
+                { y: 'Earning', a: '<%= (detail.total_referral_payment).toFixed(2) %>', b: '<%= (detail.total_promo_payment ).toFixed(2) %>', c: '<%= (detail.total_provider_earning ).toFixed(2) %>', d:'<%= (detail.total_admin_earning ).toFixed(2) %>'},
+
+            ],
+            xkey: 'y',
+            ykeys: ['a', 'b', 'c','d'],
+            labels: ['Referral', 'Promo', 'Provider Earn', 'Admin Earn'],
+            barColors: ['#3366CC', '#DC3912', '#FF9900', '#109618'],
+            hideHover: true,
+            resize: true,
+            gridLineColor: '#E5E5E5'
+        });
+
+        Morris.Area({
+          element: 'request_chart',
+          data: [
+            { y: 'Cancelled', a: '<%= detail.is_trip_cancelled %>' },
+            { y: 'Cancelled By Provider', a: '<%= detail.cancelled_by_provider %>' },
+            { y: 'Cancelled By User', a: '<%= detail.cancelled_by_user %>' },
+            { y: 'Completed', a: '<%= detail.total_trips_completed %>' }
+          ],
+          xkey: 'y',
+          ykeys: ['a'],
+          labels: [''],
+          parseTime: false,
+          resize: true,
+          hideHover: true,
+          lineColors: ['#33414E']
+        });
+
+    });
+    
+    $("#refresh").click(function(){
+        registartion_chart();
+    });
+
+    $("#refresh_country_chart").click(function(){
+       
+        country_chart();
+    });
+
+    $("#refresh_version_chart").click(function(){
+        version_chart();
+    });
+
+    function version_chart()
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/app_version_chart',
+            data: '' ,
+            dataType: "json",
+            success:function(response){
+                if(response != false)
+                {
+                    $("#version_chart").empty();
+                    var data = new Array;
+                    for(var i in response)
+                    {
+                        if(response[i].total_android_user !== 0 || response[i].total_ios_user !== 0 || response[i].total_android_provider !==0 || response[i].total_ios_provider !== 0)
+                        {
+                            data.push({ y: response[i].version, a: response[i].total_android_user, b: response[i].total_ios_user,c: response[i].total_android_provider,d: response[i].total_ios_provider,
+                            })
+                        }
+                    }
+
+                    Morris.Bar({
+                        element: 'version_chart',
+                        data: data,
+                        xkey: 'y',
+                        ykeys: ['a','b','c','d'],
+                        labels: ['Android User','Ios User','Android Provider','Ios Provider'],
+                        barColors: ['#3366CC', '#DC3912', '#FF9900', '#109618'],
+                        hideHover: true,
+                        resize: true,
+                        xLabelAngle: 45,
+                        gridLineColor: '#E5E5E5'
+                    });
+                }
+            }
+        });
+    }
+
+    function country_chart()
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/country_total_chart',
+            data: '' ,
+            dataType: "json",
+            success:function(response){
+                $("#country_chart").empty();
+                var data = new Array;
+                for(var i in response)
+                {
+                    if(response[i].total !== 0)
+                    {
+                        data.push({y: response[i].countryname, a: (response[i].total).toFixed(2)})
+                    }
+                }
+                Morris.Bar({
+                    element: 'country_chart',
+                    data: data,
+                    xkey: 'y',
+                    ykeys: ['a'],
+                    labels: ['Total'],
+                    barColors: ['#3366CC'],
+                    hideHover: true,
+                    resize: true,
+                    xLabelAngle: 45,
+                    gridLineColor: '#E5E5E5'
+                });
+            }
+        });
+    }
+
+    function registartion_chart()
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/monthly_registration_chart',
+            data: {'test': 'test' } ,
+            dataType: "json",
+            success:function(response){
+                $("#registartion_chart").empty();
+                var data = new Array;
+                for(var i in response)
+                {
+                    data[i] = {
+                         y: response[i].month_name, a: response[i].user, b: response[i].provider, c: response[i].partner, d:response[i].city, e:response[i].country
+                    };
+                }
+                Morris.Bar({    
+                    element: 'registartion_chart',
+                    data: data,
+                    xkey: 'y',
+                    ykeys: ['a', 'b', 'c','d', 'e'],
+                    labels: ['User', 'Provider', 'Partner', 'City', 'Country'],
+                    barColors: ['#3366CC', '#DC3912', '#FF9900', '#109618', '#DC3912'],
+                    hideHover: true,
+                    resize: true,
+                    gridLineColor: '#E5E5E5',
+
+                });
+            }
+        });
+    }
+</script>

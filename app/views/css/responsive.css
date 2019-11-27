@@ -1,0 +1,95 @@
+@media screen and (min-width: 1360px) and (max-width: 1366px) {
+.head_lft{    height: 163px;}
+	.head_rgt{height: 126px;}
+}
+@media screen and (min-width: 1025px) and (max-width: 1234px) {
+	.head_date{ padding: 7px 26px 0 0;}
+	.head_lft{    height: 163px;}
+	.head_rgt{height: 126px;}
+}
+@media screen and (min-width: 901px) and (max-width: 1024px) {
+	.head_date{ padding: 7px 26px 0 0;}
+	.head_lft{    height: 163px;}
+	.head_rgt{height: 126px;}
+}
+@media screen and (min-width: 768px) and (max-width: 900px) {
+	.head_date{ padding: 7px 26px 0 0;}
+	.trip_info_box p{font-size: 16px;}
+	.cont_top h1{font-size: 18px;}
+	.trip_head span{font-size: 18px;}
+}
+
+@media screen and (min-width: 601px) and (max-width: 767px) {
+	.head_date{ padding:7px 0 0 0px;}
+	.trip_info_box p{font-size: 15px;}
+	.cont_top h1{font-size: 16px;}
+	.trip_head span{font-size: 15px;line-height: 26px;}
+	.trip_info_box h4{ font-size: 16px;}
+	.cont_top > h1::after{width: 2px; left: -10px;}
+	.cont_dit p{ font-size: 15px; }
+	.invo_one_lft{ font-size: 15px;}
+	.invo_one_rgt{ font-size: 15px; }
+	.invo_one{ padding: 11px 30px;}
+	.invo_total{padding: 11px 30px;}
+	.invo_one_lft > span{font-size: 16px;}
+	.tot_btn{ font-size: 15px;}
+}
+
+@media screen and (min-width: 481px) and (max-width: 600px) {
+	.head_date{ padding:7px 10px 0 0px;font-size: 15px;}
+	.trip_info_box p{font-size: 15px;}
+	.cont_top h1{font-size: 16px;}
+	.trip_head span{font-size: 15px;line-height: 26px;}
+	.trip_info_box h4{ font-size: 16px;}
+	.cont_top > h1::after{width: 2px; left: -10px;}
+	.cont_dit p{ font-size: 15px; }
+	.invo_one_lft{ font-size: 15px;}
+	.invo_one_rgt{ font-size: 15px; }
+	.invo_one{ padding: 11px 30px;}
+	.invo_total{padding: 11px 30px;}
+	.invo_one_lft > span{font-size: 16px;}
+	.tot_btn{ font-size: 15px;}
+	.head_lft::after{background: url('../images/resp_img.png'); background-repeat: no-repeat;left: 78%;height: 137px;}
+	.head_lft{height: 129px;}
+	.logo{padding: 15px 20px;}
+	.head_top_text h1{font-size: 20px;}
+	.head_top_text p{font-size: 15px;}
+	.head_top_text{padding: 40px 0;}
+	.trip_info_box1{width: 33%;}
+}
+
+@media screen and (max-width: 480px)  {
+	.head_date{ padding:16px 10px 0 0px;font-size: 14px;}
+	.trip_info_box p{font-size: 15px; text-align: left;}
+	.cont_top h1{font-size: 16px;}
+	.trip_head span{font-size: 13px;line-height: 23px;margin: 0 0 0 10px;}
+	.trip_info_box h4{ font-size: 14px;text-align: left;}
+	.cont_top > h1::after{width: 2px; left: -10px;height: 22px;}
+	.cont_dit p{ font-size: 13px; }
+	.invo_one_lft{ font-size: 12px;}
+	.invo_one_rgt{ font-size: 13px; }
+	.invo_one{ padding:10px 16px;}
+	.invo_total{padding:11px 12px;}
+	.invo_one_lft > span{font-size: 13px;}
+	.tot_btn{ font-size: 15px;}
+	.head_lft::after{background: url('../images/resp_img.png'); background-repeat: no-repeat;left: 72%;height: 98px;}
+	.head_lft{height: 92px;width: 33%;}
+	.logo{padding: 15px 20px;}
+	.head_top_text h1{font-size: 17px;}
+	.head_top_text p{font-size: 12px;}
+	.head_top_text{padding:20px 0px;}
+	.trip_info_box1{width: 33%;}
+	.head_rgt{width: 67%;height: 91px;}
+	.logo img{width: 71px;}
+	.cont_lft{width: 100%;margin: 0 0 25px 0px;}
+	.content{padding: 0 0 0 10px;}
+	.trip_info_box{ width: 100%; }
+	.Trip_info_bg{ padding: 0 0 0 10px; }
+	.invoice_bg{ padding:0 0 10px 10px;}
+	.content.bot_text_pro .cont_lft{ width: 50%; }
+	.bot_text_pro {padding: 20px 0 0 10px;}
+}
+
+@media screen and (max-width: 1235px)  {
+	.head_lft::after{left: 99%;}
+}

@@ -1,0 +1,128 @@
+<% include header.html %>
+     <div class="page-content-wrap">           
+               <div class="row">
+                        <div class="col-md-12">
+
+                            <!-- START SIMPLE DATATABLE -->
+                            <div class="panel panel-default">                                
+                               
+                                        <table class="table text-center" id="customers2">
+                                            <thead>
+                                                <tr>
+                                                    <th><%= config_json.title_id %></th>
+                                                    <th><%= config_json.title_promo %></th>
+                                                    <th><%= config_json.title_type %></th>
+                                                    <th><%= config_json.title_value %></th>
+                                                     <th><%= config_json.title_country %></th>
+                                                      <th><%= config_json.title_total_amount_used %></th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                              
+                                                <tr>
+                                                    <td><%= promo_detail.unique_id %></td>
+                                                    <td><%=promo_detail.promocode %></td>
+                                                    <% if(promo_detail.code_type == 1)
+                                                    { %>
+                                                      <td><%= config_json.title_absolute %></td>
+                                                    <% } else { %>
+                                                      <td><%= config_json.title_percentage %></td>
+                                                    <% } %>
+                                                    <td><%= promo_detail.code_value %></td>
+                                                    <td><%= promo_detail.country_detail.countryname %></td>
+                                                    
+                                                    <td><%= total_promo_payment %></td>
+                                                   
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    
+                            </div>
+                            <!-- END SIMPLE DATATABLE -->
+
+                        </div>
+                    </div>        
+
+      <!-- END TIMELINE FILTER -->              
+                
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <!-- START SIMPLE DATATABLE -->
+                            <div class="panel panel-default">                                
+                               
+                                        <table class="table text-center" id="customers2">
+                                            <thead>
+                                                <tr>
+                                                    <th><%= config_json.title_trip_id %></th>
+                                                    <th><%= config_json.title_date %></th>
+                                                    <th><%= config_json.title_user_id %></th>
+                                                    <th><%= config_json.title_email %></th>
+                                                    <th><%= config_json.title_payment_mode %></th>
+                                                    <th><%= config_json.title_invoice_service_fees %></th>
+                                                    <th><%= config_json.title_total %></th>
+                                                    <th><%= config_json.title_promo_amount %></th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                              <% user_used_promo_array.forEach(function(data){ %>
+                                                <tr>
+                                                    <td><%= data.trip_detail.unique_id %></td>
+                                                    <td><%= moment(data.trip_detail.created_at).format("DD MMM YY") %></td>
+                                                    <td><%= data.user_detail.unique_id %></td>
+                                                    <td><%= data.user_detail.email %></td>
+                                                    <% if(data.trip_detail.payment_mode == 1)
+                                                    { %>
+                                                      <td><%= config_json.title_cash %></td>
+                                                    <% } else { %>
+                                                      <td><%= config_json.title_card %></td>
+                                                    <% } %>
+                                                    <td><%= data.trip_detail.total_after_surge_fees %></td>
+                                                    <td><%= data.trip_detail.total %></td>
+                                                    <td><%= data.trip_detail.promo_payment %></td>
+                                                   
+                                                </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
+                                    
+                            </div>
+                            <!-- END SIMPLE DATATABLE -->
+
+                        </div>
+                    </div>                                
+                    
+                </div>
+                <!-- PAGE CONTENT WRAPPER -->                                
+           
+        <script type="text/javascript">
+    $(document).ready(function() {
+
+
+
+   $('#start_date').datepicker({
+           format: 'yyyy-mm-dd',
+            startDate: new Date(Date.now())
+            
+        }).on("input change", function (e) { 
+          var end_date = $('#start_date').datepicker('getDate');
+          end_date.setDate(end_date.getDate() + 1);
+          $('#end_date').datepicker('setStartDate', end_date);
+      });
+
+        $('#end_date').datepicker({
+           format: 'yyyy-mm-dd'
+            
+        }).on("input change", function (e) { 
+          var start_date = $('#end_date').datepicker('getDate');
+          start_date.setDate(start_date.getDate() - 1);
+          $('#start_date').datepicker('setEndDate', start_date);
+      });
+   
+ });
+  </script>
+
+<% include footer_list.html %>

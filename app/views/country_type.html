@@ -1,0 +1,94 @@
+<% include header.html %>
+
+<div class="page-content-wrap">   
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.title_close %></span></button>
+      <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %>
+<!-- PAGE CONTENT WRAPPER -->
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" method="post" action="/add_country_form">
+                            <div class="col-md-4" style="text-align: center;">
+                            </div>
+                            <div class="col-md-4" style="text-align: center;">
+                                <button type="submit" class="btn btn-success btn-block"><span class="fa fa-plus"></span><%= config_json.title_add_new_country %></button>
+                            </div>
+                            <div class="col-md-4" style="text-align: center;">
+                            </div>
+                        </form>  
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        
+
+        <div class="row">
+            <% country_data.forEach(function(data){ %>
+            <div class="col-md-3">
+                <!-- CONTACT ITEM -->
+                <div class="panel panel-default" style="float:left;">
+                    <div class="panel-body profile">
+                        <div class="profile-image">
+
+                            <img src="<%= data.flag_url %>" style="border:none;border-radius:0px;webkit-border-radius: 0px; height: 65px;" />
+                        </div>
+                        <div class="profile-data">
+                            <div class="profile-data-name">
+                                <%= data.countryname %>
+                            </div>
+
+                        </div>
+                    </div>                                
+                    <div class="panel-body ">                                    
+                        <div class="contact-info ">
+
+                            <ul class="list-group border-bottom ">
+                                <li class="list-group-item "><%= config_json.title_currency %><span class="badge "><%= data.currency %></span></li>
+                                <li class="list-group-item
+                                "><%= config_json.title_sign %><span class="badge badge-warning "><%= data.currencysign %></span></li>
+                                <li class="list-group-item
+                                "><%= config_json.title_country_code %><span class="badge badge-info "> <%= data.countryphonecode %></span></li>
+                                <li class="list-group-item "><%= config_json.title_country_bussiness %><span class="badge
+                                    badge-success "> <% if(data.isBusiness == 1) { %>ON</span><span class="badge badge-warning"><% } else{ %>OFF<% } %></span></li>
+                                    <li class="list-group-item
+                                    "><%= config_json.title_referral_bonus_to_user %><span class="badge "><%= data.referral_bonus_to_user %></span></li>
+                                    <li class="list-group-item
+                                    "><%= config_json.title_bonus_to_user_referral %><span class="badge "><%= data.bonus_to_userreferral %></span></li>
+
+                                    <li class="list-group-item "><%= config_json.title_user_referral_max_use %><span class="badge "><%= data.userreferral %></span></li>
+                                </ul> 
+
+                                <form method="post" action="edit_country_form">
+                                    <input type="hidden" name="id" value="<%= data._id %>" />
+                                    <button type="submit" class="btn btn-primary btn-block"  style="text-align:center;width:80px;margin: 0 auto;"><%= config_json.button_edit %></button>
+                                </form>
+
+
+
+                            </div>
+                        </div>                                
+                    </div>
+                    <!-- END CONTACT ITEM -->
+                </div>
+                <% }); %>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- END PAGE CONTENT WRAPPER -->                                                 
+</div>            
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+
+<% include footer_list.html %>

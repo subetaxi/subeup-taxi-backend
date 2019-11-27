@@ -1,0 +1,109 @@
+<% include header.html %>                    
+	                                               
+	
+	<!-- PAGE TITLE -->
+	<div class="page-title">                    
+		<h2><span class="fa fa-cogs"></span><%= config_json.Add %> <%= config_json.Information %> <%= config_json.Page %></h2>
+	</div>
+	<!-- END PAGE TITLE -->    
+
+	
+	<!-- PAGE CONTENT WRAPPER -->
+	<div class="page-content-wrap">
+		<div class="col-md-6 col-sm-8 col-xs-7">
+			<% if(typeof info_data != 'undefined'){ %>
+			<% info_data.forEach(function(data){ %>
+			<form class="form-horizontal" method="post" action="/update_info_detail" enctype="multipart/form-data">
+				<div class="panel panel-default">
+					<div class="panel-body form-group-separated">   
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.Name %></label>
+							<input type="hidden"  class="form-control" name="id" value="<%= data.id %>"/>
+							<input type="hidden"  class="form-control" name="old_img_path" value="<%= data.file %>"/>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" name="title" value="<%= data.title %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.Image %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="file"  class="form-control" name="file" value="<%= data.file %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.Description %></label>
+
+                              <div class="col-md-9 col-xs-7">
+                              <div class="block">  
+                                <textarea class="summernote" name="description"><%= data.description %></textarea>
+                                </div>
+                               </div>
+                        </div>                                   
+						<div class="form-group">
+							<div class="col-md-12 col-xs-5">
+								<button class="btn btn-primary btn-rounded pull-right" type="submit" name="save" value="save"> <%= config_json.Save %></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<% }); %>
+			<% }else{ %>
+
+			<form class="form-horizontal" method="post" action="/add_info_detail" enctype="multipart/form-data">
+				<div class="panel panel-default">
+					<div class="panel-body form-group-separated">   
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.Name %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" name="title" id="title" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.Image %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="file"  class="form-control" name="file" id="file" />
+							</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.Description %></label>
+
+                              <div class="col-md-9 col-xs-7">
+                              <div class="block">  
+                                <textarea class="summernote" name="description" id="description" required="true"></textarea>
+                                </div>
+                               </div>
+                        </div>                          
+						<div class="form-group">
+							<div class="col-md-12 col-xs-5">
+								<button class="btn btn-primary btn-rounded pull-right" type="submit" name="submit" value="submit"><%= config_json.Submit %></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<% } %>
+		</div>
+	</div>
+	<!-- END PAGE CONTENT WRAPPER -->                                                 
+</div>            
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+<script type="text/javascript" src="js/plugins/summernote/summernote.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+ $(".form-horizontal").validate({
+   rules: {
+     title: "required",
+     file: "required"
+   }
+});
+});
+
+</script>       
+<% include footer_form.html %>
+
+
+
+
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" class="body-full-height">
+
+<head>
+    <!-- META SECTION -->
+    <title>
+        <%= constant_json.provider_panel_name %>
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+    <!-- END META SECTION -->
+
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css" />
+    <!-- EOF CSS INCLUDE -->
+</head>
+
+<body>
+    <div class="login-container">
+
+        <% if(typeof message != 'undefined'){ %>
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                <p align="center"> <strong><%= message %></strong></p>
+            </div>
+            <% } %>
+
+                <div style="text-align: center;">
+                    <img src="web_images/logo.png" style="width: 250px;">
+                </div>
+
+                <div class="login-box">
+                    <div class="login-body">
+                        <div class="login-title">
+                            <%= config_json.title_provider_login %>
+                        </div>
+                        <form action="/provider_login" class="form-horizontal" method="post">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="email" class="form-control" placeholder="Email" name="email" id="email" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="password" class="form-control" placeholder="Password" name="password" id="Password" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <a href="provider_forgot_password" class="btn btn-link btn-block">
+                                        <%= config_json.question_forgot_password %>
+                                    </a>
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn btn-info btn-block"><%= config_json.button_login %></button>
+                                </div>
+                                <div class="col-md-12">
+                                <a href="provider_register" class="btn btn-link btn-block"><%= config_json.question_not_register %></a>
+                            </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+    </div>
+</body>
+
+</html>
+<% include ../login_footer.html %>

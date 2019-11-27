@@ -1,0 +1,681 @@
+@media screen and (min-width: 1328px) and (max-width: 1590px) {
+	.box_selet select{font-size: 14px; padding: 0 0 0 8px;}
+	.box_sele_tru > img{ width: 100%;}
+	.navbar-inverse .navbar-nav > li > a{ font-size: 15px; }
+
+	/*profile page*/
+	.edit_label{ width: 40%; }
+	.edit_input_rgt{ width: 60%; }
+	.edit_label label{font-size: 14px;}
+	.edit_input_rgt input{padding: 0 0 0 10px;height: 38px;line-height: 38px;}
+	.edit_input_rgt input[type="submit"]{padding: 0 30px;margin: 20px 10px 0 0;}
+	.edit_input_rgt textarea{padding: 2px 0 0 20px;height: 37px;}
+
+	 /*upload file*/
+	.atha_card_img img{ width: 90%;}
+	.inputfile-6 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-6 + label strong{font-size: 14px;line-height: 38px;}
+	.inputfile-7 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-7 + label strong{font-size: 14px;line-height: 38px;}
+	.upload_file{ margin: 0 0 40px;}
+
+	/*create-request page*/
+	.pay_redio_bg ul li label{padding: 0 7px 0 48px;}
+	.create-request{padding: 0 11px 0 48px;}
+	.pro_rgt{ width: 30%; }
+	.pro_rgt input.act[type="submit"]{ margin: 0px; }
+	.pro_select{ width: 100%; }
+	.sti_lft h4{font-size: 13px;}
+	.sti_lft p{ font-size: 15px;line-height: 24px}
+	.sti_btn_top input{height: 38px;line-height: 38px;font-size: 15px;}
+	.map_cont{min-height: 370px;}
+
+	/*history page*/
+	.table_head {float: left;overflow: scroll;width: 100%;}
+	.hist_head{width: 1260px;}
+
+
+}
+@media screen and (min-width: 1200px) and (max-width: 1327px) {
+	.container{ width: 96%; }
+	.head_tab ul li a{font-size: 16px;}
+	.head_input input{font-size: 15px;}
+	.cont_box{width: 464px;margin: 0 0 0 13%;}
+	.car_two_bg{right: 284px;}
+	.car_one_bg{top: -107px;}
+	.car_for_bg{display: none;}
+	.pant_rgt_head{ width: 80.3%;}
+	.pant_rgt{width: 80.3%;}
+	.pant_lft{width: 19.7%;}
+	.pay_box_lft{ width: 100%; }
+
+	.navbar-inverse .navbar-nav > li > a{ font-size: 15px; }
+
+	/*profile page*/
+	.edit_label{ width: 100%; }
+	.edit_input_rgt{ width: 100%; }
+	.edit_label label{font-size: 14px;}
+	.edit_input_rgt input{padding: 0 0 0 10px;height: 38px;line-height: 38px;}
+	.edit_input_rgt input[type="submit"]{padding: 0 30px;margin: 20px 10px 0 0;}
+	.edit_input_rgt textarea{padding: 2px 0 0 20px;height: 37px;}
+
+	 /*upload file*/
+	.atha_card_img img{ width: 90%;}
+	.inputfile-6 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-6 + label strong{font-size: 14px;line-height: 38px;}
+	.inputfile-7 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-7 + label strong{font-size: 14px;line-height: 38px;}
+	.upload_file{ margin: 0 0 10px;}
+	.box_sele_head h5{font-size: 16px;}
+
+
+	/*create-request page*/
+	.pay_redio_bg ul li label{padding: 0 7px 0 48px;}
+	.create-request{padding: 0 11px 0 48px;}
+	.pro_rgt{ width: auto;margin: 13px 0 0px; }
+	.pro_rgt input.act[type="submit"]{ margin: 0px; }
+	.pro_select{ width: 100%; }
+	.sti_lft h4{font-size: 13px;}
+	.sti_lft p{ font-size: 15px;line-height: 24px}
+	.sti_btn_top input{height: 38px;line-height: 38px;font-size: 15px;}
+	.map_cont{min-height: 370px;}
+	.pay_method_box{padding: 0 0 35px 7px;}
+	.sti_lft{ width: 50%; }
+	.picu_lft label{font-size: 16px;}
+
+	/*history page*/
+	.table_head {float: left;overflow: scroll;width: 100%;}
+	.hist_head{width: 1260px;}
+	.table_id{font-size: 15px;}
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1199px) {
+	.container{ width: 96%; }
+	.head_tab ul li a{font-size: 16px;}
+	.head_input input{font-size: 15px;}
+	.cont_box{width: 464px;margin: 0 0 0 13%;}
+	.car_two_bg{right: 284px;}
+	.car_one_bg{top: -107px;}
+	.car_for_bg{display: none;}
+
+
+	/*payment page*/
+	.pant_rgt_head{ width: 80.3%;}
+	.pant_rgt{width: 80.3%;}
+	.pant_lft{width: 19.7%;}
+	.pay_box_lft{ width: 100%; }
+
+		/*profile page*/
+	.edit_label{ width: 100%; }
+	.edit_input_rgt{ width: 100%; }
+	.edit_label label{font-size: 14px;padding: 0 0 0 3px;line-height: 38px;}
+	.edit_input_rgt input{padding: 0 0 0 10px; height: 38px;line-height: 38px;font-size: 13px;}
+	.edit_input_rgt input[type="submit"]{padding: 0 30px;margin: 20px 10px 0 0;}
+	.edit_input_rgt textarea{padding: 2px 0 0 20px;height: 37px;}
+	.edit_input{margin: 0 0 5px;}
+	.box_sele_head h5{font-size: 15px;}
+
+
+	.navbar-inverse .navbar-nav > li > a{ font-size: 15px; }
+
+	 /*upload file*/
+	.atha_card_img img{ width: 90%;}
+	.inputfile-6 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-6 + label strong{font-size: 14px;line-height: 38px;}
+	.inputfile-7 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-7 + label strong{font-size: 14px;line-height: 38px;}
+	.upload_file{ margin: 0 0 10px;}
+	.upload_lft{ width: 100%; }
+	.pant_rgt_head h5{font-size: 17px;}
+
+
+	/*create-request page*/
+	.pay_redio_bg ul li label{padding: 0 7px 0 48px;}
+	.create-request{padding: 0 11px 0 48px;}
+	.pro_rgt{ width: auto;margin: 13px 0 0px; }
+	.pro_rgt input.act[type="submit"]{ margin: 0px; }
+	.pro_select{ width: 100%; }
+	.sti_lft h4{font-size: 13px;}
+	.sti_lft p{ font-size: 15px;line-height: 24px}
+	.sti_btn_top input{height: 38px;line-height: 38px;font-size: 15px;}
+	.map_cont{min-height: 370px;}
+	.pay_method_box{padding:0 7px 35px 7px;float: none; display: inline-block; width: 50%;}
+	.sti_lft{ width: 33%; }
+	.picu_lft label{font-size: 16px;}
+	.crea_lft_cied{ width: 100%;float: left; text-align: center; margin: 0 0 30px 0px;}
+
+	/*history page*/
+	.table_head {float: left;overflow: scroll;width: 100%;}
+	.hist_head{width: 1260px;}
+	.table_id{font-size: 15px;}
+
+}
+
+@media screen and (min-width: 992px) and (max-width: 1024px) {
+	.container{ width: 96%; }
+	.head_tab ul li a{font-size: 16px;}
+	.head_input input{font-size: 13px;}
+	.cont_box{width: 464px;margin: 0 0 0 13%;}
+	.car_two_bg{right: 284px;}
+	.car_one_bg{top: -107px;}
+	.head_inpu1 span{font-size: 12px;}
+	.sign_btn input{font-size: 15px;}
+	.sign_btn input{height: 47px;}
+	.car_for_bg{display: none;}
+
+	/*payment page*/
+	.pant_rgt_head{ width: 80.3%;}
+	.pant_rgt{width: 80.3%;}
+	.pant_lft{width: 19.7%;}
+	.pay_box_lft{ width: 100%; }
+
+	.navbar-inverse .navbar-nav > li > a{ font-size: 15px; }
+
+			/*profile page*/
+	.edit_label{ width: 100%; }
+	.edit_input_rgt{ width: 100%; }
+	.edit_label label{font-size: 14px;padding: 0 0 0 3px;line-height: 38px;}
+	.edit_input_rgt input{padding: 0 0 0 10px; height: 38px;line-height: 38px;font-size: 13px;}
+	.edit_input_rgt input[type="submit"]{padding: 0 30px;margin: 20px 10px 0 0;}
+	.edit_input_rgt textarea{padding: 2px 0 0 20px;height: 37px;}
+	.edit_input{margin: 0 0 5px;}
+	.box_sele_head h5{font-size: 15px;}
+
+	/*upload file*/
+	.atha_card_img img{ width: 90%;}
+	.inputfile-6 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-6 + label strong{font-size: 14px;line-height: 38px;}
+	.inputfile-7 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-7 + label strong{font-size: 14px;line-height: 38px;}
+	.upload_file{ margin: 0 0 10px;}
+	.upload_lft{ width: 100%; }
+	.pant_rgt_head h5{font-size: 17px;}
+
+	/*create-request page*/
+	.pay_redio_bg ul li label{padding: 0 7px 0 48px;}
+	.create-request{padding: 0 11px 0 48px;}
+	.pro_rgt{ width: auto;margin: 13px 0 0px; }
+	.pro_rgt input.act[type="submit"]{ margin: 0px; }
+	.pro_select{ width: 100%; }
+	.sti_lft h4{font-size: 13px;}
+	.sti_lft p{ font-size: 15px;line-height: 24px}
+	.sti_btn_top input{height: 38px;line-height: 38px;font-size: 15px;}
+	.map_cont{min-height: 370px;}
+	.pay_method_box{padding:0 7px 35px 7px;float: none; display: inline-block; width: 50%;}
+	.sti_lft{ width: 33%; }
+	.picu_lft label{font-size: 16px;}
+	.crea_lft_cied{ width: 100%;float: left; text-align: center; margin: 0 0 30px 0px;}
+
+	/*history page*/
+	.table_head {float: left;overflow: scroll;width: 100%;}
+	.hist_head{width: 1260px;}
+	.table_id{font-size: 15px;}
+
+	/*history page*/
+	.table_head {float: left;overflow: scroll;width: 100%;}
+	.hist_head{width: 100%;}
+	.table_id{font-size: 13px;}
+	.filetr_sea{width: 46%;}
+	.hist_lft2 .filter_select{float: left;margin:0px;width:42.6%;}
+	.action_btn{ width: 100%; }
+	.table_top{width: 970px;}
+	.action_btn select{font-size: 12px;}
+	.filter_select{margin: 0px;}
+	.filetr_sea input{width: 78%;}
+	.filter_select select{height: 38px;line-height: 37px;}
+	.action_btn .act_btn_top{ background-size: 12px; font-size: 13px;padding: 0 0 0 10px; }
+	.filter_select .bootstrap-select > .dropdown-toggle{font-size: 13px;}
+	.filter_select{ width: 30%; }
+	.hist_lft{ width: 100%;margin: 10px 0 0;}
+	.filetr_sea{ width: 55%; margin:0px;}
+	.datepicker.dropdown-menu{left:20% !important;}
+	.app_rgt_bg{ margin: 15px 0px 0 0px;width:auto;}
+	.app_rgt_bg > input{ margin: 0 0 0 10px; }
+	.date_to{ width: 16%;text-align: center;float: left;}
+	.date_start{width: 37%;float: left;}
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+	.container{ width: 96%; }
+	.head_tab ul li a{font-size: 16px;}
+	.head_input input{font-size: 13px;}
+	.cont_box{display: inline-block;float: none;margin: 0;text-align: left;width: 436px;}
+	.contact_bg{ text-align: center; }
+	.car_two_bg{right: 134px;}
+	.car_one_bg{top: -107px;}
+	.head_inpu1 span{font-size: 12px;}
+	.sign_btn input{font-size: 15px;}
+	.sign_btn input{height: 47px;}
+	.head_lft{ width: 100%; }
+	.head_tab{ width: auto; }
+	.head_rgt{margin: 15px 0 0; width: 100%;}
+	.car_tree_bg{top: -49px;}
+
+	/*payment page*/
+	.pant_rgt_head{ width: 73.3%;padding: 20px 35px;}
+	.pant_rgt{width:73.3%;}
+	.pant_lft{width: 26.7%;}
+	.pay_box_lft{ width: 100%; }
+	.box_selet_bg{ padding: 115px 30px 35px 35px;}
+	.navbar-inverse .navbar-nav > li > a{ font-size: 15px; }
+	.pant_rgt_head h5{font-size: 17px;}
+	.pant_rgt_head > li a{font-size: 14px;height: 35px;line-height: 35px;}
+	.box_sele_head h5{font-size: 15px;line-height: 38px;}
+	.box_sele_head li a{font-size: 14px;height: 35px;line-height: 35px;}
+	.box_label label{font-size: 14px;line-height: 38px;}
+	.box_input input{font-size: 14px;line-height: 38px;}
+	.box_selet select{font-size: 14px;height: 38px;line-height: 38px;padding: 0 0 0 7px;background-size:14px; }
+	.box_sele_tru > img{ width: 100%;}
+
+	/*profile page*/
+	.edit_label{ width: 100%; }
+	.edit_input_rgt{ width: 100%; }
+	.edit_label label{font-size: 14px;padding: 0 0 0 3px;line-height: 38px;}
+	.edit_input_rgt input{padding: 0 0 0 10px; height: 38px;line-height: 38px;font-size: 13px;}
+	.edit_input_rgt input[type="submit"]{padding: 0 30px;margin: 20px 10px 0 0;}
+	.edit_input_rgt textarea{padding: 2px 0 0 20px;height: 37px;}
+	.edit_input{margin: 0 0 5px;}
+	.box_sele_head h5{font-size: 15px;}
+	.pro_lft1{ width: 100%;}
+
+	/*upload file*/
+	.atha_card_img img{ width: 90%;}
+	.inputfile-6 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-6 + label strong{font-size: 14px;line-height: 38px;}
+	.inputfile-7 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-7 + label strong{font-size: 14px;line-height: 38px;}
+	.upload_file{ margin: 0 0 10px;}
+	.upload_lft{ width: 100%; }
+	.pant_rgt_head h5{font-size: 17px;}
+	.atha_card_img_bg{ display: none; }
+
+		/*create-request page*/
+	.pay_redio_bg ul li label{padding: 0 7px 0 48px;}
+	.create-request{padding: 0 11px 0 48px;}
+	.pro_rgt{ width: auto;margin: 13px 0 0px; }
+	.pro_rgt input.act[type="submit"]{ margin: 0px; }
+	.pro_select{ width: 100%; }
+	.sti_lft h4{font-size: 13px;}
+	.sti_lft p{ font-size: 15px;line-height: 24px}
+	.sti_btn_top input{height: 35px;line-height: 35px;font-size: 14px;}
+	.map_cont{min-height: 370px;}
+	.pay_method_box{padding:0 7px 35px 7px;float: none; display: inline-block; width: 70%;}
+	.sti_lft{ width: 33%; }
+	.picu_lft label{font-size: 15px;}
+	.crea_lft_cied{ width: 100%;float: left; text-align: center; margin: 0 0 30px 0px;}
+	.picu_lft input{font-size: 14px;height: 40px;line-height: 40px;}
+
+	/*history page*/
+	.table_head {float: left;overflow: scroll;width: 100%;}
+	.hist_head{width: 100%;}
+	.table_id{font-size: 13px;}
+	.filetr_sea{width: 46%;}
+	.hist_lft2 .filter_select{float: left;margin:0px;width:42.6%;}
+	.action_btn{ width: 100%; }
+	.table_top{width: 970px;}
+	.action_btn select{font-size: 12px;}
+	.filter_select{margin: 0px;}
+	.filetr_sea input{width: 78%;}
+	.filter_select select{height: 38px;line-height: 37px;}
+	.action_btn .act_btn_top{ background-size: 12px; font-size: 13px;padding: 0 0 0 10px; }
+	.filter_select .bootstrap-select > .dropdown-toggle{font-size: 13px;}
+	.filter_select{ width: 30%; }
+	.hist_lft{ width: 100%;margin: 10px 0 0;}
+	.filetr_sea{ width: 55%; margin:0px;}
+	.datepicker.dropdown-menu{left:20% !important;}
+	.app_rgt_bg{ margin: 15px 0px 0 0px;width:auto;}
+	.app_rgt_bg > input{ margin: 0 0 0 10px; }
+	.date_to{ width: 16%;text-align: center;float: left;}
+	.date_start{width: 37%;float: left;}
+
+
+}
+
+@media screen and (min-width: 601px) and (max-width: 767px) {
+	.container{ width: 96%; }
+	.head_tab ul li a{font-size: 16px;}
+	.head_input input{font-size: 13px;}
+	.cont_box{display: inline-block;float: none;margin: 0;text-align: left;width: 436px;}
+	.contact_bg{ text-align: center; }
+	.car_two_bg{right: 134px;display: none;}
+	.car_one_bg{top: -107px;display: none;}
+	.head_inpu1 span{font-size: 12px;}
+	.sign_btn input{font-size: 15px;}
+	.sign_btn input{height: 47px;}
+	.head_lft{ width: 100%; }
+	.head_tab{ width: auto; }
+	.head_rgt{margin: 15px 0 0; width: 100%;}
+	.car_tree_bg{top: -49px;display: none;}
+
+	/*payment page*/
+	.pant_rgt_head{ width: 100%;padding: 9px 15px;margin: 49px 0 0px;z-index: 1;}
+	.pant_rgt{width:100%;}
+	.pant_lft{width: 100%;z-index: 11;}
+	.pay_box_lft{ width: 100%; }
+	.box_selet_bg{ padding: 130px 30px 35px 35px;}
+	.navbar-inverse .navbar-nav > li > a{ font-size: 15px; }
+	.pant_rgt_head h5{font-size: 14px;}
+	.pant_rgt_head > li a{font-size: 13px;height: 30px;line-height: 30px; margin: 3px 0 0;}
+	.box_sele_head h5{font-size: 15px;line-height: 38px;}
+	.box_sele_head li a{font-size: 14px;height: 35px;line-height: 35px;}
+	.box_label label{font-size: 14px;line-height: 38;}
+	.box_input input{font-size: 14px;line-height: 38;}
+	.box_selet select{font-size: 14px;height: 38px;line-height: 38;padding: 0 0 0 7px;background-size:14px; }
+	.box_sele_tru > img{ width: 100%;}
+	/*.navbar-inverse{ height: auto !important; }*/
+	.mob_hied{ display: none; }
+	.des_hied{ display: block; }
+	.pro_head h4{ color: #000;margin: 18px 0 30px;}
+	.navbar-brand{ width: auto;padding: 10px 10px; margin: 0px; }
+	.pro_use_bg{margin: 30px 0 0;}
+	.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover{background-color: #047f8f;border-color: #047f8f;}
+
+	/*profile page*/
+	.edit_label{ width: 100%; }
+	.edit_input_rgt{ width: 100%; }
+	.edit_label label{font-size: 14px;padding: 0 0 0 3px;line-height: 38px;}
+	.edit_input_rgt input{padding: 0 0 0 10px; height: 38px;line-height: 38px;font-size: 13px;}
+	.edit_input_rgt input[type="submit"]{padding: 0 30px;margin: 20px 10px 0 0;}
+	.edit_input_rgt textarea{padding: 2px 0 0 20px;height: 37px;}
+	.edit_input{margin: 0 0 5px;}
+	.box_sele_head h5{font-size: 15px;}
+	.pro_lft1{ width: 100%;}
+	.hid_mob{ display: none; }
+
+	/*upload file*/
+	.atha_card_img img{ width: 90%;}
+	.inputfile-6 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-6 + label strong{font-size: 14px;line-height: 38px;}
+	.inputfile-7 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-7 + label strong{font-size: 14px;line-height: 38px;}
+	.upload_file{ margin: 0 0 10px;}
+	.upload_lft{ width: 100%; }
+	.pant_rgt_head h5{font-size: 17px;}
+	.atha_card_img_bg{ display: none; }
+	.show_mob{ display: block; }
+
+		/*create-request page*/
+	.pay_redio_bg ul li label{padding: 0 7px 0 48px;}
+	.create-request{padding: 0 11px 0 48px;}
+	.pro_rgt{ width: auto;margin: 13px 0 0px; }
+	.pro_rgt input.act[type="submit"]{ margin: 0px; }
+	.pro_select{ width: 100%; }
+	.sti_lft h4{font-size: 13px;}
+	.sti_lft p{ font-size: 15px;line-height: 24px}
+	.sti_btn_top input{height: 35px;line-height: 35px;font-size: 14px;}
+	.map_cont{min-height: 370px;}
+	.pay_method_box{padding:0 7px 35px 7px;float: none; display: inline-block; width: 70%;}
+	.sti_lft{ width: 33%; }
+	.picu_lft label{font-size: 15px;}
+	.crea_lft_cied{ width: 100%;float: left; text-align: center; margin: 0 0 30px 0px;}
+	.picu_lft input{font-size: 14px;height: 40px;line-height: 40px;}
+
+
+	/*history page*/
+	.table_head {float: left;overflow: scroll;width: 100%;}
+	.hist_head{width: 100%;}
+	.table_id{font-size: 13px;}
+	.filetr_sea{width: 46%;}
+	.hist_lft2 .filter_select{float: left;margin:0px;width:42.6%;}
+	.action_btn{ width: 100%; }
+	.table_top{width: 970px;}
+	.action_btn select{font-size: 12px;}
+	.filter_select{margin: 0px;}
+	.filetr_sea input{width: 78%;}
+	.filter_select select{height: 38px;line-height: 37px;}
+	.action_btn .act_btn_top{ background-size: 12px; font-size: 13px;padding: 0 0 0 10px; }
+	.filter_select .bootstrap-select > .dropdown-toggle{font-size: 13px;}
+	.filter_select{ width: 30%; }
+	.hist_lft{ width: 100%;margin: 10px 0 0;}
+	.filetr_sea{ width: 55%; margin:0px;}
+	.datepicker.dropdown-menu{left:20% !important;}
+	.app_rgt_bg{ margin: 15px 0px 0 0px;width:auto;}
+	.app_rgt_bg > input{ margin: 0 0 0 10px; }
+	.date_to{ width: 16%;text-align: center;float: left;}
+	.date_start{width: 37%;float: left;}
+
+
+}
+@media screen and (min-width: 481px) and (max-width: 600px) {
+	.container{ width: 96%; }
+	.head_tab ul li a{font-size: 13px;padding: 8px 20px;}
+	.head_input input{font-size: 13px;height: 33px;}
+	.cont_box{display: inline-block;float: none;margin: 0;text-align: left;width: 436px;}
+	.contact_bg{ text-align: center; }
+	.car_two_bg{right: 134px;display: none;}
+	.car_one_bg{top: -107px;display: none;}
+	.head_inpu1 span{font-size: 11px;}
+	.sign_btn input{height: 43px;font-size: 14px;}
+	.head_lft{ width: 100%; }
+	.head_tab{ width: auto; }
+	.head_rgt{margin: 15px 0 0; width: 100%;}
+	.car_tree_bg{top: -49px;display: none;}
+	.logo img {width: 115px;}
+	.head_inpu1 input[type="submit"]{line-height: 30px;}
+	h1{font-size: 25px;}
+	p{font-size: 14px;}
+	.fist_name_lft input{font-size: 12px;height: 36px;}
+	.fist_name_lft select{font-size: 12px;height: 36px;}
+
+	/*payment page*/
+	.pant_rgt_head{ width: 100%;padding: 9px 15px;margin:49px 0 0;z-index: 1;}
+	.pant_rgt{width:100%;}
+	.pant_lft{width: 100%;z-index: 11;}
+	.pay_box_lft{ width: 100%; }
+	.box_selet_bg{ padding: 130px 30px 35px 35px;}
+	.navbar-inverse .navbar-nav > li > a{ font-size: 15px; }
+	.pant_rgt_head h5{font-size: 14px;}
+	.pant_rgt_head > li a{font-size: 13px;height: 30px;line-height: 30px;margin: 3px 0 0 0px;}
+	.box_sele_head h5{font-size: 13px;line-height: 28px;}
+	.box_sele_head li a{font-size: 13px;height: 30px;line-height: 30px;}
+	.box_label label{font-size: 14px;line-height: 35px;padding: 0 0 0 15px;}
+	.box_input input{font-size: 14px;line-height: 35px;}
+	.box_selet select{font-size: 14px;height: 38px;line-height: 38px;padding: 0 0 0 7px;background-size:14px; }
+	.box_sele_tru > img{ width: 100%;}
+	/*.navbar-inverse{ height: auto !important; }*/
+	.mob_hied{ display: none; }
+	.des_hied{ display: block; }
+	.pro_head h4{ color: #000;margin: 18px 0 30px;}
+	.navbar-brand{ width: auto;padding: 10px 10px; margin: 0px; }
+	.pro_use_bg{margin: 30px 0 0;}
+	.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover{background-color: #047f8f;border-color: #047f8f;}
+	.box_label{ width: 100%; }
+	.box_sele_head{padding: 10px 15px;}
+	.box_input{width: 50%;margin: 0 0 0 15px;}
+	.box_selet{width: 29%;margin: 0 0 0 11px;}
+	.box_sele_top{margin: 0 0 10px;}
+	.box_sele_cont{padding: 30px 0;}
+
+	/*profile page*/
+	.edit_label{ width: 100%; }
+	.edit_input_rgt{ width: 100%; }
+	.edit_label label{font-size: 14px;padding: 0 0 0 3px;line-height: 38px;}
+	.edit_input_rgt input{padding: 0 0 0 10px; height: 38px;line-height: 38px;font-size: 13px;}
+	.edit_input_rgt input[type="submit"]{padding: 0 30px;margin: 20px 10px 0 0;}
+	.edit_input_rgt textarea{padding: 2px 0 0 20px;height: 37px;}
+	.edit_input{margin: 0 0 5px;}
+	.box_sele_head h5{font-size: 15px;}
+	.pro_lft1{ width: 100%;}
+	.hid_mob{ display: none; }
+
+	/*upload file*/
+	.atha_card_img img{ width: 90%;}
+	.inputfile-6 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-6 + label strong{font-size: 14px;line-height: 38px;}
+	.inputfile-7 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-7 + label strong{font-size: 14px;line-height: 38px;}
+	.upload_file{ margin: 0 0 10px;}
+	.upload_lft{ width: 100%; }
+	.pant_rgt_head h5{font-size: 14px;}
+	.atha_card_img_bg{ display: none; }
+	.show_mob{ display: block; }
+	.cont_pro{padding: 20px 0;}
+
+		/*create-request page*/
+	.pay_redio_bg ul li label{padding: 0 7px 0 48px;}
+	.create-request{padding: 0 11px 0 48px;}
+	.pro_rgt{ width: auto;margin: 13px 0 0px; }
+	.pro_rgt input.act[type="submit"]{ margin: 0px; }
+	.pro_select{ width: 100%; }
+	.sti_lft h4{font-size: 13px;}
+	.sti_lft p{ font-size: 15px;line-height: 24px}
+	.sti_btn_top input{height: 35px;line-height: 35px;font-size: 14px;}
+	.map_cont{min-height: 250px;}
+	.pay_method_box{padding:0 7px 35px 7px;float: none; display: inline-block; width: 90%;}
+	.sti_lft{ width: 33%; }
+	.picu_lft label{font-size: 15px;}
+	.crea_lft_cied{ width: 100%;float: left; text-align: center; margin: 0 0 30px 0px;}
+	.picu_lft input{font-size: 14px;height: 40px;line-height: 40px;}
+
+	/*history page*/
+	.table_head {float: left;overflow: scroll;width: 100%;}
+	.hist_head{width: 100%;}
+	.table_id{font-size: 13px;}
+	.filetr_sea{width: 46%;}
+	.hist_lft2 .filter_select{width:100%; margin: 0 0 9px 0px;}
+	.action_btn{ width: 100%; }
+	.table_top{width: 970px;}
+	.action_btn select{font-size: 12px;}
+	.filter_select{margin: 0px;}
+	.filetr_sea input{width: 78%;}
+	.filter_select select{height: 38px;line-height: 37px;}
+	.action_btn .act_btn_top{ background-size: 12px; font-size: 13px;padding: 0 0 0 10px; }
+	.filter_select .bootstrap-select > .dropdown-toggle{font-size: 13px;}
+	.filter_select{ width: 100%; }
+	.hist_lft{ width: 100%; }
+	.filetr_sea{ width: 100%; margin: 9px 0 9px 0px;}
+	.datepicker.dropdown-menu{left:20% !important;}
+	.app_rgt_bg{ margin: 15px 0px 0 0px;width:auto;}
+	.app_rgt_bg > input{ margin: 0 0 0 10px; }
+	.date_to{ width: 12%;text-align: center;}
+
+}
+@media screen and (max-width: 480px) {
+	.logo{ width: 100%;text-align: center; }
+	.container{ width: 96%; }
+	.head_tab ul li a{font-size: 13px;padding: 8px 20px;width: 100%;}
+	.head_input input{font-size: 13px;height: 33px;}
+	.head_tab ul li{ width: 50%;}
+	.cont_box{display: inline-block;float: none;margin: 0;text-align: left;width: 100%;padding: 17px 13px;}
+	.contact_bg{ text-align: center; }
+	.car_two_bg{right: 134px;display: none;}
+	.car_one_bg{top: -107px;display: none;}
+	.head_inpu1 span{font-size: 11px;}
+	.sign_btn input{height: 43px;font-size: 13px; background-size: 17px;}
+	.head_lft{ width: 100%; }
+	.head_tab{ width: 100%;margin:10px 0px;}
+	.head_rgt{margin: 15px 0 0; width: 100%;}
+	.car_tree_bg{top: -49px;display: none;}
+	.logo img {width: 115px;}
+	.head_inpu1 input[type="submit"]{line-height: 30px;}
+	h1{font-size: 23px;}
+	p{font-size: 13px;}
+	.fist_name_lft input{font-size: 12px;height: 36px;}
+	.fist_name_lft select{font-size: 12px;height: 36px;}
+	.heade_bg{padding-top: 10px;}
+	.head_input{ width: 100%;}
+	.heade_input_rgt{ width: 100%;margin: 10px 0px;}
+	.head_inpu1{ width: 100%; }
+	.pan_img{ right: -40px;}
+
+	/*payment page*/
+	.pant_rgt_head{ width: 100%;padding: 9px 15px;margin: 49px 0 0px;z-index: 1;}
+	.pant_rgt{width:100%;}
+	.pant_lft{width: 100%;z-index: 11;}
+	.pay_box_lft{ width: 100%; }
+	.box_selet_bg{ padding:130px 10px 35px;}
+	.navbar-inverse .navbar-nav > li > a{ font-size: 13px; }
+	.pant_rgt_head h5{font-size: 14px;}
+	.pant_rgt_head > li a{font-size: 13px;height: 30px;line-height: 30px;margin: 3px 0 0 0px;}
+	.box_sele_head h5{font-size: 12px;line-height: 30px;}
+	.box_sele_head li a{font-size: 12px;height: 30px;line-height: 30px;padding: 0 11px;}
+	.box_label label{font-size: 14px;line-height: 35px;padding: 0 0 0 15px;}
+	.box_input input{font-size: 14px;line-height: 35px;}
+	.box_selet select{font-size: 12px;height: 30px;line-height: 30px;padding: 0 0 0 7px;background-size:14px; }
+	.box_sele_tru > img{ width: 100%;}
+	/*.navbar-inverse{ height: auto !important; }*/
+	.mob_hied{ display: none; }
+	.des_hied{ display: block; }
+	.pro_head h4{ color: #000;margin: 18px 0 30px;}
+	.navbar-brand{ width: auto;padding: 10px 10px; margin: 0px; }
+	.pro_use_bg{margin: 30px 0 0;}
+	.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover{background-color: #047f8f;border-color: #047f8f;}
+	.box_label{ width: 100%; }
+	.box_sele_head{padding: 10px 15px;}
+	.box_input{width:100%;padding: 0 15px 0 15px;}
+	.box_selet{width: 34%;margin: 11px 0 0 15px;}
+	.box_sele_top{margin: 0 0 10px;}
+	.box_sele_cont{padding: 30px 0;}
+	.box_sele_tru{ margin:14px 0 0 9px;width: 7%;}
+	.nav.navbar-nav span{margin: 0 20px 0 0;width: 16px;float: left;}
+	.nav.navbar-nav span img{ width: 100%;}
+
+		/*profile page*/
+	.edit_label{ width: 100%; }
+	.edit_input_rgt{ width: 100%; }
+	.edit_label label{font-size: 14px;padding: 0 0 0 3px;line-height: 38px;}
+	.edit_input_rgt input{padding: 0 0 0 10px; height: 38px;line-height: 38px;font-size: 13px;}
+	.edit_input_rgt input[type="submit"]{padding: 0 30px;margin: 20px 10px 0 0;}
+	.edit_input_rgt textarea{padding: 2px 0 0 10px;height: 37px;}
+	.edit_input{margin: 0 0 5px;}
+	.box_sele_head h5{font-size: 15px;}
+	.pro_lft1{ width: 100%;}
+	.hid_mob{ display: none; }
+	.cont_pro{ padding: 10px;}
+
+	/*upload file*/
+	.atha_card_img img{ width: 90%;}
+	.inputfile-6 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-6 + label strong{font-size: 14px;line-height: 38px;}
+	.inputfile-7 + label span{font-size: 14px;line-height: 38px;min-height: 38px;}
+	.inputfile-7 + label strong{font-size: 14px;line-height: 38px;}
+	.upload_file{ margin: 0 0 10px;}
+	.upload_lft{ width: 100%; }
+	.pant_rgt_head h5{font-size: 13px;}
+	.atha_card_img_bg{ display: none; }
+	.show_mob{ display: block; }
+	.cont_pro{padding: 20px 0;}
+
+	/*create-request page*/
+	.pay_redio_bg ul li label{padding: 0 7px 0 48px;}
+	.create-request{padding: 0 11px 0 48px;}
+	.pro_rgt{ width: auto;margin: 13px 0 0px; }
+	.pro_rgt input.act[type="submit"]{ margin: 0px; }
+	.pro_select{ width: 100%; }
+	.sti_lft h4{font-size: 13px;}
+	.sti_lft p{ font-size: 15px;line-height: 24px}
+	.sti_btn_top input{height: 35px;line-height: 35px;font-size: 14px;}
+	.map_cont{min-height: 250px;}
+	.pay_method_box{padding:0 7px 35px 7px;float: none; display: inline-block; width: 100%;}
+	.sti_lft{ width: 33%; }
+	.picu_lft label{font-size: 15px;}
+	.crea_lft_cied{ width: 100%;float: left; text-align: center; margin: 0 0 30px 0px;}
+	.picu_lft input{font-size: 14px;height: 40px;line-height: 40px;margin: 8px 0 15px 0px;}
+	.picu_lft{width: 100%;}
+	.pay_method_rgt{padding: 10px 10px;}
+	.map_cont_bg{margin: 0px;}
+
+
+	/*history page*/
+	.table_head {float: left;overflow: scroll;width: 100%;}
+	.hist_head{width: 100%;}
+	.table_id{font-size: 13px;}
+	.filetr_sea{width: 46%;}
+	.hist_lft2 .filter_select{width:100%; margin: 0 0 9px 0px;}
+	.action_btn{ width: 100%; }
+	.table_top{width: 970px;}
+	.action_btn select{font-size: 12px;}
+	.filter_select{margin: 0px;}
+	.filetr_sea input{width: 78%;}
+	.filter_select select{height: 38px;line-height: 37px;}
+	.action_btn .act_btn_top{ background-size: 12px; font-size: 13px;padding: 0 0 0 10px; }
+	.filter_select .bootstrap-select > .dropdown-toggle{font-size: 13px;}
+	.filter_select{ width: 100%; }
+	.hist_lft{ width: 100%; }
+	.filetr_sea{ width: 100%; margin: 9px 0 9px 0px;}
+	.datepicker.dropdown-menu{left:20% !important;}
+	.app_rgt_bg{ margin: 15px 0px 0 0px;width:auto;}
+	.app_rgt_bg > input{ margin: 0 0 0 10px; }
+	.date_to{ width: 12%;text-align: center;}
+
+}

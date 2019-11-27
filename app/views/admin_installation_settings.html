@@ -1,0 +1,725 @@
+<% include header.html %>
+<div class="page-title">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+        <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %>
+</div>
+
+ <div class="page-content-wrap">
+    <!--Twilio SMS Gateway Configuration code starts here-->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_sms_configuration %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="admin_twilio_settings_update" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_twilio_account_sid %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="twilio_account_sid" value="<%= setting.twilio_account_sid %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= tooltip_json.tooltip_twillio_account_sid %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_twilio_auth_token %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="twilio_auth_token" value="<%= setting.twilio_auth_token %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= tooltip_json.tooltip_twilio_auth_token %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_twilio_number %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="twilio_number" value="<%= setting.twilio_number %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= tooltip_json.tooltip_twilio_number %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%=config_json.title_twilio_url %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="twiml_url" value="<%= setting.twiml_url %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= config_json.tooltip_twiml_url %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Twilio SMS Configuration code ends here-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--Payment Gateway Configuration Code starts here-->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_payment_configuration %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="admin_payment_gate_way_settings_update" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_default_payment_gateway %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="payment_gateway" value="<%= PAYMENT_GATEWAY.stripe %>" readonly />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%= tooltip_json.tooltip_default_payment_gateway %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_stripe_secret_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="stripe_secret_key" value="<%= setting.stripe_secret_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_stripe_secret_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_stripe_publishable_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="stripe_publishable_key" value="<%= setting.stripe_publishable_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_stripe_publishable_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Payment Gateway Configuration Code ends here-->
+
+    <!--Email Configuration code starts here-->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_email_configuration %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="admin_email_settings_update" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                <label><%= config_json.title_domain %></label>
+                                <select class="form-control select" data-live-search="true" name="domain" id="domain">
+                                    <% if(setting.domain == 'gmail') { %>
+                                        <option value="gmail" selected><%=config_json.gmail%></option>
+                                        <option value="other"><%=config_json.other%></option>
+                                    <% } else { %>
+                                        <option value="gmail"><%=config_json.gmail%></option>
+                                        <option value="other" selected><%=config_json.other%></option>
+                                    <% } %>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label><%= config_json.title_domain_email_address %></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="u_email" value="<%= setting.email %>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_email_domain_email_address %>">?</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="email_psw" value="<%= setting.password %>" />
+                            </div>
+                            
+
+                            <div class="form-group other_domain">
+                                <label><%= config_json.title_smtp_host %></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="smtp_host" value="<%= setting.smtp_host %>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_email_smtp_host %>">?</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group other_domain">
+                                <label><%= config_json.title_smtp_port %></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="smtp_port" value="<%= setting.smtp_port %>" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_smtp_port %>">?</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Email Configuration code ends here-->
+
+
+        <!--GCM Configuration starts here-->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_gcm_api_key %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="admin_gcm_api_key_settings_update" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_android_user_app_gcm_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="android_user_app_gcm_key" value="<%= setting.android_user_app_gcm_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_android_user_app_gcm_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_android_provider_app_gcm_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="android_provider_app_gcm_key" value="<%= setting.android_provider_app_gcm_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_android_provider_app_gcm_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--GCM Configuration starts here-->
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_google_places_api_key %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="admin_google_api_key_settings_update" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_android_user_app_google_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="android_user_app_google_key" value="<%= setting.android_user_app_google_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_user_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_android_provider_app_google_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="android_provider_app_google_key" value="<%= setting.android_provider_app_google_key %>"
+                                       />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_provider_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_ios_user_app_google_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="ios_user_app_google_key" value="<%= setting.ios_user_app_google_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_user_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_ios_provider_app_google_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="ios_provider_app_google_key" value="<%= setting.ios_provider_app_google_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_provider_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_web_app_google_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="web_app_google_key" value="<%= setting.web_app_google_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_web_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_road_api_google_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="road_api_google_key" value="<%= setting.road_api_google_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_road_api_google_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_firebase_key %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="update_firebase_key" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_firebase_apiKey %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="firebase_apiKey" value="<%= setting.firebase_apiKey %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=process.env.tooltip_user_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_firebase_authDomain %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="firebase_authDomain" value="<%= setting.firebase_authDomain %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=process.env.tooltip_user_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_firebase_databaseURL %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="firebase_databaseURL" value="<%= setting.firebase_databaseURL %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=process.env.tooltip_user_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_firebase_projectId %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="firebase_projectId" value="<%= setting.firebase_projectId %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=process.env.tooltip_user_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_firebase_storageBucket %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="firebase_storageBucket" value="<%= setting.firebase_storageBucket %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=process.env.tooltip_user_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><%= config_json.title_firebase_messagingSenderId %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="firebase_messagingSenderId" value="<%= setting.firebase_messagingSenderId %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=process.env.tooltip_user_google_places_api_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="<%= process.env.button_update_changes %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+      
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_ios_app_url %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="admin_ios_app_url_settings_update" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_ios_client_app_url %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="ios_client_app_url" value="<%= setting.ios_client_app_url %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_ios_client_app_url %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_ios_driver_app_url %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="ios_driver_app_url" value="<%= setting.ios_driver_app_url %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_ios_driver_app_url %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+          <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_android_app_url %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="admin_android_app_url_settings_update" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_android_client_app_url %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="android_client_app_url" value="<%= setting.android_client_app_url %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_android_client_app_url %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_android_driver_app_url %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="android_driver_app_url" value="<%= setting.android_driver_app_url %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_android_driver_app_url %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_hotline_app %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="update_app_key" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_hotline_app_id %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="hotline_app_id" value="<%= setting.hotline_app_id %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=config_json.tooltip_hotline_app_id %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_hotline_app_key %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="hotline_app_key" value="<%= setting.hotline_app_key %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=config_json.tooltip_hotline_app_key %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                            <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>-->
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_app_name %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="update_app_name" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_admin_panel_name %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="app_name" value="<%= setting.app_name %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_admin_panel_name %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_partner_panel_name %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="partner_panel_name" value="<%= setting.partner_panel_name %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_partner_panel_name %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_dispatcher_panel_name %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="dispatcher_panel_name" value="<%= setting.dispatcher_panel_name %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_dispatcher_panel_name %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_hotel_panel_name %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="hotel_panel_name" value="<%= setting.hotel_panel_name %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_hotel_panel_name %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-cog"></span> <%= config_json.title_app_version %></h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <form action="update_app_version" role="form" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label><%= config_json.title_android_user_app_version_code %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="android_user_app_version_code" value="<%= setting.android_user_app_version_code %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_android_user_app_version_code %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_android_provider_app_version_code %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="android_provider_app_version_code" value="<%= setting.android_provider_app_version_code %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_android_provider_app_version_code %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_ios_user_app_version_code %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="ios_user_app_version_code" value="<%= setting.ios_user_app_version_code %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_ios_user_app_version_code %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><%= config_json.title_ios_provider_app_version_code %></label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="ios_provider_app_version_code" value="<%= setting.ios_provider_app_version_code %>" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_ios_provider_app_version_code %>">?</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!--<div class="col-md-4">-->
+                            <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+    <script type="text/javascript" src="js/plugins/summernote/summernote.js"></script>
+
+
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    $(document).ready(function () {
+
+        <% if(setting.domain == 'gmail') { %>
+            $('.other_domain').hide();
+        <% } %>
+
+        $('#domain').change(function(){
+            var domain = $('#domain :selected').val();
+            if(domain == 'gmail'){
+                $('.other_domain').hide();
+            } else {
+                $('.other_domain').show();
+            }
+        })
+
+        $("#email_config").validate({
+            rules: {
+                password: {
+                    minlength: 6
+                },
+                email_from: {
+                    required: true
+                },
+                u_email: {
+                    required: true,
+                    email: true
+                },
+                email_psw: {
+                    required: true
+                }
+            }
+        });
+
+        $("#sms_config").validate({
+            rules: {
+                twilio_account_sid: "required",
+                twilio_auth_token: "required",
+                twilio_number: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 16
+                }
+            }
+        });
+    });
+</script>
+<!-- START PRELOADS -->
+<% include footer_form.html %>

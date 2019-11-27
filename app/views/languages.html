@@ -1,0 +1,238 @@
+<% include header.html %>
+
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div id="content" >
+  <div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+      <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %> 
+    <!-- START TIMELINE FILTER --> 
+  
+      <div class="page-content-wrap">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" method="post" action="/languages">
+                            <input type="hidden" name="lang_type" id="lang_type" value="1" />
+                            <input type="hidden" name="id" id="id"  />
+                             
+                            <div class="tab-pane" id="tab-second">
+                                <input type="hidden" id="count" value="1" >
+                                <div id="add_airport">
+                                    <div class="col-md-12" id="remove0">
+                                        <div class="col-md-5 form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_lang_name %></label>
+
+                                            <div class="col-md-9 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="name" name="name"  required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_code %></label>
+
+                                            <div class="col-md-9 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="code" name="code"  required/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4" style="text-align: center;">
+                                </div>
+                                <div class="col-md-4" style="text-align: center;width:150px;">
+                                    <button type="submit" id="btn_txt" class="btn btn-success btn-block" onclick="addlanguages('1')"><%= config_json.title_add_language %></button>
+                                </div>
+                                <div class="col-md-4" style="text-align: center;">
+                                </div>
+                                
+                                
+                                
+<!--                                <div class="col-md-12" style="text-align: center;">
+                                <div class="col-md-12 col-xs-12">
+                                    <button class="fa fa-plus-circle" style="font-size: 30px;cursor: pointer" aria-hidden="true"  type="submit" name="submit" value="submit" onclick="addlanguages('1')" ></button>
+                                </div>
+                                  </div>-->
+
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                   
+                </div>
+            </div>
+
+        </div>
+    </div>
+  
+          <div class="panel panel-default">
+              <div class="panel-body">                           
+        <div class="table-responsive" style="padding-bottom: 175px;">
+          <table class="table" id="customre2">               
+            <thead>
+              <tr>
+                <th><%= config_json.title_lang_name %></th>
+                <th><%= config_json.title_code %></th>
+                <th><%= config_json.button_action %></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% detail.forEach(function(data){ %>
+                <tr class="demo" >
+                  <td><%= data.name %></td>
+                  <td><%= data.code %></td>
+                  <td>
+                   <div class="btn-group">
+                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><%= config_json.button_action %> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                          <button type="button" id="lang_id"  onclick="updatelanguages('<%= data._id %>','<%= data.name %>','<%= data.code %>','2')" class="btn btn-default" style="width:100%;"><%= config_json.title_edit_detail %></button>
+                                                   
+                                               
+                         
+<!--                        <form method="post" action="/edit_languages">
+                          <input type="hidden" name="id" value="<%= data.id %>" />
+                          <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.title_edit_detail %></button>
+                        </form>-->
+                      </li>
+                     </ul>
+                    </div>
+                  </td>
+                </tr>
+              <% }); %> 
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>                                                    
+  </div>                               
+</div>    
+</div>
+
+
+
+
+<script type="text/javascript" src="js/dist/pdfmake.min.js"></script>
+<script type="text/javascript" src="js/dist/vfs_fonts.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      
+//      $('.SeeMore2').click(function(){
+//		var $this = $(this);
+//		$this.toggleClass('SeeMore2');
+//		if($this.hasClass('SeeMore2')){
+//			$this.text('See More');			
+//		} else {
+//			$this.text('See Less');
+//		}
+//	});
+
+   $('#start_date').datepicker({
+     format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now())
+
+   }).on("input change", function (e) { 
+    var end_date = $('#start_date').datepicker('getDate');
+    end_date.setDate(end_date.getDate() + 1);
+    $('#end_date').datepicker('setStartDate', end_date);
+  });
+
+   $('#end_date').datepicker({
+     format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now())
+
+   }).on("input change", function (e) { 
+    var start_date = $('#end_date').datepicker('getDate');
+    start_date.setDate(start_date.getDate() - 1);
+    $('#start_date').datepicker('setEndDate', start_date);
+  });
+
+    });
+    
+    
+    
+    
+    
+    function addlanguages(){
+        var code = $('#code').val();
+        var name = $('#name').val();
+        var id = $('#id').val();
+        var lang_type = $('#lang_type').val();
+        
+        
+        if(lang_type == 1){
+        if(code != "" && name != ""){
+           $.ajax({
+                type: 'POST',
+                url: '/add_languages_detail',
+                data: {'name': (name).trim() ,'code': (code).trim()},
+                dataType: "json",
+                  success:function(response){
+                    console.log(response);
+                    if(response.success){
+                        alert('Successfully updated');
+                    }else{
+                        alert('Something is wrong');
+                    }
+                  }
+            });  
+        }
+    
+        }
+        else if(lang_type == 2)
+        {
+            console.log("hi");
+            $.ajax({
+                type: 'POST',
+                url: '/update_languages_detail',
+                data: {'id':id ,'name': (name).trim() ,'code': (code).trim()},
+                dataType: "json",
+                 success:function(response){//
+                    console.log(response);
+                    if(response.success){
+                        alert('Successfully updated');
+                    }else{
+                        alert('Something is wrong');
+                    }
+                  }
+            });  
+        }
+    }
+    
+   
+    
+     function updatelanguages(id,name,code,lang_type){
+         
+         $('#name').val(name);
+         $('#code').val(code);
+         $('#lang_type').val(lang_type);
+         $('#id').val(id);
+         $('#btn_txt').text('<%= config_json.button_update %>')
+        
+    }
+    
+
+   
+
+</script>  
+
+</div>
+
+<% include footer_list.html %> 

@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title><%= constant_json.app_name %></title>
+    <link href="user_panel/css/bootstrap.min.css" rel="stylesheet">
+    <!--upload file-->
+    <link rel="stylesheet" type="text/css" href="user_panel/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="user_panel/css/component.css" />
+
+    <!--style.css-->
+    <link rel="stylesheet" type="text/css" href="user_panel/css/style.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/theme-default.css" /> -->
+    <link rel="stylesheet" href="user_panel/css/bootstrap-select.min.css">
+    <!--responsive.css-->
+    <link rel="stylesheet" type="text/css" href="user_panel/css/responsive.css">
+
+    <!--animation css-->
+    <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <meta name="google-signin-client_id" content="1062107977876-q30ugfv61img1eu9qjm1kiuirenma111.apps.googleusercontent.com">
+
+    
+</script>
+
+    <style type="text/css">
+        @-webkit-keyframes mymove {
+            from {right: 0px;}
+            to {right: 1100px;}
+        }
+
+        @keyframes mymove {
+            from {right: 0px;}
+            to {right: 1100px;}
+        }
+
+        @-webkit-keyframes spinsun {
+            from {top: 200px;}
+            to {top: -600px;}
+        }
+
+        @keyframes spinsun {
+            from {top: 200px;}
+            to {top: -600px;}
+        }
+
+        @-webkit-keyframes anti-spin {
+            from {left:-50px;}
+            to {left: 1670px;}
+        }
+
+        @keyframes anti-spin {
+            from {left: -50px;}
+            to {left: 1670px;}
+        }  
+
+        @-webkit-keyframes anti-for {
+            from {left:-50px; , top: 23px;}
+            to {left: 1500px; , top: 1000px;}
+        }
+
+        @keyframes anti-for {
+            from {left: -50px; , top: 23px;}
+            to {left: 1500px; , top: 1000px;}
+        }  
+        .modal-dialog{
+            z-index: 999999;
+        } 
+
+        .dropdown-menu > .active > a{
+            background-color: #047F8F;
+        }
+    </style>
+
+  </head>
+  <body>
+    <div class="main">
+        <% if(typeof message != 'undefined'){ %>
+            <div class="alert alert-success" role="alert" style="margin-bottom: -10px;">
+            <p align="center"> <strong><%= message %></strong></p>
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                
+            </div>
+        <% } %>
+        <!--header section-->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 heade_bg" style="position: relative;z-index: 999999999;">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="head_lft" style="width: 50%;">
+                            <div class="logo">
+                            <a class="navbar-brand" style="margin: 0;" href="#"><img src="web_images/user_logo.png"></a></div>
+                            <div class="head_tab">
+                                <ul>
+                                    <li><a href="#user" id="user">Ride Now</a></li>
+                                    <li><a href="#provider" id="provider">Become a Driver</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="head_rgt" id="login"  style="width: 50%;">
+                            <form action="/user_login" id="login_form" class="form-horizontal" method="post">
+                                <div style="display: inline; width: 30%; float: left;" class="head_input"><input type="text" name="email" id="email"  placeholder="Email"></div>
+                                <div style="display: inline; width: 30%;float: right;padding-left: 10px;padding-top: 4px;">
+                                    <div style="display: inline;font-size: 15px;font-weight: bold;">
+                                        OR
+                                    </div>
+                                    <div onclick="facebook_login()" style="display: inline;padding-left: 10px;">
+                                        <img src="user_panel/images/fb.png">
+                                    </div>
+                                    <div onclick="google_login()" style="display: inline;padding-left: 10px;">
+                                        <img src="user_panel/images/google.png">
+                                    </div>
+                                    
+                                </div>
+
+                                <div style="display: inline; width: 40%;" class="heade_input_rgt">
+                                   
+                                    <div class="head_input head_inpu1">
+                                    <input type="Password" name="password" id="Password" required placeholder="Password" >
+                                        <a href="#" id="for_link">Forgot Password ?</a>
+                                    </div>
+                                    <div class="head_input head_inpu1"><input type="submit" name="" value="Login"></div>
+                                    
+                                </div>
+                                
+                                
+                             </form>
+
+
+                        </div>
+                        <div class="head_rgt" id="forgot_password" hidden>
+                            <form action="/user_forgot_password" id="forgot_password_form" method="post">
+                                <div class="head_input"></div>
+
+                                <div class="heade_input_rgt">
+                                        
+                                    <div class="head_input head_inpu1">
+                                    <input type="email" name="email" id="email" required placeholder="Email">
+                                        <a href="#" id="login_link">Login ?</span>
+                                    </div>
+                                    <div class="head_input head_inpu1"><input type="submit" name="" value="Submit"></div>
+                                   
+                                </div>
+                             </form>
+                        </div>
+                    </div>         
+                </div>
+            </div>
+        </div>
+        <!--header section-->
+
+        <!--contact section-->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 contact_bg">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <div class="cont_box" style="position: relative; z-index: 99999999;">
+                            <div class="cont_head">
+                                <h1 id="with_eber"><%= config_json.title_ride_with %> <%= config_json.app_name %></h1>
+                                <p>Enter your basic info to get started...</p>
+                            </div>
+                            <form action="/user_register" class="form-horizontal" method="post" id="signupForm" enctype="multipart/form-data">
+
+                                <div class="uer_bg">
+                                
+                                    <input id="sample_input" type="hidden" name="pictureData">
+                                    <div class="uer_img"><label for="file-1"><span><img src="user_panel/images/user_icon.png" id="abc"></span></label></div>
+                          
+                                </div>
+
+                                <div class="uese_info">
+                                
+                                    <input type="hidden" id="login_by" name="login_by" value="manual" />
+                                    <input type="hidden" name="social_id" value="" id="social_id" />
+                                    <input type="hidden" name="device_type" value="web" />
+                                    <input type="hidden" name="type" id="type" value="1" />
+                                    <input type="hidden" name="is_referral" id="is_referral" value="0" />
+                                    <input type="hidden" name="refferal_credit" id="refferal_credit" value="0" />
+                                    <input type="hidden" name="referred_by" id="referred_by" value="null" />
+
+
+                                    <div class="fist_name">
+                                        
+                                        <div class="fist_name_lft">
+                                            <input type="text" name="first_name" id="first_name"  placeholder="First Name">
+                                        </div>
+                                        <div class="fist_name_lft">
+                                            <input type="text" name="last_name" id="last_name"  placeholder="Last Name">
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="fist_name_lft email_bg">
+                                        
+                                        <input type="email" name="email" id="reg_email"  placeholder="Email">
+                                        <input type="password" name="password" id="reg_Password" placeholder="Password">
+                                        
+                                    </div>
+                                    <div class=" email_bg">
+                                        <div class="fist_name_lft">
+                                            <select name="country_phone_code" id="country" data-live-search="true" class="selectpicker">
+                                                <option selected disabled hidden style='display: none'><%= config_json.title_select_country %></option>
+                                                <% country.forEach(function(data) { %>
+                                                    <option><%= data.countryphonecode %> <%= data.countryname %></option>
+                                                <% }); %>
+                                            </select>
+                                            <label id="country-error" class="error" for="country"></label>
+                                        </div>
+                                        <div class="fist_name_lft"><input type="text" name="phone" id="phone" onkeypress="return isNumberKey(event)" required maxlength="10"  placeholder="Phone Number"></div>
+                                    </div>
+                                    <div class=" email_bg">
+                                        <div class="fist_name_lft">
+                                            <select name="city" id="city" data-live-search="true" class="selectpicker">
+                                                 <option selected disabled hidden style='display: none'><%= config_json.title_select_city %></option>
+                                            </select>
+                                            <label id = "citymessage" style="color: red;"></label>
+                                        </div>
+                                        <div class="fist_name_lft"><input type="text" name="zipcode" id="zipcode"  placeholder="Zipcode"></div>
+                                    </div>
+
+                                    <div class="fist_name_lft email_bg">
+                                        
+                                        <input type="text" placeholder="Address" name="address" id="address" />
+                                        
+                                    </div>
+
+                                    <div class="row col-md-12" style="margin-top: 20px;">
+                                        <div class="col-md-6">
+                                            <button onclick="facebook_register()" type="button" style="border:0;"><img src="user_panel/images/facebook_register.png" style="width:150px;">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button onclick="google_register()" type="button" style="border:0;"><img src="user_panel/images/google_register.png" style="width:150px;"></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="sign_btn">
+                                        <input type="submit" id="signup_to"  value="<%= config_json.button_signup_to_ride %>">
+                                    </div>
+                                
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="car_one_bg">
+                    <div class="car_one"><img style="z-index: -999999" src="user_panel/images/car_2.png"></div>
+                </div>
+               <div class="car_two_bg">
+                   <div class="car_two"><img src="user_panel/images/car_1.png"></div> 
+               </div>
+
+               <div class="car_tree_bg">
+                   <div class="car_tree"><img src="user_panel/images/car_4.png"></div> 
+               </div>
+
+                <div class="car_for_bg">
+                   <div class="car_for"><img src="user_panel/images/car_4.png"></div> 
+               </div>
+            </div>
+        </div>
+        <!--contact section-->
+        
+    </div>
+    
+    <div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="otp_verification" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                    <h4 class="modal-title" id="smallModalHead"><%= config_json.title_otp_verification %></h4>
+                </div>
+                <form id="otp_submit">
+                    <span class="payment-errors"></span>
+
+                    <input type="hidden" name="email_otp_match" id="email_otp_match">
+                    <input type="hidden" name="phone_otp_match" id="phone_otp_match">
+
+
+                    <div class="modal-body form-horizontal">                        
+                        <div class="form-group" id="email_otp_div">
+                            <div class="col-md-12">
+                                
+                                <input type="text" placeholder="Email Otp"  onkeypress="return isNumberKey(event)"  class="form-control" autocomplete="off" id="email_otp" name="email_otp"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group"  id="phone_otp_div">
+                            <div class="col-md-12">
+                                
+                                <input type="text" placeholder="Sms Otp"  onkeypress="return isNumberKey(event)"  class="form-control" autocomplete="off" id="phone_otp" name="phone_otp"/>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="submit btn btn-info"  value="submit" />
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> 
+
+<div class="modal animated fadeIn" data-backdrop="static" data-keyboard="false" id="referral" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="smallModalHead"><%= config_json.title_referral_code %></h4>
+            </div>
+            <form id="referral_submit">
+
+            <lable id="referral_errors" class="error"></lable>
+                <div class="modal-body form-horizontal">                        
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            
+                            <input type="text" placeholder="Referral Code" class="form-control" autocomplete="off" id="referral_code" name="referral_code"/>
+                        </div>
+                    </div>
+
+                    
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="submit btn btn-info"  value="submit" />
+                    <input type="button" id="skip_referral" class="submit btn btn-info"  value="skip" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+     <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+     <script type='text/javascript' src='js/plugins/jquery-validation/jquery.validate.js'></script>
+     <script src="user_panel/js/bootstrap-select.min.js"></script>
+
+     <link href="css/image-cropper/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="css/image-cropper/jquery.awesome-cropper.css">
+
+<script src="js/image-cropper/jquery.imgareaselect.js"></script> 
+<script src="js/image-cropper/jquery.awesome-cropper1.js"></script> 
+
+    <!--upload file-->
+  </body>
+</html>
+
+<script type="text/javascript">
+        $(document).ready(function(){
+                setTimeout(function() {
+                    $('.alert').fadeOut('fast');
+                }, 3000);
+
+                $('#sample_input').awesomeCropper(
+                    { width: 150, height: 150, debug: true }
+                );
+            });
+</script> 
+        
+
+<script>
+$(function() {
+    $( "#signupForm" ).validate({
+        ignore : [],
+        rules: {
+            password: {
+                required: true,
+                minlength: 6  
+            },
+           
+            phone: {
+                required: true,
+                minlength : <%= phone_number_min_length %>,
+                maxlength : <%= phone_number_length %>
+            },
+            city : "required",
+            country_phone_code : "required"
+        },
+        messages: {
+        },
+
+
+        submitHandler: function(form) {
+            var type = $('#type').val()
+            if(type == 1)
+            {
+                $.ajax({
+                        type: 'POST',
+                        url: '/getsettingdetail',
+                        data: { },
+                        dataType: "json",
+                        success:function(res){
+
+                            if(res.success == true)
+                            {
+                                
+                                if(res.userEmailVerification == true || res.userSms == true)
+                                {
+
+                                    if(res.userEmailVerification ==false)
+                                    {
+                                        $('#email_otp_div').hide();
+                                    }
+                                    else if(res.userSms ==false)
+                                    {   
+                                        $('#phone_otp_div').hide();
+                                    }
+                                    var country_phone_code = $('#country').val();
+                                    country_phone_code = country_phone_code.split(' ');
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/verification',
+                                        data: {type: $('#type').val() , email: $('#email').val() , 
+                                                phone : $('#phone').val() ,  country_phone_code :country_phone_code[0] },
+                                        dataType: "json",
+                                        success:function(res2){
+                                            
+                                            if(res2.success == true)
+                                            {
+                                                $('#email_otp_match').val(res2.otpForEmail)
+                                                $('#phone_otp_match').val(res2.otpForSMS)
+
+                                                if(res.userEmailVerification ==false)
+                                                {
+                                                    $('#email_otp_match').val('')
+                                                }
+                                                else if(res.userSms ==false)
+                                                {   
+                                                    $('#phone_otp_match').val('')
+                                                }
+                                                $('#otp_verification').modal('show');
+                                                
+                                            }
+                                            else
+                                            {
+                                                
+                                                if(res2.error_code == 401)
+                                                {
+                                                    $('#message').text('Email Already Registered');
+                                                }
+                                                else
+                                                {
+                                                   $('#message').text('Mobile No. Already Registered');
+                                                } 
+                                                $('#validation_error').show();
+                                                setTimeout(function () {
+                                                    $('#validation_error').hide();
+                                                }, 3000);
+                                            }
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    $('#referral').modal('show');
+                                }
+                            }
+                            else
+                            {
+                                $('#referral').modal('show');
+                            }
+                        }
+                });
+            }
+            else
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/getsettingdetail',
+                    data: { },
+                    dataType: "json",
+                    success:function(res){
+
+                        if(res.success == true)
+                        {
+                            
+                            if(res.providerEmailVerification == true || res.providerSms == true)
+                            {
+
+                                if(res.providerEmailVerification ==false)
+                                {
+                                    $('#email_otp_div').hide();
+                                }
+                                else if(res.providerSms ==false)
+                                {   
+                                    $('#phone_otp_div').hide();
+                                }
+                                var country_phone_code = $('#country').val();
+                                country_phone_code = country_phone_code.split(' ');
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/verification',
+                                    data:{type: $('#type').val() , email: $('#email').val() , 
+                                            phone : $('#phone').val() , country_phone_code :country_phone_code[0] },
+                                    dataType: "json",
+                                    success:function(res2){
+                                        
+                                        if(res2.success == true)
+                                        {
+                                            $('#email_otp_match').val(res2.otpForEmail)
+                                            $('#phone_otp_match').val(res2.otpForSMS)
+
+                                            if(res.providerEmailVerification ==false)
+                                            {
+                                                $('#email_otp_match').val('')
+                                            }
+                                            else if(res.providerSms ==false)
+                                            {   
+                                                $('#phone_otp_match').val('')
+                                            }
+                                            $('#otp_verification').modal('show');
+                                        }
+                                        else
+                                        {
+                                            if(res2.error_code == 401)
+                                            {
+                                                $('#message').text('Email Already Registered');
+                                            }
+                                            else
+                                            {
+                                               $('#message').text('Mobile No. Already Registered');
+                                            } 
+                                            $('#validation_error').show();
+                                            setTimeout(function () {
+                                                $('#validation_error').hide();
+                                            }, 3000);
+                                        }
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                $('#signupForm').get(0).submit();
+                            }
+                        }
+                        else
+                        {
+                            $('#signupForm').get(0).submit();
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    $('#provider').click(function(){
+        $('#provider').addClass('act');
+        $('#user').removeClass('act');
+        $('#signupForm').attr('action' , "/provider_register")
+        $('#login_form').attr('action' , "/provider_login")
+        $('#forgot_password_form').attr('action' , "/provider_forgot_password")
+        $('#type').val(2)
+
+        $('#with_eber').text('<%= config_json.title_drive_with %> <%= constant_json.app_name %>')
+        $('#signup_to').val('<%= config_json.button_signup_to_drive %>')
+    });
+    $('#user').click(function(){
+
+        $('#user').addClass('act')
+        $('#provider').removeClass('act');
+        $('#type').val(1)
+        $('#signupForm').attr('action' , "/user_register")
+        $('#login_form').attr('action' , "/user_login")
+        $('#forgot_password_form').attr('action' , "/user_forgot_password")
+
+        $('#with_eber').text('<%= config_json.title_ride_with %> <%= constant_json.app_name %>')
+        $('#signup_to').val('<%= config_json.button_signup_to_ride %>')
+    });
+
+    <%if(type=="provider"){ %>
+        $('#provider').addClass('act');
+        $('#user').removeClass('act');
+        $('#signupForm').attr('action' , "/provider_register")
+        $('#login_form').attr('action' , "/provider_login")
+        $('#forgot_password_form').attr('action' , "/provider_forgot_password")
+        $('#type').val(2)
+        $('#with_eber').text('<%= config_json.title_drive_with %> <%= constant_json.app_name %>')
+        $('#signup_to').val('<%= config_json.button_signup_to_drive %>')
+    <% } else { %>
+        $('#user').addClass('act')
+        $('#provider').removeClass('act');
+        $('#type').val(1)
+        $('#signupForm').attr('action' , "/user_register")
+        $('#login_form').attr('action' , "/user_login")
+        $('#forgot_password_form').attr('action' , "/user_forgot_password")
+        $('#with_eber').text('<%= config_json.title_ride_with %> <%= constant_json.app_name %>')
+        $('#signup_to').val('<%= config_json.button_signup_to_ride %>')
+    <% } %>
+
+    $('#skip_referral').click(function(){
+        $('#signupForm').get(0).submit();
+    })
+
+    $('#login_link').click(function(){
+        $('#login').show();
+        $('#forgot_password').hide();
+    });
+
+    $('#for_link').click(function(){
+        $('#login').hide();
+        $('#forgot_password').show();
+    });
+
+    $('#referral_submit').validate({
+
+        rules: {
+            referral_code: "required"
+        },
+
+        submitHandler: function(form) {
+            
+            var countryname= $("#country option:selected").text();
+            countryname = countryname.split(' ');
+            countryname = countryname.slice(1);
+            countryname = countryname.toString();
+            countryname = countryname.replace(/,/g, ' ');
+
+            var referral_code = $('#referral_code').val();
+             $.ajax({
+                type: 'POST',
+                url: '/referral_user',
+                data: {country:countryname, referral_code:referral_code },
+                dataType: "json",
+                success:function(res){
+                    if(res.success == false)
+                    {
+                        $('#referral_errors').text('Invalid Referral');
+                    }
+                    else
+                    {
+                        $('#is_referral').val(res.is_referral)
+                        $('#referred_by').val(res.referred_by)
+                        $('#refferal_credit').val(res.refferal_credit)
+                        $('#signupForm').get(0).submit();
+                    }
+                }
+            });
+        }
+    })
+
+    $( "#otp_submit" ).validate({
+
+        rules: {
+            email_otp: {
+                equalTo : "#email_otp_match"
+            },
+            phone_otp: {
+                equalTo : "#phone_otp_match"
+            }
+        },
+        messages: {
+            email_otp: {
+                equalTo : "<%= admin_messages.error_email_otp_not_match %>h"
+            },
+            phone_otp: {
+                equalTo : "<%= admin_messages.error_sms_otp_not_match %>"
+            }
+        },
+
+        submitHandler: function(form) {
+            //$('#signupForm').get(0).submit();
+            $('#referral').modal('show');
+        }
+    });
+});
+
+$(document).ready(function() {
+
+
+    var _URL = window.URL || window.webkitURL;
+    
+
+
+    $('#country').change(function(e){
+
+        var countryname= $("#country option:selected").text();
+        countryname = countryname.split(' ');
+        countryname = countryname.slice(1);
+        countryname = countryname.toString();
+        countryname = countryname.replace(/,/g, ' ');
+
+        $.ajax({
+                type: 'POST',
+                url: '/getcountryphonelength',
+                data: { 'countryname':countryname},
+                dataType: "json",
+                success:function(res){
+
+                    $("#phone").attr("maxlength", res.phone_number_length);
+                    $("#signupForm" ).validate().settings.rules.phone.minlength=res.phone_number_min_length;
+                    $("#signupForm" ).validate().settings.rules.phone.maxlength=res.phone_number_length;
+                }
+        });
+
+        $('#city').empty();
+        var countryname = document.getElementById('country').value;
+        countryname = countryname.substr(countryname.indexOf(" ") + 1);
+
+        $.ajax({
+            type: 'POST',
+            url: '/city_list',
+            data: 'countryname='+countryname,
+            dataType: "json",
+            success:function(res){
+
+
+                $("#city").append("<option selected disabled hidden style='display: none'>Select City...</option>");
+
+                if(res == "")
+                {
+                    document.getElementById('citymessage').innerHTML="city not available";
+                     $('#reg_button').attr('disabled',true);
+                }
+                else
+                {
+                    for(var index in res)
+                    {
+                        document.getElementById('citymessage').innerHTML="";
+                        $('#reg_button').attr('disabled',false);
+                      var city_name = res[index].cityname;
+                      var city_id = res[index]._id;
+                      $("#city").append("<option value="+city_id+">"+ city_name + "</option>");
+                    }
+                }
+                $('#city').selectpicker('refresh');
+            }
+        });
+    });
+
+    window.fbAsyncInit = function() {
+    
+        var type = $('#type').val()
+        var auth2;
+        if(type == 1){
+            FB.init({
+              appId            : '<%= constant_json.facebook_user_app_id %>',
+              autoLogAppEvents : true,
+              xfbml            : true,
+              version          : 'v2.10'
+            });
+            FB.AppEvents.logPageView();
+        } else {
+            FB.init({
+              appId            : '<%= constant_json.facebook_provider_app_id %>',
+              autoLogAppEvents : true,
+              xfbml            : true,
+              version          : 'v2.10'
+            });
+            FB.AppEvents.logPageView();
+        }
+        
+    };
+
+    (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    
+});
+
+    function facebook_login(){
+        FB.login(function(response) {
+            if (response.authResponse) {
+                FB.api('/me?fields=id', function(response) {
+                    var id = response.id;
+                    var type = $('#type').val()
+                    var json = {
+                        social_unique_id: id,
+                        device_type: "web",
+                        login_by: "facebook",
+                        type: type
+                    }
+                    if(type == 1){
+                        $.ajax({
+                            type: 'POST',
+                            url: '/user_social_login_web',
+                            data: json,
+                            dataType: "json",
+                            success:function(res){
+                                if(res.success){
+                                    window.location.href=res.url;
+                                } else {
+                                    location.reload();   
+                                }
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/provider_social_login_web',
+                            data: json,
+                            dataType: "json",
+                            success:function(res){
+                                if(res.success){
+                                    window.location.href=res.url;
+                                } else {
+                                    location.reload();   
+                                }
+                            }
+                        });
+                    }   
+                });
+            }
+        });
+    }
+    function google_login(){
+
+        gapi.load('auth2', function() {
+
+            var auth2 = gapi.auth2.getAuthInstance();
+            if(auth2){
+                auth2.signOut().then(function () {
+                  console.log('User signed out.');
+                });
+            }
+
+            var type = $('#type').val()
+            var auth2;
+            if(type == 1){
+                auth2 = gapi.auth2.init({
+                    client_id: '<%= constant_json.google_user_app_id %>',
+                    fetch_basic_profile: true,
+                    scope: 'profile'
+                });
+            } else {
+                auth2 = gapi.auth2.init({
+                    client_id: '<%= constant_json.google_provider_app_id %>',
+                    fetch_basic_profile: true,
+                    scope: 'profile'
+                });
+            }
+
+            auth2.signIn().then(function() {
+            // console.log(auth2.currentUser.get().getId());
+            if (auth2.isSignedIn.get()) {
+
+                var profile = auth2.currentUser.get().getBasicProfile();
+                var id = profile.getId();
+                var type = $('#type').val();
+                var json = {
+                    social_unique_id: id,
+                    device_type: "web",
+                    login_by: "google",
+                    type: type
+                }
+                if(type == 1){
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user_social_login_web',
+                        data: json,
+                        dataType: "json",
+                        success:function(res){
+                            if(res.success){
+                                window.location.href=res.url;
+                            } else {
+                                location.reload();   
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/provider_social_login_web',
+                        data: json,
+                        dataType: "json",
+                        success:function(res){
+                            if(res.success){
+                                window.location.href=res.url;
+                            } else {
+                                location.reload();   
+                            }
+                        }
+                    });
+                }   
+            }
+
+          });
+        });
+
+    }
+
+    function facebook_register(){
+        FB.login(function(response) {
+            if (response.authResponse) {
+                FB.api('/me?fields=id,name,email', function(response) {
+                   
+                   $('#social_id').val(response.id);
+                   $('#reg_email').val(response.email);
+                   $("#reg_email").attr("readonly", true);
+                   $('#first_name').val(response.name);
+                   $('#login_by').val("facebook");
+                   $("#signupForm" ).validate().settings.rules.password.required=false;
+                   $('#reg_Password').hide();
+                   var image_url = "https://graph.facebook.com/" + response.id + "/picture?width=250&height=250";
+                   generate_file(image_url)
+                });
+            } 
+        });
+    }
+
+    function google_register(){
+
+        gapi.load('auth2', function() {
+
+            var auth2 = gapi.auth2.getAuthInstance();
+            if(auth2){
+                auth2.signOut().then(function () {
+                  console.log('User signed out.');
+                });
+            }
+
+            var type = $('#type').val()
+            var auth2;
+            if(type == 1){
+                auth2 = gapi.auth2.init({
+                    client_id: '<%= constant_json.google_user_app_id %>',
+                    fetch_basic_profile: true,
+                    scope: 'profile'
+                });
+            } else {
+                auth2 = gapi.auth2.init({
+                    client_id: '<%= constant_json.google_provider_app_id %>',
+                    fetch_basic_profile: true,
+                    scope: 'profile'
+                });
+            }
+
+          // Sign the user in, and then retrieve their ID.
+          auth2.signIn().then(function() {
+            // console.log(auth2.currentUser.get().getId());
+            if (auth2.isSignedIn.get()) {
+                var profile = auth2.currentUser.get().getBasicProfile();
+                $('#social_id').val(profile.getId());
+                $('#reg_email').val(profile.getEmail());
+                $('#first_name').val(profile.getName());
+                $("#reg_email").attr("readonly", true);
+                $('#login_by').val("google");
+                $("#signupForm" ).validate().settings.rules.password.required=false;
+                $('#reg_Password').hide();
+                var image_url =  profile.getImageUrl()
+                generate_file(image_url)
+            }
+
+          });
+        });
+        
+
+    }
+
+    function generate_file(image_url){
+        var getFileBlob = function (url, cb) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            xhr.responseType = "blob";
+            xhr.addEventListener('load', function() {
+                cb(xhr.response);
+            });
+            xhr.send();
+        };
+
+        var blobToFile = function (blob, name) {
+            blob.lastModifiedDate = new Date();
+            blob.name = "profile";
+            return blob;
+        };
+
+        var getFileObject = function(filePathOrUrl, cb) {
+            getFileBlob(filePathOrUrl, function (blob) {
+                cb(blobToFile(blob, image_url));
+            });
+        };
+
+        getFileObject(image_url,  function(fileObject){
+
+            var reader = new FileReader();
+            reader.onload =  function(e){
+                $('#sample_input').val(e.target.result);
+                $('#abc').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(fileObject);
+        });
+    }
+
+</script> 

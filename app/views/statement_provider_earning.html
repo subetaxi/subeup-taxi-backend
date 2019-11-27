@@ -1,0 +1,607 @@
+<% if(type == "provider") { %> 
+  <% include provider/provider_header.html %>
+
+  <% } else if(type == "dispatcher") { %> 
+  <% include dispatcher/dispatcher_header.html %>
+  <% } else if(type == "partner") { %> 
+  <% include partner/partner_header.html %>
+  <% } else if(type == "hotel") { %> 
+  <% include hotel_header.html %>
+<% } else { %> 
+  <% include header.html %>
+<% } %>               
+ <link rel="stylesheet" type="text/css" href="css/style.css">
+ 
+<img id='imgToExport' src="<%= setting_detail.image_base_url + type_detail.type_image_url %>" style='display:none' />
+  <!--style.responsive-->
+  <link rel="stylesheet" type="text/css" href="css/responsive.css">
+<!-- PAGE CONTENT WRAPPER -->
+<div class="main">
+<!--header scection-->
+    <!-- <div class="head_bg">
+        <div class="head">
+            <div class="head_lft"></div>
+            <div class="head_rgt"></div>
+        </div>
+        
+        <div class="head_top_bg">
+            <div class="margin">
+                <div class="head_top_lft">
+                    <div class="logo"><a href="#"><img src="images/logo.png"></a></div>
+                </div>
+
+                <div class="head_top_rgt">
+                    <div class="head_top_text">
+                        <h1>INVOICE NO</h1>
+                        <p>TA PTE 01052017 0001415</p>
+                    </div>
+
+                    <div class="head_date">
+                        Date: 1st May 2016
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!--header scection-->
+    <div class="panel panel-default">
+        <div class="panel-body">  
+            <div class="col-md-4">                                 
+                <h2><strong><%= detail.invoice_number %></strong></h2>
+            </div>
+            <div class="col-md-4" style="text-align: center;">                                 
+                 <h4><strong><%= moment(detail.provider_trip_end_time).format("DD MMM 'YY") %></strong></h4>
+            </div>
+            <div class="col-md-4 btn-group">
+                <button class="btn btn-danger pull-right" id="demo"><%= config_json.button_export_pdf %></button>
+            </div>
+        
+
+    <!--content scection-->
+    <div class="content_bg" style="margin-top: 0px;">
+        <div class="margin">
+            <div class="content">
+                <div class="cont_lft">
+                    <div class="cont_top">
+                        <h1><%= config_json.title_user_details %></h1>
+                    </div>
+                        <div class="cont_dit">
+                            <p><%= config_json.title_user_id %>: <%= user_detail.unique_id %></p>
+                            <p><%= config_json.title_user_name %>: <%= user_detail.first_name %> <%= user_detail.last_name %></p>
+                        </div>
+                </div>
+
+                <div class="cont_lft">
+                    <div class="cont_top">
+                        <h1><%= config_json.title_provider_details %></h1>
+                    </div>
+                        <div class="cont_dit">
+                            
+                         
+                            
+                            <p><%= config_json.title_provider_id %>:<%= provider_detail.unique_id %> 
+                                                        
+                                                        
+                                                       
+                            </p>
+                            <p><%= config_json.title_provider_name %>: 
+                                                         <%= provider_detail.first_name %> <%= provider_detail.last_name %>
+                                                       
+                        </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="cont_lft">
+                    <div class="cont_top">
+                        <h1><%= config_json.title_pickup_address %></h1>
+                    </div>
+                        <div class="cont_dit">
+                            <p><%= detail.source_address %></p>
+                            
+                        </div>
+                </div>
+
+                <div class="cont_lft">
+                    <div class="cont_top">
+                        <h1><%= config_json.title_destination_address %></h1>
+                    </div>
+                        <div class="cont_dit">
+                            <p><%= detail.destination_address %></p>
+                        </div>
+                </div>
+            </div>
+
+            <div class="Trip_info_bg">
+                <div class="margin">
+                    <div class=" Trip_info">
+                        <div class="trip_head cont_top">
+                            <h1><%= config_json.title_trip_information %></h1>
+
+                            
+                            <% if(detail.is_trip_cancelled==1){ %>
+                                <span><%= config_json.title_cancelled_request %></span>
+                            <% } %>
+                            <% if(detail.is_trip_completed==1){ %>
+                                <span style="color: green;"><%= config_json.title_trip_status_completed %> </span>
+                            <% } %>
+                            
+                        </div>
+
+                        <div class="trip_info_box_bg">
+                            <div class="trip_info_box">
+                                <h4><%= config_json.title_invoice_total_distance %></h4>
+                                <p><%= detail.total_distance %>
+                                <% if(detail.unit==1){ %>
+                                    <%= config_json.unit_km %>s
+                                <% } else { %>
+                                    <%= config_json.unit_mile %>s
+                                <% } %>
+
+
+                                </p>
+                            </div>
+
+                            <div class="trip_info_box">
+                                <h4><%= config_json.title_total_time %></h4>
+                                <p><%= detail.total_time %> mins</p>
+                            </div>
+
+                            <div class="trip_info_box">
+                                <h4><%= config_json.title_invoice_total_wait_time %></h4>
+                                <p><%= detail.total_waiting_time %> mins</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" Trip_info">
+                        <div class="trip_head cont_top">
+                            <h1><%= config_json.title_trip_time_descriptiom %></h1>
+                        </div>
+
+                        <div class="trip_info_box_bg">
+                            <div class="trip_info_box trip_info_box1">
+                                <h4><%= config_json.title_create_time %></h4>
+                                <p><%= moment(detail.created_at).tz(timezone_for_display_date).format("hh:mm a") %></p>
+<!--                                <p><%= moment(detail.created_at).format('hh:mm:ss a') %></p>-->
+                            </div>
+
+                            <div class="trip_info_box trip_info_box1">
+                                <h4><%= config_json.title_provider_reach_time %></h4>
+                                <p><%= moment(detail.provider_arrived_time).tz(timezone_for_display_date).format("hh:mm a") %></p>
+<!--                                <p><%= moment(detail.provider_arrived_time).format('hh:mm:ss a') %></p>-->
+                            </div>
+
+                            <div class="trip_info_box trip_info_box1">
+                                <h4><%= config_json.title_started_time %></h4>
+                                <p><%= moment(detail.provider_trip_start_time).tz(timezone_for_display_date).format("hh:mm a") %></p>
+
+<!--                                <p><%= moment(detail.provider_trip_start_time).format('hh:mm:ss a') %></p>-->
+                            </div>
+
+                            <div class="trip_info_box trip_info_box1">
+                                <h4><%= config_json.title_ended_time %></h4>
+                                    <p><%= moment(detail.provider_trip_end_time).tz(timezone_for_display_date).format("hh:mm a") %></p>
+<!--                                <p><%= moment(detail.provider_trip_end_time).format('hh:mm:ss a') %></p>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--invoice section-->
+            <div class="invoice_bg">
+                <div class="margin">
+                    <div class="invoice">
+                        <div class="invo_head cont_top">
+                            <h1><%= config_json.button_invoice %></h1>
+                        </div>
+
+                        <div class="invoice_table_bg">
+                            <div class="invoice_table">
+                                <div class="invo_one">
+                                    <div class="invo_one_lft"><%= config_json.title_min_fare %></div>
+                                    <div class="invo_one_rgt"><%= (min_fare).toFixed(2) %></div>
+                                </div>
+                                <div class="invo_one invo_one_bg">
+                                    <div class="invo_one_lft"><%= config_json.title_base_price %></div>
+                                    <div class="invo_one_rgt"><%= (detail.base_distance_cost).toFixed(2) %></div>
+                                </div>
+
+                                <div class="invo_one">
+                                    <div class="invo_one_lft"><%= config_json.title_distance_price %></div>
+                                    <div class="invo_one_rgt"><%= (detail.distance_cost).toFixed(2) %></div>
+                                </div>
+
+                                <div class="invo_one invo_one_bg">
+                                    <div class="invo_one_lft"><%= config_json.title_total_time_price %></div>
+                                    <div class="invo_one_rgt"><%= (detail.time_cost).toFixed(2) %></div>
+                                </div>
+                                <div class="invo_one">
+                                    <div class="invo_one_lft"><%= config_json.title_wait_time_price %></div>
+                                    <div class="invo_one_rgt"><%= (detail.waiting_time_cost).toFixed(2) %></div>
+                                </div>
+                                
+                                <div class="invo_one invo_one_bg">
+                                    <div class="invo_one_lft"><%= config_json.title_total_fixed_price %></div>
+                                    <div class="invo_one_rgt"><%= (detail.fixed_price).toFixed(2) %></div>
+                                </div>
+
+                                <div class="invo_total">
+                                    <div class="invo_one_lft"><%= config_json.title_invoice_service_total %></div>
+                                    <div class="invo_one_rgt"><%= (detail.total_service_fees).toFixed(2) %></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="invoice_table_bg">
+                            <div class="invoice_table">
+                                <div class="invo_one">
+                                    <div class="invo_one_lft"><%= config_json.title_tax %></div>
+                                    <div class="invo_one_rgt"><%= (detail.tax_fee).toFixed(2) %></div>
+                                </div>
+                                <div class="invo_one invo_one_bg">
+                                    <div class="invo_one_lft"><%= config_json.title_surge %></div>
+                                    <div class="invo_one_rgt"><%= (detail.surge_fee).toFixed(2) %></div>
+                                </div>
+
+                                <div class="invo_one">
+                                    <div class="invo_one_lft"><%= config_json.title_user_tax %></div>
+                                    <div class="invo_one_rgt"><%= (detail.user_tax_fee).toFixed(2) %></div>
+                                </div>
+
+                                <div class="invo_one invo_one_bg">
+                                    <div class="invo_one_lft"><%= config_json.title_user_miscellaneous_fee %></div>
+                                    <div class="invo_one_rgt"><%= (detail.user_miscellaneous_fee).toFixed(2) %></div>
+                                </div>
+                                <div class="invo_one">
+                                    <div class="invo_one_lft"><%= config_json.title_is_trip %></div>
+                                    <div class="invo_one_rgt"><%= (detail.tip_amount).toFixed(2) %></div>
+                                </div>
+
+                                <div class="invo_one invo_one_bg">
+                                    <div class="invo_one_lft"><%= config_json.title_is_toll %></div>
+                                    <div class="invo_one_rgt"><%= (detail.toll_amount).toFixed(2) %></div>
+                                </div>
+
+                                <div class="invo_total">
+                                    <div class="invo_one_lft"><%= config_json.title_trip_total %>
+                                        <% if(detail.is_min_fare_used == 1){ %>
+                                            <span>(we used fare price)}</span>
+                                        <% } %>
+                                    </div>
+                                    <div class="invo_one_rgt"><%= (detail.total_after_surge_fees).toFixed(2) %></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="invo_head cont_top">
+                            <h1><%= config_json.title_bonus %></h1>
+                        </div>
+
+                        <div class="invoice_table_bg">
+                            <div class="invoice_table">
+                                <div class="invo_one">
+                                    <div class="invo_one_lft"><%= config_json.email_title_promo_bonus %></div>
+                                    <div class="invo_one_rgt"><%= (detail.promo_payment).toFixed(2) %></div>
+                                </div>
+                                <div class="invo_one invo_one_bg">
+                                    <div class="invo_one_lft"><%= config_json.email_title_referral_bonus %></div>
+                                    <div class="invo_one_rgt"><%= (detail.referral_payment).toFixed(2) %></div>
+                                </div>
+
+                                <div class="invo_total">
+                                    <div class="invo_one_lft"><%= config_json.title_total %></div>
+                                    <div class="invo_one_rgt"><%= (detail.total).toFixed(2) %></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content bot_text_pro">
+                <div class="cont_lft">
+                    <div class="cont_top">
+                        <h1><%= config_json.title_user_details %></h1>
+                    </div>
+                        <div class="cont_dit">
+                            <p><%= config_json.title_wallet_payment %>: <%= (detail.wallet_payment).toFixed(2) %></p>
+                            <p><%= config_json.title_total_remaining_payment %>: <%= (detail.remaining_payment).toFixed(2) %></p>
+                        </div>
+                </div>
+
+                <div class="cont_lft">
+                    <div class="cont_top blanck">
+                        &nbsp;
+                    </div>
+                        <div class="cont_dit">
+                            <p><%= config_json.title_card_payment %>: <%= (detail.card_payment).toFixed(2) %></p>
+                            <p><%= config_json.title_cash_payment %>: <%= (detail.cash_payment).toFixed(2) %></p>
+                        </div>
+                </div>
+            </div>
+
+            <div class="content bot_text_pro">
+                <div class="cont_lft">
+                    <div class="cont_top">
+                        <h1><%= config_json.title_total_provider_earning %></h1>
+                    </div>
+                        <div class="cont_dit">
+                            <p><%= config_json.title_invoice_service_fees %>: <%= (detail.total_service_fees).toFixed(2) %></p>
+                            <p><%= config_json.title_provider_tax %>: <%= (detail.provider_tax_fee).toFixed(2) %></p>
+                        </div>
+                </div>
+
+                <div class="cont_lft">
+                    <div class="cont_top">
+                        <div class="tot_btn"><%= (detail.provider_service_fees).toFixed(2) %></div>
+                    </div>
+                        <div class="cont_dit">
+                            <p><%= config_json.title_is_toll %>: <%= (detail.toll_amount).toFixed(2) %></p>
+                            <p><%= config_json.title_provider_miscellaneous_fee %>: <%= (detail.provider_miscellaneous_fee).toFixed(2) %></p>
+                        </div>
+                </div>
+            </div>
+                </div>
+            </div>
+            <!--invoice section-->
+        </div>
+    </div>
+
+    </div>
+    </div>
+    <!--content scection-->
+</div>
+</body>
+<!-- END PAGE CONTENT WRAPPER -->                                                 
+</div>            
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+<script type="text/javascript" src='js/dist/pdfmake.min.js'></script>
+<script type="text/javascript" src='js/dist/vfs_fonts.js'></script>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+    $('#demo').click(function(e){
+        var trip_status = <% if (detail.is_trip_cancelled == 1) { %>
+            <% if (detail.is_trip_cancelled_by_provider == 1) { %> 'Cancel By Provider'
+            <% } else { %>
+            'Cancel By User'
+            <% } %>
+            <% } else { if (detail.is_provider_status == 2) { %>
+            'Accepted'
+            <% } else if (detail.is_provider_status == 4) { %>
+            'Arrived'
+            <% } else if (detail.is_provider_status == 6) { %>
+            'In Trip'
+            <% } else if (detail.is_provider_status == 9) { %>
+            'Completed'
+            <% } else if (detail.is_provider_status == 0) { %>
+            'Waiting'
+            <% }} %> ;
+        var imgToExport = document.getElementById('imgToExport');
+        var canvas = document.createElement('canvas');
+        canvas.width = imgToExport.width;
+        canvas.height = imgToExport.height;
+        canvas.getContext('2d').drawImage(imgToExport, 0, 0);
+        var data = canvas.toDataURL('image/png');
+        
+        var docDefinition = {
+        pageOrientation: 'Letter',
+            header: {
+                columns: [
+
+                { text: '<%= config_json.title_invoice %>', alignment: 'center', bold: true, fontSize: 17, decoration: 'underline'}
+                ]
+            },
+            footer: {
+                columns: [
+
+                { image: data, fit: [25, 50], alignment: 'right', decoration: 'overline', margin: [55, 0, 15, 0]}
+                ]
+            },
+                headerMargins: [15, 15, 15, 15],
+                content: [
+                {
+                style: 'tableExample',
+                        color: '#444',
+                        table: {
+                        widths: [240, 240],
+                                body: [
+                                [ { text: '<%= detail.invoice_number %>', style: 'tableHeader2', alignment: 'left', margin: [15, 2, 0, 0]}, { text: '<%= moment(detail.provider_trip_end_time).format("DD MMM YYYY ") %>', style: 'tableHeader2', alignment: 'right',  margin: [15, 2, 5, 0]}],
+                                ]
+                        },
+                        layout: 'noBorders'
+                },
+                {
+                style: 'tableExample',
+                        color: '#444',
+                        table: {
+                        widths: [150 , 90, 150 , 90],
+                                body: [
+                                [{text:' | <%= config_json.title_user_details %>',margin: [1, 2, 5, 0], style: 'tableHeader2', alignment: 'left'}, {text:''}, {text:' | <%= config_json.title_provider_details %>',margin: [1, 2, 5, 0], style: 'tableHeader', alignment: 'left'}, {text:''}],
+                                [{text:'<%= config_json.title_user_id %>', margin: [15, 2, 5, 0] }, {text:'<%= user_detail.unique_id %>'}, {text:'<%= config_json.title_provider_id %>', margin: [15, 2, 5, 0]}, {text:'<%= provider_detail.unique_id %>'}],
+                                [{text:'<%= config_json.title_user_name %>', margin: [15, 2, 5, 0] }, {text:'<%= user_detail.first_name %> <%= user_detail.last_name %>'}, {text:'<%= config_json.title_provider_name %>', margin: [15, 2, 5, 0]}, {text:'<%= provider_detail.first_name %> <%= provider_detail.last_name %>' , margin: [15, 2, 5, 0]}],
+
+                                ]
+                        },
+                        layout: 'noBorders'
+                },
+                {
+                style: 'tableExample',
+                        color: '#444',
+                        table: {
+                                widths: [220 ,20 , 220 ,20],
+                                body: [
+                                [{ text: '| <%= config_json.title_pickup_address %>',margin: [1, 2, 5, 0], style: 'tableHeader', alignment: 'left' },{text:''} ,  {text: ' | <%= config_json.title_destination_address %>',margin: [1, 2, 5, 0], style: 'tableHeader', alignment: 'left'} , {text:''}],
+                                [{ text: '<%= detail.source_address %>', alignment: 'left', margin: [15, 2, 5, 0] }, {text:''}, { text: '<%= detail.destination_address %>', alignment: 'left', margin: [15, 2, 5, 0]} , {text:''}],
+                                ]
+                        },
+                        layout: 'noBorders'
+                },
+                {
+                style: 'tableExample',
+                        color: '#444',
+                        table: {
+                                widths: [160 ,160 , 160],
+                                body: [
+                                [{ text: '| <%= config_json.title_trip_information %>',margin: [1, 2, 5, 0], style: 'tableHeader', alignment: 'left' },{text:''} , {text:''}],
+                                [{ text: '<%= config_json.title_invoice_total_distance %>', alignment: 'left', margin: [50, 2, 5, 0] }, { text: '<%= config_json.title_total_time %>', alignment: 'left', margin: [50, 2, 5, 0]} , { text: '<%= config_json.title_invoice_total_wait_time %>', alignment: 'left', margin: [50, 2, 5, 0]}],
+
+                                <% if(detail.unit==1){ %>
+                                   [{ text: '<%= detail.total_distance %> <%= config_json.unit_km %>s', style: 'tableHeader', alignment: 'left', margin: [50, 2, 5, 0] }, { text: '<%= detail.total_time %> mins', style: 'tableHeader', alignment: 'left', margin: [50, 2, 5, 0]} , { text: '<%= detail.total_waiting_time %> mins', style: 'tableHeader', alignment: 'left', margin: [50, 2, 5, 0]}]
+                                    ]
+                                <% } else { %>
+                                    [{ text: '<%= detail.total_distance %> <%= config_json.unit_mile %>s', style: 'tableHeader', alignment: 'left', margin: [50, 2, 5, 0] }, { text: '<%= detail.total_time %> mins', style: 'tableHeader', alignment: 'left', margin: [50, 2, 5, 0]} , { text: '<%= detail.total_waiting_time %> mins', style: 'tableHeader', alignment: 'left', margin: [50, 2, 5, 0]}]
+                                    ]
+                                <% } %>
+
+
+
+                                
+                        },
+                        layout: 'noBorders'
+                },
+                {
+                style: 'tableExample',
+                        color: '#444',
+                        table: {
+                        headerRows: 2,
+                                keepWithHeaderRows: 1,
+                                widths: [400, 80],
+                                body: [
+                                    [{text: '| <%= config_json.title_invoice %>' ,margin: [1, 2, 5, 0], style: 'tableHeader', alignment: 'left', color: '#434A54' }, {text:''}],
+                                    [{ text: '<%= config_json.title_min_fare %>' ,margin: [15, 2, 5, 0] , alignment: 'left'}, { text: '<%= (min_fare).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    [{ text: '<%= config_json.title_base_price %>' ,margin: [15, 2, 5, 0] , alignment: 'left'}, { text: '<%= (detail.base_distance_cost).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    [{ text: '<%= config_json.title_distance_price %>' ,margin: [15, 2, 5, 0] ,alignment: 'left'}, { text: '<%= (detail.distance_cost).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    [{ text: '<%= config_json.title_total_time_price %>' ,margin: [15, 2, 5, 0] ,alignment: 'left'}, { text: '<%= detail.time_cost %>', style: 'value', alignment: 'right'}],
+                                    [{ text: '<%= config_json.title_wait_time_price %>' ,margin: [15, 2, 5, 0] ,alignment: 'left'}, { text: '<%= (detail.waiting_time_cost).toFixed(2) %>', style: 'value', alignment: 'right'}],
+
+                                    [{ text: '<%= config_json.title_invoice_service_total %>',margin: [15, 5, 5, 0]  , alignment: 'left', fillColor: '#black', color: '#ffffff'}, { text: '<%= (detail.total_service_fees).toFixed(2) %>', fillColor: '#black', style: 'total4', alignment: 'right', color: '#ffffff'}],
+
+                                    [{ text: '<%= config_json.title_tax %>' ,margin: [15, 2, 5, 0], alignment: 'left'}, { text: '<%= (detail.tax_fee).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    [{ text: '<%= config_json.title_surge %>' ,margin: [15, 2, 5, 0], alignment: 'left'}, { text: '<%= (detail.surge_fee).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    
+                                    [{ text: '<%= config_json.title_user_tax %>' ,margin: [15, 2, 5, 0], alignment: 'left'}, { text: '<%= (detail.user_tax_fee).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    [{ text: '<%= config_json.title_user_miscellaneous_fee %>' ,margin: [15, 2, 5, 0], alignment: 'left'}, { text: '<%= (detail.user_miscellaneous_fee).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    [{ text: '<%= config_json.title_is_trip %>' ,margin: [15, 2, 5, 0], alignment: 'left'}, { text: '<%= (detail.tip_amount).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    [{ text: '<%= config_json.title_is_toll %>' ,margin: [15, 2, 5, 0], alignment: 'left'}, { text: '<%= (detail.toll_amount).toFixed(2) %>', style: 'value', alignment: 'right'}],
+
+                                    <% if(detail.is_min_fare_used == 1){ %>
+                                        [{ text: '<%= config_json.title_trip_total %>  (we used fare price)',margin: [15, 5, 5, 0]  , alignment: 'left', fillColor: '#black', color: '#ffffff'}, { text: '<%= (detail.total_after_surge_fees).toFixed(2) %>', fillColor: '#black', style: 'total4', alignment: 'right', color: '#ffffff'}]
+                                    <% } else { %>
+                                        [{ text: '<%= config_json.title_trip_total %>',margin: [15, 5, 5, 0]  , alignment: 'left', fillColor: '#black', color: '#ffffff'}, { text: '<%= (detail.total_after_surge_fees).toFixed(2) %>', fillColor: '#black', style: 'total4', alignment: 'right', color: '#ffffff'}]
+                                    <% } %>
+                                ]
+                        },
+                        layout: 'noBorders'
+                },
+                {
+                style: 'tableExample',
+                        color: '#444',
+                        table: {
+                        headerRows: 2,
+                                keepWithHeaderRows: 1,
+                                widths: [400, 80],
+                                body: [
+                                    [{text: '| <%= config_json.title_bonus %>',margin: [1, 2, 5, 0], style: 'tableHeader', alignment: 'left', color: '#434A54' }, {text:''}],
+
+                                    [{ text: '<%= config_json.email_title_promo_bonus %>' ,margin: [15, 2, 5, 0] , alignment: 'left'}, { text: '<%= (detail.promo_payment).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    [{ text: '<%= config_json.email_title_referral_bonus %>' ,margin: [15, 2, 5, 0] , alignment: 'left'}, { text: '<%= (detail.referral_payment).toFixed(2) %>', style: 'value', alignment: 'right'}],
+                                    
+
+                                    [{ text: '<%= config_json.title_total %>',margin: [15, 5, 5, 0]  , alignment: 'left', fillColor: '#black', color: '#ffffff'}, { text: '<%= (detail.total).toFixed(2) %>', fillColor: '#black', style: 'total4', alignment: 'right', color: '#ffffff'}]
+                                ]
+                        },
+                        layout: 'noBorders'
+                },
+
+                {
+                style: 'tableExample',
+                        color: '#444',
+                        table: {
+                        widths: [150 , 90, 150 , 90],
+                                body: [
+
+                                    [{text:' | <%= config_json.title_total_provider_earning %>',margin: [1, 2, 5, 0], style: 'tableHeader2', alignment: 'left'}, {text:''}, {text:'<%= (detail.provider_service_fees).toFixed(2) %>', margin: [1, 2, 5, 0], style: 'tableHeader2', alignment: 'right'} ,{text:' '}],
+                                    [{text:'<%= config_json.title_invoice_service_fees %>', margin: [15, 2, 5, 0] }, {text:'<%= detail.total_after_surge_fees %>'}, {text:'<%= config_json.title_provider_tax %>', margin: [15, 2, 5, 0]}, {text:'<%= detail.provider_tax_fee %>'}],
+                                    [{text:'<%= config_json.title_is_toll %>', margin: [15, 2, 5, 0] }, {text:'<%= detail.toll_amount %>'}, {text:'<%= config_json.title_provider_miscellaneous_fee %>', margin: [15, 2, 5, 0]}, {text:'<%= detail.provider_miscellaneous_fee %>'}]
+
+                                ]
+                        },
+                        layout: 'noBorders'
+                },
+
+                
+
+                ],
+                styles: {
+                header: {
+                fontSize: 18,
+                        bold: true,
+                        margin: [0, 0, 0, 10],
+                        color: '#434A59'
+                },
+                        subheader: {
+                        fontSize: 16,
+                                bold: true,
+                                margin: [10, 5, 0, 5],
+                                fillColor: '#33414E'
+                        },
+                        tableExample: {
+                                margin: [0, 5, 0, 15],
+                                color: 'white',
+                                fillColor: 'white'
+                        },
+                        tableHeader: {
+                        bold: true,
+                                fontSize: 13,
+                                color: '#434A54',
+                                fillColor:'white',
+                                margin: [15, 3, 0, 0]
+                        },
+                        tableHeader2: {
+                        bold: true,
+                                fontSize: 13,
+                                color: '#434A54',
+                                fillColor:'white',
+                        },
+                        total:
+                {
+                bold: true,
+                        fontSize: 15,
+                        fillColor: '#688DAA',
+                        color: '#ffffff',
+                        margin: [0, 0, 10, 0]
+                },
+                        total4:
+                {
+                bold: true,
+                        fontSize: 15,
+                        fillColor: '#688DAA',
+                        color: '#ffffff',
+                        margin: [0, 3, 10, 0]
+                },
+                        value:
+                {
+                fontSize: 10,
+                        margin: [0, 3, 10, 0]
+                },
+                },
+                defaultStyle: {
+                fontSize: 10
+                }
+        };
+        pdfMake.createPdf(docDefinition).open();
+    });
+});
+</script>
+<% if(type == "provider") { %> 
+    <% include provider/provider_footer.html %>
+<% } else { %>
+    <% include footer_list.html %>
+<% } %>

@@ -1,0 +1,87 @@
+<script type="text/javascript">
+
+                      $(document).ready(function() {
+                        var current_page = <%= current_page %> + 1;
+
+                        $('#page1').show();
+                        $('#page<%= pages %>').show();
+
+                        for(var k = current_page - 1  ; k<= current_page + 1; k++)
+                        {
+                          $('#page'+k).show();                    
+                        }
+
+                        for(i=1;i<=5;i++)
+                        {
+                          if('<%= pages %>'==i)
+                          {
+                            $('#dot1').hide();
+                            $('#dot2').hide();
+                          }
+                        }
+
+                        if(current_page == 1)
+                        {
+                          $('#dot1').hide();
+                          $('#page'+3).show();
+                          $('#page'+4).show();
+                        }
+                        else if(current_page == 2)
+                        {
+                          $('#dot1').hide();
+                          $('#page'+4).show();
+                        }
+                        else if(current_page == 3)
+                        {
+                          $('#dot1').hide();
+                        }
+                        else if(current_page == <%= pages %>)
+                        {
+                          $('#dot2').hide();
+                          $('#page'+<%= pages-3 %>).show();
+                          $('#page'+<%= pages -2  %>).show();
+                        }
+                        else if(current_page == <%= pages-1 %>)
+                        {
+                          $('#dot2').hide();
+                          $('#page'+<%= pages-3 %>).show();
+                        }
+                        else if(current_page == <%= pages-2 %>)
+                        {
+                          $('#dot2').hide();
+                        }
+
+                        $('#'+ current_page).addClass('active');
+
+                        if(current_page == '<%= pages %>')
+                        {
+                          $('#next').hide();
+                        }
+
+                        if(current_page == 1)
+                        {
+                          $('#pre').hide();
+                        }
+                    
+                        $('#page<%= i %>').click(function(event) {
+
+                          document.getElementById('page').value = "<%= i %>" - 1;
+                          var button = document.getElementById('apply_filter');
+                          button.form.submit();
+                        });
+
+                        $('#pre').click(function(event) {
+
+                          document.getElementById('page').value = "<%= pre %>";
+                          var button = document.getElementById('apply_filter');
+                          button.form.submit();
+                        });
+
+                        $('#next').click(function(event) {
+
+                          document.getElementById('page').value = "<%= next %>";
+                          var button = document.getElementById('apply_filter');
+                          button.form.submit();
+                        });
+                      });
+                    </script>

@@ -1,0 +1,98 @@
+<% include header.html %>
+
+    <!-- PAGE CONTENT WRAPPER -->
+    <div class="page-content-wrap">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" method="post" action="/add_service_form">
+                      <div class="col-md-4" style="text-align: center;">
+                      </div>
+                      <div class="col-md-4" style="text-align: center;">
+                          <button type="submit" class="btn btn-success btn-block"><span class="fa fa-plus"></span><%= config_json.title_add_type %></button>
+                      </div>
+                      <div class="col-md-4" style="text-align: center;">
+                      </div>
+                  </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    
+
+    
+
+    <div class="row">
+        <% service_data.forEach(function(data){ %>
+            <div class="col-md-3">
+                <!-- CONTACT ITEM -->
+                <div class="panel panel-default" style="float:left;">
+                    <div class="panel-body profile">
+                        <div class="profile-image">
+
+                            <img src="<%= setting_detail.image_base_url + data.type_image_url %>" style="border:none;border-radius:0px;webkit-border-radius: 0px; height: 65px;" />
+                        </div>
+                        <div class="profile-data">
+                            <div class="profile-data-name">
+                                <%= data.typename %>
+                            </div>
+
+                        </div>
+                        <div class="profile-controls">
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="contact-info">
+                            <ul class="list-group border-bottom">
+                                <li class="list-group-item"><b><%= config_json.title_service_type %></b><span class="badge"><%= data.name %></span></li>
+                                <li class="list-group-item"><b><%= config_json.title_is_business %></b><span class="badge"><% if(data.is_business == 1) { %><%= config_json.title_on %>
+                                                            <% } else { %><%= config_json.title_off %></span>
+                                                            <% } %></li>
+                                                            
+                                <li class="list-group-item"><b><%= config_json.default_selected %></b><span class="badge"><% if(data.is_default_selected == true) { %><%= config_json.title_yes %>
+                                                            <% } else { %><%= config_json.title_no %></span>
+                                                            <% } %></li>
+
+                                <li class="list-group-item" style="height:100px">
+                                    <%= data.description %>
+                                </li>
+
+
+                            </ul>
+
+
+                            <form method="post" action="edit_service_form">
+                                <input type="hidden" name="id" value="<%= data._id %>" />
+                                <button type="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= config_json.button_edit %></button>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTACT ITEM -->
+            </div>
+            <% }); %>
+
+    </div>
+    <div class="row">
+
+    </div>
+    </div>
+    </div>
+    <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+    <!-- END PAGE CONTENT -->
+    </div>
+    <!-- END PAGE CONTAINER -->
+
+    <% include footer_list.html %>

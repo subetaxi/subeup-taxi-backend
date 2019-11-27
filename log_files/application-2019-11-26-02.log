@@ -1,0 +1,3 @@
+{"message":{"id":"5ddc62325a1e953c8aced0a5","cityids":"5ddc5c905a1e953c8aced0a4","max_space":"4","provider_profit":"80","min_fare":"2.25","base_price_distance":"1","base_price":"4.5","price_per_unit_distance":"1","price_for_total_time":"0.15","waiting_time_start_after_minute":"0","price_for_waiting_time":"0","is_car_rental_business":"0","is_business":"1","cancellation_fee":"0","tax":"0","user_miscellaneous_fee":"0","user_tax":"0","provider_miscellaneous_fee":"0","provider_tax":"1","is_zone":"1","is_surge_hours":"1","amount":[""],"submit":"submit"},"level":"info"}
+{"message":{},"level":"info"}
+{"message":{},"level":"info"}

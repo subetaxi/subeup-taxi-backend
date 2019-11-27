@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title><%= constant_json.app_name %></title>
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var path = window.location.pathname;
+                var value = path.split('/');
+                $('#' + value[1]).addClass('act');
+                var page_title = $('#' + value[1]).text();
+                $('#page_title').text(page_title);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/session_data',
+                    data: {'type': 'user'},
+                    dataType: "json",
+                    success: function (response) {
+                        $('.pro_head').html('<h4>' + response.session_data.first_name + ' ' + response.session_data.last_name + '</h4>');
+                        $('#user_profile').attr('src', response.session_data.picture != '' ? response.session_data.picture : 'default.png')
+
+                    }
+                });
+
+            });
+        </script>	
+        <!-- Bootstrap -->
+        <link href="css/fontawesome/font-awesome.min.css" rel="stylesheet">
+        <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+
+        <!--upload file-->
+        <link rel="stylesheet" type="text/css" href="user_panel/css/demo.css" />
+
+        <!-- <link rel="stylesheet" type="text/css" href="css/map.css" /> -->
+        <link rel="stylesheet" href="user_panel/css/bootstrap-select.min.css">
+        <!--style.css-->
+        <link rel="stylesheet" type="text/css" href="user_panel/css/style.css">
+
+
+        <!--responsive.css-->
+        <link rel="stylesheet" type="text/css" href="user_panel/css/responsive.css">
+    </head>
+    <body>
+        <div class="">
+            <!--menu left section-->
+            <div class="pant_lft">
+                <nav class="navbar navbar-inverse sidebar" style="overflow: auto;" role="navigation">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <a class="navbar-brand" style="margin: 0;" href="#"><img src="web_images/user_logo.png"></a>
+                            <!-- <a class="navbar-brand" href="#"><img src="user_panel/images/logo_admin.png"></a> -->
+                            <!-- <a class="navbar-brand" href="#"><img src="web_images/authorised_image.png"></a><span style="font-size: 25px; color: #fff; display: inline;
+                margin-left: 5px;"><%= config_json.app_name %></span> -->
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <!--profile_user_section-->
+                        <div class="mob_hied">
+                            <div class="pro_use_bg">
+                                <div class="pro_use">
+                                    <img id="user_profile">
+                                </div>
+
+                                <div class="pro_head"></div>
+                            </div>
+                        </div>
+                        <!--profile_user_section-->
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a id="profiles" href="/profiles"><span><img src="user_panel/images/profile_iocn.png"></span><%= config_json.menu_title_profile %></a></li>
+
+                                <li><a id="create_trip" href="/create_trip"><span><img src="user_panel/images/car_icon.png"></span><%= config_json.menu_title_create_requests %></a></li>
+                                <li><a href="/payments" id="payments"><span><img src="user_panel/images/pay_iocn.png"></span><%= config_json.menu_title_payments %></a></li>
+                                <li><a id="user_document_panel" href="/user_document_panel"><span><img src="user_panel/images/upload_iocn.png"></span><%= config_json.menu_title_upload_document %></a></li>
+                                <li><a id="history" href="/history"><span><img src="user_panel/images/his_icon.png"></span><%= config_json.menu_title_history %></a></li>
+                                <li><a id="user_future_request" href="/user_future_request"><span><img src="user_panel/images/his_icon.png"></span><%= config_json.menu_title_future_requests %></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+            </div>
+
+            <div class="pant_rgt">
+                <div class="pant_rgt_head">
+                    <h5 id="page_title"></h5>
+                    <li><a href="logout"><%= config_json.title_logout %></a></li>
+                </div>
+            

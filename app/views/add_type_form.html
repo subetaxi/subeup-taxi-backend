@@ -1,0 +1,345 @@
+<% include header.html %>
+
+
+    <!-- PAGE TITLE -->
+    <div class="page-title">
+        <h2><span class="fa fa-cogs"></span> <%= config_json.title_add_type %></h2>
+    </div>
+    <!-- END PAGE TITLE -->
+
+
+    <!-- for edit type form -->
+    <div class="page-content-wrap">
+        <div class="col-md-6 col-sm-8 col-xs-12">
+            <% if(typeof service_data != 'undefined'){ %>
+                <% service_data.forEach(function(data){ %>
+                    <form class="form-horizontal" method="post" action="/update_service_detail" enctype="multipart/form-data">
+                        <div class="panel panel-default">
+                            <div class="panel-body form-group-separated">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_type_name %></label>
+                                    <input type="hidden" class="form-control" name="id" value="<%= data.id %>" />
+                                    <input type="hidden" class="form-control" name="old_img_path" value="<%= data.file %>" />
+                                    <div class="col-md-9 col-xs-7">
+                                        <input type="text" class="form-control" name="typename" id="typename" value="<%= data.typename %>"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_description %></label>
+                                    <div class="col-md-9 col-xs-7">
+                                        <input type="text" class="form-control" name="description" value="<%= data.description %>" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_service_type %></label>
+                                    <div class="col-md-9">
+                                        <select class="form-control select" name="service_type">
+                                            <% type_array.forEach(function(type_data) { %>
+                                                <% if(type_data.id == data.service_type){ %>
+                                                    <option value="<%= type_data.id %>" selected><%= type_data.name %></option>
+                                                <% } else { %>
+                                                    <option value="<%= type_data.id %>"><%= type_data.name %></option>
+                                                <% } %>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" >
+                                    <label class="col-md-3 control-label"><%= config_json.title_is_business %></label>
+                                        <div class="col-md-9 ">
+                                            <select class="form-control select" id="is_business" name="is_business">
+                                                <% if(data.is_business == "1") { %>
+                                                    <option value="1" selected = "selected"><%= config_json.title_on %></option>
+                                                    <option value="0"><%= config_json.title_off %></option>
+                                                <% } else { %>
+                                                    <option value="1"><%= config_json.title_on %></option>
+                                                    <option value="0" selected = "selected"><%= config_json.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                </div>
+
+                                 <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.default_selected %></label>
+                                    <div class="col-md-9">
+                                        <label class="switch">
+                                            <% if( data.is_default_selected == false ) { %>
+                                                <input type="checkbox" class="switch" value="1" name="is_default_selected" unchecked />
+                                            <% } else{ %>
+                                                <input type="checkbox" class="switch" value="1" name="is_default_selected" checked />
+                                            <% } %>
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_type_image %></label>
+                                    <div class="col-md-9 col-xs-7">
+                                        <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside"  title="Change Type Image" name="file2" id="file2" value="<%= data.type_image_url %>" />
+                                        <br>
+                            <% if( data.type_image_url  == "")
+                            { %>
+                                <img src="default.jpg" alt="Eber" style="height: 60px; width: 120px;" />
+                            <% }
+                            else
+                            { %>
+                                 <img src="<%= setting_detail.image_base_url + data.type_image_url %>" class="img-thumbnail" style="height:70px; width:100px;"/>
+                            <% } %>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_map_pin_image %></label>
+                                    <div class="col-md-9 col-xs-7">
+                                        <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" title="Change Map Pin Image" name="file3" id="map_pin_image" value="<%= data.map_pin_image_url %>" />
+                                        <div id="profile_image_dimention"></div>
+                                        <font>Select image with appropriate aspect ratio <b>0.45:1</b></font>
+                                        <br>
+                            <% if( data.map_pin_image_url  == "")
+                            { %>
+                                <img src="default.jpg" alt="Eber" style="height: 60px; width: 120px;" />
+                            <% }
+                            else
+                            { %>
+                                 <img src="<%= setting_detail.image_base_url + data.map_pin_image_url %>" class="img-thumbnail" style="height:70px; width:100px;"/>
+                            <% } %>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12 col-xs-12">
+                                        <button class="btn btn-primary btn-rounded pull-right" id="update" type="submit" name="save" value="save"><%= config_json.button_save %></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <% }); %>
+                    <!-- for add type form -->
+                        <% }else{ %>
+                            <form class="form-horizontal" method="post" action="/add_service_detail" enctype="multipart/form-data">
+                                <div class="panel panel-default">
+                                    <div class="panel-body form-group-separated">
+                                        <div class="form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_type_name %></label>
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="typename" id="typename" data-toggle="modal" />
+
+                                                <div id="type"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_description %></label>
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="text" class="form-control" name="description" id="description" data-toggle="modal" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><%= config_json.title_service_type %></label>
+                                            <div class="col-md-9">
+
+                                                <select class="form-control select" name="service_type" id="service_type">
+                                                <option selected disabled hidden style='display: none'><%= config_json.title_select_type %></option>
+                                                <% type_array.forEach(function(data) { %>
+                                                <option value="<%= data.id %>"><%= data.name %></option>
+                                                <% }); %>
+                                            </select>
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><%= config_json.title_is_business %></label>
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <select class="form-control select" id="is_business" name="is_business">
+                                                        <option value="1"><%= config_json.title_on %></option>
+                                                        <option value="0"><%= config_json.title_off %></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+<!-- 
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label"><%= config_json.is_default_selected %></label>
+                                            <div class="col-md-9">
+                                                <label class="switch">
+                                                    <input type="checkbox" class="switch" value="1" name="is_default_selected" unchecked />
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="form-group">
+                                            <label class="col-md-3 control-label"><%= config_json.title_type_priority %>Service Priority</label>
+                                            <div class="col-md-9">
+
+                                                <select class="form-control select" name="priority" id="priority">
+                                                <option selected disabled hidden style='display: none'><%= config_json.title_select_type_priority %>Select Priority</option>
+                                                <option value="0">None</option>
+                                            </select>
+
+
+
+                                            </div>
+
+                                        </div> -->
+                                        <div class="form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_type_image %></label>
+                                            <div class="col-md-9 col-xs-7">
+
+                                                <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" title="Upload Type Image" name="file" id="file" />
+                                                <label id="file-error" class="error" for="file"></label>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_map_pin_image %></label>
+                                            <div class="col-md-9 col-xs-7">
+                                                <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" title="Upload Map Pin Image" name="file1" id="map_pin_image" />
+                                                <font>Image with appropriate aspect ratio <b>0.45:1</b></font>
+                                                <div id="profile_image_dimention"></div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12 col-xs-12">
+                                                <button class="btn btn-primary btn-rounded pull-right" type="submit" name="submit" id="update" value="submit"><%= config_json.button_submit %></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <% } %>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        $.ajax({
+                type: 'POST',
+                url: '/check_type_priority_available',
+                dataType: "json",
+                success: function (res) {
+                    // var res =  JSON.stringify(res);
+                    var used_priority = [];
+                    var append_array = [];
+                    var append_limit = res.length + 1;
+
+                    for(i=0; i<=append_limit; i++)
+                    {
+                        append_array.push(i);
+                        if(res[i])
+                        {
+                            used_priority.push(res[i].priority);
+                        }
+                    }
+
+                    unique_array = append_array.filter(function (current) {
+                        return used_priority.filter(function (current_b) {
+                            return current_b == current
+                        }).length == 0
+                    });
+
+                    unique_array.forEach(function(element) {
+                        $('#priority').append('<option value='+element+'>' + element + '</option>');
+                    });
+
+                    $('#priority').selectpicker('refresh');
+                }
+            });
+
+        $("#addform").validate({
+            rules: {
+                typename: "required",
+                file: "required"
+            },
+            messages:
+                    {
+                        file: 'File must be select.'
+                    }
+        });
+
+        $(".form-horizontal").validate({
+            ignore:[],
+            rules: {
+                typename: "required",
+                file: "required",
+                file1: "required",
+                description: "required",
+                service_type: "required"
+            },
+            messages:
+                    {
+                        file: 'Type Image is required',
+                        file1: 'Map pin is required'
+                    }
+        });
+        ///// check type name is already exist or not ///////////
+        $("#typename").change(function () {
+            var value = this.value;
+            $("#submit").attr("disabled", true);
+
+            $.ajax({
+                type: 'POST',
+                url: '/check_type_available',
+                data: 'typename=' + value,
+                dataType: "json",
+                success: function (res) {
+                    //var res =  JSON.stringify(res);
+                    if (res == 1)
+                    {
+                        $("#submit").attr("disabled", true);
+                        $("#type").html('<font color="red">Type Name Already Used</font>');
+                    } else
+                    {
+                        $("#type").html('');
+                        $("#submit").attr("disabled", false);
+                    }
+                }
+            });
+        });
+var _URL = window.URL || window.webkitURL;
+        $("#map_pin_image").change(function(e) {
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#profile_sel_img').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(map_pin_image.files[0]);
+
+                img.onload = function(e) {
+                    if(this.width >= (this.height)*45/100 && this.width <= (this.height)*46/100)
+                    {
+                        $("#profile_image_dimention").html('');
+                        $('#update').prop('disabled', false);
+                    }
+                    else
+                    {
+                        $("#profile_image_dimention").html('<font color="red">Select image with appropriate aspect ratio <b>0.45:1</b></font>');
+                        $('#update').prop('disabled', true);
+                    }
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        });
+        ////////////////////////////
+    });
+    </script>
+    <% include footer_form.html %>

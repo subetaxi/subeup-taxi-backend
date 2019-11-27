@@ -1,0 +1,334 @@
+<% include corporate_header.html %>
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+        <p align="center"> <strong> <%= message %></strong></p>
+    </div>
+    <% } %>
+
+    <div class="alert alert-success" role="alert" id="promo_error" style="display:none">
+        <button type="button" id="close" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+        <p align="center" id="message"> <strong></strong></p>
+    </div>
+    <!-- START TIMELINE FILTER -->
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post" action="/corporate_users">
+                   <input type="hidden" name="page" id="page" value="1" />
+                    <div class="form-group">
+
+                        
+                        <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                                    <select class="form-control select" id="sel" placeholder="Select to Sort" name="search_item">
+                                        <% if(search_item == "first_name") { %>
+                                        <option value='first_name' selected><%= config_json.title_name %></option>
+                                        <option value='email'><%= config_json.title_email %></option>
+                                        <option value='city'><%= config_json.title_city %></option>
+                                        <option value='phone'><%= config_json.title_phone %></option>
+                                        <% } else if(search_item == "email") { %>
+                                        <option value='first_name'><%= config_json.title_name %></option>
+                                        <option value='email' selected><%= config_json.title_email %></option>
+                                        <option value='city'><%= config_json.title_city %></option>
+                                        <option value='phone'><%= config_json.title_phone %></option>
+                                        <% } else if(search_item == "phone") { %>
+                                        <option value='first_name'><%= config_json.title_name %></option>
+                                        <option value='email' ><%= config_json.title_email %></option>
+                                        <option value='city'><%= config_json.title_city %></option>
+                                        <option value='phone' selected><%= config_json.title_phone %></option>
+                                        <% } else{ %>
+                                        <option value='first_name' ><%= config_json.title_name %></option>
+                                        <option value='email' ><%= config_json.title_email %></option>
+                                        <option value='city' selected><%= config_json.title_city %></option>
+                                        <option value='phone'><%= config_json.title_phone %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-body panel-body-search">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                                            <input type="text" class="form-control" value="<%= search_value %>" name="search_value" placeholder="Search..." />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-12">
+
+                                <div class="btn-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" value="<%= filter_start_date %>" placeholder="Start Date" name="start_date"
+                                               id="start_date" readonly/>
+                                        <span class="input-group-addon add-on">-</span>
+                                        <input type="text" class="form-control datepicker" value="<%= filter_end_date %>" placeholder="End Date" name="end_date"
+                                               id="end_date" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="col-md-6">
+                                <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= config_json.button_apply %></span></button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="col-md-12">
+                            <ul class="pagination">
+
+                                <% include paginate.html %>
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-default">
+
+
+                <div class="table-responsive" style="padding-bottom: 175px;">
+                    <table class="table text-center" id="customers2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <%= config_json.title_id %>
+                                </th>
+                                <th>
+                                    <%= config_json.title_profile %>
+                                </th>
+                                <th>
+                                    <%= config_json.title_name %>
+                                </th>
+                                <th>
+                                    <%= config_json.title_phone %>
+                                </th>
+                                <th>
+                                    <%= config_json.title_city %>
+                                </th>
+                                <th>
+                                    <%= config_json.title_app_version %>
+                                </th>
+                                <th>
+                                    <%= config_json.title_registered_date %>
+                                </th>
+                                <th>
+                                    <%= config_json.button_action %>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% detail.forEach(function(data){ %>
+                            <tr>
+                                <td>
+                                    <%= data.unique_id %>
+                                </td>
+                                <td>
+                                    <% if(data.is_active == 1 ) { %>
+
+
+                                    <a href="<%= data.picture != '' ? data.picture : 'default.png' %>"><span class="btn btn-condensed"><i class="glyphicon glyphicon-user"></i></span></a>
+                                    <% }else{ %>
+                                    <a href="<%= data.picture != '' ? data.picture : 'default.png' %>"><span class="btn btn-condensed"><i class="glyphicon glyphicon-user"></i></span></a>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <%= data.first_name +' '+ data.last_name %>
+                                </td>
+                                <td>
+                                    <%=  data.country_phone_code + data.phone %>
+                                </td>
+                                
+                                <td>
+                                    <%= data.city %>
+                                </td>
+                                <td>
+                                     <%= data.device_type %>  -  <%= data.app_version %>
+                                </td>
+                                <td>
+                                     <%= moment(data.created_at).tz(timezone_for_display_date).format("DD MMM 'YY") %></br><%= moment(data.created_at).tz(timezone_for_display_date).format("hh:mm a") %>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                                            <%= config_json.button_action %> <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <% if(!data.corporate_ids || data.corporate_ids.length==0){ %>
+                                                <li>
+                                                    <form method="post" action="/corporate_send_request">
+                                                        <input type="hidden" name="id" value="<%= data._id %>" />
+
+                                                        <button type="submit" class="btn btn-default" style="width:100%;"><%= config_json.title_send_request %></button>
+                                                    </form>
+                                                </li>
+                                            <% } %>
+                                            <% if(data.corporate_ids && data.corporate_ids.length>0 && data.corporate_ids[0].corporate_id == corporate_id){ %>
+                                                <li>
+                                                    <form method="post" action="/corporate_remove_user">
+                                                        <input type="hidden" name="id" value="<%= data._id %>" />
+
+                                                        <button type="submit" class="btn btn-default" style="width:100%;"><%= config_json.title_remove %></button>
+                                                    </form>
+                                                </li>
+                                            <% } %>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END SIMPLE DATATABLE -->
+
+        </div>
+    </div>
+
+</div>
+<!-- PAGE CONTENT WRAPPER -->
+</div>
+<!-- END PAGE CONTENT -->
+</div>
+
+<div class="modal animated fadeIn" id="add_wallet_modal" tabindex="-1" role="dialog" aria-labelledby="smallModalHead" aria-hidden="true">
+    <div class="modal-dialog" style="width: 300px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                <h4 class="modal-title"><%= config_json.title_add_wallet %></h4>
+            </div>
+            <form class="form-horizontal" id="add_wallet_form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input type="hidden" id="add_wallet_user_id" name="user_id">
+                            <input type="text" onkeypress="return isNumberKey(event);" name="wallet" id="wallet_amount" class="form-control" placeholder="Wallet Amount">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" name="button" value="Add">
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
+<!-- END PAGE CONTAINER -->
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#start_date').datepicker({
+            format: 'yyyy-mm-dd',
+            endDate: new Date(Date.now())
+
+        }).on("input change", function (e) {
+            var end_date = $('#start_date').datepicker('getDate');
+            end_date.setDate(end_date.getDate() + 1);
+            $('#end_date').datepicker('setStartDate', end_date);
+        });
+
+        $('#end_date').datepicker({
+            format: 'yyyy-mm-dd',
+            endDate: new Date(Date.now())
+
+        }).on("input change", function (e) {
+            var start_date = $('#end_date').datepicker('getDate');
+            start_date.setDate(start_date.getDate() - 1);
+            $('#start_date').datepicker('setEndDate', start_date);
+        });
+
+        $('#add_wallet_form').validate({
+            rules: {
+                wallet : "required"
+            },
+            submitHandler: function (form) {
+
+                var user_id = $('#add_wallet_user_id').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin_add_wallet_amount',
+                    data: $("#add_wallet_form").serialize(),
+                    dataType: "json",
+                    success: function (res) {
+                        
+                        $('#add_wallet_modal').modal('hide');
+                        $('#wallet_amount').val('');
+                        if(res.success == true)
+                        {
+                            $('#wallet'+user_id).html(res.wallet); 
+                            $('#promo_error').show();
+                            setTimeout(function () {
+                                $('#promo_error').hide();
+                            }, 3000);
+                            document.getElementById('message').innerHTML = res.message;
+                        }
+                        else
+                        {
+                            $('#promo_error').show();
+                            setTimeout(function () {
+                                $('#promo_error').hide();
+                            }, 3000);
+                            document.getElementById('message').innerHTML = res.error_code;
+                        }
+                    }
+                });
+            }
+        })
+        $('#close').click(function () {
+
+            $('#promo_error').hide();
+        });
+
+    });
+    function add_wallet(id)
+    {
+        $('#add_wallet_user_id').val(id);
+        $('#add_wallet_modal').modal('show');
+    }
+
+    function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    function export_excel(){
+            $.ajax({
+                      type: 'POST',
+                      url: '/generate_user_excel',
+                      data: $('.form-horizontal').serialize(),
+                      dataType: "json",
+                      success: function (res) {
+                          window.open(res)
+                      }
+            });
+      }
+</script>
+<% include footer_list.html %>

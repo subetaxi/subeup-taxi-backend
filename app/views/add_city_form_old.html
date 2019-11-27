@@ -1,0 +1,1703 @@
+<% include header.html %>
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- for edit city form -->
+            <% if(typeof detail != 'undefined'){ %>
+            <% detail.forEach(function(data){ %>
+            <form class="form-horizontal" method="post" action="/update_city_detail" enctype="multipart/form-data">
+                <input type="hidden" name="country_code" class="country_code">
+                <input type="hidden" name="zonecount" id="zonecount" value="0">
+                <input type="hidden" name="city_locations" value="" id="city_locations">
+                                
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab"><%= process.env.button_add_city %></a></li>
+                        <li><a href="#tab-fifth" role="tab" data-toggle="tab"><%= process.env.button_city_map %></a></li>
+                        <li><a href="#tab-second" role="tab" data-toggle="tab"><%= process.env.button_add_airport %></a></li>
+                        <li><a href="#tab-fourth" role="tab" data-toggle="tab"><%= process.env.button_add_destination_city %></a></li>
+                        <li id="doubleclik" onclick="clickevent()"><a href="#tab-third" role="tab" data-toggle="tab"><%= process.env.button_add_zone %></a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane" id="tab-second">
+                        <input type="hidden" id="count" value="0" >
+                            
+                            <div  class="col-md-12" id="add_airport">
+                            </div>
+                            <div class="col-md-12" style="text-align: center;">
+                                <i class="fa fa-plus-circle" id="add_another_airport" style="font-size: 30px;cursor: pointer" aria-hidden="true"></i>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="tab-fifth">
+                            <div id="city_radius_map" style="width: 100%; min-height: 415px;"></div>
+                        </div>
+
+                        <div class="tab-pane" id="tab-fourth">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_destination_city %></label>
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" data-live-search="true" name="destination_city[]" id='destination_city' multiple="multiple">
+                                                <option selected disabled hidden style='display: none'><%= process.env.title_select_destination_city %></option>
+                                                <% city_list.forEach(function(city_detail){ %>
+                                                    <option value="<%= city_detail._id %>"><%= city_detail.cityname %></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group" >
+                                        <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_selected_destination_city %></label>
+                                    <div class="col-md-9 col-xs-7">
+                                        <% dest_city_list.forEach(function(data) { %>
+                                            <div class="col-md-4 col-xs-12 col-sm-6">                                  
+                                                    <label class="check"><%= data.cityname %></label>
+
+                                            </div>
+                                        <% }); %>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="tab-pane" id="tab-third">
+                                <div class="row">
+                                    <div class="col-md-9 form-group">       
+                                        <div id="map" style="width: 100%; min-height: 415px;"></div>
+                                    </div>
+                                    <div class="col-md-3 form-group" style="min-height: 415px;max-height: 415px;overflow-y:auto">       
+                                        <%    city_zone.forEach(function (city_zone_detail) { %>
+                                            <div class="row">
+                                                <div class="col-md-3 form-group"> 
+                                                    <div style="width:30px;height: 30px;background-color:<%= city_zone_detail.fill %>"></div>
+                                                </div>
+                                                <div class="col-md-9 form-group"> 
+                                                    <%= city_zone_detail.title %>
+                                                </div>
+                                            </div>                                                
+                                        <%    }) %>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 form-group"> 
+                                    <div class="form-group"> 
+                                        <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_from %></label> 
+                                        <div class="col-md-9 col-xs-7">
+                                            <div class="col-md-9"> 
+                                            <select class="form-control select" id="zone1" data-live-search="true" name="zone1[]" >  
+                                                <% city_zone.forEach(function (city_zone_detail) {    %> 
+                                                    <option id="<%= city_zone_detail._id %>" value="<%= city_zone_detail._id %>"><%= city_zone_detail.title %></option>   
+                                                <% }); %> 
+                                            </select> 
+                                            </div> 
+                                        </div>  
+                                    </div> 
+                                </div>
+                                <div class="col-md-4 form-group"> 
+                                    <div class="form-group"> 
+                                        <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_to %></label> 
+                                        <div class="col-md-9 col-xs-7">
+                                            <div class="col-md-9"> 
+                                            <select  class="form-control select" id="zone2" data-live-search="true" name="zone2[]" >  
+                                                <% city_zone.forEach(function (city_zone_detail) {    %> 
+                                                    <option value="<%= city_zone_detail._id %>"><%= city_zone_detail.title %></option>   
+                                                <%    });    %> 
+                                            </select> 
+                                            </div> 
+                                        </div>  
+                                    </div> 
+                                </div>
+                                <div class="col-md-2 form-group"> 
+                                    <div class="form-group"> 
+                                        <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_amount %></label> 
+                                        <div class="col-md-9 col-xs-7"> 
+                                            <div class="col-md-9">
+                                                <input type="text" id="amount" class="form-control" name="amount[]" value=""  /> 
+                                            </div> 
+                                        </div>
+                                        <lable id="zone_error" style="color: red;"></lable>
+                                    </div> 
+                                </div> 
+                                <div class="col-md-2 form-group"> 
+                                    <i class="fa fa-plus-circle" id="plush_button" style="font-size: 30px;cursor: pointer" aria-hidden="true"></i>
+                                </div>
+                                  <table class="table" id="customre2">               
+                                    <thead>
+                                      <tr>
+                                        <th><%= process.env.title_from %></th>
+                                        <th><%= process.env.title_to %></th>
+                                        <th><%= process.env.title_amount %></th>
+                                        <th></th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody id="append">                                   
+
+                                      <% zonevalue.forEach(function(data){ %>                                      
+
+                                          <tr class="demo" id="remove<%= data._id %>">
+                                            <td><%= data.from_detail.title %></td>
+                                            <td><%= data.to_detail.title %></td>
+                                            <td><input type="text" id="amount<%= data._id %>" value="<%= data.amount %>"></td>
+                                            <td><button type="button" class="btn btn-primary btn-block" onclick="updateentry('<%= data._id %>')" style="float:left;text-align:center;width:80px;margin: 0 auto;"><%= process.env.button_update %></button>
+                                                <button  type="button" class="btn btn-danger btn-block" onclick="deleteentry('<%= data._id %>')" style="text-align:center;width:80px;margin: 0 auto;"><%= process.env.button_delete %></button>
+
+                                            </td>
+                                          </tr>
+
+                                      <% }) %>
+                                    </tbody>
+                                    </table>            
+                                
+                                <div class="col-md-12" style="text-align: center;">
+
+                                    
+                                </div>
+                        </div>
+                        
+                        <div class="tab-pane active" id="tab-first">
+                        
+                            <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_country %></label>
+                                    <input type="hidden" class="form-control" id="cityid" name="id" value="<%= data._id %>" />
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" data-live-search="true" name="countryid" disabled="true">
+                                                <option value="<% data.countryid %>"><%= data.country_detail.countryname %></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city %></label>
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+
+                                            <% if(data.full_cityname == '' || data.full_cityname == undefined){ %>
+                                                <input type="text" class="form-control" name="cityname" value="<%= data.cityname %>" disabled="true" />
+                                            <% } else { %>
+                                                <input type="text" class="form-control" name="cityname" value="<%= data.full_cityname %>" disabled="true" />
+                                                     
+                                            <% } %>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city_radius %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="cityRadius" value="<%= data.cityRadius %>" onkeypress="return isNumberKey(event);"
+                                            />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city_latitude %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="cityLatLong[]" value="<%= data.cityLatLong[0] %>" onkeypress="return isNumberKey(event);"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city_longitude %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="cityLatLong[]" value="<%= data.cityLatLong[1] %>" onkeypress="return isNumberKey(event);"
+                                            />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city_code %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="citycode" value="<%= data.citycode %>" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_zip_code %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="zipcode" value="<%= data.zipcode %>" onkeypress="return isNumberKeyOnly(event);"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_check_provider_wallet_amount_for_received_cash_request %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_check_provider_wallet_amount_for_received_cash_request">
+                                                <% if(data.is_check_provider_wallet_amount_for_received_cash_request == true) { %>
+                                                <option value="true" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_provider_min_wallet_amount_set_for_received_cash_request %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="provider_min_wallet_amount_set_for_received_cash_request" value="<%= data.provider_min_wallet_amount_set_for_received_cash_request %>" onkeypress="return isNumberKeyOnly(event);"
+                                            />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_use_city_boundary %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_use_city_boundary">
+                                                <% if(data.is_use_city_boundary == true) { %>
+                                                <option value="true" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_ask_user_for_fixed_fare %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_ask_user_for_fixed_fare">
+                                                <% if(data.is_ask_user_for_fixed_fare == true) { %>
+                                                <option value="true" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_bussiness_in_airport %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="airport_business">
+                                                <% if(data.airport_business == "1") { %>
+                                                <option value="1" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_bussiness_in_destination_city %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="city_business">
+                                                <% if(data.city_business == "1") { %>
+                                                <option value="1" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_bussiness_in_zone %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="zone_business">
+                                                <% if(data.zone_business == "1") { %>
+                                                <option value="1" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                            <div class="col-md-6 form-group">
+
+                                <div class="form-group">
+                                    <label class="col-md-3  col-xs-5 control-label"><%= process.env.title_timezone %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="timezone" value="<%= data.timezone %>" disabled="true" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_distance_unit %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="unit">
+                                                <% if(data.unit == "1") { %>
+                                                <option value="1" selected = "selected"><%= process.env.unit_km %></option>
+                                                <option value="0"><%= process.env.unit_mile %></option>
+                                                <% } else{ %>
+                                                <option value="1"><%= process.env.unit_km %></option>
+                                                <option value="0" selected = "selected"><%= process.env.unit_mile %></option>
+                                                <% } %>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_bussiness_in_city %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="isBusiness">
+                                                <% if(data.isBusiness == "1") { %>
+                                                <option value="1" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_cash_payment %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_payment_mode_cash">
+                                                <% if(data.is_payment_mode_cash == "1") { %>
+
+                                                <option value="1" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_card_payment %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" id="is_payment_mode_card" name="is_payment_mode_card">
+                                                <% if(data.is_payment_mode_card == "1") { %>
+                                                <option value="1" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_promo_apply_for_cash %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="isPromoApplyForCash">
+                                                <% if(data.isPromoApplyForCash == "1") { %>
+
+                                                <option value="1" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_promo_apply_for_card %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="isPromoApplyForCard">
+                                                <% if(data.isPromoApplyForCard == "1") { %>
+
+                                                <option value="1" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_provider_earning_set_in_wallet_on_cash_payment %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_provider_earning_set_in_wallet_on_cash_payment">
+                                                <% if(data.is_provider_earning_set_in_wallet_on_cash_payment == true) { %>
+                                                <option value="true" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_provider_earning_set_in_wallet_on_other_payment %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_provider_earning_set_in_wallet_on_other_payment">
+                                                <% if(data.is_provider_earning_set_in_wallet_on_other_payment == true) { %>
+                                                <option value="true" selected = "selected"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                                <% } else{ %>
+
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false" selected = "selected"><%= process.env.title_off %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                                <label class="col-md-3 col-xs-3 control-label"><%= process.env.title_zone_kml_file %></label>
+
+                                                <div class="col-md-6 col-xs-6">
+                                                    <div class="col-md-12">
+                                                        <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" title="Insert KML file" name="kmlzone" id="file3" value="<%= data.map_pin_image_url %>" />
+                                                    </div>
+                                                   
+
+                                                </div>
+                                                
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="payment">
+                                        <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_payment_gateway %></label>
+                                    <div class="col-md-9 col-xs-7">
+                                        <% payment_gateway.forEach(function(data) { %>
+                                        <div class="col-md-6 col-xs-12 col-sm-6">                                    
+                                            <label class="check"><input type="checkbox" id="<%=data.id%>" value="<%=data.id%>" name="payment_gateway[]" class="icheckbox"/> <%=data.name%></label>
+                                        </div>
+                                        <% }); %>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-footer">
+                        <button id="submit" type="submit" name="submit" value="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= process.env.button_update %></button>
+                    </div>
+                </div>
+            </form>
+
+            <% }); %>
+            <!-- ///////////////////////////// -->
+
+            <!-- for add city form -->
+            <% } else { %>
+
+            <form class="form-horizontal" method="post" action="/add_city_detail" enctype="multipart/form-data">
+                <input type="hidden" name="country_code" class="country_code" value="">
+                <input type="hidden" name="city_locations" id="city_locations">
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab"><%= process.env.button_add_city %></a></li>
+                        <li><a href="#tab-fifth" role="tab" data-toggle="tab"><%= process.env.button_city_map %></a></li>
+                        <li><a href="#tab-second" role="tab" data-toggle="tab"><%= process.env.button_add_airport %></a></li>
+                        <li><a href="#tab-third" role="tab" data-toggle="tab"><%= process.env.button_add_destination_city %></a></li>                        
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane" id="tab-fifth">
+                            <div id="city_radius_map" style="width: 100%; min-height: 415px;"></div>
+                        </div>
+                        <div class="tab-pane" id="tab-third">
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_destination_city %></label>
+                                <div class="col-md-9 col-xs-7">
+                                    <div class="col-md-9">
+                                            
+                                                <select data-live-search="true" class="form-control select" id='destination_city' multiple="multiple" name="destination_city[]">
+                                                    <option selected disabled hidden style='display: none'><%= process.env.title_select_destination_city %></option>
+                                                </select>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-second">
+                            <input type="hidden" id="count" value="1" >
+                            <div id="add_airport">
+                                <div class="col-md-12" id="remove0">
+                                    <input type="hidden" class="form-control" id="airport[0][latitude]" name="airport[0][latitude]"/>
+                                    <input type="hidden" class="form-control" id="airport[0][longitude]" name="airport[0][longitude]"/>
+                                    <div class="col-md-5 form-group">
+                                            <label class="col-md-3 col-xs-5 control-label">Airport Name</label>
+
+                                            <div class="col-md-9 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="airport[0][name]" name="airport[0][name]" required/>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-5 form-group">
+                                            <label class="col-md-3 col-xs-5 control-label">Airport Radius</label>
+
+                                            <div class="col-md-9 col-xs-7">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="airport[0][radius]" required/>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <i class="fa fa-minus-circle" onclick="remove_airport(0)" style="font-size: 30px;cursor: pointer" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="text-align: center;">
+
+                                <i class="fa fa-plus-circle" id="add_another_airport" style="font-size: 30px;cursor: pointer" aria-hidden="true"></i>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_country %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" data-live-search="true" name="countryid" id="countryid">
+                                                <option selected disabled hidden style='display: none'>Select country...</option>
+                                                <% country_data.forEach(function(data) { %>
+
+                                                <option value="<%= data.id %>"><%= data.countryname %></option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" name="full_cityname" id="full_cityname" />
+                                
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city %></label>
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+
+                                            <input type="text" class="form-control" name="cityname" onkeyup="test()" id="cityname" />
+                                            <div id="citycheck"></div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city_radius %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="cityRadius" onkeypress="return isNumberKey(event);" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_city_radius %>">?</button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city_latitude %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="latitude" name="latitude" onkeypress="return isNumberKey(event);" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_city_latitude %>">?</button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city_longitude %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                           <div class="input-group">
+                                                <input type="text" class="form-control" id="longitude" name="longitude" onkeypress="return isNumberKey(event);" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_city_longitude %>">?</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_city_code %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                           <div class="input-group">
+                                                <input type="text" class="form-control" name="citycode" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_city_code %>">?</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_zip_code %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="zipcode" onkeypress="return isNumberKeyOnly(event);" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_city_zip_code %>">?</button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_check_provider_wallet_amount_for_received_cash_request %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_check_provider_wallet_amount_for_received_cash_request">
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_provider_min_wallet_amount_set_for_received_cash_request %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="provider_min_wallet_amount_set_for_received_cash_request" onkeypress="return isNumberKeyOnly(event);" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=tooltip_json.tooltip_title_provider_min_wallet_amount_set_for_received_cash_request %>">?</button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_use_city_boundary %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_use_city_boundary">
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_ask_user_for_fixed_fare %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_ask_user_for_fixed_fare">
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_bussiness_in_airport %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="airport_business">
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_bussiness_in_destination_city %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="city_business">
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_bussiness_in_zone %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="zone_business">
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_timezone %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" data-live-search="true" name="timezone" id="timezone">
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_distance_unit %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="unit">
+                                                <option value="1"><%= process.env.unit_km %></option>
+                                                <option value="0"><%= process.env.unit_mile %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_bussiness_in_city %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="isBusiness">
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_cash_payment %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_payment_mode_cash">
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_card_payment %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" id="is_payment_mode_card" name="is_payment_mode_card">
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_promo_apply_for_cash %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="isPromoApplyForCash">
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_promo_apply_for_card %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="isPromoApplyForCard">
+                                                <option value="1"><%= process.env.title_on %></option>
+                                                <option value="0"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_provider_earning_set_in_wallet_on_cash_payment %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_provider_earning_set_in_wallet_on_cash_payment">
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                 <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= process.env.title_is_provider_earning_set_in_wallet_on_other_payment %></label>
+
+                                    <div class="col-md-9 col-xs-7">
+                                        <div class="col-md-9">
+                                            <select class="form-control select" name="is_provider_earning_set_in_wallet_on_other_payment">
+                                                <option value="true"><%= process.env.title_on %></option>
+                                                <option value="false"><%= process.env.title_off %></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                                <label class="col-md-3 col-xs-3 control-label"><%= process.env.title_zone_kml_file %></label>
+
+                                                <div class="col-md-6 col-xs-6">
+                                                    <div class="col-md-12">
+                                                        <input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" title="Insert KML file" name="kmlzone" id="file3" value="" />
+                                                    </div>
+                                                   
+
+                                                </div>
+                                                
+                                    </div>
+                                </div>
+                                <div class="col-md-12" id="payment">
+                                    <div class="form-group" >
+                                        <div class="col-md-3 col-xs-5">
+                                            <label class="col-md-12 control-label"><%= process.env.title_payment_gateway %></label>
+                                        </div>
+                                        <div class="col-md-9 col-xs-7">
+                                            <% payment_gateway.forEach(function(data) { %>
+                                            <div class="col-md-3">                                    
+                                                <label class="check"><input type="checkbox" id="<%=data.id%>" value="<%=data.id%>" name="payment_gateway[]" class="icheckbox"/> <%=data.name%></label>
+                                            </div>
+                                            <% }); %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-footer">
+                        <button id="submit" type="submit" name="submit" value="submit" class="btn btn-primary btn-block" style="text-align:center;width:80px;margin: 0 auto;"><%= process.env.button_submit %></button>
+                    </div>
+                </div>
+    </form>
+    <% } %>
+
+</div>
+</div>
+
+</div>
+
+
+<!-- for remove google symbol and pin image on autocomplete textbox -->
+<style type="text/css">
+    .pac-container:after {
+        background-image: none !important;
+        height: 0px;
+    }
+
+    .pac-icon {
+        display: none !important;
+    }
+
+    /*.pac-item-query + span {
+        display: none
+    }*/
+</style>
+
+<!-- ////////////// -->
+
+<% if(typeof detail != 'undefined'){ %>
+
+<script>
+
+    function clickevent(){
+
+        setTimeout(function () {
+            initialize()
+        });
+
+        //$('#doubleclik').click();
+        //google.maps.event.trigger(map, 'resize');
+    }
+    function initialize() {
+        /*var map_view = {
+          center:new google.maps.LatLng(<%= detail[0].cityLatLong[0] %>,<%= detail[0].cityLatLong[1] %>),
+          zoom:9,
+          mapTypeId:google.maps.MapTypeId.ROADMAP
+        };*/
+        var map_view = {
+          center:new google.maps.LatLng(<%= detail[0].cityLatLong[0] %> , <%= detail[0].cityLatLong[1] %>),
+          zoom:12,
+          mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
+
+        var map = new google.maps.Map(document.getElementById("map"), map_view);
+        var infowindow = new google.maps.InfoWindow({
+          size: new google.maps.Size(150, 50)
+        });
+        var redCoords = [];
+        var splitvalue = [];
+        var polygon2,contentString;
+        var string;
+        <%    city_zone.forEach(function (city_zone_detail) { 
+              var length1 = city_zone_detail.kmlzone.length; %>
+              redCoords = [];
+         <%     for(var i =0;i < length1;i++){ 
+                string = city_zone_detail.kmlzone[i];                
+          %> 
+            redCoords[<%= i %>] = {lat: Number(<%= string[1] %>), lng: Number(<%= string[0] %>)};
+        <%   }; %> 
+        
+            polygon2 = new google.maps.Polygon({
+              map: map,
+              name: "<%= city_zone_detail.title %>",
+              paths: redCoords,
+              strokeColor: '<%= city_zone_detail.stroke %>',
+              strokeOpacity: <%= city_zone_detail.stroke_opacity %>,
+              strokeWeight: <%= city_zone_detail.stroke_width %>,
+              fillColor: '<%= city_zone_detail.fill %>',
+              fillOpacity: <%= city_zone_detail.fill_opacity %>,
+              draggable: false,
+              geodesic: true
+            });
+            google.maps.event.addListener(polygon2, 'click', function(event) {
+                contentString = this.name;
+                infowindow.setContent(contentString);
+                infowindow.setPosition(event.latLng);
+                infowindow.open(map);
+              });
+
+
+        <%  });    %> 
+    }
+</script>
+<% } %>
+
+
+<script type="text/javascript">
+
+    var city_radius_drawingManager;
+    var city_radius_map;
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+        {
+            if (charCode == 46)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function isNumberKeyOnly(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122))
+        {
+            return false;
+        }
+        return true;
+    }
+    function updateentry(id){
+        var amount = $('#amount'+id).val();
+        if(amount == "")
+        {
+            alert('Please give amount');
+        }
+        else
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/updatezonevalueajax',
+                data: {'id': id ,'amount': amount },
+                dataType: "json",
+                  success:function(response){
+                    console.log(response);
+                    if(response.success){
+                        alert('Successfully updated');
+                    }else{
+                        alert('Something is wrong');
+                    }
+                  }
+            });
+        }
+    }
+    function deleteentry(id){
+        $.ajax({
+                type: 'POST',
+                url: '/deletezonevalueajax',
+                data: {'id': id},
+                dataType: "json",
+                  success:function(response){
+                    console.log(response);
+                    if(response.success){
+                        $('#remove'+id).remove();
+                    }else{
+                        alert('Something is wrong');
+                    }
+                  }
+            });
+    }
+    $('#plush_button').click(function(e){
+        $('#zone_error').text('');
+        var zone1 = $('#zone1').val();
+        var zone2 = $('#zone2').val();
+        var amount = $('#amount').val();
+        var cityid = $('#cityid').val();
+        if(amount!= ""){
+
+            if(zone1 == zone2)
+            {
+                $('#zone_error').text('Both are not same')
+            }
+            else
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/zonevalueajax',
+                    data: {'zone1': zone1, 'zone2':zone2 ,'amount':amount ,'id':cityid},
+                    dataType: "json",
+                      success:function(response){
+                        
+                        if(response.success){
+                            $('#append').append('<tr class="demo" id="remove'+response.zone_value._id+'" > <td>'+$('#'+zone1).html()+'</td><td>'+$('#'+zone2).html()+'</td><td><input type="text" id="amount'+response.zone_value._id+'" value="'+amount+'"></td><td> <button type="button" class="btn btn-primary btn-block" onclick="updateentry('+"'"+response.zone_value._id+"'"+')" style="float:left;text-align:center;width:80px;margin: 0 auto;"><%= process.env.button_update %></button><button type="button" class="btn btn-danger btn-block" onclick="deleteentry('+"'"+response.zone_value._id+"'"+')" style = "text-align:center; width:80px; margin: 0 auto;"> Delete </button></td> </tr>');
+
+                           
+                        }else{
+                            $('#zone_error').text(response.message)
+                        }
+                      }
+                });
+            }
+        }else{
+            $('#zone_error').text('Please give amount');
+        }
+    });
+
+    // $('#zone2').change(function(){
+    //     var zone2 = $('#zone2').val()
+    //     $('#zone1 option[value='+zone2+']').remove();
+    //     $('#zone1').selectpicker('refresh')
+    // })
+
+    // $('#zone1').change(function(){
+    //     var zone1 = $('#zone1').val()
+    //     $('#zone2 option[value='+zone1+']').remove();
+    //     $('#zone2').selectpicker('refresh')
+    // })
+
+
+
+    function initialize1() {
+        city_radius_map = new google.maps.Map(document.getElementById('city_radius_map'), {
+            zoom: 10,
+            streetViewControl: false,
+            center: {lat: 22, lng: 70}
+        });
+        city_radius_drawingManager = new google.maps.drawing.DrawingManager({
+            drawingMode: google.maps.drawing.OverlayType.POLYGON,
+            drawingControl: true,
+            drawingControlOptions: {
+                position: google.maps.ControlPosition.TOP_CENTER,
+                drawingModes: [google.maps.drawing.OverlayType.POLYGON]
+            },
+            polygonOptions: {
+                fillColor: 'black',
+                fillOpacity: 0.3,
+                strokeWeight: 2,
+                clickable: true,
+                editable: true,
+                zIndex: 1
+            }
+        });
+        city_radius_drawingManager.setMap(city_radius_map);
+
+        google.maps.event.addListener(city_radius_drawingManager, 'overlaycomplete', (polygon) => {
+
+            var shape = polygon.overlay;
+            city_radius_drawingManager.setDrawingMode(null);
+            city_radius_drawingManager.setOptions({
+                drawingControl: false,
+            });
+            let location_array = []
+            shape.getPath().getArray().forEach((location) => {
+                location_array.push([location.lng(), location.lat()])
+            });
+
+            console.log(location_array)
+
+            $('#city_locations').val(location_array);
+            google.maps.event.addListener(shape.getPath(), 'set_at', (event) => {
+                let location_array = []
+                shape.getPath().getArray().forEach((location) => {
+                    location_array.push([location.lng(), location.lat()])
+                });
+                $('#city_locations').val(location_array);
+            });
+            google.maps.event.addListener(shape.getPath(), 'insert_at', (event) => {
+                let location_array = []
+                shape.getPath().getArray().forEach((location) => {
+                    location_array.push([location.lng(), location.lat()])
+                });
+                $('#city_locations').val(location_array);
+            });
+            google.maps.event.addListener(shape.getPath(), 'remove_at', (event) => {
+                let location_array = []
+                shape.getPath().getArray().forEach((location) => {
+                    location_array.push([location.lng(), location.lat()])
+                });
+                $('#city_locations').val(location_array);
+            });
+        });
+
+    <% if(typeof detail != 'undefined'){ %>
+        var initialLocation = new google.maps.LatLng('<%=detail[0].cityLatLong[0]%>','<%=detail[0].cityLatLong[1]%>');
+        city_radius_map.setCenter(initialLocation);
+        <% if(detail[0].city_locations && detail[0].city_locations.length>0) { %>
+                city_radius_drawingManager.setDrawingMode(null);
+                city_radius_drawingManager.setOptions({
+                    drawingControl: false,
+                });
+                let array = [];
+                let string = '';
+
+                <% detail[0].city_locations.forEach(function (location) { %>
+                    array.push({lat: Number('<%=location[1]%>'), lng: Number('<%=location[0]%>')})
+                    string=string+'<%=location[0]%>,'+'<%=location[1]%>,'
+                <% }) %>
+                string = string.substring(0, string.length - 1);
+                $('#city_locations').val(string);
+                let polygon = new google.maps.Polygon({
+                    map: city_radius_map,
+                    paths: array,
+                    strokeColor: 'black',
+                    strokeOpacity: 1,
+                    strokeWeight: 1.2,
+                    fillColor: 'black',
+                    fillOpacity: 0.3,
+                    draggable: false,
+                    geodesic: true,
+                    editable: true
+                });
+                google.maps.event.addListener(polygon.getPath(), 'set_at', (event) => {
+                    let location_array = []
+                    polygon.getPath().getArray().forEach((location) => {
+                        location_array.push([location.lng(), location.lat()])
+                    });
+                    $('#city_locations').val(location_array);
+                });
+                google.maps.event.addListener(polygon.getPath(), 'insert_at', (event) => {
+                    let location_array = []
+                    polygon.getPath().getArray().forEach((location) => {
+                        location_array.push([location.lng(), location.lat()])
+                    });
+                    $('#city_locations').val(location_array);
+                });
+                google.maps.event.addListener(polygon.getPath(), 'remove_at', (event) => {
+                    let location_array = []
+                    polygon.getPath().getArray().forEach((location) => {
+                        location_array.push([location.lng(), location.lat()])
+                    });
+                    $('#city_locations').val(location_array);
+                });
+            <% } %>
+
+        <% } %>
+
+    }
+    $(document).ready(function () {
+
+        google.maps.event.addDomListener(window, 'load', initialize1);
+
+
+
+        // FOR edit page checkbox autocheck /////
+        <% if(typeof detail != 'undefined'){ %>
+            <% detail.forEach(function(data){ %>
+                <% payment_gateway.forEach(function(payment_gateway_data) { %>
+                    
+                    <% for(var index in data.payment_gateway) { 
+
+                        if(payment_gateway_data.id == data.payment_gateway[index]) { %>
+
+                            $('#<%=payment_gateway_data.id%>').prop('checked', true);
+                            
+                            <% }
+                        } %>
+                        
+                    <% }); %>
+                    $.ajax({
+                        type: 'POST',
+                        url: '/get_city_airport_list',
+                        data: {city_id:'<%= data._id %>', country_id: '<%= data.countryid %>'},
+                        dataType: "json",
+                        success: function (res) {
+                            $('#count').val(res.airport_list.length);
+                            res.airport_list.forEach(function(airport_data, index){
+
+                                $('#add_airport').append('<div class="col-md-12" id="remove'+index+'"><input type="hidden" class="form-control" value="'+airport_data._id+'" name="airport['+index+'][airport_id]"/><input type="hidden" class="form-control" id="airport['+index+'][latitude]" value="'+airport_data.airportLatLong[0]+'" name="airport['+index+'][latitude]"/><input type="hidden" class="form-control" id="airport['+index+'][longitude]" value="'+airport_data.airportLatLong[1]+'" name="airport['+index+'][longitude]"/><div class="col-md-5 form-group"><label class="col-md-3 col-xs-5 control-label">Airport Name</label><div class="col-md-9 col-xs-7"><div class="col-md-9"><input type="text" class="form-control" value="'+airport_data.name+'" id="airport['+index+'][name]" name="airport['+index+'][name]" required/></div></div></div><div class="col-md-5  form-group"><label class="col-md-3 col-xs-5 control-label">Airport Radius</label><div class="col-md-9 col-xs-7"><div class="col-md-9"><input type="text" class="form-control" value="'+airport_data.radius+'" name="airport['+index+'][radius]" required/></div></div></div><div class="col-md-2"></div></div>');
+
+                                var airport_options = {
+                                    componentRestrictions: {country: res.country_code}
+                                };
+                                $('.country_code').val(res.country_code);
+
+                                var airport_name = document.getElementById('airport['+index+'][name]');
+                                var airport_autocomplete = new google.maps.places.Autocomplete(airport_name, airport_options);
+
+                                airport_autocomplete.addListener('place_changed', function () {
+                                    var place = airport_autocomplete.getPlace();
+                                    var b = +index - 1;
+                                    var location = place.geometry.location;
+                                    location = String(location);
+                                    location = location.slice(1, -1);
+                                    location = location.split(','); 
+                                
+                                    document.getElementById('airport['+b+'][latitude]').value = location[0];
+                                    document.getElementById('airport['+b+'][longitude]').value = location[1];
+                                });
+
+                            })
+                        }
+                    });
+
+            <% }); %>
+        <% } %>
+        /////////////////////////////
+
+
+
+        
+
+        //////////////// for on change card payment hide and show payment gateway ////////////
+        var is_payment_mode_card = $('#is_payment_mode_card :selected').text();
+
+        if(is_payment_mode_card=="ON")
+        {
+            $("#payment").css("display", "block");
+        }
+        else
+        {
+            $("#payment").css("display", "none");
+        }
+
+        $('#is_payment_mode_card').change(function (e) {
+
+            if(this.value==1)
+            {
+                $("#payment").css("display", "block");
+            }
+            else
+            {
+                $("#payment").css("display", "none");
+            }
+
+        });
+        ///////////////////////////////////
+
+        ///////////// change country auto fill timezone dropdown /////////////////
+        $('#countryid').change(function (e) {
+            $('#timezone').empty();
+            var countryname = $("#countryid option:selected").html();
+
+            $.ajax({
+                type: 'POST',
+                url: '/fetch_added_country_detail',
+                data: 'countryname=' + countryname,
+                dataType: "json",
+                success: function (res) {
+                    var country_timezone = res.country_timezone;
+
+                    for (index in country_timezone)
+                    {
+                        var countrytimezone_list = country_timezone[index];
+                        $('#timezone').append('<option>' + countrytimezone_list + '</option>');
+                        $('#timezone').selectpicker('refresh');
+                    }
+                }
+            });
+        });
+        ////////////////
+           
+
+        $(".form-horizontal").validate({
+            rules: {
+                countryid: "required",
+                cityname: "required",
+                cityRadius: "required",
+                latitude: "required",
+                longitude: "required",
+                provider_min_wallet_amount_set_for_received_cash_request:"required"
+
+            },
+            errorPlacement: function(error, element) {
+                if(element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        ///////////// for autocomplete city name //////////////
+
+        $("#countryid").change(function () {
+
+            test();
+            var country = document.getElementById('countryid').value;
+            document.getElementById('cityname').autocomplete = "off";
+            $.ajax({
+                type: 'POST',
+                url: '/autocomplete_cityname',
+
+                data: 'country=' + country,
+                dataType: "json",
+                success: function (res) {
+
+                    res.city_data.forEach(function(city_detail){
+                        $('#destination_city').append('<option value='+ city_detail._id + '>' + city_detail.cityname + '</option>');
+                    });
+                    $('#destination_city').selectpicker('refresh');
+                    
+                    var options = {
+                        types: ['(cities)'],
+                        componentRestrictions: {country: res.country_code}
+                    };
+                    var input = document.getElementById('cityname');
+                    var autocomplete = new google.maps.places.Autocomplete(input, options);
+                    //autocomplete.setComponentRestrictions([]);
+
+                    var airport_options = {
+                        componentRestrictions: {country: res.country_code}
+                    };
+                    $('.country_code').val(res.country_code)
+
+                    var airport_name = document.getElementById('airport[0][name]');
+                    // airport_name = input + airport_name
+                    var airport_autocomplete = new google.maps.places.Autocomplete(airport_name, airport_options);
+                    //airport_autocomplete.setComponentRestrictions([]);
+
+                    /////////////// autocomplete city list select ///////////
+                    autocomplete.addListener('place_changed', function () {
+                        var place = autocomplete.getPlace();
+                        
+                        var location = place.geometry.location;
+                        location = String(location);
+                        location = location.slice(1, -1);
+                        location = location.split(',');
+
+                        for (var i=0; i<place.address_components.length; i++) {
+
+                            if (place.address_components[i].types[0] == "administrative_area_level_1") {
+                                //this is the object you are looking for
+                                subAdminCity= place.address_components[i];
+                                subAdminCity=subAdminCity.long_name;
+                                document.getElementById('cityname').value = place.name + ', ' +subAdminCity;
+                               
+                            }
+                        }
+                        
+                        document.getElementById('full_cityname').value = place.name;
+                        document.getElementById('latitude').value = location[0];
+                        document.getElementById('longitude').value = location[1];
+                        var initialLocation = new google.maps.LatLng(location[0], location[1]);
+                        city_radius_map.setCenter(initialLocation);
+                        test();
+                    });
+                    airport_autocomplete.addListener('place_changed', function () {
+                        var place = airport_autocomplete.getPlace();
+                        
+                        var location = place.geometry.location;
+                        location = String(location);
+                        location = location.slice(1, -1);
+                        location = location.split(',');
+                    
+                        document.getElementById('airport[0][latitude]').value = location[0];
+                        document.getElementById('airport[0][longitude]').value = location[1];
+                    });
+                    ///////////////////////
+                }
+            });
+        });
+
+        $('#add_another_airport').click(function(){
+            var a = $('#count').val();
+            $('#add_airport').append('<div class="col-md-12" id="remove'+a+'"><input type="hidden" class="form-control" id="airport['+a+'][latitude]" name="airport['+a+'][latitude]"/><input type="hidden" class="form-control" id="airport['+a+'][longitude]" name="airport['+a+'][longitude]"/><div class="col-md-5 form-group"><label class="col-md-3 col-xs-5 control-label">Airport Name</label><div class="col-md-9 col-xs-7"><div class="col-md-9"><input type="text" class="form-control" id="airport['+a+'][name]" name="airport['+a+'][name]" required/></div></div></div><div class="col-md-5  form-group"><label class="col-md-3 col-xs-5 control-label">Airport Radius</label><div class="col-md-9 col-xs-7"><div class="col-md-9"><input type="text" class="form-control" name="airport['+a+'][radius]" required/></div></div></div><div class="col-md-2"><i class="fa fa-minus-circle" onclick="remove_airport('+a+')" style="font-size: 30px;cursor: pointer" aria-hidden="true"></i></div></div>');
+            var country_code = $('.country_code').val();
+        
+            if(country_code != '')
+            {
+                var airport_options = {
+                    componentRestrictions: {country: country_code}
+                };
+            }
+            else
+            {
+                var airport_options = {
+                };
+            }
+            
+            var airport_name = document.getElementById('airport['+a+'][name]');
+            var airport_autocomplete = new google.maps.places.Autocomplete(airport_name, airport_options);
+
+
+            airport_autocomplete.addListener('place_changed', function () {
+                var place = airport_autocomplete.getPlace();
+                var b = +a - 1;
+                var location = place.geometry.location;
+                location = String(location);
+                location = location.slice(1, -1);
+                location = location.split(','); 
+            
+                document.getElementById('airport['+b+'][latitude]').value = location[0];
+                document.getElementById('airport['+b+'][longitude]').value = location[1];
+            });
+
+            a = +a + 1;
+            $('#count').val(a);
+        })
+
+    });
+    
+    function remove_airport(i)
+    {
+        $('#remove'+i).remove();
+    }
+
+    ///////////// for check selected country city already exist or not /////////////
+    function test()
+    {
+        var city = document.getElementById('cityname').value;
+
+        var country = document.getElementById('countryid').value;
+
+        $("#submit").attr("disabled", true);
+        $.ajax({
+            type: 'POST',
+            url: '/check_city_available',
+            data: {'cityname': city, 'countryid': country},
+            dataType: "json",
+            success: function (res) {
+
+                if (res == 1)
+                {
+                    $("#submit").attr("disabled", true);
+
+                    $("#citycheck").html('<font color="red">City Name Already Used</font>');
+                } else
+                {
+                    $("#citycheck").html('');
+
+                    $("#submit").attr("disabled", false);
+                }
+            }
+        });
+    }
+    ///////////////////////////
+</script>
+
+<script src="<%=map_url%>"></script>
+<% include footer_form.html %>

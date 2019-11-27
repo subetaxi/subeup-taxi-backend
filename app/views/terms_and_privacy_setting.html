@@ -1,0 +1,134 @@
+<% include header.html %>
+<div class="page-title">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+        <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %>
+</div>
+
+ <div class="page-content-wrap">
+    
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#tab-first" role="tab" data-toggle="tab"><%= config_json.title_user_terms_and_condition %></a></li>
+                    <li><a href="#tab-second" role="tab" data-toggle="tab"><%= config_json.title_user_privacy_policy %></a></li>
+                    <li><a href="#tab-third"   role="tab" data-toggle="tab"><%= config_json.title_provider_terms_and_condition %></a></li>
+                    <li><a href="#tab-fourth" role="tab" data-toggle="tab"><%= config_json.title_provider_privacy_policy %></a></li>
+                </ul>
+                <div class="panel-body tab-content">
+                    <div class="tab-pane active" id="tab-first">
+                        <form action="update_user_terms_and_condition" role="form" class="form-horizontal" method="post">
+                            <div class="form-group">
+                                <div class="col-md-12 col-xs-12">
+                                    <textarea class="" name="user_terms_and_condition" id="user_terms_and_condition">
+                                        <%=setting_detail.user_terms_and_condition%>
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group" >
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4" style="margin-top: 10px;">
+                                    <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="tab-second">
+                        <form action="update_user_privacy_policy" role="form" class="form-horizontal" method="post">
+                            <div class="form-group">
+                                <div class="col-md-12 col-xs-12">
+                                    <textarea class="" name="user_privacy_policy" id="user_privacy_policy">
+                                        <%=setting_detail.user_privacy_policy%>
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group" >
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4" style="margin-top: 10px;">
+                                    <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="tab-third">
+                        <form action="update_provider_terms_and_condition" role="form" class="form-horizontal" method="post">
+                            <div class="form-group">
+                                <div class="col-md-12 col-xs-12">
+                                    <textarea class="" name="provider_terms_and_condition" id="provider_terms_and_condition">
+                                        <%=setting_detail.provider_terms_and_condition%>
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group" >
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4" style="margin-top: 10px;">
+                                    <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane" id="tab-fourth">
+                        <form action="update_provider_privacy_policy" role="form" class="form-horizontal" method="post">
+                            <div class="form-group">
+                                <div class="col-md-12 col-xs-12">
+                                    <textarea class="" name="provider_privacy_policy" id="provider_privacy_policy">
+                                        <%=setting_detail.provider_privacy_policy%>
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group" >
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4" style="margin-top: 10px;">
+                                    <input type="submit" name="update" value="<%= config_json.button_update_changes %>" class="btn btn-success btn-block">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <script type="text/javascript" src="js/plugins/summernote/summernote.js"></script>
+
+
+<script type="text/javascript">
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    $(document).ready(function () {
+
+        $('#user_terms_and_condition').summernote({height: 500});
+        $('#provider_terms_and_condition').summernote({height: 500});
+        $('#user_privacy_policy').summernote({height: 500});
+        $('#provider_privacy_policy').summernote({height: 500});
+        $('.note-toolbar .note-insert').remove();
+
+        
+    });
+</script>
+<!-- START PRELOADS -->
+<% include footer_form.html %>

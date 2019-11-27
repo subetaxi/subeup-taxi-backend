@@ -1,0 +1,468 @@
+<% include partner/partner_header.html %>
+	<!-- PAGE TITLE -->
+	<div class="page-content-wrap">
+	<div class="alert alert-success" role="alert" id="error" style="display:none; position: fixed;z-index: 100">
+		<button type="button" id="close" class="close"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+		<p align="center" id="message"> <strong></strong></p>
+	</div>
+
+	<div class="page-title">
+		<h2><span class="fa fa-cogs"></span> <%= config_json.title_edit_profile %></h2>
+	</div>
+	<!-- END PAGE TITLE -->
+
+	<!-- PAGE CONTENT WRAPPER -->
+	<% if(typeof data == 'undefined'){ %>
+		<div class="page-content-wrap">
+			<div class="col-md-6 col-sm-8 col-xs-12">
+
+				<form class="form-horizontal" method="post" id="partner_provider_add" action="/partner_add_provider" enctype="multipart/form-data">
+					<div class="panel panel-default">
+						<div class="panel-body form-group-separated">
+							<div class="panel-body">
+								<div class="col-md-6 col-xs-6" id="user_image">
+
+									<input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" name="file" title="Upload Photo" id="profile_image"/>
+									<img src="default.png" style="height: 60px; width: 120px;" id="profile_sel_img"/>
+									<div id="profile_image_dimention"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="hidden" class="form-control" name="id" />
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_first_name %></label>
+								<div class="col-md-9 col-xs-7">
+									<input type="text" class="form-control" name="first_name" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_last_name %></label>
+								<div class="col-md-9 col-xs-7">
+									<input type="text" class="form-control" name="last_name" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_email %></label>
+								<div class="col-md-9 col-xs-7">
+									<input type="text" class="form-control" name="email" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.button_password %></label>
+								<div class="col-md-9 col-xs-7">
+									<input type="password" class="form-control" name="password" />
+								</div>
+							</div>
+
+
+
+							<div class="form-group">
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_phone %></label>
+								<div class="col-md-9 col-xs-7">
+									<div class="col-md-3">
+										<input type="text" name="country_phone_code" class="form-control" value="<%= country_phone_code %>" readonly/>
+									</div>
+									<div class="col-md-9">
+										<input type="text" onkeypress="return isNumberKey(event);" class="form-control" name="phone" maxlength='<%= phone_number_length %>' />
+									</div>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_address %></label>
+								<div class="col-md-9 col-xs-7">
+									<textarea class="form-control" rows="5" name="address"></textarea>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_city %></label>
+								<div class="col-md-9">
+									<select class="form-control select" name="city" id="city">
+                            	<% citydata.forEach(function(data){ %>
+
+                                	<option value="<%= data.cityname %>" ><%= data.cityname %></option>
+                                <% }); %>
+                           
+                            	
+                      		</select>
+								</div>
+
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_zipcode %></label>
+								<div class="col-md-9 col-xs-7">
+									<input type="text" class="form-control" name="zipcode" />
+								</div>
+							</div>
+							
+							<!-- <div class="form-group">
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_taxi_model %></label>
+								<div class="col-md-9 col-xs-7">
+									<input type="text" class="form-control" name="car_model" />
+								</div>
+							</div> -->
+							<!-- <div class="form-group">
+								<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_registration_number %></label>
+								<div class="col-md-9 col-xs-7">
+									<input type="text" class="form-control" name="car_number" />
+								</div>
+							</div> -->
+
+							<div class="form-group">
+								<div class="col-md-12 col-xs-12">
+									<button class="btn btn-primary btn-rounded pull-right submit_button" type="submit" name="submit" id="update"><%= config_json.button_save %></button>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+		<% } else { %>
+			<div class="page-content-wrap">
+				<div class="col-md-6 col-sm-8 col-xs-12">
+						<form class="form-horizontal" id="partner_provider_update" method="post" action="/partner_provider_update" enctype="multipart/form-data">
+							<div class="panel panel-default">
+								<div class="panel-body form-group-separated">
+									<div class="panel-body">
+										<input type="hidden" class="form-control" value="<%= data.picture %>" name="old_img_path" />
+										<div class="col-md-6 col-xs-6" id="user_image">
+											<img src="<%=   data.picture != '' ? setting_detail.image_base_url + data.picture : 'default.png' %>" class="img-thumbnail" id="profile_sel_img"/>
+											<input type="file" class="btn btn-primary btn-block btn-rounded fileinput" data-filename-placement="inside" name="file" title="Change Photo" id="profile_image" />
+											<div id="profile_image_dimention"></div>
+														
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="hidden" class="form-control" value="<%= data.id %>" name="id" />
+										<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_first_name %></label>
+										<div class="col-md-9 col-xs-7">
+											<input type="text" class="form-control" value="<%= data.first_name %>" name="first_name" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_last_name %></label>
+										<div class="col-md-9 col-xs-7">
+											<input type="text" class="form-control" value="<%= data.last_name %>" name="last_name" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_email %></label>
+										<div class="col-md-9 col-xs-7">
+											 <% if(is_public_demo == true) { %>
+                                 <input type="text" class="form-control" value="<%= config_json.PUBLIC_DEMO_EMAIL %>" name="email" id='email' readonly />
+                                <% } else{ %>
+         	<input type="text" class="form-control" value="<%= data.email %>" name="email" readonly/>
+                                <% } %>
+											
+											
+										
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_phone %></label>
+										<div class="col-md-9 col-xs-7">
+											<div class="col-md-3">
+												<input type="text" class="form-control" value="<%= data.country_phone_code  %>" disabled/>
+											</div>
+											<div class="col-md-9">
+												<input type="text" onkeypress="return isNumberKey(event);" class="form-control" value="<%= data.phone  %>" name="phone" maxlength='<%= phone_number_length %>'/>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_address %></label>
+										<div class="col-md-9 col-xs-7">
+											<textarea class="form-control" rows="5" name="address"><%= data.address %></textarea>
+											<div class="col-md-6 col-xs-6" id="">
+												<select class="form-control select" data-live-search="true" name="city" id="city_name">
+													
+						                            <% city_list.forEach(function(city){ %>
+						                            <% 
+						                            	if(data.city != null){ 
+								                            if(data.city == city.cityname){ %>
+								                                <option selected><%= city.cityname %></option>
+								                            <% } else { %>
+								                            	<option><%= city.cityname %></option>
+								                            <% } 
+								                        } else { %>
+								                        <option><%= city.cityname %></option>
+								                            <% } %>
+						                            <% }); %>
+				                      			</select>
+											</div>
+											<div class="col-md-6 col-xs-6">
+												<input type="text" class="form-control" value="<%= data.country %>" name="country" readonly/>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_service_type %></label>
+										<div class="col-md-9" id="error">
+											<select class="form-control select" id="city_type_name" disabled="">
+				                            	<option selected disabled hidden style='display: none'></option>
+					                            <% service_type.forEach(function(service_type){ %>
+					                            	<% if(data.service_type !== null){ %>
+							                            <% if(data.service_type.equals(service_type._id)){ %>
+							                                <option value="<%= service_type._id %>" selected><%= service_type.type_detail.typename %></option>
+							                            <% } else { %>
+							                            	<option value="<%= service_type._id %>"><%= service_type.type_detail.typename %></option>
+							                            <% } %>
+							                        <% } else { %>
+							                        	
+							                            	<option value="<%= service_type._id %>"><%= service_type.type_detail.typename %></option>
+							                           
+							                        <% } %>
+					                            <% }); %>
+				                      		</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_zipcode %></label>
+										<div class="col-md-9 col-xs-7">
+											<input type="text" class="form-control" value="<%= data.zipcode %>" name="zipcode" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_password %></label>
+										<div class="col-md-9 col-xs-7">
+											<input type="text"  class="form-control" value="" name="password"/>
+										</div>
+									</div> 
+									<div class="form-group">
+										<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_created_at %></label>
+										<div class="col-md-9 col-xs-7">
+											<div class="col-md-6 col-xs-6">
+												<input type="text" class="form-control" value='<%= moment(data.created).format("DD MMM YYYY") %>' readonly/>
+											</div>
+											<div class="col-md-6 col-xs-6">
+												<input type="text" class="form-control" value='<%= moment(data.created).format("hh:mm a") %>' readonly/>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-12 col-xs-12">
+											<button class="btn btn-primary btn-rounded pull-right submit_button" type="submit" name="submit" id="update"><%= config_json.button_save %></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+				</div>
+			</div>
+			<% } %>
+				<!-- END PAGE CONTENT WRAPPER -->
+				</div>
+				<!-- END PAGE CONTENT -->
+				</div>
+				<!-- END PAGE CONTAINER -->
+				<script type="text/javascript">
+					function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+        return false;
+    }
+    return true;
+}
+
+var _URL = window.URL || window.webkitURL;
+$("#profile_image").change(function(e) {
+    var file, img;
+    if ((file = this.files[0])) {
+        img = new Image();
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#profile_sel_img').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(profile_image.files[0]);
+
+        img.onload = function(e) {
+            
+            if(this.width == this.height)
+            {
+                $("#profile_image_dimention").html('<font color="red"></font>');
+                $('#update').prop('disabled', false);
+            }
+            else
+            {
+                $("#profile_image_dimention").html('<font color="red"><%= config_json.error_message_for_profile_image_aspect_ratio %> <b><%= config_json.profile_image_aspect_ratio %></b></font>');
+                $('#update').prop('disabled', true);
+            }
+        };
+        img.src = _URL.createObjectURL(file);
+    }
+});
+
+$(document).ready(function() {
+	$("#partner_provider_update").validate({
+		   rules: {
+		     first_name: "required",
+		     last_name: "required",
+		     password: {
+		      	minlength: 6  
+		    },
+		    email: {
+		      required: true,
+		      email: true
+		    },
+		    address: {
+		        required: true
+		    },
+		    phone: {
+		      required: true,
+		      minlength: <%= phone_number_min_length %>,
+		      maxlength: <%= phone_number_length %>
+		    },
+		    zipcode: {
+		        required: true
+		    },
+		    title: {
+		        required: true
+		    },
+		    typename:{
+		        required: true
+		    } ,
+		    city : "required"
+		   }
+	});
+	 $("#partner_provider_add").validate({
+	   rules: {
+	     first_name: "required",
+	     last_name: "required",
+	     password: {
+	     	required: true,
+	      	minlength: 6  
+	    },
+	    email: {
+	      required: true,
+	      email: true
+	    },
+	    address: {
+	        required: true
+	    },
+	    phone: {
+	      required: true,
+	      minlength: <%= phone_number_min_length %>,
+	      maxlength: <%= phone_number_length %>
+	    },
+	    zipcode: {
+	        required: true
+	    },
+	    title: {
+	        required: true
+	    },
+	    typename:{
+	        required: true
+	    } ,
+	    city : "required"
+	   },
+
+	   submitHandler: function(form) {
+	   		$('.submit_button').attr("disabled", true);
+		   	$.ajax({
+		        type: 'POST',
+		        url: '/check_provider',
+		        data: $("#partner_provider_add").serialize() ,
+		        dataType: "json",
+		        success:function(response){
+		        	if(response.success == true)
+		        	{
+		        		$.post( "partner_add_provider",  $("#partner_provider_add").serialize(), function( data ) {
+						 
+						  	window.location.href = 'partner_providers'; 
+						}, "json");
+		        	}
+		        	else
+		        	{
+		        		$('.submit_button').attr("disabled", false);
+		        		$('#error').show();
+		               	setTimeout(function(){ 
+		               		$('#error').hide();
+		               	}, 3000);
+		                document.getElementById('message').innerHTML = response.message ;
+		        	}
+		        }
+		    });
+	   }
+	});
+
+	 $("#city_name").change(function(){
+		var city =$( "#city_name option:selected" ).text();
+		var city_type =$( "#city_type_name option:selected" ).text();
+		$('#city_type_name').empty();
+		$.ajax({
+                type: 'POST',
+                url: '/getcitytype',
+                data: { 'city':city, 'city_type':city_type},
+                dataType: "json",
+              	success:function(res){
+              		if(res.service_type.length === 0)
+              		{
+              			$("#error").append("<div style='color:red' id='not_type'>Type Not Available</div>");
+              		}
+              		else
+              		{
+              			$("#not_type").remove();
+              			for(var index in res.service_type)
+              			{
+	                      	var city_type_name = res.service_type[index].type_detail.typename;
+	                      	var city_type_id = res.service_type[index]._id;
+	                      	if(city_type_name == city_type)
+	                      	{
+	                      		$("#city_type_name").append("<option value="+city_type_id+" selected>"+ city_type_name + "</option>");
+	                      	}
+	                      	else
+	                      	{
+	                      		$("#city_type_name").append("<option value="+city_type_id+">"+ city_type_name + "</option>");
+	                      	}
+	                    }
+              		}
+                    $('#city_type_name').selectpicker('refresh');
+              	}
+        });
+    });
+
+	var _URL = window.URL || window.webkitURL;
+	$("#profile_image").change(function(e) {
+	    var file, img;
+	    if ((file = this.files[0])) {
+	        img = new Image();
+
+	        var reader = new FileReader();
+
+	        reader.onload = function (e) {
+	            $('#profile_sel_img').attr('src', e.target.result);
+	        }
+
+	        reader.readAsDataURL(profile_image.files[0]);
+
+	        img.onload = function(e) {
+	            
+	            if(this.width == this.height)
+	            {
+	                $("#profile_image_dimention").html('<font color="red"></font>');
+	                $('#update').prop('disabled', false);
+	            }
+	            else
+	            {
+	                $("#profile_image_dimention").html('<font color="red">Select file with appropriate aspect ratio <b>(1 : 1)</b></font>');
+	                $('#update').prop('disabled', true);
+	            }
+	        };
+	        img.src = _URL.createObjectURL(file);
+	    }
+	});
+
+});
+
+				</script>
+				<% include footer_form.html %>

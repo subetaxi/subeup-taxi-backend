@@ -1,0 +1,364 @@
+{"message":"update location : Wed Nov 27 2019 06:01:49 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4519999138746056700,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834543745630%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":{"message_id":4386469083604991500},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7475748757205758000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834547439058%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":2203897887487519700},"level":"info"}
+{"message":"diff: 8.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3636288863297201000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834553867371%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":7774141393677384000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3248174631963872000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834555398807%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6108914962415865000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:02:36 GMT+0000 (UTC)","level":"info"}
+{"message":{"multicast_id":7384028741621086000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834556647980%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":9116055671082708000},"level":"info"}
+{"message":"diff: 14.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":2533695932854418000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834561907064%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":8076839556894910000},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"elluminati18@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["elluminati18@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574834563 m29sm7378374qtf.1 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["elluminati18@gmail.com"]},"messageId":"b29eb050-8f68-d42e-1832-068afd2e070a@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574834563 m29sm7378374qtf.1 - gsmtp","level":"info"}
+{"message":"mail sent user invoice","level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"pb7427768@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["pb7427768@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574834568 q1sm7242341qti.46 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["pb7427768@gmail.com"]},"messageId":"e15801f0-6429-de5b-5504-c74e8c893289@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574834568 q1sm7242341qti.46 - gsmtp","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3350918333160561700,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834703028692%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":5618010191985926000},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4057589599808956000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834705593465%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":2003945099710397400},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":218002958002123550,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834707867296%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":4611125551202146300},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4964061973161232000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834710071748%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":3488166492077982000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3428806966479057000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834711752554%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:05:11 GMT+0000 (UTC)","level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":9117389205057842000},"level":"info"}
+{"message":"diff: 11.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":2525322592703802400,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834720164912%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":431981542121402500},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"elluminati18@gmail.com","level":"info"}
+{"message":"mail sent user invoice","level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"pb7427768@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["pb7427768@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574834724 y15sm6328031qka.6 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["pb7427768@gmail.com"]},"messageId":"f784ab90-b098-77e7-4963-9532bc6e8e86@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574834724 y15sm6328031qka.6 - gsmtp","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["elluminati18@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574834729 x10sm7271644qtj.25 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["elluminati18@gmail.com"]},"messageId":"75427ff8-d08b-a97c-f7e4-0b78748319cc@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574834729 x10sm7271644qtj.25 - gsmtp","level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:05:56 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":945268439609765100,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834801240414%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6219321875209255000},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":8474639824517261000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834804257200%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":1020741339588889200},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":9002213177772903000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834806528518%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":1860370880959873800},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":8123593434137977000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834809079503%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":8660888008865903000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7554386929114666000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834811137196%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:06:51 GMT+0000 (UTC)","level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":3247098412851752000},"level":"info"}
+{"message":"diff: 12.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":8440603152708695000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834820123554%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":9112774409945490000},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"elluminati18@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["elluminati18@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574834822 u4sm1714142qkh.59 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["elluminati18@gmail.com"]},"messageId":"aa0e28d5-3799-c119-0010-994e6bce2d39@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574834822 u4sm1714142qkh.59 - gsmtp","level":"info"}
+{"message":"mail sent user invoice","level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"pb7427768@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["pb7427768@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574834823 s42sm7141076qtk.60 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["pb7427768@gmail.com"]},"messageId":"b2f3fe5f-97e5-6c34-c695-59dbe65a9a42@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574834823 s42sm7141076qtk.60 - gsmtp","level":"info"}
+{"errno":-2,"code":"ENOENT","syscall":"unlink","path":"./data/provider_profile/undefined","level":"error"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":5797655090595170000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834908910278%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":7249212743351880000},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":3815749896917949400,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834911380984%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":2767751090543789000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1717695435368437800,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834912253704%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":8073408282802919000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7266500242583120000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834913110399%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":5618725777346542000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:08:33 GMT+0000 (UTC)","level":"info"}
+{"message":{"multicast_id":8256473336631239000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834913938443%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":7028657941981388000},"level":"info"}
+{"message":"diff: 7.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7901251294701792000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574834919915059%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6998897507791187000},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"elluminati18@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["elluminati18@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574834921 a3sm6212007qkf.76 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["elluminati18@gmail.com"]},"messageId":"343a6c6b-67a4-b35f-43ec-1a1a2ccbca0b@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574834921 a3sm6212007qkf.76 - gsmtp","level":"info"}
+{"message":"mail sent user invoice","level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"pb7427768@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["pb7427768@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574834923 139sm824qkj.116 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["pb7427768@gmail.com"]},"messageId":"fd4db5dd-2f05-b9e3-8732-6ad96e6e78ab@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574834923 139sm824qkj.116 - gsmtp","level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:09:27 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":5589308756972843000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835000255428%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":4334015592212063700},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":4889228144408793000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835021814263%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":483851582635129500},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":6416911273694100000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835052624534%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":1319287126138063400},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"multicast_id":3182835689522700000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835055247724%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":5678527326700784000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":8778445347956963000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835062024364%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":3857527516473603000},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":5670826588484120000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835064196332%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":4336103992485883400},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:11:06 GMT+0000 (UTC)","level":"info"}
+{"message":{"multicast_id":8171342100982551000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835066649524%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":3347095436364706300},"level":"info"}
+{"message":"diff: 17.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":723851669168019100,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835074278082%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":8526300504327416000},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"elluminati18@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["elluminati18@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574835075 n66sm6287576qkb.72 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["elluminati18@gmail.com"]},"messageId":"7f7c4953-f502-3f0e-06bc-961ac2581737@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574835075 n66sm6287576qkb.72 - gsmtp","level":"info"}
+{"message":"mail sent user invoice","level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"pb7427768@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["pb7427768@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574835077 x8sm6862353qti.77 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["pb7427768@gmail.com"]},"messageId":"bc259e67-7874-4a54-6e42-e7f58ed01182@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574835077 x8sm6862353qti.77 - gsmtp","level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:15:55 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7556951427594235000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835523178236%4d672d0cf9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":6089632794261726000},"level":"info"}
+{"message":"diff: 0.00","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":1057745317858574700,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835525751564%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":{"message_id":2644219469537676300},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":7721178777405362000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835528052452%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":2784567848181807600},"level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":606436947187918000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835530368874%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":3670588930970521600},"level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:18:52 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":2414273498494768600,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835532806756%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"status":400,"message":"The From phone number +2015966653 is not a valid, SMS-capable inbound phone number or short code for your account.","code":21606,"moreInfo":"https://www.twilio.com/docs/errors/21606","level":"error"}
+{"message":{"message_id":2066402101997327000},"level":"info"}
+{"message":"diff: 12.00","level":"info"}
+{"message":"update location : Wed Nov 27 2019 06:18:56 GMT+0000 (UTC)","level":"info"}
+{"message":"ANDROID PUSH NOTIFICATION","level":"info"}
+{"message":{"multicast_id":8760012482045312000,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1574835541170335%4b5d88aff9fd7ecd"}]},"level":"info"}
+{"message":{"message_id":4202866879912044500},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"elluminati18@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["elluminati18@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574835542 x8sm6870744qti.77 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["elluminati18@gmail.com"]},"messageId":"1d3e8e19-25f9-518c-2906-66eecb727d42@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574835542 x8sm6870744qti.77 - gsmtp","level":"info"}
+{"message":"mail sent user invoice","level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"pb7427768@gmail.com","level":"info"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["pb7427768@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574835544 d134sm6416253qkc.42 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["pb7427768@gmail.com"]},"messageId":"beb1d711-8944-fb7b-773b-34c2e280cf1d@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574835544 d134sm6416253qkc.42 - gsmtp","level":"info"}
+{"message":"-verification----","level":"info"}
+{"message":{"email":"pb7427768@gmail.com","phone":"0383838353","country_phone_code":"+1","type":0},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"pb7427768@gmail.com","level":"info"}
+{"status":400,"message":"The 'To' number +10383838353 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["pb7427768@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574835650 a66sm6333455qkb.27 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["pb7427768@gmail.com"]},"messageId":"b715743f-a49d-1c7a-ea8e-6dc952ec1dd6@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574835650 a66sm6333455qkb.27 - gsmtp","level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"message":"elluminati18@gmail.com","level":"info"}
+{"status":400,"message":"The 'To' number +11122112211 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"message":null,"level":"info"}
+{"message":{"accepted":["elluminati18@gmail.com"],"rejected":[],"response":"250 2.0.0 OK  1574835691 t27sm6297133qkm.19 - gsmtp","envelope":{"from":"subetaxiapp@gmail.com","to":["elluminati18@gmail.com"]},"messageId":"1655b694-d9a9-cbc6-9bd4-4c424834ef02@gmail.com"},"level":"info"}
+{"message":"250 2.0.0 OK  1574835691 t27sm6297133qkm.19 - gsmtp","level":"info"}
+{"message":"-verification----","level":"info"}
+{"message":{"type":"1","phone":"8795464984","country_phone_code":"+1"},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"level":"info"}
+{"message":"html","level":"info"}
+{"message":"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n    <title>Reset Password</title>\n    <style type=\"text/css\" media=\"screen\">\n        .ExternalClass * {\n            line-height: 100%\n        }\n        /* Début style responsive (via media queries) */\n        \n        @media only screen and (max-width: 480px) {\n            *[id=email-penrose-conteneur] {\n                width: 100% !important;\n            }\n            table[class=resp-full-table] {\n                width: 100%!important;\n                clear: both;\n            }\n            td[class=resp-full-td] {\n                width: 100%!important;\n                clear: both;\n            }\n            img[class=\"email-penrose-img-header\"] {\n                width: 100% !important;\n                max-width: 340px !important;\n            }\n        }\n        /* Fin style responsive */\n    </style>\n\n</head>\n\n<body style=\"background-color:#ecf0f1\">\n    <div align=\"center\" style=\"background-color:#ecf0f1;\">\n\n        <!-- Début en-tête -->\n\n\n\n        <!-- Fin en-tête -->\n\n        <table id=\"email-penrose-conteneur\" width=\"660\" align=\"center\" style=\"border-right:1px solid #e2e8ea; border-bottom:1px solid #e2e8ea; border-left:1px solid #e2e8ea; background-color:#ffffff;\"\n            border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n\n            <!-- Début bloc \"mise en avant\" -->\n\n            <tr>\n\n                <td style=\"background-color:#048c9d\">\n\n                    <div style=\"\"><img alt=\"email_img\" src=\"http://192.241.130.45/email_img.png\" style=\"width: 660px;\"></div>\n\n                </td>\n            </tr>\n\n\n\n\n\n\n\n            <!-- Début article 1 -->\n\n            <tr>\n                <td style=\"border-bottom: 1px solid #e2e8ea\">\n                    <table width=\"660\" class=\"resp-full-table\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding:20px;\">\n                        <tr>\n                            <td width=\"100%\">\n\n                                <table width=\"100%\" align=\"right\" class=\"resp-full-table\" style=\"border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"\n                                    border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                <strong style=\"font-weight: bold;\"><h1>Your OTP Verification</h1></strong>\n                                            </div>\n\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                             Email Verification code for complete your registration process is : 940782.\n                                            </div>\n                                            <br>\n\n\n\n                                            <br>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                \n                                                For any query or consolation info@info.com\n                                            </div>\n\n                                        </td>\n                                    </tr>\n\n                                </table>\n                            </td>\n                        </tr>\n                    </table>\n                </td>\n            </tr>\n\n            <!-- Fin article 1 -->\n\n        </table>\n\n        <!-- Début footer -->\n\n\n        <!-- Fin footer -->\n\n    </div>\n</body>\n\n</html>","level":"info"}
+{"status":400,"message":"The 'To' number +18795464984 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"code":"EENVELOPE","command":"API","level":"info"}
+{"level":"info"}
+{"code":"EENVELOPE","command":"API","level":"error"}
+{"message":"-verification----","level":"info"}
+{"message":{"type":"1","phone":"8795464984","country_phone_code":"+1"},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"level":"info"}
+{"message":"html","level":"info"}
+{"message":"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n    <title>Reset Password</title>\n    <style type=\"text/css\" media=\"screen\">\n        .ExternalClass * {\n            line-height: 100%\n        }\n        /* Début style responsive (via media queries) */\n        \n        @media only screen and (max-width: 480px) {\n            *[id=email-penrose-conteneur] {\n                width: 100% !important;\n            }\n            table[class=resp-full-table] {\n                width: 100%!important;\n                clear: both;\n            }\n            td[class=resp-full-td] {\n                width: 100%!important;\n                clear: both;\n            }\n            img[class=\"email-penrose-img-header\"] {\n                width: 100% !important;\n                max-width: 340px !important;\n            }\n        }\n        /* Fin style responsive */\n    </style>\n\n</head>\n\n<body style=\"background-color:#ecf0f1\">\n    <div align=\"center\" style=\"background-color:#ecf0f1;\">\n\n        <!-- Début en-tête -->\n\n\n\n        <!-- Fin en-tête -->\n\n        <table id=\"email-penrose-conteneur\" width=\"660\" align=\"center\" style=\"border-right:1px solid #e2e8ea; border-bottom:1px solid #e2e8ea; border-left:1px solid #e2e8ea; background-color:#ffffff;\"\n            border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n\n            <!-- Début bloc \"mise en avant\" -->\n\n            <tr>\n\n                <td style=\"background-color:#048c9d\">\n\n                    <div style=\"\"><img alt=\"email_img\" src=\"http://192.241.130.45/email_img.png\" style=\"width: 660px;\"></div>\n\n                </td>\n            </tr>\n\n\n\n\n\n\n\n            <!-- Début article 1 -->\n\n            <tr>\n                <td style=\"border-bottom: 1px solid #e2e8ea\">\n                    <table width=\"660\" class=\"resp-full-table\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding:20px;\">\n                        <tr>\n                            <td width=\"100%\">\n\n                                <table width=\"100%\" align=\"right\" class=\"resp-full-table\" style=\"border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"\n                                    border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                <strong style=\"font-weight: bold;\"><h1>Your OTP Verification</h1></strong>\n                                            </div>\n\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                             Email Verification code for complete your registration process is : 831697.\n                                            </div>\n                                            <br>\n\n\n\n                                            <br>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                \n                                                For any query or consolation info@info.com\n                                            </div>\n\n                                        </td>\n                                    </tr>\n\n                                </table>\n                            </td>\n                        </tr>\n                    </table>\n                </td>\n            </tr>\n\n            <!-- Fin article 1 -->\n\n        </table>\n\n        <!-- Début footer -->\n\n\n        <!-- Fin footer -->\n\n    </div>\n</body>\n\n</html>","level":"info"}
+{"status":400,"message":"The 'To' number +18795464984 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"code":"EENVELOPE","command":"API","level":"info"}
+{"level":"info"}
+{"code":"EENVELOPE","command":"API","level":"error"}
+{"message":"-verification----","level":"info"}
+{"message":{"type":"1","phone":"8795464984","country_phone_code":"+1"},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"level":"info"}
+{"message":"html","level":"info"}
+{"message":"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n    <title>Reset Password</title>\n    <style type=\"text/css\" media=\"screen\">\n        .ExternalClass * {\n            line-height: 100%\n        }\n        /* Début style responsive (via media queries) */\n        \n        @media only screen and (max-width: 480px) {\n            *[id=email-penrose-conteneur] {\n                width: 100% !important;\n            }\n            table[class=resp-full-table] {\n                width: 100%!important;\n                clear: both;\n            }\n            td[class=resp-full-td] {\n                width: 100%!important;\n                clear: both;\n            }\n            img[class=\"email-penrose-img-header\"] {\n                width: 100% !important;\n                max-width: 340px !important;\n            }\n        }\n        /* Fin style responsive */\n    </style>\n\n</head>\n\n<body style=\"background-color:#ecf0f1\">\n    <div align=\"center\" style=\"background-color:#ecf0f1;\">\n\n        <!-- Début en-tête -->\n\n\n\n        <!-- Fin en-tête -->\n\n        <table id=\"email-penrose-conteneur\" width=\"660\" align=\"center\" style=\"border-right:1px solid #e2e8ea; border-bottom:1px solid #e2e8ea; border-left:1px solid #e2e8ea; background-color:#ffffff;\"\n            border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n\n            <!-- Début bloc \"mise en avant\" -->\n\n            <tr>\n\n                <td style=\"background-color:#048c9d\">\n\n                    <div style=\"\"><img alt=\"email_img\" src=\"http://192.241.130.45/email_img.png\" style=\"width: 660px;\"></div>\n\n                </td>\n            </tr>\n\n\n\n\n\n\n\n            <!-- Début article 1 -->\n\n            <tr>\n                <td style=\"border-bottom: 1px solid #e2e8ea\">\n                    <table width=\"660\" class=\"resp-full-table\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding:20px;\">\n                        <tr>\n                            <td width=\"100%\">\n\n                                <table width=\"100%\" align=\"right\" class=\"resp-full-table\" style=\"border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"\n                                    border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                <strong style=\"font-weight: bold;\"><h1>Your OTP Verification</h1></strong>\n                                            </div>\n\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                             Email Verification code for complete your registration process is : 349460.\n                                            </div>\n                                            <br>\n\n\n\n                                            <br>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                \n                                                For any query or consolation info@info.com\n                                            </div>\n\n                                        </td>\n                                    </tr>\n\n                                </table>\n                            </td>\n                        </tr>\n                    </table>\n                </td>\n            </tr>\n\n            <!-- Fin article 1 -->\n\n        </table>\n\n        <!-- Début footer -->\n\n\n        <!-- Fin footer -->\n\n    </div>\n</body>\n\n</html>","level":"info"}
+{"status":400,"message":"The 'To' number +18795464984 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"code":"EENVELOPE","command":"API","level":"info"}
+{"level":"info"}
+{"code":"EENVELOPE","command":"API","level":"error"}
+{"message":"-verification----","level":"info"}
+{"message":{"type":"1","phone":"8795464984","country_phone_code":"+1"},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"level":"info"}
+{"message":"html","level":"info"}
+{"message":"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n    <title>Reset Password</title>\n    <style type=\"text/css\" media=\"screen\">\n        .ExternalClass * {\n            line-height: 100%\n        }\n        /* Début style responsive (via media queries) */\n        \n        @media only screen and (max-width: 480px) {\n            *[id=email-penrose-conteneur] {\n                width: 100% !important;\n            }\n            table[class=resp-full-table] {\n                width: 100%!important;\n                clear: both;\n            }\n            td[class=resp-full-td] {\n                width: 100%!important;\n                clear: both;\n            }\n            img[class=\"email-penrose-img-header\"] {\n                width: 100% !important;\n                max-width: 340px !important;\n            }\n        }\n        /* Fin style responsive */\n    </style>\n\n</head>\n\n<body style=\"background-color:#ecf0f1\">\n    <div align=\"center\" style=\"background-color:#ecf0f1;\">\n\n        <!-- Début en-tête -->\n\n\n\n        <!-- Fin en-tête -->\n\n        <table id=\"email-penrose-conteneur\" width=\"660\" align=\"center\" style=\"border-right:1px solid #e2e8ea; border-bottom:1px solid #e2e8ea; border-left:1px solid #e2e8ea; background-color:#ffffff;\"\n            border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n\n            <!-- Début bloc \"mise en avant\" -->\n\n            <tr>\n\n                <td style=\"background-color:#048c9d\">\n\n                    <div style=\"\"><img alt=\"email_img\" src=\"http://192.241.130.45/email_img.png\" style=\"width: 660px;\"></div>\n\n                </td>\n            </tr>\n\n\n\n\n\n\n\n            <!-- Début article 1 -->\n\n            <tr>\n                <td style=\"border-bottom: 1px solid #e2e8ea\">\n                    <table width=\"660\" class=\"resp-full-table\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding:20px;\">\n                        <tr>\n                            <td width=\"100%\">\n\n                                <table width=\"100%\" align=\"right\" class=\"resp-full-table\" style=\"border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"\n                                    border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                <strong style=\"font-weight: bold;\"><h1>Your OTP Verification</h1></strong>\n                                            </div>\n\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                             Email Verification code for complete your registration process is : 342434.\n                                            </div>\n                                            <br>\n\n\n\n                                            <br>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                \n                                                For any query or consolation info@info.com\n                                            </div>\n\n                                        </td>\n                                    </tr>\n\n                                </table>\n                            </td>\n                        </tr>\n                    </table>\n                </td>\n            </tr>\n\n            <!-- Fin article 1 -->\n\n        </table>\n\n        <!-- Début footer -->\n\n\n        <!-- Fin footer -->\n\n    </div>\n</body>\n\n</html>","level":"info"}
+{"status":400,"message":"The 'To' number +18795464984 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"code":"EENVELOPE","command":"API","level":"info"}
+{"level":"info"}
+{"code":"EENVELOPE","command":"API","level":"error"}
+{"message":"-verification----","level":"info"}
+{"message":{"type":"1","phone":"7485968574","country_phone_code":"+1"},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"level":"info"}
+{"message":"html","level":"info"}
+{"message":"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n    <title>Reset Password</title>\n    <style type=\"text/css\" media=\"screen\">\n        .ExternalClass * {\n            line-height: 100%\n        }\n        /* Début style responsive (via media queries) */\n        \n        @media only screen and (max-width: 480px) {\n            *[id=email-penrose-conteneur] {\n                width: 100% !important;\n            }\n            table[class=resp-full-table] {\n                width: 100%!important;\n                clear: both;\n            }\n            td[class=resp-full-td] {\n                width: 100%!important;\n                clear: both;\n            }\n            img[class=\"email-penrose-img-header\"] {\n                width: 100% !important;\n                max-width: 340px !important;\n            }\n        }\n        /* Fin style responsive */\n    </style>\n\n</head>\n\n<body style=\"background-color:#ecf0f1\">\n    <div align=\"center\" style=\"background-color:#ecf0f1;\">\n\n        <!-- Début en-tête -->\n\n\n\n        <!-- Fin en-tête -->\n\n        <table id=\"email-penrose-conteneur\" width=\"660\" align=\"center\" style=\"border-right:1px solid #e2e8ea; border-bottom:1px solid #e2e8ea; border-left:1px solid #e2e8ea; background-color:#ffffff;\"\n            border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n\n            <!-- Début bloc \"mise en avant\" -->\n\n            <tr>\n\n                <td style=\"background-color:#048c9d\">\n\n                    <div style=\"\"><img alt=\"email_img\" src=\"http://192.241.130.45/email_img.png\" style=\"width: 660px;\"></div>\n\n                </td>\n            </tr>\n\n\n\n\n\n\n\n            <!-- Début article 1 -->\n\n            <tr>\n                <td style=\"border-bottom: 1px solid #e2e8ea\">\n                    <table width=\"660\" class=\"resp-full-table\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding:20px;\">\n                        <tr>\n                            <td width=\"100%\">\n\n                                <table width=\"100%\" align=\"right\" class=\"resp-full-table\" style=\"border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"\n                                    border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                <strong style=\"font-weight: bold;\"><h1>Your OTP Verification</h1></strong>\n                                            </div>\n\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                             Email Verification code for complete your registration process is : 703335.\n                                            </div>\n                                            <br>\n\n\n\n                                            <br>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                \n                                                For any query or consolation info@info.com\n                                            </div>\n\n                                        </td>\n                                    </tr>\n\n                                </table>\n                            </td>\n                        </tr>\n                    </table>\n                </td>\n            </tr>\n\n            <!-- Fin article 1 -->\n\n        </table>\n\n        <!-- Début footer -->\n\n\n        <!-- Fin footer -->\n\n    </div>\n</body>\n\n</html>","level":"info"}
+{"status":400,"message":"The 'To' number +17485968574 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"code":"EENVELOPE","command":"API","level":"info"}
+{"level":"info"}
+{"code":"EENVELOPE","command":"API","level":"error"}
+{"message":"-verification----","level":"info"}
+{"message":{"type":"1","phone":"7485968574","country_phone_code":"+1"},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"level":"info"}
+{"message":"html","level":"info"}
+{"message":"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n    <title>Reset Password</title>\n    <style type=\"text/css\" media=\"screen\">\n        .ExternalClass * {\n            line-height: 100%\n        }\n        /* Début style responsive (via media queries) */\n        \n        @media only screen and (max-width: 480px) {\n            *[id=email-penrose-conteneur] {\n                width: 100% !important;\n            }\n            table[class=resp-full-table] {\n                width: 100%!important;\n                clear: both;\n            }\n            td[class=resp-full-td] {\n                width: 100%!important;\n                clear: both;\n            }\n            img[class=\"email-penrose-img-header\"] {\n                width: 100% !important;\n                max-width: 340px !important;\n            }\n        }\n        /* Fin style responsive */\n    </style>\n\n</head>\n\n<body style=\"background-color:#ecf0f1\">\n    <div align=\"center\" style=\"background-color:#ecf0f1;\">\n\n        <!-- Début en-tête -->\n\n\n\n        <!-- Fin en-tête -->\n\n        <table id=\"email-penrose-conteneur\" width=\"660\" align=\"center\" style=\"border-right:1px solid #e2e8ea; border-bottom:1px solid #e2e8ea; border-left:1px solid #e2e8ea; background-color:#ffffff;\"\n            border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n\n            <!-- Début bloc \"mise en avant\" -->\n\n            <tr>\n\n                <td style=\"background-color:#048c9d\">\n\n                    <div style=\"\"><img alt=\"email_img\" src=\"http://192.241.130.45/email_img.png\" style=\"width: 660px;\"></div>\n\n                </td>\n            </tr>\n\n\n\n\n\n\n\n            <!-- Début article 1 -->\n\n            <tr>\n                <td style=\"border-bottom: 1px solid #e2e8ea\">\n                    <table width=\"660\" class=\"resp-full-table\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding:20px;\">\n                        <tr>\n                            <td width=\"100%\">\n\n                                <table width=\"100%\" align=\"right\" class=\"resp-full-table\" style=\"border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"\n                                    border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                <strong style=\"font-weight: bold;\"><h1>Your OTP Verification</h1></strong>\n                                            </div>\n\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                             Email Verification code for complete your registration process is : 866633.\n                                            </div>\n                                            <br>\n\n\n\n                                            <br>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                \n                                                For any query or consolation info@info.com\n                                            </div>\n\n                                        </td>\n                                    </tr>\n\n                                </table>\n                            </td>\n                        </tr>\n                    </table>\n                </td>\n            </tr>\n\n            <!-- Fin article 1 -->\n\n        </table>\n\n        <!-- Début footer -->\n\n\n        <!-- Fin footer -->\n\n    </div>\n</body>\n\n</html>","level":"info"}
+{"status":400,"message":"The 'To' number +17485968574 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"code":"EENVELOPE","command":"API","level":"info"}
+{"level":"info"}
+{"code":"EENVELOPE","command":"API","level":"error"}
+{"message":"-verification----","level":"info"}
+{"message":{"type":"1","phone":"7485749685","country_phone_code":"+1"},"level":"info"}
+{"message":"--mail notification-","level":"info"}
+{"message":"subetaxiapp@gmail.com","level":"info"}
+{"message":"Sbt7373@","level":"info"}
+{"message":"gmail","level":"info"}
+{"level":"info"}
+{"message":"html","level":"info"}
+{"message":"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n    <title>Reset Password</title>\n    <style type=\"text/css\" media=\"screen\">\n        .ExternalClass * {\n            line-height: 100%\n        }\n        /* Début style responsive (via media queries) */\n        \n        @media only screen and (max-width: 480px) {\n            *[id=email-penrose-conteneur] {\n                width: 100% !important;\n            }\n            table[class=resp-full-table] {\n                width: 100%!important;\n                clear: both;\n            }\n            td[class=resp-full-td] {\n                width: 100%!important;\n                clear: both;\n            }\n            img[class=\"email-penrose-img-header\"] {\n                width: 100% !important;\n                max-width: 340px !important;\n            }\n        }\n        /* Fin style responsive */\n    </style>\n\n</head>\n\n<body style=\"background-color:#ecf0f1\">\n    <div align=\"center\" style=\"background-color:#ecf0f1;\">\n\n        <!-- Début en-tête -->\n\n\n\n        <!-- Fin en-tête -->\n\n        <table id=\"email-penrose-conteneur\" width=\"660\" align=\"center\" style=\"border-right:1px solid #e2e8ea; border-bottom:1px solid #e2e8ea; border-left:1px solid #e2e8ea; background-color:#ffffff;\"\n            border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n\n            <!-- Début bloc \"mise en avant\" -->\n\n            <tr>\n\n                <td style=\"background-color:#048c9d\">\n\n                    <div style=\"\"><img alt=\"email_img\" src=\"http://192.241.130.45/email_img.png\" style=\"width: 660px;\"></div>\n\n                </td>\n            </tr>\n\n\n\n\n\n\n\n            <!-- Début article 1 -->\n\n            <tr>\n                <td style=\"border-bottom: 1px solid #e2e8ea\">\n                    <table width=\"660\" class=\"resp-full-table\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding:20px;\">\n                        <tr>\n                            <td width=\"100%\">\n\n                                <table width=\"100%\" align=\"right\" class=\"resp-full-table\" style=\"border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"\n                                    border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                <strong style=\"font-weight: bold;\"><h1>Your OTP Verification</h1></strong>\n                                            </div>\n\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                             Email Verification code for complete your registration process is : 187375.\n                                            </div>\n                                            <br>\n\n\n\n                                            <br>\n                                        </td>\n                                    </tr>\n                                    <tr>\n                                        <td width=\"100%\" class=\"resp-full-td\" valign=\"top\" style=\"text-align : justify;\">\n\n                                            <div style=\"padding: 10px;font-size:14px; font-family:'Helvetica Neue', helvetica, arial, sans-serif; font-weight:100; color:#545454;text-align:center;\">\n                                                \n                                                For any query or consolation info@info.com\n                                            </div>\n\n                                        </td>\n                                    </tr>\n\n                                </table>\n                            </td>\n                        </tr>\n                    </table>\n                </td>\n            </tr>\n\n            <!-- Fin article 1 -->\n\n        </table>\n\n        <!-- Début footer -->\n\n\n        <!-- Fin footer -->\n\n    </div>\n</body>\n\n</html>","level":"info"}
+{"status":400,"message":"The 'To' number +17485749685 is not a valid phone number.","code":21211,"moreInfo":"https://www.twilio.com/docs/errors/21211","level":"error"}
+{"code":"EENVELOPE","command":"API","level":"info"}
+{"level":"info"}
+{"code":"EENVELOPE","command":"API","level":"error"}

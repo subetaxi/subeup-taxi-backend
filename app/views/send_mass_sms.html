@@ -1,0 +1,204 @@
+<% include header.html %>
+    <div class="page-content-wrap">
+
+        <div class="row">
+
+            <div class="panel panel-default">
+                <form class="form-horizontal" method="post" action="/send_mass_sms">
+                    <div class="panel-heading">
+                        <div class="col-md-12">
+
+                            <div class="col-md-3 col-xs-12 col-sm-4">
+                                <select class="form-control select" data-live-search="true" name="type" id='type'>
+                                <option value="user">User</option>
+                                <option value="provider">Provider</option>
+                            </select>
+                            </div>
+
+                            <div class="col-md-3 col-xs-12 col-sm-4">
+                                <select class="form-control select" data-live-search="true" name="country" id="countries">
+                            <option selected value="all">All</option>
+                            <% country.forEach(function(country_data) { %>
+                                <option value="<%= country_data.countryname %>"><%= country_data.countryname %></option>
+                            <% }); %>
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row" hidden="true">
+                            <div class="col-md-12">
+                                <div class="col-md-3 col-xs-6 col-sm-4">
+                                    <div class="checkbox">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="data">
+                                <% user_detail.forEach(function(user_data) { %>
+                                    <div class="col-md-3 col-xs-6 col-sm-4">
+
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" id="<%= user_data._id %>" value="<%= user_data.unique_id %>" class="check" name="mass_sms_list[]" checked/><%= user_data.first_name %>  <%= user_data.last_name %></label>
+                                        </div>
+
+
+                                    </div>
+                                    <% }); %>
+                                        <div class="col-md-12 col-xs-12 col-sm-12">
+                                            <label style="color: #b64645; font-size: 11px; font-weight: normal;" id="checkbox_message"></label>
+                                        </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-1 col-sm-1">
+                                    <label>SMS</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <textarea class="form-control" name="message" id="message"></textarea>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <input type="submit" name="submit" style="width: 50%" value="submit" class="btn btn-primary">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    </body>
+    <!-- END PRELOADS -->
+
+
+    <!-- Google Maps API -->
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+    $(".form-horizontal").validate({
+            rules: {
+                message: "required"
+
+            }
+        });
+
+        $('.form-horizontal').submit(function() {
+            var error = 0;
+            if (!($('.check').is(':checked'))) {
+                error = 1
+                var type = document.getElementById('type').value;
+                if(type == "provider")
+                {
+                    $("#checkbox_message").text("Please Select One Provider");
+                }
+                else
+                {
+                    $("#checkbox_message").text("Please Select One User");
+                }
+                
+            }
+
+            if (error) {
+                return false;
+            } else {
+                return true;
+            }
+
+        });
+        function get_user_provider(country, type)
+        {
+                if(type == "user")
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/fetch_users_list',
+                        data: 'country='+country,
+                        dataType: "json",
+                         success:function(res){
+                            $('#data').empty();
+                            res.user_detail.forEach(function(user_data){
+                                $("#data").append("<div class='col-md-3 col-xs-6 col-sm-4'><div class='checkbox' ><label><input  type='checkbox' class='check'  id="+user_data._id +" value="+user_data.unique_id +" name='mass_sms_list[]'  />"+user_data.first_name +" "+ user_data.last_name+" </lable></div></div>");
+                               $('#'+user_data._id).addClass('check'); 
+                               
+                               
+                            })    
+                            $("#data").append("<div class='col-md-12 col-xs-12 col-sm-12'><label style='color:red;' id='checkbox_message'></lable></div>");
+                            $("#select_all").prop('checked', true);
+                            $(".check").prop('checked', true);
+    
+                        }
+                    });
+                }
+                else
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/fetch_providers_list',
+                        data: 'country='+country,
+                        dataType: "json",
+                         success:function(res){
+                            $('#data').empty();
+                            res.provider_detail.forEach(function(provider_data){
+                                $("#data").append("<div class='col-md-3 col-xs-6 col-sm-4'><div class='checkbox' ><label><input  type='checkbox' class='check'  id="+provider_data._id +" value="+provider_data.unique_id +" name='mass_sms_list[]'  />"+provider_data.first_name +" "+ provider_data.last_name+" </lable></div></div>");
+                                $('#'+provider_data._id).addClass('check'); 
+
+                            })     
+                            $("#data").append("<div class='col-md-12 col-xs-12 col-sm-12'><label style='color:red;' id='checkbox_message'></lable></div>");  
+                            $("#select_all").prop('checked', true); 
+                            $(".check").prop('checked', true);
+                        }
+                    });
+                }
+
+        }
+
+    $('#type').change(function(){
+
+        var country = document.getElementById('countries').value;
+        var type = this.value
+        $("#select_all").prop('checked', false);
+        get_user_provider(country, type);
+    });
+
+   $('#countries').change(function(){
+                
+        var country = document.getElementById('countries').value;
+        var type = document.getElementById('type').value;
+        $("#select_all").prop('checked', false);
+        get_user_provider(country, type);
+    });
+
+
+   $("#select_all").change(function(){  //"select all" change
+        $("#checkbox_message").text("");
+        $(".check").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
+    });
+
+
+    $(document).on('change', '.check', function(){
+
+        $("#checkbox_message").text("");
+        //uncheck "select all", if one of the listed checkbox item is unchecked
+        if(false == $(this).prop("checked")){ //if this item is unchecked
+            $("#select_all").prop('checked', false); //change "select all" checked status to false
+        }
+        //check "select all" if all checkbox items are checked
+        if ($('.check:checked').length == $('.check').length ){
+            $("#select_all").prop('checked', true);
+        }
+    });
+
+    
+
+    
+});
+
+    </script>
+
+    <% include footer_list.html %>

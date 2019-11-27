@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- META SECTION -->
+	<title>
+		<%= constant_json.dispatcher_panel_name %>
+	</title>
+
+
+	<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+	<script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+	<script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+	<script type="text/javascript" src="js/actions.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+                var path = window.location.pathname;
+                var value = path.split('/');
+                $('#'+value[1]).addClass('active');
+                var page_title = $('#'+value[1]).text();
+                $('#page_title').text(page_title);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/session_data',
+                    data: {'type': 'dispatcher'},
+                    dataType: "json",
+                  	success:function(response){
+                  		$('.profile-data-name').html(response.session_data.first_name + ' ' + response.session_data.last_name);
+                  	}
+                });
+                
+            });
+	</script>
+
+
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+	<!-- END META SECTION -->
+
+	<!-- CSS INCLUDE -->
+	<link rel="stylesheet" type="text/css" href="css/theme-default.css" />
+	<link rel="stylesheet" type="text/css" href="css/map.css" />
+	<!-- EOF CSS INCLUDE --->
+
+</head>
+
+<!--
+<script>
+
+$(document).ready(function(){
+
+document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
+
+});
+
+$(document).keydown(function(event){
+    if(event.keyCode==123){
+    return false;
+   }
+else if(event.ctrlKey && event.shiftKey && event.keyCode==73){        
+      return false;  //Prevent from ctrl+shift+i
+   }
+});
+</script>
+-->
+
+<body>
+	<!-- START PAGE CONTAINER -->
+	<div class="page-container">
+		<!-- START PAGE SIDEBAR -->
+		<div class="page-sidebar">
+			<!-- START X-NAVIGATION -->
+			<ul class="x-navigation">
+
+				<li>
+
+					<a style="text-align: center;">
+						<%= constant_json.dispatcher_panel_name %>
+					</a>
+					<a href="#" class="x-navigation-control"></a>
+				</li>
+
+				<li class="xn-profile">
+
+					<div class="profile">
+
+						<div class="profile-image">
+                            <img src="web_images/logo.png" style="border:none" alt="Eber" >
+                        </div>
+
+						<div class="profile-data">
+							<div class="profile-data-name">
+							</div>
+							<!--<div class="profile-data-title">Web Developer/Designer</div>-->
+						</div>
+					</div>
+				</li>
+
+
+				<ul id="menu-item">
+					<!--<li class="xn-title">Navigation</li>-->
+
+
+
+
+					<li id="dispatcher_create_trip">
+						<a href="/dispatcher_create_trip"><span class="fa fa-credit-card"></span> <span class="xn-text"><%= config_json.menu_title_create_requests %></span></a>
+					</li>
+
+
+
+					<li id="dispatcher_request">
+						<a href="/dispatcher_request"><span class="glyphicon glyphicon-send"></span> <span class="xn-text"><%= config_json.menu_title_requests %></span></a>
+					</li>
+
+					<li id="dispatcher_future_request">
+						<a href="/dispatcher_future_request"><span class="glyphicon glyphicon-send"></span> <span class="xn-text"><%= config_json.menu_title_future_requests %></span></a>
+					</li>
+
+					<li id="dispatcher_bank_detail">
+						<a href="/dispatcher_bank_detail"><span class="fa fa-credit-card"></span> <span class="xn-text"><%= config_json.menu_title_bank_detail %></span></a>
+					</li>
+					<li id="dispatcher_sign_out">
+						<a href="/dispatcher_sign_out"><span class="fa fa-power-off"></span> <span class="xn-text"><%= config_json.button_logout %></span></a>
+					</li>
+
+				</ul>
+			</ul>
+			<!-- END X-NAVIGATION -->
+		</div>
+		<!-- END PAGE SIDEBAR -->
+
+
+		<!-- PAGE CONTENT -->
+		<div class="page-content">
+
+			<!-- START X-NAVIGATION VERTICAL -->
+			<ul class="x-navigation x-navigation-horizontal x-navigation-panel" >
+
+				<li style="text-align: center;width: 75%;">
+					<a href="#" class="mb-control pagination-centered"> <span id="page_title" class="mb-control pagination-centered"></span></a>
+				</li>
+				<li class="xn-icon-button pull-right last">
+
+					<a href="dispatcher_sign_out"><span class="fa fa-power-off"></span></a>
+				</li>
+
+
+			</ul>

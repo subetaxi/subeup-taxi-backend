@@ -1,0 +1,88 @@
+@font-face {
+    font-family: 'AvenirLTStdRoman';
+    src: url('fonts/AvenirLTStdRoman.eot');
+    src: url('fonts/AvenirLTStdRoman.eot') format('embedded-opentype'),
+         url('fonts/AvenirLTStdRoman.woff2') format('woff2'),
+         url('fonts/AvenirLTStdRoman.woff') format('woff'),
+         url('fonts/AvenirLTStdRoman.ttf') format('truetype'),
+         url('fonts/AvenirLTStdRoman.svg#AvenirLTStdRoman') format('svg');
+}
+@font-face {
+    font-family: 'AvenirLTStdHeavy';
+    src: url('fonts/AvenirLTStdHeavy.eot');
+    src: url('fonts/AvenirLTStdHeavy.eot') format('embedded-opentype'),
+         url('fonts/AvenirLTStdHeavy.woff2') format('woff2'),
+         url('fonts/AvenirLTStdHeavy.woff') format('woff'),
+         url('fonts/AvenirLTStdHeavy.ttf') format('truetype'),
+         url('fonts/AvenirLTStdHeavy.svg#AvenirLTStdHeavy') format('svg');
+}
+@font-face {
+    font-family: 'AvenirLTStdMedium';
+    src: url('fonts/AvenirLTStdMedium.eot');
+    src: url('fonts/AvenirLTStdMedium.eot') format('embedded-opentype'),
+         url('fonts/AvenirLTStdMedium.woff2') format('woff2'),
+         url('fonts/AvenirLTStdMedium.woff') format('woff'),
+         url('fonts/AvenirLTStdMedium.ttf') format('truetype'),
+         url('fonts/AvenirLTStdMedium.svg#AvenirLTStdMedium') format('svg');
+}
+
+body{ padding: 0px;margin: 0px;}
+ul{ padding: 0px; margin: 0px;}
+*{ box-sizing: border-box;outline: none;}
+h1,h2,h3,h4,h5,h6{ font-weight: normal;padding: 0px;margin: 0px;}
+p{ padding: 0px; margin: 0px;}
+label{ padding: 0px; font-weight: normal;}
+
+
+.main{ width: 100%;float:left;}
+.margin{ width: 1235px; margin: 0 auto;max-width: 96%;}
+
+/*header section*/
+.head_bg{ width: 100%;float:left;position: relative;}
+.head{ width: 100%;float:left; }
+.head_lft{background: #088695 none repeat scroll 0 0;float: left;position: relative;width: 30%;height: 167px;}
+.head_lft::after {background: rgba(0, 0, 0, 0) url("../images/head_lft.png") no-repeat scroll 0 0;bottom: 0;content: "";height: 167px;left: 100%;position: absolute;
+right: inherit; width: 100%;}
+.logo {float: left;width: 100%;padding: 34px 40px;}
+.head_rgt{ width:70%;float: left; background:#101324; padding: 33px 0px;height: 129px;}
+.head_rgt_text{ width: 100%;float:left;}
+.head_top_bg{ width: 100%;float:left;left: 0;position: absolute;top: 0px; }
+.head_top_lft{ width: 50%;float:left; }
+.head_top_rgt{ width: 50%;float:left; }
+.head_top_text{ width: 100%;float:left;padding: 35px 0px;}
+.head_top_text h1{ width: 100%;float: left; text-align: center; color: #fff; font-size: 25px;font-family: 'AvenirLTStdRoman';}
+.head_top_text p{ width: 100%;float: left; text-align: center; color: #fff; font-size: 18px;font-family: 'AvenirLTStdRoman';margin: 5px 0 0 0px;}
+.head_date{ width: 100%;float:left; font-size: 18px;font-family: 'AvenirLTStdHeavy';color: #464646;padding: 7px 146px 0 0px;text-align: right;}
+.content_bg{ width: 100%;float:left;margin: 50px 0 0px;}
+.content{ width: 100%;float:left;padding:35px 0 0 25px;}
+.cont_lft{ width: 50%;float: left; }
+.cont_top{ width: 100%;float:left;}
+.cont_top h1{ width: auto;float: left;font-family: 'AvenirLTStdHeavy';color: #464646; font-size: 20px;position: relative;}
+.cont_top > h1::after {background: #464646 none repeat scroll 0 0;content: "";height: 26px;left: -16px;position: absolute;width: 3px;}
+.cont_dit{ width: 90%;float:left;margin: 15px 0 0 0px;}
+.cont_dit p{ color: rgba(70,70,70,0.7); width: 100%;float: left;font-family: 'AvenirLTStdMedium';}
+.Trip_info_bg{ width: 100%;float: left; }
+.Trip_info{ width: 100%;float: left; }
+.trip_head{ width: 100%;float: left;margin: 40px 0 0 0px;}
+.trip_head span{float: left;font-size: 20px;font-style: italic;line-height: 31px; margin: 0 0 0 20px;font-family: 'AvenirLTStdMedium';color: #f60000;}
+.trip_info_box_bg{ width: 100%;float: left; }
+.trip_info_box{ width: 33%;float: left;margin: 20px 0 0 0px;}
+.trip_info_box1{ width:24%;float: left; }
+.trip_info_box h4 { color: rgba(70, 70, 70, 0.8);float: left; font-family: "AvenirLTStdMedium"; font-size: 18px; text-align: center;  width: 100%;}
+.trip_info_box p {color: #464646; float: left; font-family: "AvenirLTStdHeavy"; font-size: 21px; line-height: 32px; text-align: center;  width: 100%;
+}
+
+.invoice_bg{ width: 100%; float: left;padding: 0 0 70px 0px;}
+.invoice{ width: 100%;float: left;}
+.invo_head{ width: 100%; float: left; margin: 40px 0 0 0px;}
+.invoice_table_bg{ width: 100%;float: left; text-align: center;margin: 30px 0 0 0px;}
+.invoice_table{ width: 100%; float: none; display: inline-block; text-align: left;}
+.invo_one{ width: 100%;float: left; padding: 15px 30px 15px 30px; box-sizing: border-box;background: #f2f2f3; }
+.invo_one_bg{background: #ebebeb;}
+.invo_one_lft{ width: auto;color: rgba(70, 70, 70, 0.8);float: left; font-family: "AvenirLTStdMedium"; font-size: 18px;text-transform: capitalize;}
+.invo_one_rgt{ width: auto;float: right; font-family: "AvenirLTStdMedium"; font-size: 18px;color: rgba(48,48,48, 0.8);}
+.invo_total{ width: 100%;float: left;background: #101324;padding: 15px 30px 15px 30px; }
+.invo_total .invo_one_lft{color: #fff;text-transform: uppercase;}
+.invo_total .invo_one_rgt{color: #fff;}
+.invo_one_lft > span {margin: 0 0 0 20px;text-transform: lowercase;font-size: 21px;}
+.tot_btn{ width: auto;float: right; background: #101324; color: #fff;padding:4px 30px;font-family: "AvenirLTStdMedium";font-size: 18px;}

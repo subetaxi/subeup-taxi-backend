@@ -1,0 +1,341 @@
+<% include header.html %>
+
+<!-- PAGE CONTENT WRAPPER -->
+
+<div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+        <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %>  
+    <!-- START TIMELINE FILTER --> 
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post" action="/wallet_history">
+                    <div class="form-group">
+                        <input type="hidden" name="page" id="page" value="0" />   
+
+
+                        <div class="col-md-4">
+                            <div style="text-align: center;">
+                                <label><%= config_json.title_sort %></label>   
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                                        
+                                        <% if(sort_field == "unique_id") { %>
+                                        <option value='unique_id' selected="selected"><%= config_json.title_id %></option>
+                                        <option value='user_detail.email'><%= config_json.title_user_email %></option>
+                                        <option value='provider_detail.email' ><%= config_json.title_provider_email %></option>
+
+                                        
+                                        
+                                        <% } else if(sort_field == "user_detail.email") { %>
+                                        <option value='unique_id'><%= config_json.title_id %></option>
+                                        <option value='user_detail.email' selected="selected"><%= config_json.title_user_email %></option>
+                                        <option value='provider_detail.email' ><%= config_json.title_provider_email %></option>
+
+                                        <% } else if(sort_field == "provider_detail.email") { %>
+                                        <option value='unique_id'><%= config_json.title_id %></option>
+                                        <option value='user_detail.email'><%= config_json.title_user_email %></option>
+                                        <option value='provider_detail.email' selected="selected"><%= config_json.title_provider_email %></option>
+
+                                       
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                                        <% if(sort_order == "1") { %>
+                                        <option value="1" selected><%= config_json.sort_asc %></option>
+                                        <option value="-1"><%= config_json.sort_desc %></option>
+                                        <% } else{ %>
+                                        <option value="1" ><%= config_json.sort_asc %></option>
+                                        <option value="-1" selected><%= config_json.sort_desc %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="text-align: center;">
+                                <label><%= config_json.title_search %></label>   
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                                    <select class="form-control select" id="sel" placeholder="Select to Sort" name="search_item">
+                                        <% if(search_item == "wallet_description") { %>
+                                        
+                                        <option value='wallet_description' selected>Description</option>
+                                        <option value='user_detail.email'><%= config_json.title_user_email %></option>
+                                        <option value='provider_detail.email'><%= config_json.title_provider_email %></option>
+                                        
+                                        <% } else if(search_item == "user_detail.email") { %>
+                                        <option value='wallet_description' >Description</option>
+                                        <option value='user_detail.email' selected><%= config_json.title_user_email %></option>
+                                        <option value='provider_detail.email'><%= config_json.title_provider_email %></option>
+                                        
+                                        <% } else if(search_item == "provider_detail.email") { %>
+                                        
+                                        <option value='wallet_description'>Description</option>
+                                        <option value='user_detail.email'><%= config_json.title_user_email %></option>
+                                        <option value='provider_detail.email' selected><%= config_json.title_provider_email %></option>
+
+                                       <% } else { %>
+                                        <option value='wallet_description' selected >Description</option>
+                                        <option value='user_detail.email'><%= config_json.title_user_email %></option>
+                                        <option value='provider_detail.email' ><%= config_json.title_provider_email %></option>
+
+                                        <% } %>
+                                    </select>
+                                </div> 
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-body panel-body-search">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                                            <input type="text" class="form-control" value="<%= search_value %>" name="search_value" placeholder="Search..."/>
+                                        </div>                                                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div style="text-align: center;">
+                                <label><%= config_json.title_date_filter %></label>   
+                            </div>
+                            <div class="col-md-12">
+
+                                <div class="btn-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control datepicker" value="<%= filter_start_date %>" placeholder="Start Date" name="start_date" id="start_date" readonly/>
+                                        <span class="input-group-addon add-on">-</span>
+                                        <input type="text" class="form-control datepicker"  value="<%= filter_end_date %>" placeholder="End Date" name="end_date" id="end_date" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-5">
+                        <div class="col-md-12">
+                            <ul class="pagination" >
+                                <% include paginate_lookup.html %>
+                            </ul> 
+                        </div> 
+                    </div> 
+                    <div class="col-md-3">
+                       <div class="col-md-6" style="padding: 0px;">
+                <select class="form-control select" id="type" placeholder="Select Type" name="type">
+                    <% if(type == 10) { %>
+                      <option value='0'>All</option>
+                      <option value='10' selected>User</option>
+                      <option value='11'>Provider</option>
+                      <option value='4'>Partner</option>
+                    <% } else if(type == 11){ %>
+                      <option value='0'>All</option>
+                      <option value='10'>User</option>
+                      <option value='11' selected>Provider</option>
+                       <option value='4'>Partner</option>
+                    <% } else if(type == 4){ %>
+                      <option value='0' >All</option>
+                      <option value='10'>User</option>
+                      <option value='11'>Provider</option>
+                       <option value='4' selected>Partner</option>
+                    <% } else { %>
+                      <option value='0' selected>All</option>
+                      <option value='10'>User</option>
+                      <option value='11'>Provider</option>
+                       <option value='4'>Partner</option>
+                    <% } %>
+                 </select>
+               </div> 
+                    </div>
+                   
+
+                    <div  class="form-group col-md-4">
+                        <div class="col-md-6">
+                            <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 35px; width: 100%;  "><span><%= config_json.button_apply %></span></button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick ="export_excel()"><i class="fa fa-download"></i><%= config_json.button_export_excel %></button>
+
+<!--                        <button class="btn btn-danger" type="button" style="height: 32px; width: 100%;" onClick ="$('#customers').tableExport({type:'excel',escape:'false', ignoreColumn: [5,7]});"> <%= config_json.button_export_excel %></button>-->
+                            
+                        </div>
+                    </div>     
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- END TIMELINE FILTER -->  
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- START SIMPLE DATATABLE -->
+        <div class="panel panel-default">
+
+            <div class="panel-body">                                
+                <div class="table-responsive">
+                    <table class="table text-center" id="customers">
+
+                        <thead>
+                            <tr>
+
+                                <th><%= config_json.title_id %></th>
+                                <th><%= config_json.title_promo_type %></th>
+                                <th><%= config_json.title_date %></th>
+                                <th><%= config_json.title_email %></th>
+                                <th><%= config_json.title_currency %></th>
+                                <th><%= config_json.title_wallet_amount %></th>
+                                <th><%= config_json.title_add_cut %></th>
+                                <th><%= config_json.title_wallet %></th>
+                                <th><%= config_json.title_wallet_description %></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% detail.forEach(function(data){ %>
+                            <tr>
+                                <td><%= data.unique_id %> </td>
+                                <td><% if(data.user_type == 10) { %>
+                                    <span class="label label-default"><%= config_json.title_user %></span>
+                                    <% } else if(data.user_type == 11){ %>
+                                    <span class="label label-primary"><%= config_json.title_provider %></span>
+                                    <% } else if(data.user_type == 5){ %>
+                                    <span class="label label-primary"><%= config_json.title_corporate %></span>
+                                    <% } else { %>
+                                    <span class="label label-primary"><%= config_json.title_partner %></span>
+                                    <%} %>
+                                </td>
+                                <td><%= moment(data.created_at).tz(timezone_for_display_date).format("DD MMM 'YY") %></td>
+                                <td><% if(data.user_type == 11 && data.provider_detail.length > 0){ %>
+                                    <%= data.provider_detail[0].email %> 
+                                    <% }else if(data.user_type == 10 && data.user_detail.length > 0){ %>
+                                    <%= data.user_detail[0].email %>
+                                    <% }else if(data.user_type == 5 && data.corporate_detail.length > 0){ %>
+                                    <%= data.corporate_detail[0].email %>
+                                    <%}else if(data.user_type == 4 && data.partner_detail.length > 0){ %>
+                                    <%= data.partner_detail[0].email %>
+                                    <%} %>
+                                    
+                                </td>
+                                
+                                <td><% if(data.user_type == 11 && data.provider_detail.length > 0){ %>
+                                    <%= data.provider_detail[0].wallet_currency_code %> 
+                                    <% }else if(data.user_type == 10 && data.user_detail.length > 0){ %>
+                                    <%= data.user_detail[0].wallet_currency_code %>
+                                    <% }else if(data.user_type == 5 && data.corporate_detail.length > 0){ %>
+                                    <%= data.corporate_detail[0].wallet_currency_code %>
+                                    <%} else if(data.user_type == 4 && data.partner_detail.length > 0){ %>
+                                    <%= data.partner_detail[0].wallet_currency_code %>
+                                    <%} %>
+                                </td>
+                                <td><%= data.wallet_amount %> </td>
+                                <td><% if(data.wallet_status == 10) { %>
+                                    <span style="color:red"><%= data.added_wallet %></span>
+                                    
+                                    <% } else { %>
+                                    <span style="color:green"><%= data.added_wallet %></span>
+                                    <%} %>
+                                </td>
+                                <td><%= data.total_wallet_amount %> </td>
+                                <td><%= data.wallet_description %> </td>
+
+
+
+
+
+
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>        
+        </div>
+        <!-- END SIMPLE DATATABLE -->
+
+    </div>
+</div>                                
+
+</div>
+<!-- PAGE CONTENT WRAPPER -->                                
+</div>    
+<!-- END PAGE CONTENT -->
+
+<!-- END PAGE CONTAINER -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#filter_options").append("<option value='approved'><%= config_json.Approve %></option>");
+        $("#filter_options").append("<option value='decline'><%= config_json.Decline %></option>");
+
+        $('#filter_item').change(function () {
+            $('#filter_options').empty();
+            var filter_item = document.getElementById('filter_item').value;
+
+            if (filter_item == 'status')
+            {
+                $("#filter_options").append("<option value='approved'><%= config_json.Approve %></option>");
+                $("#filter_options").append("<option value='decline'><%= config_json.Decline %></option>");
+            } else
+            {
+                $("#filter_options").append("<option value='Active'><%= config_json.Active %></option>");
+                $("#filter_options").append("<option value='Inactive'><%= config_json.Inactive %></option>");
+            }
+        });
+
+        $('#start_date').datepicker({
+            format: 'yyyy-mm-dd',
+            endDate: new Date(Date.now())
+
+        }).on("input change", function (e) {
+            var end_date = $('#start_date').datepicker('getDate');
+            end_date.setDate(end_date.getDate() + 1);
+            $('#end_date').datepicker('setStartDate', end_date);
+            $('.datepicker-dropdown').hide()
+        });
+
+        $('#end_date').datepicker({
+            format: 'yyyy-mm-dd',
+            endDate: new Date(Date.now())
+
+        }).on("input change", function (e) {
+            var start_date = $('#end_date').datepicker('getDate');
+            start_date.setDate(start_date.getDate() - 1);
+            $('#start_date').datepicker('setEndDate', start_date);
+            $('.datepicker-dropdown').hide()
+        });
+
+    });
+    
+    
+    function export_excel(){
+            $.ajax({
+                      type: 'POST',
+                      url: '/generate_wallet_history_excel',
+                      data: $('.form-horizontal').serialize(),
+                      dataType: "json",
+                      success: function (res) {
+                          window.open(res)
+                      }
+            });
+      }
+    
+</script>   
+
+<% include footer_list.html %> 

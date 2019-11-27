@@ -1,0 +1,121 @@
+<% for(i=1; i<= pages; i++) { %>
+
+    <% if(i == 1) { %>
+      <li><a id="pre" class="btn" ><%= config_json.button_pre %></a></li>
+    <% } %>
+
+            <script type="text/javascript">
+
+                      $(document).ready(function() {
+                        var current_page = <%= current_page %> + 1;
+                        
+                        $('#page_number').val(current_page)
+                        $('#page1').show();
+                        $('#page<%= pages %>').show();
+                        $('#page'+current_page).show();   
+
+
+                        for(i=1;i<=5;i++)
+                        {
+                          if('<%= pages %>'==i)
+                          {
+                            $('#dot1').hide();
+                            $('#dot2').hide();
+                          }
+                        }
+
+                        if(current_page == 1)
+                        {
+                          $('#dot1').hide();
+                          $('#page'+2).show();
+                        }
+                        else if(current_page == 2)
+                        {
+                          $('#dot1').hide();
+                        }
+                        
+                        else if(current_page == <%= pages %>)
+                        {
+                          $('#dot2').hide();
+                          $('#page'+<%= pages -1  %>).show();
+                        }
+                        else if(current_page == <%= pages-1 %>)
+                        {
+                          $('#dot2').hide();
+                        }
+                       
+
+                        $('#'+ current_page).addClass('active');
+
+                        if(current_page == '<%= pages %>')
+                        {
+                          $('#next').hide();
+                        }
+
+                        if(current_page == 1)
+                        {
+                          $('#pre').hide();
+                        }
+                    
+                        $('#page<%= i %>').click(function(event) {
+
+                          document.getElementById('page').value = "<%= i %>" - 1;
+                          var button = document.getElementById('apply_filter');
+                          button.form.submit();
+                        });
+
+                        $('#pre').click(function(event) {
+
+                          document.getElementById('page').value = "<%= pre %>";
+                          var button = document.getElementById('apply_filter');
+                          button.form.submit();
+                        });
+
+                        $('#next').click(function(event) {
+
+                          document.getElementById('page').value = "<%= next %>";
+                          var button = document.getElementById('apply_filter');
+                          button.form.submit();
+                        });
+
+                        $('#goto').click(function(event) {
+                          var page_number = $('#page_number').val()
+                          if(page_number <=0)
+                          {
+                            page_number=1;
+                          }
+                          document.getElementById('page').value = page_number - 1;
+                          var button = document.getElementById('apply_filter');
+                          button.form.submit();
+                        });
+
+                      });
+
+                      function isNumberKey(evt){
+                          var charCode = (evt.which) ? evt.which : event.keyCode
+                          if (charCode > 31 && (charCode < 48 || charCode > 57))
+                              return false;
+                          return true;
+                      }
+                    </script>
+
+                    <li class="deactive" id="<%= i %>"><a class="btn"  id="page<%= i %>" style="display: none;"><%= i %></a></li>
+    
+      <% if(i == 1) { %>
+          <li><a class="btn" id="dot1"  >...</a></li>
+      <% } 
+
+      if(i == pages-1) { %>
+          <li ><a  class="btn" id="dot2"  >...</a></li>
+      <% } 
+
+      if(i == pages) { %>
+          <li><a id="next" class="btn"><%= config_json.button_next %></a></li>
+          <li><a id="goto" class="btn">Go to</a></li>
+          <div class="col-md-2">
+            <input type="text" placeholder="Page Number" onkeypress="return isNumberKey(event);" class="form-control" name="page_number" id="page_number">
+          </div>
+          
+          
+      <% } } %>
+

@@ -1,0 +1,95 @@
+<% include header.html %>
+
+
+   
+
+    <!-- PAGE CONTENT WRAPPER -->
+    <div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.title_close %></span></button>
+      <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %> 
+        <div class="col-md-12">
+                
+                    <form class="form-horizontal" method="post" action="/update_sms_detail" enctype="multipart/form-data">
+                        <div class="panel panel-default">
+                            <div class="panel-body form-group-separated">
+                                
+                                <input type="hidden" name="id" id="id">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"><%= config_json.title_sms_unique_title %></label>
+
+                                    <div class="col-md-9">
+                                        <select class="form-control select" name="smsUniqueTitle" id="smsUniqueTitle">
+                                        <option selected disabled hidden style='display: none'><%= config_json.title_select_sms_unique_title %></option>
+
+                                        <% sms_data.forEach(function(data) { %>
+                                        <option value="<%= data._id %>"><%= data.smsUniqueTitle %></option>
+                                        <% }); %>
+
+                            </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_sms_content %></label>
+                                    <div class="col-md-9 col-xs-7">
+                                        <input type="text" class="form-control" name="smsContent" id="smsContent"  />
+                                    </div>
+                                </div>
+
+                                
+
+
+                                
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary btn-rounded pull-right" type="submit" name="save" value="save"><%= config_json.button_update %></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        $(".form-horizontal").validate({
+            ignore:[],
+            rules: {
+                smsUniqueTitle: "required",
+                smsContent: "required"
+            }
+        });
+        $("#smsUniqueTitle").change(function () {
+            
+            var id=document.getElementById('smsUniqueTitle').value;
+         
+            $.ajax({
+                type: 'POST',
+                url: '/get_sms_data',
+                data: 'id=' + id,
+                dataType: "json",
+                success: function (res) {
+
+                    if(res)
+                    {
+                       
+                        document.getElementById('smsContent').value=res.smsContent;
+                        document.getElementById('id').value=res._id;
+                    }
+
+                    
+                }
+            });
+        });
+    });
+    </script>
+    <% include footer_form.html %>

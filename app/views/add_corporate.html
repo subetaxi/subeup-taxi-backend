@@ -1,0 +1,201 @@
+<% include header.html %>
+<!-- PAGE TITLE -->
+<div class="page-title">
+	<h2><span class="fa fa-cogs"></span> <%= config_json.title_add_corporate %></h2>
+</div>
+<!-- END PAGE TITLE -->
+
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+	<div class="col-md-6 col-xs-12">
+
+	<!-- for edit corporate form -->
+	<% if(typeof data != 'undefined'){ %>
+
+		<form class="form-horizontal" method="post" action="/update_corporate_detail">
+				<div class="panel panel-default">
+					<div class="panel-body form-group-separated">
+						<div class="form-group">
+							<div class="form-group">
+							<input type="hidden"  class="form-control" name="id" value="<%= id %>" />
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_name %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" id="name" value="<%= data.name %>"  name="name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_email %></label>
+							<div class="col-md-9 col-xs-7">
+								
+								<% if(is_public_demo == true) { %>
+                                 <input type="email" class="form-control" value="<%= config_json.PUBLIC_DEMO_EMAIL %>" name="email" id='email' readonly />
+                                <% } else{ %>
+                                 <input type="email"  class="form-control" id="email" value="<%= data.email %>"  name="email" readonly />
+                                <% } %>
+								
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.button_password %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="password"  class="form-control" id="password"  name="password" />
+							</div>
+						</div>
+
+						<div class="form-group">
+					       <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_country %></label>
+					       <div class="col-md-9 col-xs-7">
+					         <input type="text"   class="form-control" id="countryname" value="<%= countryname %>"  name="countryname" readonly/>
+					       </div>
+					    </div>
+
+						<div class="form-group">
+					       <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_phone %></label>
+					       <div class="col-md-9 col-xs-7">
+					         <input type="text" onkeypress="return isNumberKey(event);" id="phone"  class="form-control" value="<%= data.phone %>"  name="phone" maxlength='<%= phone_number_length %>' />
+					       </div>
+					    </div>
+
+					    <div class="form-group">
+							<div class="col-md-12 col-xs-12">
+								<button class="btn btn-primary btn-rounded pull-right" id="submit" type="submit" name="submit" value="submit"><%= config_json.button_submit %></button>
+							</div>
+						</div>
+					</div>
+		</form>
+
+	<!-- for add corporate form -->
+	<% } else { %>
+		<form class="form-horizontal" method="post" action="/add_corporate_detail">
+				<div class="panel panel-default">
+					<div class="panel-body form-group-separated">
+						<div class="form-group">
+							<div class="form-group">
+							<input type="hidden"  class="form-control" name="id"/>
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_first_name %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" id="first_name"  name="first_name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_last_name %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="text"  class="form-control" id="last_name"  name="last_name"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_email %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="email"  class="form-control" id="email"  name="email" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.button_password %></label>
+							<div class="col-md-9 col-xs-7">
+								<input type="password"  class="form-control" id="password"   name="password" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 col-xs-5 control-label"><%= config_json.title_countyry_name %></label>
+							<div class="col-md-9 col-xs-7">
+							<select class="form-control select" name="countryname" id="countryname" data-live-search="true">
+								<option selected disabled hidden style='display: none'><%= config_json.title_select_country %></option>
+								<% country.forEach(function(data) { %>
+	                            <option><%= data.countryphonecode %> <%= data.countryname %></option>
+	                            <% }); %>
+                  			</select>
+         					</div>
+         				</div>
+
+						<div class="form-group">
+					       <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_phone %></label>
+					       <div class="col-md-9 col-xs-7">
+					         <input type="text" onkeypress="return isNumberKey(event);" id="phone"  class="form-control"  name="phone" maxlength='<%= phone_number_length %>'/>
+					       </div>
+					    </div>
+
+					    <div class="form-group">
+							<div class="col-md-12 col-xs-12">
+								<button class="btn btn-primary btn-rounded pull-right" id="submit" type="submit" name="submit" value="submit"><%= config_json.button_submit %></button>
+							</div>
+						</div>
+					</div>
+		</form>
+
+	<% } %>
+
+			</div>
+		</div>
+		<!-- END PAGE CONTENT WRAPPER -->
+	</div>
+	<!-- END PAGE CONTENT -->
+</div>
+
+<script type="text/javascript" >
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+    	if( charCode == 46)
+    	{
+    		return true;
+    	}
+    	else
+    	{
+        	return false;
+    	}
+    }
+    return true;
+}
+
+$(document).ready(function() {
+	
+	$(".form-horizontal").validate({
+		ignore : [],
+	   	rules: {
+	     name: "required",
+	     email: "required",
+	     password: {
+	     	required: true,
+	     	minlength:6
+	     },
+	     countryname: "required",
+	     phone :
+	     {
+	     	required : true,
+	     	minlength : <%= phone_number_min_length %>,
+	     	maxlength : <%= phone_number_length %>
+	     }
+	   }
+	});
+
+	$("#countryname").change(function(){
+
+		var countryname= $("#countryname option:selected").text();
+		countryname = countryname.split(' ');
+		countryname = countryname.slice(1);
+		countryname = countryname.toString();
+		countryname = countryname.replace(/,/g, ' ');
+
+		$.ajax({
+                type: 'POST',
+                url: '/getcountryphonelength',
+                data: { 'countryname':countryname},
+                dataType: "json",
+              	success:function(res){
+              		$("#phone").attr("maxlength", res.phone_number_length);
+              	   $(".form-horizontal" ).validate().settings.rules.phone.minlength=res.phone_number_min_length;
+                    $(".form-horizontal" ).validate().settings.rules.phone.maxlength=res.phone_number_length;
+
+
+              	}
+        });
+	});
+});
+
+</script>
+<% include footer_form.html %>

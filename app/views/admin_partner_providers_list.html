@@ -1,0 +1,451 @@
+<% include header.html %>
+
+<!-- PAGE CONTENT WRAPPER -->
+<div id="content" >
+  <div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+      <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %> 
+    <!-- START TIMELINE FILTER --> 
+
+    <div class="col-md-12">                           
+      <div class="panel panel-default">                                
+        <div class="panel-body">
+          <form class="form-horizontal" role="form" method="post" action="/partner_provider_list">  
+            <input type="hidden" name="id" value="<%= id %>" />
+            <input type="hidden" name="page" id="page" value="1" />
+            <div class="form-group">     
+
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_sort %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_field == "Id") { %>
+                      <option value='Id' selected><%= config_json.title_id %></option>
+                      <option value='first_name'><%= config_json.title_name %></option>
+                      <option value='email'><%= config_json.title_email %></option>
+                      <% } else if(sort_field == "first_name") { %>
+                      <option value='Id'><%= config_json.title_id %></option>
+                      <option value='first_name' selected><%= config_json.title_name %></option>
+                      <option value='email'><%= config_json.title_email %></option>
+                      <% } else{ %>
+                      <option value='Id'><%= config_json.title_id %></option>
+                      <option value='first_name' ><%= config_json.title_name %></option>
+                      <option value='email' selected><%= config_json.title_email %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" placeholder="Select to Sort" name="sort_item">
+                      <% if(sort_order == "1") { %>
+                      <option value="1" selected><%= config_json.sort_asc %></option>
+                      <option value="-1"><%= config_json.sort_desc %></option>
+                      <% } else{ %>
+                      <option value="1" ><%= config_json.sort_asc %></option>
+                      <option value="-1" selected><%= config_json.sort_desc %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_search %></label>   
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-sort"></span></span>
+                    <select class="form-control select" id="sel" placeholder="Select to Sort" name="search_item">
+                      <% if(search_item == "first_name") { %>
+                      <option value='first_name' selected><%= config_json.title_name %></option>
+                      <option value='email'><%= config_json.title_email %></option>
+                      <option value='city'><%= config_json.title_city %></option>
+                      <% } else if(search_item == "email") { %>
+                      <option value='first_name'><%= config_json.title_name %></option>
+                      <option value='email' selected><%= config_json.title_email %></option>
+                      <option value='city'><%= config_json.title_city %></option>
+                      <% } else{ %>
+                      <option value='first_name' ><%= config_json.title_name %></option>
+                      <option value='email' ><%= config_json.title_email %></option>
+                      <option value='city' selected><%= config_json.title_city %></option>
+                      <% } %>
+                    </select>
+                  </div> 
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-body panel-body-search">
+                      <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                        <input type="text" class="form-control" value="<%= search_value %>" name="search_value" placeholder="Search..."/>
+                      </div>                                                                
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div style="text-align: center;">
+                  <label><%= config_json.title_date_filter %></label>   
+                </div>
+                <div class="col-md-12">
+
+                  <div class="btn-group">
+                    <div class="input-group">
+                      <input type="text" class="form-control datepicker" value="<%= filter_start_date %>" placeholder="Start Date" name="start_date" id="start_date" readonly/>
+                      <span class="input-group-addon add-on">-</span>
+                      <input type="text" class="form-control datepicker"  value="<%= filter_end_date %>" placeholder="End Date" name="end_date" id="end_date" readonly/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-8">
+                <div class="col-md-12">
+                <ul class="pagination" style="margin:0px;">
+                 
+                      <% include paginate.html %>
+
+                </ul>                       
+
+              </div> 
+            </div> 
+        
+            <div  class="form-group col-md-4" >
+              <div class="col-md-6">
+                <button type="submit" id="apply_filter" class="btn btn-primary" style="height: 32px; width: 100%;  "><span><%= config_json.button_apply %></span></button>
+              </div>
+              <div class="col-md-6">
+                   <button class="btn btn-danger pull-right" type="button" style="height: 35px; width: 100%;" onClick ="export_excel()"><i class="fa fa-download"></i><%= config_json.button_export_excel %></button>
+
+<!--                   <button class="btn btn-danger" type="button" style="height: 35px; width: 100%; " onClick ="$('#customers').tableExport({type:'excel',escape:'false', ignoreColumn: [8]});"><i class="fa fa-download"></i><%= config_json.button_export_excel %></button>
+              -->
+<!--                <button class="btn btn-danger" type="button" style="height: 32px; width: 100%;" onClick ="$('#customers').tableExport({type:'excel',escape:'false', ignoreColumn: [5,7]});"> <%= config_json.button_export_excel %></button>
+             -->
+              </div>
+            </div>  
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- END TIMELINE FILTER -->
+  <!-- START TIMELINE FILTER --> 
+  <!-- END TIMELINE FILTER -->
+  <!-- START TIMELINE FILTER --> 
+
+  <div class="row">
+    <div class="col-md-12">
+      
+      <div class="panel panel-default">  
+                            
+<div class="table-responsive" style="padding-bottom: 175px;">
+  <table class="table" id="customers">               
+    <thead>
+      <tr>
+      <th><%= config_json.title_id %></th>
+        <th><%= config_json.title_name %></th>
+        <th><%= config_json.title_email %></th>
+        <th><%= config_json.title_phone %></th>
+        <th><%= config_json.title_city %></th>
+        <th><%= config_json.title_profile %></th>
+        <th><%= config_json.title_car %></th>
+        <th><%= config_json.button_action %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+
+
+
+    
+
+      <% detail.forEach(function(data){ %>
+      
+
+      <tr class="demo" >
+      <td><%= data.unique_id %></td>
+        <td id="a"><%= data.first_name +' '+ data.last_name %></td>
+        <td><% if(is_public_demo == true ) { %>
+                          <%= config_json.PUBLIC_DEMO_EMAIL %>
+                          <% }else{ %>
+                           <%= data.email %> 
+                           <% } %></td>
+        <td><%=  data.country_phone_code + data.phone %></td>
+        <td><%= data.city %></td>
+        
+        
+        <td><% if(data.is_active == 1 ) { %>
+              <% if(data.is_available == 1 ) { %>
+                <a href="<%= data.picture %>"><span class="btn btn-info btn-condensed"><i class="glyphicon glyphicon-user"></i></span></a>
+              <% }else{ %>
+                <a href="<%= data.picture %>"><span class="btn btn-success btn-condensed"><i class="glyphicon glyphicon-user"></i></span></a>
+              <% } %>
+          <% }else{ %>
+          <a href="<%= data.picture %>"><span class="btn btn-danger btn-condensed"><i class="glyphicon glyphicon-user"></i></span></a>
+          <% } %>
+        </td>
+        <td><%= data.service_type_name %></td>
+      </div>
+      <td>
+       <div class="btn-group">
+        <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><%= config_json.button_action %> <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+         <li><form method="post" action="/profile_detail_edit">
+          <input type="hidden" name="id" value="<%= data.id %>" />
+          <input type="hidden" name="provider_page_type" value="partners" />
+          <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.title_edit_detail %></button>
+        </form>
+      </li>
+      <li><form method="post" action="/provider_bank_detail">
+        <input type="hidden" name="id" value="<%= data.id %>" />
+        <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.button_banking_detail %> </button>
+      </form></li>
+      <li><form method="post" action="/history_pr">
+        <input type="hidden" name="id" value="<%= data.id %>" />
+        <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.button_history %> </button>
+      </form></li>
+
+      <% if(data.is_document_uploaded == 1){ %>                                                    
+      <li><form method="post" action="/proivder_documents">
+        <input type="hidden" name="id" value="<%= data.id %>" />
+        <button type="submit" class="btn btn-default" style="width:100%;" ><%= config_json.button_view_documents %> </button>
+      </form>
+    </li>
+    <% } else { %>
+    <li><a ><span class="badge badge-danger"><%= config_json.button_view_no_document %></span></a></li>
+    <% } %>
+    <% if(data.is_approved == 1){ %>
+                                  <li>
+                                    <form method="post" action="profile_is_approved">
+                                      <input type="hidden" name="id" value="<%= data.id %>">
+                                      <input type="hidden" name="is_approved" value="<%= data.is_approved %>">
+                                      <input type="hidden" name="is_document_uploaded" value="<%= data.is_document_uploaded %>">
+<input type="hidden" name="provider_page_type" value="partner_provider_list" />
+                                      <input type="hidden" name="service_type" id="service<%= data.id %>" value="<%= data.service_type %>">
+                                      <input type="submit" name="submit" class="btn btn-default" style="width: 100%" id='<%= data.id %>' value="<%= config_json.button_decline %>">
+                                    </form>
+                                  </li>
+                                  <% } else { %>
+                                    <li>
+                                      <form method="post" action="profile_is_approved">
+                                        <input type="hidden" name="id" value="<%= data.id %>">
+                                        <input type="hidden" name="is_approved" value="<%= data.is_approved %>">
+                                        <input type="hidden" name="is_document_uploaded" value="<%= data.is_document_uploaded %>">
+                                        <input type="hidden" name="city" id='city<%= data.id %>' value="<%= data.cityid %>">
+                                        <input type="hidden" name="service_type" id='service<%= data.id %>' value="<%= data.service_type %>">
+                                        <input type="hidden" name="vehicle_id" id='vehicle_id<%= data.id %>'>
+                                        <input type="hidden" name="provider_page_type" value="partner_provider_list" />
+                                        <input type="button" class="btn btn-default" style="width: 100%" name="" id='btn<%= data.id %>' value="<%= config_json.button_approve %>">
+                                        <input type="submit" name="submit" id='sbt<%= data.id %>' value="<%= config_json.button_approve %>" hidden>
+                                      </form>
+                                    </li>
+                                    <% } %>
+ </ul>
+</div>
+</td>
+</tr>
+<div class="modal animated fadeIn" id="service_type_select<%= data.id %>" tabindex="-1" role="dialog" aria-labelledby="smallModalHead"
+                    aria-hidden="true">
+                    <div class="modal-dialog" style="width: 300px;">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                          <h4 class="modal-title"><%= config_json.title_select_service_type %></h4>
+                        </div>
+                        <form class="form-horizontal" id="demo">
+                          <div class="modal-body">
+                            
+                            
+                            <div class="row">
+                              <div class="form-group">
+                                <div class="col-md-12">
+                                  <label><%= config_json.title_vehicle %></label>
+                                  <select class="form-control select" name="vehicle_list" id="vehicle_list<%= data.id %>">
+                                    <option selected disabled hidden style='display: none'></option>
+                                  </select>
+                                  <div id="message<%= data.id %>"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                              <div class="form-group">
+                                <div class="col-md-12">
+                                  <label><%= config_json.title_service_type %></label>
+                                  <select class="form-control select" name="service_type_list" id="service_type_list<%= data.id %>">
+                                    <option selected disabled hidden style='display: none'></option>
+                                  </select>
+                                  <div id="message<%= data.id %>"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <input type="button" name="button" id="submit<%= data.id %>" value="submit">
+                          </div>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+ <% }); %> 
+</tbody>
+</table>
+
+</div>
+<!-- END SIMPLE DATATABLE -->
+</div>
+</div>                                                    
+</div>
+<!-- PAGE CONTENT WRAPPER -->                                
+</div>    
+<!-- END PAGE CONTENT -->
+</div>
+<!-- END PAGE CONTAINER -->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+
+
+    <% detail.forEach(function(data , prov_index){ %>
+
+      $(".form-horizontal").validate({
+        rules: {
+          'service_type_list<%= data.id %>': "required"
+
+        }
+      });
+      $("#submit<%= data.id %>").click(function(){
+                var service_type_id = document.getElementById('service_type_list<%= data.id %>').value;
+        var vehicle_id = document.getElementById('vehicle_list<%= data.id %>').value;
+
+      if(service_type_id !== '' && vehicle_id !== ''){
+          document.getElementById('service<%= data.id %>').value = service_type_id;
+        document.getElementById('vehicle_id<%= data.id %>').value = vehicle_id;
+        document.getElementById('sbt<%= data.id %>').click();
+      }
+        
+
+
+      }); 
+      $("#btn<%= data.id %>").click(function(){
+       
+        $("#vehicle_list<%= data.id %>").empty();
+
+        <% data.vehicle_detail.forEach(function(vehicle , index){ %>
+          
+            $("#vehicle_list<%= data.id %>").append("<option value="+'<%= vehicle._id %>'+">"+'<%= vehicle.name %>'+"</option>");
+        <% }) %>
+        
+        
+        var service_type_id = document.getElementById('service<%= data.id %>').value;
+        var city = document.getElementById('city<%= data.id %>').value;
+        if(service_type_id == '')
+        {
+          $("#service_type_select<%= data.id %>").modal('show');
+          $.ajax({
+            type: 'POST',
+            url: '/available_type',
+            data: 'city=' + city,
+            dataType: "json",
+            success:function(res){
+             $("#service_type_list<%= data.id %>").empty();
+             
+            
+             if(res == "")
+             {
+              $("#message<%= data.id %>").html('<font color="red">type not available for this city</font>');
+              $("#submit<%= data.id %>").attr("disabled", true);
+
+            }
+            else
+            {
+              for(var i in res)
+              {
+                $("#submit<%= data.id %>").attr("disabled", false);
+                var service_type_id = res[i]._id;
+                var service_type = res[i].type_detail.typename;
+                $("#service_type_list<%= data.id %>").append("<option value="+service_type_id+">"+service_type+"</option>");
+                
+              }
+            }
+            $('#service_type_list<%= data.id %>').selectpicker('refresh');
+            $("#vehicle_list<%= data.id %>").selectpicker('refresh');
+          }
+        });
+        }
+        else
+        {
+          document.getElementById('sbt<%= data.id %>').click();
+        }
+      });
+
+      <% }); %>
+
+  });
+
+  </script>
+
+
+
+<script type="text/javascript" src="js/dist/pdfmake.min.js"></script>
+<script type="text/javascript" src="js/dist/vfs_fonts.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+   $('#start_date').datepicker({
+     format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now())
+
+   }).on("input change", function (e) { 
+    var end_date = $('#start_date').datepicker('getDate');
+    end_date.setDate(end_date.getDate() + 1);
+    $('#end_date').datepicker('setStartDate', end_date);
+  });
+
+   $('#end_date').datepicker({
+     format: 'yyyy-mm-dd',
+     endDate: new Date(Date.now())
+
+   }).on("input change", function (e) { 
+    var start_date = $('#end_date').datepicker('getDate');
+    start_date.setDate(start_date.getDate() - 1);
+    $('#start_date').datepicker('setEndDate', start_date);
+  });
+
+   
+ });
+ 
+  function export_excel(){
+
+            $.ajax({
+                      type: 'POST',
+                      url: '/genetare_partner_provider_excel',
+                      data: $('.form-horizontal').serialize(),
+                      dataType: "json",
+                      success: function (res) {
+                          window.open(res)
+                      }
+            });
+      }
+</script>  
+
+</div>
+
+<% include footer_list.html %> 

@@ -1,0 +1,200 @@
+<% include hotel_header.html %>
+<div class="page-content-wrap">
+    <% if(typeof message != 'undefined'){ %>
+              <div class="alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+                <p align="center"><%= message %></p>
+              </div>
+    <% } %>
+
+    
+        <form class="form-horizontal" id="editForm" enctype="multipart/form-data" method="post" action="/hotel_update_profile">
+            <div class="panel panel-default">
+                <div class="panel-body form-group-separated">   
+                                            
+                    
+                    
+                    <input type="hidden" name="id" value="<%= detail._id %>" />
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_name %></label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control"  placeholder="Hotel Name" name="hotel_name" value="<%= detail.hotel_name %>" id="hotel_name" readonly/>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_email %></label>
+                        <div class="col-md-6">
+                            
+                            <% if(is_public_demo == true) { %>
+                                 <input type="text" class="form-control" value="<%= config_json.PUBLIC_DEMO_EMAIL %>" name="email" id='email' readonly />
+                                <% } else{ %>
+           <input type="email" value="<%= detail.email %>" class="form-control" placeholder="Email" name="email" id="email" readonly />
+                                <% } %>
+                           
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.button_current_password %></label>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_country %></label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="country" value="<%= detail.country %>" id="country" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_city %></label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="city" value="<%= detail.city %>" id="city" readonly/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_phone %></label>
+                        <div class="col-md-1">
+                            
+                            <input type="text" name="phonecode" class="form-control" value="<%= detail.country_phone_code %>" readonly/>
+                                
+                            
+                        </div>
+                        <div class="col-md-5">
+                        
+                            <input name="phone" value="<%= detail.phone %>" onkeypress="return isNumberKey(event)"  type="text" class="form-control" maxlength="10"  placeholder="Number" id="phone" />
+                        </div>
+                    </div>
+
+                    
+                        <div class="form-group">
+                           <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_address %></label>
+                           <div class="col-md-6 col-xs-7">
+                                <div class="input-group">
+                                    <input type="text" id="address" value="<%= detail.address %>"  class="form-control"  name="address"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="First Select Country then type hotel address">?</button>
+                                    </span>
+                                </div>
+                           </div>
+                        </div>
+
+                        <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_city_latitude %></label>
+
+                                <div class="col-md-6 col-xs-7">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" value="<%= detail.latitude %>" id="latitude" name="latitude" onkeypress="return isNumberKey(event);" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=config_json.tooltip_city_latitude %>">?</button>
+                                            </span>
+                                        </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label"><%= config_json.title_city_longitude %></label>
+
+                                <div class="col-md-6 col-xs-7">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="longitude" value="<%= detail.longitude %>" name="longitude" onkeypress="return isNumberKey(event);" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" data-toggle="tooltip" data-placement="left" title="" data-original-title="<%=config_json.tooltip_city_longitude %>">?</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                     
+                                                    
+                    <div class="form-group">
+                        <div class="col-md-12 col-xs-5">
+                            <button class="btn btn-primary btn-rounded pull-right" type="submit" name="update" value="update" id="update"> <%= config_json.button_update %></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+            
+
+<script type="text/javascript">
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+
+
+</script>   
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAA45IczeWhVi5noW8SFou4szuplFp_Iak&libraries=places"></script>             
+<script>
+    $(function() {
+     $( "#editForm" ).validate({
+       rules: {
+         hotel_name: "required",
+         password: {
+          minlength: 6  ,
+          required: true
+        },
+        email: {
+          required: true,
+          email: true
+          
+        },
+        address:"required",
+        latitude: "required",
+        longitude: "required",
+        phone: {
+          required: true,
+          minlength: 10
+       
+
+        }
+        
+
+
+      },
+            errorPlacement: function(error, element) {
+                if(element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+    });
+
+            var options = {
+                        componentRestrictions: {country: '<%=country_code%>'}
+                    };
+                    var input = document.getElementById('address');
+                    var autocomplete = new google.maps.places.Autocomplete(input, options);
+                    autocomplete.setComponentRestrictions([]);
+
+                    /////////////// autocomplete city list select ///////////
+                    autocomplete.addListener('place_changed', function () {
+                        var place = autocomplete.getPlace();
+                        
+                        var location = place.geometry.location;
+                        location = String(location);
+                        location = location.slice(1, -1);
+                        location = location.split(',');
+                        
+                        document.getElementById('latitude').value = location[0];
+                        document.getElementById('longitude').value = location[1];
+                    });
+    });
+</script>     
+
+<% include footer_form.html %>

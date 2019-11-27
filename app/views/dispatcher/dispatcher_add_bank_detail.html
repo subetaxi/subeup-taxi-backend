@@ -1,0 +1,109 @@
+<% include dispatcher_header.html %>
+
+<% if(typeof message != 'undefined'){ %>
+    <div class="alert alert-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= config_json.button_close %></span></button>
+      <p align="center"> <strong><%= message %></strong></p>
+    </div>
+    <% } %> 
+
+    <div class="page-content-wrap">
+        <form class="form-horizontal" id="bank_detail_add_form" enctype="multipart/form-data" method="post" action="/add_bank_details">
+            <div class="panel panel-default">
+                <div class="panel-body form-group-separated">  
+
+                <input type="hidden" name="bank_holder_type" value="2">
+                <input type="hidden" name="bank_holder_id" value="<%= dispatchers._id %>">
+                <input type="hidden" name="type" value="dispatcher_bank_detail">
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_bank_name %></label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control"  name="bank_name"  id="bank_name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_bank_branch %></label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control"   name="bank_branch" id="bank_branch" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_bank_account_number %></label>
+                        <div class="col-md-6">
+                            <input type="text" onkeypress="return isNumberKey(event)" class="form-control"  name="bank_account_number" id="bank_account_number" />
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_bank_account_holder_name %></label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control"  name="bank_account_holder_name" id="bank_account_holder_name" />
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_bank_beneficiary_address %></label>
+                        <div class="col-md-6">
+                            <input type="text"  class="form-control" name="bank_beneficiary_address" id="bank_beneficiary_address" />
+                        </div>
+                    </div>
+
+                     
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_bank_unique_code %></label>
+                        <div class="col-md-6 ">
+                            <input type="text"  id="bank_unique_code" class="form-control" name="bank_unique_code" />
+                        </div>
+                    </div>      
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"><%= config_json.title_bank_swift_code %></label>
+                        <div class="col-md-6 ">
+                            <input type="text" id="bank_swift_code" class="form-control" name="bank_swift_code" />
+                        </div>
+                    </div>      
+
+                    <div class="form-group">
+                        <div class="col-md-12 col-xs-12">
+                            <button class="btn btn-primary btn-rounded pull-right" type="submit" name="add" > 
+                            <%= config_json.button_add %></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+        
+<script type="text/javascript">
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+</script>   
+              
+<script>
+    $(function() {
+     $( "#bank_detail_add_form" ).validate({
+       rules: {
+        bank_name: "required",
+        bank_branch: "required",
+        bank_account_number: "required",
+        bank_account_holder_name: "required",
+        bank_beneficiary_address: "required",
+        bank_unique_code: "required",
+        bank_swift_code: "required"
+
+      }
+    });
+    });
+</script>     
+
+<% include footer_form.html %>

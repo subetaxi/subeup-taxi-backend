@@ -1,0 +1,35 @@
+{
+	"email_from" : "EBER",
+	"user_email" : "taxielluminati@gmail.com",
+	"email_psw" : "elluminati10",
+	"sms_from" : "Node Taxi 456",
+	
+	"TWILIO_ACCOUNT_SID" : "ACb33b53918095b259f78e8b0a04aa6648",
+	"TWILIO_AUTH_TOKEN" : "2d67a939687d96680aff9771ef248f53",
+	"TWILIO_NUMBER" : "+19282275440",
+	
+	"ANDROID_USER_APP_GCM_KEY" : "",
+	"ANDROID_PROVIDER_APP_GCM_KEY" : "",
+	
+	"USER_PASSPHRASE" : "eber_elluminati",
+	"PROVIDER_PASSPHRASE" : "eber_elluminati",
+	
+	"APP_ID" : "397faeba-604f-4b0c-98ae-f5f043394c6e",
+	"APP_KEY" : "397faeba-604f-4b0c-98ae-f5f043394c6e",
+	
+	"PAYMENT_GATEWAY" : "Stripe",
+	"STRIPE_SECRET_KEY" : "sk_test_cwDsE5y2790ZcAVpJqRCsSRy",
+	"STRIPE_PUBLISHABLE_KEY" : "pk_test_IUvvGvH07OcYt8mNu6rbCo1F",
+	
+	"android_client_app_url" : "https://play.google.com/store/apps/details?id=com.elluminati.cabanytime",
+	"android_driver_app_url" : "https://play.google.com/store/apps/details?id=com.elluminati.cabanytime.provider",
+	
+	"ios_client_app_url" : "https://play.google.com/store/apps/details?id=com.elluminati.cabanytime",
+	"ios_driver_app_url" : "https://play.google.com/store/apps/details?id=com.elluminati.cabanytime.provider",
+	
+	"ANDROID_USER_APP_GOOGLE_KEY" : "AIzaSyARIkMfybc4Bft7Bhtteho_VF_EsRua3nU",
+	"ANDROID_PROVIDER_APP_GOOGLE_KEY" : "AIzaSyARIkMfybc4Bft7Bhtteho_VF_EsRua3nU",
+	"IOS_USER_APP_GOOGLE_KEY" : "AIzaSyARIkMfybc4Bft7Bhtteho_VF_EsRua3nU",
+	"IOS_PROVIDER_APP_GOOGLE_KEY" : "AIzaSyARIkMfybc4Bft7Bhtteho_VF_EsRua3nU",
+	"WEB_APP_GOOGLE_KEY" : "AIzaSyCaWC0p2g30NzlbDbcVTwqMrLopCafusok"
+}

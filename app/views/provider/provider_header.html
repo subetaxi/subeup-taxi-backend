@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title><%= constant_json.app_name %></title>
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+     <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+                var path = window.location.pathname;
+                var value = path.split('/');
+                $('#'+value[1]).addClass('act');
+                var page_title = $('#'+value[1]).text();
+                $('#page_title').text(page_title);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/session_data',
+                    data: {'type': 'provider'},
+                    dataType: "json",
+                  	success:function(response){
+                        console.log(response)
+                  		$('.pro_head').html('<h4>'+response.session_data.first_name + ' ' + response.session_data.last_name+'</h4>');
+                  		$('#user_profile').attr('src', response.session_data.picture != '' ? response.session_data.picture : 'default.png')
+                  		if(response.session_data.is_document_uploaded == 0){
+
+	                     $('#provider_profiles').remove();
+	                     $('#provider_history').remove();
+	                     $('#provider_bank_detail').remove();
+	                     $('#provider_earning').remove();
+                         $('#provider_daily_earning').remove();
+                         $('#provider_weekly_earning').remove();
+	                     
+                            if(response.is_documents_expired){
+                               $('#is_documents_expired').show();
+                            }
+                            response.vehicle_detail.forEach(function (vehicle_data) {
+                                if(vehicle_data.is_documents_expired){
+                                    $('#vehicle_document_expired').show();
+                                }
+                            })
+
+	                    }
+                  	}
+                });
+                $('#provider_earning').hover(function(){
+                     $('#provider_earning .abc').css("background-color", "#047f8f");
+                     }, function(){
+                        if($('#provider_earning').attr('class') !== "act")
+                        {
+                            $('#provider_earning .abc').css("background-color", "#121429");
+                        }
+                }) 
+
+                
+                     $('#'+value[1]+' .abc').css("background-color", "#047f8f");
+                     
+                    //$('#'+value[1]+' .abc').css("background-color", "#121429");
+                
+
+                $('#provider_daily_earning').hover(function(){
+                     $('#provider_daily_earning .abc').css("background-color", "#047f8f");
+                     }, function(){
+                        if($('#provider_daily_earning').attr('class') !== "act")
+                        {
+                            $('#provider_daily_earning .abc').css("background-color", "#121429");
+                        }
+                }) 
+                $('#provider_weekly_earning').hover(function(){
+                     $('#provider_weekly_earning .abc').css("background-color", "#047f8f");
+                     }, function(){
+                        if($('#provider_weekly_earning').attr('class') !== "act")
+                        {
+                            $('#provider_weekly_earning .abc').css("background-color", "#121429");
+                        }
+                }) 
+                
+            });
+	</script>	
+    <!-- Bootstrap -->
+     <link href="css/fontawesome/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="web_images/title_image.png" type="image/x-icon" />
+    <!--upload file-->
+    <link rel="stylesheet" type="text/css" href="user_panel/css/demo.css" />
+
+	<!-- <link rel="stylesheet" type="text/css" href="css/map.css" /> -->
+    <link rel="stylesheet" href="user_panel/css/bootstrap-select.min.css">
+    <!--style.css-->
+    <link rel="stylesheet" type="text/css" href="user_panel/css/style.css">
+
+
+    <!--responsive.css-->
+    <link rel="stylesheet" type="text/css" href="user_panel/css/responsive.css">
+  </head>
+  <body>
+  <style type="text/css" media="screen">
+        
+        .abc{
+            background-color: #121429;
+        }
+        .abc:hover{
+            background-color: #047f8f;
+            color:#fff;
+            transition: all 0.5s ease 0s;
+        }
+
+       
+  </style>
+    <div class="">
+    	<!--menu left section-->
+        <div class="pant_lft">
+            <nav class="navbar navbar-inverse sidebar" style="overflow: auto;" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <!-- <a class="navbar-brand" href="#"><img src="user_panel/images/logo_admin.png"></a> -->
+            <a class="navbar-brand" style="margin: 0;" href="#"><img src="web_images/user_logo.png"></a>
+            <!-- <a class="navbar-brand" href="#"><img src="web_images/authorised_image.png"></a><span style="font-size: 25px; color: #fff; display: inline;
+margin-left: 5px;"><%= constant_json.app_name %></span> -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!--profile_user_section-->
+           <div class="mob_hied">
+                <div class="pro_use_bg">
+                    <div class="pro_use">
+                        <img id="user_profile" />
+                    </div>
+
+                    <div class="pro_head"></div>
+                </div>
+           </div>
+        <!--profile_user_section-->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a id="provider_profiles" href="/provider_profiles"><span><img src="user_panel/images/profile_iocn.png"></span><%= config_json.menu_title_profile %></a></li>
+
+                <li><a id="provider_history" href="/provider_history"><span><img src="user_panel/images/his_icon.png"></span><%= config_json.menu_title_history %></a></li>
+                <li><a href="/provider_document_panel" id="provider_document_panel">
+                    <span><img src="user_panel/images/upload_iocn.png"></span>
+                    <span id="is_documents_expired" style="display: none;color: red;" class="fa fa-circle"></span><%= config_json.menu_title_upload_document %></a>
+                </li>
+                <li><a href="/provider_payments" id="provider_payments"><span><img src="user_panel/images/pay_iocn.png"></span><%= config_json.menu_title_payments %></a></li>
+                <li><a href="/provider_wallet_history" id="provider_wallet_history"><span><img src="user_panel/images/pay_iocn.png"></span><%= config_json.sub_menu_title_wallet_history %></a></li>
+<!--                <li><a id="provider_bank_detail" href="/provider_bank_detail"><span><img src="user_panel/images/pay_iocn.png"></span><%= config_json.menu_title_bank_detail %></a></li>-->
+
+                <li><a id="provider_vehicle" href="/provider_vehicle"><span><img src="user_panel/images/pay_iocn.png"><span id="vehicle_document_expired" style="display: none;color: red;" class="fa fa-circle"></span></span><%= config_json.menu_title_vehicle %></a></li>
+
+                <li><a id="provider_earning"><form method="post" action="/provider_earnings"><input type="hidden" name="type" value="provider" /><button type="submit" class="abc" style="border: 0;"><span class="fa fa-dollar"></span> <%= config_json.sub_menu_title_provider_earnings %></button></form></a></li>
+
+                <li><a id="provider_daily_earning"><form method="post" action="/provider_daily_earnings"><input type="hidden" name="type" value="provider" /><button type="submit" class="abc"  style="border: 0;"><span class="fa fa-dollar"></span> <%= config_json.sub_menu_title_daily_earning %></button></form></a></li>
+
+                <li><a id="provider_weekly_earning"><form method="post" action="/provider_weekly_earnings"><input type="hidden" name="type" value="provider" /><button type="submit" class="abc"  style="border: 0;"><span class="fa fa-dollar"></span><%= config_json.sub_menu_title_weekly_earning %></button></form></a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        </div>
+
+        <div class="pant_rgt">
+            <div class="pant_rgt_head">
+                <h5 id="page_title"></h5>
+                <li><a href="/provider_logout"><%= config_json.title_logout %></a></li>
+            </div>
