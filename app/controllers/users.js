@@ -1688,7 +1688,7 @@ function other(cityid, citytype, body, timeMinutes, distanceKmMile, res) {
                 distance: (distanceKmMile).toFixed(2),
                 is_min_fare_used: is_min_fare_used,
                 base_price: base_price,
-                price_per_unit_distance: price_per_unit_distance,
+                price_per_unit_distance: price_per_unit_distance.toString(),
                 price_per_unit_time: price_for_total_time,
                 estimated_fare: estimated_fare
             });
