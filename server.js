@@ -30,7 +30,6 @@ function init() {
     db = mongoose(),
     app = express();
     // app.listen(port);
-    app.set('port', process.env.PORT || 3000);
 
     config_json = require('config.json')('./admin_panel_string.json');
     admin_messages = require('config.json')('./admin_panel_message.json');
@@ -46,6 +45,7 @@ function init() {
     const http = require('http');
     const socketIO = require('socket.io');
     const server = http.Server(app);
+    const port = process.env.PORT || 8080;
 
     server.listen(port + (process.env.NODE_APP_INSTANCE ? parseInt(process.env.NODE_APP_INSTANCE) : 0), () => {
   
@@ -54,7 +54,7 @@ function init() {
 
       var Providers = require('./app/controllers/providers');
       var Trips = require('./app/controllers/trip');
-      io.adapter(redis({ host: 'redis://redistogo:ab14f8e94a97419ae412da63a49b5235@spinyfin.redistogo.com', port: 9756 }));
+      io.adapter(redis({ host: 'localhost', port: 6379 }));
 
       io.on('connection', socket => {
 
