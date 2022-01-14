@@ -30,6 +30,7 @@ function init() {
     db = mongoose(),
     app = express();
     // app.listen(port);
+    app.set('port', process.env.PORT || 3000);
 
     config_json = require('config.json')('./admin_panel_string.json');
     admin_messages = require('config.json')('./admin_panel_message.json');
