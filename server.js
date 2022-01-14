@@ -54,7 +54,7 @@ function init() {
 
       var Providers = require('./app/controllers/providers');
       var Trips = require('./app/controllers/trip');
-      io.adapter(redis({ host: 'localhost', port: 6379 }));
+      io.adapter(redis({ host: 'localhost', port: 9756 }));
 
       io.on('connection', socket => {
 
