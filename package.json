@@ -4,7 +4,7 @@
   "description": "EBER",
   "main": "server.js",
   "scripts": {
-    "start": "process.env.NODE_APP_INSTANCE"
+    "start": "server.js"
   },
   "repository": {
     "type": "git"
