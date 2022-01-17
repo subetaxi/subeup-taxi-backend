@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "EBER",
   "main": "server.js",
-  "scripts": {
-    "start": "process.env.NODE_APP_INSTANCE"
+  "scripts"
+  "start": "node server"
   },
   "repository": {
     "type": "git"
